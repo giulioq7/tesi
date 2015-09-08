@@ -25,3 +25,4 @@
 *.includes
 *.creator
 *.files
+*autosave
