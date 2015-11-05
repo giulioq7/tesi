@@ -31,12 +31,12 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/giulio/SpecificationLanguage/position.hh
+ ** \file /home/giulio/Scrivania/Tesi/SpecificationLanguage/position.hh
  ** Define the yy::position class.
  */
 
-#ifndef YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_POSITION_HH_INCLUDED
-# define YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_POSITION_HH_INCLUDED
+#ifndef YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_POSITION_HH_INCLUDED
+# define YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_POSITION_HH_INCLUDED
 
 # include <algorithm> // std::max
 # include <iostream>
@@ -52,7 +52,7 @@
 
 
 namespace yy {
-#line 56 "/home/giulio/SpecificationLanguage/position.hh" // location.cc:296
+#line 56 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/position.hh" // location.cc:296
   /// Abstract a position.
   class position
   {
@@ -176,5 +176,5 @@ namespace yy {
 
 
 } // yy
-#line 180 "/home/giulio/SpecificationLanguage/position.hh" // location.cc:296
-#endif // !YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_POSITION_HH_INCLUDED
+#line 180 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/position.hh" // location.cc:296
+#endif // !YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_POSITION_HH_INCLUDED

@@ -43,6 +43,6 @@ HEADERS += \
     nettransition.h \
     serialize.h
 
-INCLUDEPATH += "/home/giulio/astl/tags/2.0/include" \
-               "/home/giulio/boost_1_59_0/" \
-               "/home/giulio/Grail_int/"
+INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
+               "../Libraries/boost_1_59_0/" \
+               "../Libraries/Grail_int/"

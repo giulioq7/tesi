@@ -31,16 +31,16 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/giulio/SpecificationLanguage/specparser.hpp
+ ** \file /home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.hpp
  ** Define the yy::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
 
-#ifndef YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_SPECPARSER_HPP_INCLUDED
-# define YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_SPECPARSER_HPP_INCLUDED
+#ifndef YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_SPECPARSER_HPP_INCLUDED
+# define YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_SPECPARSER_HPP_INCLUDED
 // //                    "%code requires" blocks.
-#line 9 "/home/giulio/SpecificationLanguage/specparser.yy" // lalr1.cc:377
+#line 9 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:377
 
 # include <string>
 # include <list>
@@ -48,7 +48,7 @@
 # include "problem.h"
 class spec_driver;
 
-#line 52 "/home/giulio/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
+#line 52 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -125,7 +125,7 @@ class spec_driver;
 
 
 namespace yy {
-#line 129 "/home/giulio/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
+#line 129 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
 
 
 
@@ -1954,9 +1954,9 @@ namespace yy {
 
 
 } // yy
-#line 1958 "/home/giulio/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
+#line 1958 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
 
 
 
 
-#endif // !YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_SPECPARSER_HPP_INCLUDED
+#endif // !YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_SPECPARSER_HPP_INCLUDED

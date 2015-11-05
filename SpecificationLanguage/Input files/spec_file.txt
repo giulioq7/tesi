@@ -1,0 +1,61 @@
+#include Breaker.txt
+
+
+
+component model ProtectionDevice is
+	event op, cl;
+	output O;
+	state idle, awaken;
+	transition p1 = (), idle -> awaken, {op(O)},
+		   p2 = (), awaken -> idle, {cl(O)},
+		   p3 = (), idle -> awaken, {cl(O)},
+		   p4 = (), awaken -> idle, {op(O)};
+end ProtectionDevice.
+
+network model ProtectionHW is
+	component l,r: Breaker, p: ProtectionDevice;
+	link O(p) -> I(l), O(p) -> I(r);
+	pattern fop = p3(p),
+		fcp = p4(p),
+		fdw = p3(p) | p1(p)(b3(l) & b3(r)),
+		frw = p4(p) | p2(p)(b4(l) | b4(r));
+	//pattern di = b1(l) | b1(r),
+	//	co = b2(l) | b2(r),
+	//	nd = p3(p) | p1(p)((b3(l)b3(r)) | (b3(r)b3(l))),
+	//	nc = p4(p) | p2(p)(b5(r)?b4(l) | b5(l)?b4(r));
+	initial closed(l), closed(r), idle(p);
+	viewer b1(l) -> opl, b1(r) -> opr, b2(l) -> cll, b2(r) -> clr,
+	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
+	ruler  b3(l) -> nol, b3(r) -> nor, b4(l) -> ncl, b4(r) -> ncr,
+	       p3(p) -> fop, p4(p) -> fcp;
+end ProtectionHW.
+
+
+system PowerTransmission is
+	node W1:ProtectionHW is
+	end W1,
+	node W2:ProtectionHW is
+	end W2,
+	node W3:ProtectionHW is
+	end W3,
+	node W4:ProtectionHW is
+	end W4;
+	//root W1;
+	emergence p(W1) -> W2, l(W1) -> W2, r(W1) -> W2, p(W2) -> W3, l(W3) -> W4, p(W3) -> W4;
+end PowerTransmission.
+
+
+problem Example is
+	node W1 is
+		obs [ awk, opl, ide, clr ];
+	end W1,
+	node W2 is
+		obs [ awk, opl, clr, ide ];
+	end W2,
+	node W3 is
+		obs [ awk, opl, clr, ide ];
+	end W3,
+	node W4 is
+		obs [ ];
+	end W4;
+end Example.

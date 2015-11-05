@@ -31,18 +31,18 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /home/giulio/SpecificationLanguage/stack.hh
+ ** \file /home/giulio/Scrivania/Tesi/SpecificationLanguage/stack.hh
  ** Define the yy::stack class.
  */
 
-#ifndef YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_STACK_HH_INCLUDED
-# define YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_STACK_HH_INCLUDED
+#ifndef YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_STACK_HH_INCLUDED
+# define YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_STACK_HH_INCLUDED
 
 # include <vector>
 
 
 namespace yy {
-#line 46 "/home/giulio/SpecificationLanguage/stack.hh" // stack.hh:132
+#line 46 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/stack.hh" // stack.hh:132
   template <class T, class S = std::vector<T> >
   class stack
   {
@@ -152,6 +152,6 @@ namespace yy {
 
 
 } // yy
-#line 156 "/home/giulio/SpecificationLanguage/stack.hh" // stack.hh:132
+#line 156 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/stack.hh" // stack.hh:132
 
-#endif // !YY_YY_HOME_GIULIO_SPECIFICATIONLANGUAGE_STACK_HH_INCLUDED
+#endif // !YY_YY_HOME_GIULIO_SCRIVANIA_TESI_SPECIFICATIONLANGUAGE_STACK_HH_INCLUDED
