@@ -1,0 +1,1899 @@
+\documentclass[10pt]{article}
+\usepackage{a4wide,epsf}
+\usepackage[latin1]{inputenc}
+\usepackage[dvips]{color}
+\usepackage{longtable}
+%\usepackage{graphics}
+
+% Power set
+\newcommand{\pset}[1]{P(#1)}
+% Cardinal
+\newcommand{\card}[1]{|#1|}
+% delta1 and delta2
+\newcommand{\dun}{\ensuremath{\delta_{1}} }
+\newcommand{\ddeux}{\ensuremath{\delta_{2}} }
+% right context
+\newcommand{\rcontext}{\ensuremath{\vec{c}}}
+
+\begin{document}
+\setlength\arrayrulewidth{0.03cm}
+\title{{\bf The Automaton Standard Template Library} \\ {\bf ASTL
+        version 2.0} \\ [4ex] Reference Documentation}
+\author{Vincent Le Maout}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+The Automaton Standard Template Library (ASTL) is a set of generic C++
+components for efficient automata manipulation. As any library geared
+toward supporting the 
+generic programming paradigm, it is made of two distinct parts : a
+collection of concepts specific to the automata domain which is
+described by 
+this documentation and a set of software components (containers,
+accessors and algorithms) implementing the concepts. 
+\subsection{License}
+ASTL is open-source, free software. You can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version. \\
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For more details,
+check the URL \verb+http://www.fsf.org/+ or read the file
+\verb+LICENSE.txt+ containing the GNU Lesser General 
+Public License version 2.1. This file can be found at the root
+directory of the library.
+\subsection{Acknowledgments}
+I would like to thank all the people who have worked on and with the
+library especially Dominique Revuz for his support and advices on the
+code design, Xavier Daragon for writing the very first version of this
+documentation and Arnaud Adan for his review and extension to the
+weighted automata and transducers. 
+\subsection{Availability}
+The package and this documentation are downloadable from
+\verb+http://astl.sourceforge.net/+ which is the official site for
+news, announcements and releases.
+\subsection{Supported Compilers}
+ASTL 2.0 has been successfully used with GNU g++ 2.96 and later.
+% the following compilers :
+% \begin{itemize}
+% \item GNU g++ 2.96 and later.
+% \item Borland C++ 5.5.
+% \item Microsoft Visual C++ 6.0 Service Pack 5 with a few minor restrictions.
+% \end{itemize}
+\subsection{Compiling}
+ASTL is made of header files, it does not require to compile
+any code prior to using it and therefore requires no specific file to
+link to. \\
+There is a number of \verb+#defines+ modifying the compiler behavior :
+\begin{itemize}
+\item \verb+ASTL_USES_NAMESPACE+
+\end{itemize}
+The only information needed is the \verb+include+ subdirectory
+location, for instance: \\
+\begin{verbatim}
+g++ -I/home/vince/astl/include main.cc
+\end{verbatim}
+\subsection{Files Hierarchy}
+ASTL 2.0 is made of five subdirectories :
+\begin{enumerate}
+\item \verb+bin+ : command line executables
+\item \verb+doc+ : LaTeX documentation source, postcript and PDF
+  documentation 
+\item \verb+include+ : headers 
+\item \verb+src+ : source code for the executables
+\item \verb+templates+ : code templates
+\item \verb+ext+ : some rather experimental extensions to the library
+\end{enumerate}
+\section{Definitions and Notations}
+\subsection{Finite Automaton}
+To make our concepts sufficiently generic to satisfy a broad range of
+algorithmic constraints, we add to the classical automaton definition
+a set of {\em tags}, that is, any data associated to a state and
+needed to apply an algorithm. We will however omit tag-related
+considerations whenever they are not relevant. \\
+
+\noindent Let $A(\Sigma, Q, I, F, \Delta, T, \tau)$ be a 7-tuple of finite sets
+defined as follows :
+\begin{center}
+\begin{tabular} {ll}
+  $\Sigma$  & An alphabet \\
+  $Q$       & A set of states \\
+  $I \subseteq Q$ & A set of initial states \\
+  $F \subseteq Q$ & A set of final states (also called terminal or
+  accepting states) \\
+  $\Delta \subseteq (Q \times \Sigma \cup \{ \epsilon \} \times Q)$ &
+  A set of transitions \\
+  $T$       & A set of tags \\
+  $\tau \subset (Q \times T)$ & A set mapping a state to its
+  associated tag  \\
+\end{tabular} \\ [2ex]
+\end{center}
+We distinguish one special state noted 0 and called the {\em null} or
+{\em sink state}. The {\em label} of a transition $(q, \sigma, p) \in
+\Delta$ is
+the letter $\sigma$, $q$ is the {\em source} state and $p$ is the {\em
+        destination} state or {\em aim}. When $\sigma = \epsilon$ (the empty
+word) the transition is said to be an {\em $\epsilon$-transition}. \\
+[1ex] 
+We call {\em incoming} transitions (respectively {\em outgoing}
+transitions) of a state $s$, the set of transitions
+$(q, \sigma, p) \in \Delta$ such that $p = s$ (respectively $q =
+s$). By default, the transitions of a state are its outgoing
+transitions. \\ [1ex] 
+We will write $\pset{X}$ for the powerset of a set $X$ and $\card{X}$
+for its number of elements. \\ [2ex]
+To access $\Delta$ we define two transition functions \dun and \ddeux : \\
+  $$\dun \: : \: Q \times \Sigma \cup \{ \epsilon \} \rightarrow \pset{Q} $$ 
+  $$\ddeux \: : \: Q \rightarrow \pset{\Sigma \times \pset{Q}} $$ \\
+\dun retrieves the set of transitions targets given the source state
+and a letter. \ddeux allows to access the set of all the outgoing
+transitions of a given state. \\ [1ex]
+\dun can be naturally extended to words : \\ 
+\begin{center}
+\begin{tabular}{rcl}
+$ \dun ^{*} \: : Q \times \Sigma^{*}$ & $\rightarrow$ & $\pset{Q} $ \\
+$ (q, \epsilon)$ & $\mapsto$ & $q $ \\
+$ (q, w \cdot a)$ & $\mapsto$ & $\dun (\dun ^{*}(q,w), a) $ \\
+\end{tabular} \\ [3ex]
+\end{center}
+The {\em right context} of a state $q$ is the set of letters labelling
+the outgoing transitions of $q$ : $\rcontext(q) = \{ \sigma \in
+\Sigma \mid \exists p \in Q, \: (q, \sigma, p) \in \Delta \}$. \\
+A {\em path} is a sequence $c = t_{1} \: t_{2} \: ... \: t_{n}$ of
+transitions 
+$t_{i} = (q_{i}, \sigma_{i}, p_{i})$ such that $\forall i, t_{i} \in \Delta$ and
+for $i < n$, $q_{i+1} = p_{i}$. The path length $n$ is noted $|c|$ and
+its label is the concatenation of the transitions letters : $w =
+\sigma_{1} \: \sigma_{2} \: ... \: \sigma_{n}$. \\ [1ex]
+The language recognized by an automaton $A$ is defined by :
+$$ L(A) = \{ w \in \Sigma ^{*} \mid \dun ^{*}(I, w) \cap F \not=
+\emptyset \} $$
+that is, the labels of the paths leading from an initial state to a
+final state. \\
+
+\noindent An automaton is said to be {\em deterministic} iff $I$ is a singleton
+and there is at most one transition per state which is labeled by a
+given alphabet letter, that is, $\card{\dun(q)} \leq 1$, $\forall q \in
+Q$. In this case, \dun is defined as :
+$$ \dun(q, \sigma) = \left\{ \begin{array}{ll}
+p & \mbox{if $(q, \sigma, p) \in \Delta$} \\
+0 & \mbox{otherwise}
+\end{array} \right. $$
+The sink state acts as failure value for the transition function. \\
+
+\paragraph{Example (figure \ref{fa_example})}
+\begin{figure}
+\begin{center}
+\epsfxsize=6cm
+\epsfbox{fa_example.eps}
+\caption{Example of NFA}
+\label{fa_example}
+\end{center}
+\end{figure}
+$A$ is a non-deterministic automaton with $\Sigma = \{ a, b, c \}$, $Q =
+\{ 1,2,3,4,5 \}$, $I = \{ 1 \}$, $F = \{ 2, 5 \}$ and $\Delta = \{
+(1,a,2), (2,b,2), (1,b,3), (3,a,5), (1,b,4), (4,c,5) \}$. \\
+$L(A) = \{ ab^{*}, ba, bc \}$.
+\subsection{Containers \& Cursors}
+\section{Getting Started}
+This section contains code example ranging from basic automaton
+operations to cursors manipulation. They cover all aspect of the
+library functionnalities and aim at providing an insight of what can
+be done and how\footnote{The code examples make no use of the ASTL
+  name space so {\tt ASTL\_USES\_NAMESPACE} should not be defined to
+  compile them as is.}. 
+\subsection{Declaring a Container}
+The automaton containers are class templates parameterized by two
+types: the alphabet traits and 
+the tag type. By default, the alphabet trait is \verb+plain+ (8 bits
+\verb+char+) and the tag type is \verb+empty_tag+ (no tags
+needed). Also a predefined alphabet traits called \verb+range+ is
+provided. It must be instanciated with a builtin integral type
+\verb+T+ followed by two constants \verb+x+ and \verb+y+ of type
+\verb+T+ defining a subset
+\verb+[x, y]+ of the domain \verb+T+. For example,  
+\verb+plain+ is defined as follow : 
+\begin{verbatim}
+typedef range<char, (char) -128, (char) 127> plain;
+\end{verbatim}
+\subsubsection{DFA}
+ASTL provides eight DFA containers sharing the same
+interface. They have homogeneous interfaces and behaviors but
+heterogeneous implementations and complexities allowing to choose at
+utilization time which one fits best the situation. The following
+piece of code declares a variety of containers :
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <string>
+
+int main() 
+{
+  DFA_map<> A1; 
+  DFA_matrix<range<char, 'A', 'Z'> > A2;
+  DFA_tr<range<int, 0, 1023> > A3;
+  DFA_mtf<french, std::string> A4;
+  DFA_hash<std::char_traits<char> > A5;
+  DFA_bin<ASCII, int> A6;
+}
+\end{verbatim}
+The declaration of \verb+A1+ uses the template default parameters, it
+is equivalent to :
+\begin{verbatim}
+DFA_map<plain, empty_tag> A1;
+\end{verbatim}
+\verb+A5+ uses the standard character traits \verb+std::char_traits+
+as alphabet traits. It can be used to instanciate all containers
+except \verb+DFA_matrix+ and must only be used with builtin types
+alphabets. 
+\subsubsection{Compact DFA}
+A compact automaton is a container adapter parameterized by the
+adapted automaton type. It is constructed by copy :
+\begin{verbatim}
+#include <astl.h>
+#include <dfa_mtf.h>
+#include <dfa_compact.h>
+
+int main()
+{
+  DFA_mtf<> A;
+  DFA_compact<DFA_mtf<> > C(A);
+}
+\end{verbatim}
+The constructor of \verb+C+ builds a copy of \verb+A+ in a compact
+representation.
+% \subsubsection{Minimal Dynamic Acyclic DFA}
+% The minimal dynamic acyclic automaton is parameterized by two
+% allocator types (one for states and one for transitions) which can be
+% ommited if no specific allocation scheme is required. It does not
+% support tags and the alphabet type is necessarily \verb+char+ :
+% \begin{verbatim}
+% #include <astl.h>
+% #include <dfa_min.h>
+
+% int main()
+% {
+%   DFA_min<> A; 
+% }
+% \end{verbatim}
+\subsubsection{NFA}
+\begin{verbatim}
+#include <astl.h>
+#include <nfa_mmap.h>
+
+int main()
+{
+  NFA_mmap<plain, int> A;
+}
+\end{verbatim}
+\subsection{Constructing an Automaton}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <vector>
+#include <iterator>
+
+int main()
+{
+  using namespace std;
+  DFA_matrix<> A;
+  DFA_matrix<>::state_type q = A.new_state();
+  DFA_matrix<>::state_type p = A.new_state();
+  A.set_trans(q, 'a', p);
+  A.initial(q);
+  A.final(p) = true;
+  DFA_matrix<>::state_type Q1[10];
+  A.new_state(10, Q1);
+  vector<DFA_matrix<>::state_type> Q2(10);
+  A.new_state(10, Q2.begin());
+  vector<DFA_matrix<>::state_type> Q3;
+  A.new_state(10, back_inserter(Q3));
+}
+\end{verbatim}
+\subsection{Accessing States Transitions}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <iostream>
+
+int main()
+{
+  using namespace std;
+  typedef DFA_matrix<> DFA;
+  DFA A;
+  // Construction...
+  DFA::state_type q = A.initial();
+  DFA::state_type p = A.delta1(q, 'a');
+  if (p == A.null_state) cout << "undefined" << endl;
+  DFA::edges_type e = A.delta2(q);
+  if (e.find('b') == e.end()) cout << "undefined" << endl;
+  DFA::edges_type::const_iterator i;
+  for(i = e.begin(); i != e.end(); ++i)
+    cout << " source " << q 
+         << " letter " << i->first 
+         << " aim "    << i->second;
+}
+\end{verbatim}
+\subsection{Minimizing Acyclic DFAs}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <minimize.h>
+
+int main()
+{
+  DFA_matrix<plain, minimization_tag> A;
+  // Construction...
+  acyclic_minimization(A);
+}
+\end{verbatim}
+\subsection{Matching}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <cursor.h>
+#include <language.h>
+#include <string>
+#include <iostream>
+
+int main()
+{
+  using namespace std;
+  DFA_matrix<> A;
+  string w = "word";
+  // Construction...
+  cursor<DFA_matrix<> > c(A);
+
+  string::const_iterator i = w.begin();
+  for(c = A.initial(); i != w.end() && c.forward(*i); ++i);
+  if (i == w.end() && c.src_final()) cout << "recognized";
+
+  if (is_in(w.begin(), w.end(), plainc(A))) cout << "recognized too";
+
+  if (is_in(istream_iterator<char>(cin), istream_iterator<char>(),
+            plainc(A))) cout << "found on stdin"; 
+}
+\end{verbatim}
+\subsection{Using a Forward Cursor}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <language.h>
+#include <cursor.h>
+#include <iostream>
+
+int main()
+{
+  DFA_matrix<> A;
+  // Construction...
+  forward_cursor<DFA_matrix<> > c(A, A.initial());
+  if (c.first()) 
+    do 
+      std::cout << " source " << c.src() 
+                << " letter " << c.letter() 
+                << " aim "    << c.aim();
+    while (c.next());
+
+
+  const char *w = "word";
+  if (is_in(w, w + 4, forwardc(A))) std::cout << "recognized";
+
+}
+\end{verbatim}
+\subsection{Using a Depth-First Cursor}
+\subsection{Language Extraction}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <language.h>
+#include <cursor.h>
+#include <iostream>
+
+int main()
+{
+  DFA_matrix<> A;
+  // Construction...
+  language(std::cout, dfirstc(A));
+}
+\end{verbatim}
+\subsection{Copying}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <language.h>
+#include <cursor.h>
+#include <ccopy.h>
+#include <iostream>
+
+int main()
+{
+  DFA_matrix<> A, B;
+  // Construction...
+  DFA_matrix<>::state_type i = ccopy(A, dfirstc(B));
+  A.initial(i);
+
+  DFA_matrix<> C, D;
+  // Construction...
+  C.initial(clone(C, dfirstc(D)));
+}
+\end{verbatim}
+\subsection{Streams Input/Output}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <ccopy.h>
+#include <stream.h>
+
+int main()
+{
+  DFA_matrix<> A;
+  // Construction...
+  dump(cout, dfirstc(A)); // don't save tags
+  full_dump(cout, dfirstc(A)); // save tags
+
+  DFA_matrix<> B;
+  restore(B, cin);
+}
+\end{verbatim}
+\subsection{On-the-fly Processing}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <language.h>
+#include <set_operation.h>
+#include <cursor.h>
+#include <string>
+#include <iostream>
+
+int main()
+{
+  DFA_matrix<> A, B;
+  // Constructions
+  std::string w = "word";
+  if (is_in(w.begin(), w.end(), 
+            intersectionc(forwardc(A), forwardc(B))))
+     std::cout << "recognized";
+}
+\end{verbatim}
+\subsection{By-copy Processing}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <language.h>
+#include <set_operation.h>
+#include <cursor.h>
+#include <neighbor.h>
+
+int main()
+{
+  DFA_matrix<> A, B;
+  // Constructions
+  ccopy(A, dfirstc(neighborc(forwardc(B), "word", 2)));
+
+  DFA_matrix<> C;
+  clone(C, dfirstc(notc(diffc(forwardc(A), forwardc(B)))));
+}
+\end{verbatim}
+\subsection{Lazy-construction Processing}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <lazy.h>
+#include <regexp.h>
+#include <language.h>
+#include <iostream>
+
+int main()
+{
+  regexp_cursor e("a|b*");
+  const char *w = "aaabb";
+  if (is_in(w, w + 5, lazyc(e))) std::cout "recognized";
+
+  lazy_cursor<regexp_cursor> c(e);
+  if (is_in(w, w + 5, c)) std::cout "recognized too";
+}
+\end{verbatim}
+\subsection{Virtual-traversal Processing}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <stream.h>
+#include <iostream>
+
+// save the automaton:
+
+int main()
+{
+  DFA_matrix<> A;
+  // Construction...
+  dump(cout, dfirstc(A));
+}
+
+// cut .......................................
+\end{verbatim}
+
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <ccopy.h>
+#include <language.h>
+#include <iostream>
+
+// extract language:
+
+int main()
+{
+  clone_cursor<plain> c(std::cin);
+  language(std::cout, c);
+}
+\end{verbatim}
+\subsection{Determinizing}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <nfa.h>
+#include <determinize.h>
+#include <ccopy.h>
+
+int main()
+{
+  NFA_mmap<> N;
+  // Construction...
+  DFA_matrix<> A;
+  A.initial(clone(A, dfirstc(forwarddc(N))));
+}
+\end{verbatim}
+\subsection{Displaying and Printing}
+\begin{verbatim}
+#include <astl.h>
+#include <dfa.h>
+#include <dot.h>
+#include <ccopy.h>
+#include <iostream>
+
+int main()
+{
+  DFA_map<> A, B;
+  // Construction...
+  dot(std::cout, dfirstc(A)); // don't write tags
+  full_dot(std::cout, dfirstc(A)); // write tags
+}
+\end{verbatim}
+\section{Coding Standards}
+\subsection{Namespace}
+ASTL components may optionally be enclosed in a namespace \verb+astl+
+by defining the symbol \verb+ASTL_USES_NAMESPACE+.
+\subsection{Exceptions \& RTTI}
+So far, ASTL makes no use of the C++ exceptions mechanism nor RTTI
+(RunTime Type Information). They can be
+safely turned off on the compiler command line
+({\tt g++ -fno-exceptions -fno-rtti}).
+\subsection{Types and Functions Naming}
+ASTL follows the C++ standard way for types naming:
+types and functions names contain only lower-case letters and compound
+words contain underscores separating components. Most of the time,
+words are used literaly without any abbreviation. Examples:
+\verb+forward_cursor+, \verb+acyclic_minimization+. \\
+For formal template parameters, upper-case letters are used and no
+underscore appears, thus minimizing the probability for
+names collision between real types and formal parameters. For instance,
+the definition:
+\begin{verbatim}
+template <typename ForwardCursor>
+class A
+{ };
+\end{verbatim}
+should avoid any
+confusion between the symbol \verb+ForwardCursor+ and the existing type
+\verb+forward_cursor+.
+% \subsection{Algorithms}
+\subsection{Helper Functions}
+Whenever it is possible and useful, a helper function is provided to
+make component building and initializing easier.
+\subsection{Testing \& Debugging}
+\verb+src/check_dfa.cc+ \\
+\verb+src/check_nfa.cc+ \\
+\verb+src/check_cursor.cc+ \\
+\verb+check.h+ (coverage test) \\
+\verb+debug.h+ debug cursor and trace cursor \\
+\section{Concepts}
+\subsection{Alphabet}
+\subsection{Edges}
+\subsection{Container}
+\subsection{Cursor}
+\section{Models}
+\subsection{Alphabets}
+\subsection{Containers}
+\subsection{Cursors}
+%\small
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\noindent {\huge {\bf cursor$<$DFA$>$}} \\
+\noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+\flushleft {\bf Category : {\Large cursors}} & \flushright 
+{\bf Component Type : {\Large Type}} 
+\end{tabular} \\
+\paragraph{Description \\}
+A cursor is a pointer to an automaton state that is able to move along
+defined transitions. Its purpose is to implement simple traversals
+testing if a word is in the language recognized by an automaton.
+\paragraph{Example}
+\begin{verbatim}
+DFA_matrix<> A;
+const char *w = "word";
+add_word(A, w, w + 4);
+cursor<DFA_matrix<> > c(A);
+for(c = A.initial(); *w && c.forward(*w); ++w);
+assert (*w == 0 && c.src_final());
+\end{verbatim}
+\paragraph{Definition \\}
+\verb+cursor.h+
+\paragraph{Template parameters \\ [1ex]}
+\begin{tabular}{|l|l|p{8cm}|} \hline
+\bf Parameter & \bf Description & \bf Default \\ \hline
+\verb+DFA+ & the automaton type & \\ \hline
+\end{tabular}
+\paragraph{Model of \\}
+plain cursor.
+\paragraph{Type requirements}
+\begin{itemize}
+\item \verb+DFA+ is a model of DFA
+\end{itemize}
+\paragraph{Public base classes \\}
+\verb+plain_cursor_concept+
+\paragraph{Members \\}
+\begin{longtable}[h]{|l|p{1.3cm}|p{5.8cm}|} \hline
+\bf Member & \bf Where defined & \bf Description \\ \hline
+\endhead
+\input{cursor}
+\end{longtable}
+\paragraph{New members \\}
+These members are not defined in the plain cursor requirements but are
+specific to \verb+cursor+. \\ [1ex]
+\begin{tabular}{|l|p{8.5cm}|} \hline
+\bf Member & \bf Description \\ \hline
+\verb+cursor(const DFA &A)+ & Construct a cursor pointing to a DFA
+            {\tt A} \\ \hline
+\verb+cursor(const DFA &A, state_type q)+ & Construct a cursor
+pointing to the state {\tt q} of the DFA {\tt A} \\ \hline
+\end{tabular}
+\paragraph{Helper functions}
+\begin{verbatim}
+template <typename DFA>
+cursor<DFA> plainc(const DFA &A, DFA::state_type q = A.initial());
+\end{verbatim}
+\paragraph{Notes \\}
+A default-constructed cursor, or a cursor that has not been set to
+point to a valid state has a singular value which means the only
+operation allowed is the assignment. The sink state is not considered
+as a valid state.
+\paragraph{See also \\}
+\verb+forward_cursor+, DFA.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%% FORWARD_CURSOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\noindent {\huge {\bf forward\_cursor$<$DFA$>$}} \\
+\noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+\flushleft {\bf Category : {\Large cursors}} & \flushright {\bf Component Type :
+{\Large Type}} 
+\end{tabular} \\
+\paragraph{Description \\} 
+A \verb+forward_cursor+ is a pointer to an automaton transition, that
+is, a triple (source state, letter, aim state). It provides all the
+functionnalities of the plain cursor and some means to iterate through
+the sequence of the outgoing transitions of the source state.
+\paragraph{Example}
+\begin{verbatim}
+string w[4] = { "forward", "cursor", "code", "example" };
+DFA_bin a;
+add_word(a, w, w + 4);
+forward_cursor c(a, a.initial());
+assert(c.first());
+do cout << "src " << c.src() << " letter " << c.letter
+        << " aim " << c.aim();
+while (c.next());
+\end{verbatim}
+\paragraph{Definition \\}
+\verb+cursor.h+
+\paragraph{Template parameters \\ [1ex]}
+\begin{tabular}{|l|l|p{8cm}|} \hline
+\bf Parameter & \bf Description & \bf Default \\ \hline
+\verb+DFA+ & The automaton type & \\ \hline
+\end{tabular}
+\paragraph{Model of \\}
+plain cursor, forward cursor.
+\paragraph{Type requirements}
+\begin{itemize}
+\item \verb+DFA+ is a model of DFA.
+\end{itemize}
+\paragraph{Public base classes \\}
+\verb+forward_cursor_concept+.
+\paragraph{Members \\ [1ex]}
+\begin{longtable}[h]{|l|p{1.3cm}|p{5.8cm}|} \hline
+\bf Member & \bf Where defined & \bf Description \\ \hline
+\endhead
+\input{forward_cursor}
+\end{longtable}
+\paragraph{New members \\}
+These members are not defined in the forward cursor requirements but are
+specific to \verb+forward_cursor+. \\ [1ex]
+\begin{tabular}{|l|p{7cm}|} \hline
+\bf Member & \bf Description \\ \hline
+\verb+forward_cursor(const DFA &A)+ & Construct a forward cursor
+pointing to a DFA {\tt A} \\ \hline
+\verb+forward_cursor(const DFA &A, state_type q)+ & Construct a
+forward cursor pointing to the state {\tt q} of the DFA {\tt A} \\
+\hline 
+\end{tabular}
+\paragraph{Helper functions}
+\begin{verbatim}
+template <typename DFA>
+forward_cursor<DFA> forwardc(const DFA &A, DFA::state_type q = A.initial());
+\end{verbatim}
+\paragraph{Notes \\}
+A default-constructed forward cursor, or a forward cursor that has not
+been set to point to a valid state and a valid transition has a
+singular value which means the only operation allowed is the
+assignment. The sink state is not considered as a valid state.
+\paragraph{See also \\}
+DFA, \verb+cursor+, \verb+stack_cursor+, \verb+queue_cursor+.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% STACK_CURSOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\noindent {\huge {\bf stack\_cursor$<$ForwardCursor, Container$>$}} \\
+\noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+\flushleft {\bf Category : {\Large cursors}} & \flushright {\bf Component Type :
+{\Large Type}} 
+\end{tabular} \\
+\paragraph{Description \\} 
+A \verb+stack_cursor+ is a forward cursor storing its path in a stack
+of cursors. Each forward move along a transition pushes a new forward
+cursor onto the stack top and an extra method \verb+backward+ allows
+to pop. The depth-first traversal cursor \verb+dfirst_cursor+
+relies on the \verb+stack_cursor+.
+%\paragraph{Example}
+%\begin{verbatim}
+%\end{verbatim}
+\paragraph{Definition \\}
+\verb+cursor.h+
+\paragraph{Template parameters \\ [1ex]}
+\begin{tabular}{|l|p{6.5cm}|p{4.5cm}|} \hline
+\bf Parameter & \bf Description & \bf Default \\ \hline
+\verb+ForwardCursor+ & The type of the cursors which are stored in the
+stack & \\ \hline
+\verb+Container+ & The type of the sequential container implementing the stack &
+\verb+vector<ForwardCursor>+ \\ \hline 
+\end{tabular}
+\paragraph{Model of \\}
+plain cursor, forward cursor, stack cursor.
+\paragraph{Type requirements \\}
+\begin{itemize}
+\item \verb+ForwardCursor+ is a model of forward cursor.
+\item \verb+Container+ is a model of back insertion sequence.
+\item \verb+Container::value_type+ must be \verb+ForwardCursor+.
+\end{itemize}
+\paragraph{Public base classes \\}
+\verb+cursor_concept+, \verb+forward_cursor_concept+, \verb+stack_cursor_concept+.
+\paragraph{Members \\ [1ex]}
+\begin{longtable}[h]{|l|p{1.3cm}|p{5.8cm}|} \hline
+\bf Member & \bf Where defined & \bf Description \\ \hline
+\endhead
+\input{forward_cursor}
+\verb+bool backward()+ & stack cursor & pop the stack top. Return
+\verb+false+ if the resulting stack is empty. \\ \hline
+\end{longtable}
+\paragraph{New Members \\ [1ex]}
+\begin{tabular}{|l|p{7cm}|} \hline
+\bf Membre & \bf Description \\ \hline
+\verb+stack_cursor(const ForwardCursor &c)+ & Construct a stack cursor
+with a stack containing \verb+c+. \\ \hline
+\verb+stack_cursor()+ & Construct a stack cursor
+with an empty stack.\\ \hline
+\end{tabular}
+\paragraph{Helper Functions \\}
+\begin{verbatim}
+template <class ForwardCursor>
+stack_cursor<ForwardCursor> stackc(const ForwardCursor &x);
+\end{verbatim}
+\paragraph{Notes}
+\begin{itemize}
+\item Calls to the \verb+stack_cursor+ methods are only valid iff the stack
+is non-empty.
+\item The default constructor is used by the depth-first cursor
+  to implement ends of range: the empty stack serves as stop condition
+  for the traversal.
+\end{itemize}
+\paragraph{See Also \\}
+forward cursor, stack cursor, depth-first cursor, \verb+dfirst_cursor+.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% QUEUE_CURSOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\noindent {\huge {\bf queue\_cursor$<$ForwardCusor, Container$>$}} \\
+\noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+\flushleft {\bf Category : {\Large cursors}} & \flushright {\bf Component Type :
+{\Large Type}} 
+\end{tabular} \\
+\paragraph{Description \\} 
+A \verb+queue_cursor+ is a forward cursor storing its path in a queue
+of cursors. Each move through the sequence of the outgoing transitions
+of the source state (\verb+next+) enqueues a forward
+cursor. An extra method \verb+dequeue+ allows to dequeue and to
+implement the breadth-first traversal. 
+%\paragraph{Example}
+%\begin{verbatim}
+%@@@Example
+%\end{verbatim}
+\paragraph{Definition \\}
+\verb+cursor.h+
+\paragraph{Template parameters \\ [1ex]}
+\begin{tabular}{|l|p{7cm}|p{4cm}|} \hline
+\bf Parameter & \bf Description & \bf Default \\ \hline
+\verb+ForwardCursor+ & The type of the cursors stored in the queue & \\ \hline
+\verb+Container+ & The type of the sequential container implementing
+the queue & \verb+deque<ForwardCursor>+ \\ \hline
+\end{tabular}
+\paragraph{Model of \\}
+plain cursor, forward cursor, queue cursor.
+\paragraph{Type requirements \\}
+\begin{itemize}
+\item \verb+ForwardCursor+ is a model of forward cursor.
+\item \verb+Container+ is a model of front insertion sequence. 
+\item  \verb+Container::value_type+ must be \verb+ForwardCursor+.
+\end{itemize}
+\paragraph{Public base classes \\}
+\verb+cursor_concept+, \verb+forward_cursor_concept+, \verb+queue_cursor_concept+.
+\paragraph{Members \\ [1ex]}
+\begin{longtable}[h]{|l|p{1.3cm}|p{5.8cm}|} \hline
+\bf Member & \bf Where defined & \bf Description \\ \hline
+\endhead
+\input{forward_cursor}
+\verb+bool dequeue()+ & queue cursor & dequeue the current cursor and
+return \verb+false+ is the resulting queue is empty \\ \hline
+\end{longtable}
+\paragraph{New Members \\ [1ex]}
+\begin{tabular}{|l|p{7cm}|} \hline
+\bf Membre & \bf Description \\ \hline
+\verb+queue_cursor(const ForwardCursor &c)+ & Construct a cursor with
+a queue storing \verb+c+. \\ \hline
+\verb+queue_cursor()+ & Construct a cursor with an empty queue. \\ \hline
+\end{tabular}
+\paragraph{Helper Functions \\}
+\begin{verbatim}
+template <class ForwardCusor>
+queue_cursor<ForwardCusor> queuec(const ForwardCusor &x);
+\end{verbatim}
+\paragraph{Notes}
+\begin{itemize}
+\item Calls to the \verb+queue_cursor+ methods are only valid iff the queue
+is non-empty.
+\item The default constructor is used by the breadth-first cursor
+  to implement ends of range: the empty queue serves as stop condition
+  for the traversal.
+\end{itemize}
+\paragraph{See Also \\}
+forward cursor, queue cursor, breadth-first cursor, \verb+bfirst_cursor+.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% DFIRST_CURSOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\noindent {\huge {\bf dfirst\_cursor$<$StackCursor$>$}} \\
+\noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+\flushleft {\bf Category : {\Large cursors}} & \flushright {\bf Component Type :
+{\Large Type}} 
+\end{tabular} \\
+\paragraph{Description \\} 
+A \verb+dfirst_cursor+ implements the depth-first traversal on acyclic
+deterministic automata. It is in
+some sense an iterator on a sequence of transitions ordered according
+to the depth-first traversal algorithm. The method \verb+forward+
+allows to increment the cursor, making it point to the next transition
+in the sequence. This methods returns \verb+true+ if the transition
+reached has been pushed onto the stack (forward move) and \verb+false+
+otherwise (pop and backward move). \\
+The \verb+dfirst_cursor+ is fundamental because it is used much in the
+same way as the iterators on sequence to define ranges for
+algorithms. 
+\paragraph{Example}
+\begin{verbatim}
+string w[4] = { "forward", "cursor", "code", "example" };
+DFA_bin a;
+add_word(a, w, w + 4);
+dfirst_cursor<stack_cursor<forward_cursor<DFA_bin<> > > >
+  first = dfirstc(a), last;
+vector<char> word;
+while (first != last) {
+  do {
+    word.push_back(first.letter());
+    if (first.aim_final()) {
+      copy(word.begin(), word.end(), ostream_iterator<char>(cout));
+      cout << endl;
+    }
+  } while (first.forward());
+
+  while (!first.forward()) word.pop_back();
+}
+\end{verbatim}
+\paragraph{Definition \\}
+\verb+cursor.h+
+\paragraph{Template parameters \\ [1ex]}
+\begin{tabular}{|l|l|l|} \hline
+\bf Parameter & \bf Description & \bf Default \\ \hline
+\verb+StackCursor+ & The type of the underlying stack cursor & \\
+\hline 
+\end{tabular}
+\paragraph{Model of \\}
+depth-first cursor.
+\paragraph{Type requirements \\}
+\begin{itemize}
+\item \verb+StackCursor+ is a model of stack cursor.
+\end{itemize}
+\paragraph{Public base classes \\}
+\verb+dfirst_cursor_concept+.
+\paragraph{Members \\ [1ex]}
+\begin{longtable}{|p{5.5cm}|p{1.7cm}|p{6.5cm}|} \hline
+\bf Member & \bf Where defined & \bf Description \\ \hline
+\endhead
+\input{dfirst_cursor}
+\end{longtable}
+\paragraph{New Members \\ [1ex]}
+\begin{tabular}{|l|p{7cm}|} \hline
+\bf Membre & \bf Description \\ \hline
+\verb+dfirst_cursor(const StackCursor &c)+ & Construct a cursor with
+\verb+c+ as stack. \\ \hline
+\end{tabular}
+\paragraph{Helper Functions \\}
+The function \verb+dfirstc+ returns a \verb+dfirst_cursor+ constructed
+from the object passed as argument. This object is allowed to be a
+model of DFA, forward cursor or stack cursor.
+\paragraph{Notes}
+\begin{itemize}
+\item Calls to method other than \verb+operator==+ are valid iff the cursor
+stack is non-empty.
+\item This cursor works only on acyclic structures, use
+  \verb+dfirst_mark_cursor+ on cyclic DFAs.
+\end{itemize}
+\paragraph{See Also \\}
+depth-first cursor, stack cursor, \verb+dfirst_mark_cursor+.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% DFIRST_MARK_CURSOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\noindent {\huge {\bf dfirst\_mark\_cursor$<$StackCursor, Marker$>$}} \\
+\noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+\flushleft {\bf Category : {\Large cursors}} & \flushright {\bf Component Type :
+{\Large Type}} 
+\end{tabular} \\
+\paragraph{Description \\} 
+A \verb+dfirst_mark_cursor+ implements the depth-first traversal on cyclic
+deterministic automata. It works exactly as the \verb+dfirst_cursor+
+does except that a state-mark function garantees that each transition
+is only reached twice
+%\paragraph{Example}
+%\begin{verbatim}
+%@@@Example
+%\end{verbatim}
+\paragraph{Definition \\}
+\verb+cursor.h+
+\paragraph{Template parameters \\ [1ex]}
+\begin{tabular}{|l|l|p{5cm}|} \hline
+\bf Parameter & \bf Description & \bf Default \\ \hline
+\verb+StackCursor+ & The type of the underlying stack cursor & \\ \hline
+\verb+Marker+ & The type of the state-mark object function & \verb+set_marker+ \\ \hline
+\end{tabular}
+\paragraph{Model of \\}
+depth-first cursor.
+\paragraph{Type requirements \\}
+\begin{itemize}
+\item \verb+StackCursor+ is a model of stack cursor.
+\item \verb+Marker+ is a model of state marker.
+\end{itemize}
+\paragraph{Public base classes \\}
+\verb+dfirst_cursor_concept+.
+\paragraph{Members \\}
+\begin{longtable}{|p{5.5cm}|p{1.7cm}|p{6.5cm}|} \hline
+\bf Member & \bf Where defined & \bf Description \\ \hline
+\endhead
+\input{dfirst_cursor}
+\end{longtable}
+\paragraph{New Members \\ [1ex]}
+\begin{tabular}{|l|p{7cm}|} \hline
+\bf Membre & \bf Description \\ \hline
+\verb+dfirst_cursor(const StackCursor &c)+ & Construct a cursor with
+\verb+c+ as stack. \\ \hline
+\end{tabular}
+\paragraph{Helper Functions \\}
+The function \verb+dfirst_markc+ returns a \verb+dfirst_mark_cursor+ constructed
+from the object passed as argument. This object is allowed to be a
+model of DFA, forward cursor or stack cursor.
+\paragraph{Notes}
+\begin{itemize}
+\item Calls to method other than \verb+operator==+ are valid iff the cursor
+stack is non-empty.
+\item This cursor is designed for cyclic structures. Using it on
+  acyclic DFAs results in memory and time penalties but should not
+  disrupt the processing beyond that. On a acyclic structures, a
+  \verb+dfirst_cursor+ is more appropriated.
+\end{itemize}
+\paragraph{See Also \\}
+depth-first cursor, stack cursor, \verb+dfirst_cursor+.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% BFIRST_CURSOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\noindent {\huge {\bf bfirst\_cursor$<$QueueCursor$>$}} \\
+\noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+\flushleft {\bf Category : {\Large cursors}} & \flushright {\bf Component Type :
+{\Large Type}} 
+\end{tabular} \\
+\paragraph{Description \\} 
+A \verb+bfirst_cursor+ implements the breadth-first traversal on acyclic
+deterministic automata. It is an iterator on a sequence of transitions
+ordered according to the breadth-first traversal algorithm. The method
+\verb+next+ 
+allows to increment the cursor, making it point to the next transition
+in the sequence. This methods returns \verb+true+ if the transition
+reached has been enqueued and \verb+false+
+otherwise (dequeue). \\
+The \verb+bfirst_cursor+ is used in the same way as the iterators on
+sequence to define ranges for algorithms. 
+\paragraph{Example}
+\begin{verbatim}
+string w[4] = { "forward", "cursor", "code", "example" };
+DFA_bin a;
+tree_build(a, w, w + 4);
+bfirst_cursor<queue_cursor<forward_cursor<DFA_bin<> > > >
+  first = bfirstc(a), last;
+while (first != last) {
+  do 
+    cout << "src " << first.src() << " letter " << first.letter()
+         << " aim " << first.aim() << endl;
+  while (first.next());
+}
+\end{verbatim}
+\paragraph{Definition \\}
+\verb+cursor.h+
+\paragraph{Template parameters \\ [1ex]}
+\begin{tabular}{|l|l|p{5cm}|} \hline
+\bf Parameter & \bf Description & \bf Default \\ \hline
+\verb+QueueCursor+ & the type of the underlying queue cursor & \\ \hline
+\end{tabular}
+\paragraph{Model of \\}
+breadth-first cursor.
+\paragraph{Type requirements}
+\begin{itemize}
+\item \verb+QueueCursor+ is a model of queue cursor.
+\end{itemize}
+\paragraph{Public base classes \\}
+\verb+bfirst_cursor_concept+.
+\paragraph{Members \\ [1ex]}
+\begin{longtable}{|p{5.5cm}|p{1.7cm}|p{6.5cm}|} \hline
+\bf Member & \bf Where defined & \bf Description \\ \hline
+\endhead
+\input{bfirst_cursor}
+\end{longtable}
+\paragraph{New Members \\ [1ex]}
+\begin{tabular}{|l|p{7cm}|} \hline
+\bf Member & \bf Description \\ \hline
+\verb+bfirst_cursor(const QueueCursor &c)+ & Construct a cursor with
+\verb+c+ as queue. \\ \hline
+\end{tabular}
+\paragraph{Helper Functions \\}
+The function \verb+bfirst_c+ returns a \verb+bfirst_cursor+ constructed
+from the object passed as argument. This object is allowed to be a
+model of DFA, forward cursor or queue cursor.
+\paragraph{Notes}
+\begin{itemize}
+\item Calls to method other than \verb+operator==+ are valid iff the cursor
+queue is non-empty.
+\item This cursor works only on acyclic structures, use
+  \verb+bfirst_mark_cursor+ on cyclic DFAs.
+\end{itemize}
+\paragraph{See Also \\}
+breadth-first cursor, queue cursor, \verb+bfirst_mark_cursor+.
+\subsection{Cursor Adapters}
+\subsection{Algorithms}
+\include{algorithms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% CCOPY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf ccopy}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <class DFirstCursor, class DFA>
+% DFA::state_type 
+% ccopy(DFA &out, DFirstCursor first, DFirstCursor last = DFirstCursor());
+% \end{verbatim}
+% \paragraph{Description \\}
+% Copies the source automaton defined by the range \verb+[first, last)+
+% into the destination automaton \verb+out+ by performing a depth-first
+% traversal during which only the paths leading to final states are
+% copied : this algorithm trims uneeded states and transitions. On the
+% other hand, it only works on acyclic DFAs. See \verb+clone+ for cyclic
+% structures copy. \\
+% \verb+ccopy+ returns the first state of the iteration (the last
+% duplicated state).
+% \paragraph{Definition \\}
+% \verb+ccopy.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFirstCursor+ is a model of depth-first cursor.
+% \item \verb+DFA+ is a model of DFA.
+% \item \verb+DFirstCursor::char_type+ is convertible to
+%   \verb+DFA::char_type+. 
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[first, last)+ is a valid range.
+% \item The source DFA is acyclic.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear: at most \verb+last - first+ transitions are duplicated.
+% \paragraph{Example}
+% \begin{verbatim}
+% #include <astl.h>
+% #include <dfa.h>
+% #include <cursor.h>
+% #include <ccopy.h>
+% #include <set_operation.h>
+% #include <stream.h>
+% #include <iostream>
+
+% int main()
+% {
+%   DFA_map<> S;
+%   DFA_bin<> D1, D2;
+
+%   DFA_bin<>::state_type i = ccopy(D1, dfirstc(S));
+%   D1.initial(i);
+
+%   i = ccopy(D2, clonec(std::cin));  // read from stdin
+%   D2.initial(i);
+
+%   i = ccopy(D3, dfirstc(notc(S)));  // negation
+%   D3.initial(i);
+
+%   DFA_stream out(std::cout);
+%   ccopy(out, dfirstc(S));  // write to stdout
+% }
+% \end{verbatim}
+% \paragraph{Notes}
+% \begin{itemize}
+% \item This algorithm does not care about the initial state, it is up to the
+% user to manage any operations related to it.
+% \item This algorithm is not just a duplication procedure, it is the 
+% only way (along side \verb+clone+ which is a slight variant of
+% \verb+ccopy+) to apply an algorithm and to get the result of it as an
+% automaton container. It is also enough to use almost all of the
+% operations implemented in ASTL.
+% \end{itemize}
+% \paragraph{See Also \\}
+% \verb+clone+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%% CLONE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf clone}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <class DFirstCursor, class DFA>
+% DFA::state_type 
+% clone(DFA &out, DFirstCursor first, DFirstCursor last = DFirstCursor());
+% \end{verbatim}
+% \paragraph{Description \\}
+% Copies the source automaton defined by the range \verb+[first, last)+
+% into the destination automaton \verb+out+ by performing a depth-first
+% traversal during which all transitions are duplicated.
+% Returns the first state of the iteration (the first duplicated state).
+% \paragraph{Definition \\}
+% \verb+ccopy.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFirstCursor+ is a model of depth-first cursor.
+% \item \verb+DFA+ is a model of DFA.
+% \item \verb+DFirstCursor::char_type+ is convertible to
+%   \verb+DFA::char_type+. 
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[first, last)+ is a valid range.
+% \item Either the source automaton is acyclic or \verb+DFirstCursor+ is
+%   a depth-first cursor with marker.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear: exactly \verb+last - first+ transitions are duplicated.
+% \paragraph{Example}
+% \begin{verbatim}
+% #include <astl.h>
+% #include <dfa.h>
+% #include <cursor.h>
+% #include <ccopy.h>
+% #include <set_operation.h>
+% #include <stream.h>
+% #include <iostream>
+
+% int main()
+% {
+%   DFA_map<> S;
+%   DFA_bin<> D1, D2;
+
+%   DFA_bin<>::state_type i = clone(D1, dfirstc(S));
+%   D1.initial(i);
+
+%   i = clone(D2, clonec(std::cin));  // read from stdin
+%   D2.initial(i);
+
+%   i = clone(D3, dfirst_markc(notc(S)));  // negation is cyclic
+%   D3.initial(i);
+
+%   DFA_stream out(std::cout);
+%   clone(out, dfirstc(S));  // write to stdout
+% }
+% \end{verbatim}
+% \paragraph{Notes}
+% \begin{itemize}
+% \item This algorithm does not care about the initial state, it is up to the
+% user to manage any operations related to it.
+% \item This algorithm is not just a duplication procedure, it is the 
+% only way (along side \verb+ccopy+ which is a slight variant of
+% \verb+clone+) to apply an algorithm and to get the result of it as an
+% automaton container. It is also enough to use almost all of the
+% operations implemented in ASTL.
+% \end{itemize}
+% \paragraph{See Also \\}
+% \verb+ccopy+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% DOT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf dot}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename DFirstCursor>
+% void dot(ostream &out, DFirstCursor x, DFirstCursor y = DFirstCursor());
+
+% template <typename DFirstCursor>
+% void dot(DFA_dot &out, DFirstCursor x, DFirstCursor y = DFirstCursor());
+% \end{verbatim}
+% \paragraph{Description \\} 
+% Output the automaton defined by the range \verb+[x, y)+ to the output
+% stream \verb+out+ in a representation suitable as input to the command
+% \verb+dot+ from GraphViz. \\
+% The second version of \verb+dot+ allows graphical customization
+% through the \verb+DFA_dot+ object passed as first argument.
+% \paragraph{Definition \\}
+% \verb+dot.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFirstCursor+ is a model of depth-first cursor.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[x, y)+ is a valid range.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear
+% \paragraph{Example}
+% \begin{verbatim}
+% #include <astl.h>
+% #include <dfa.h>
+% #include <cursor.h>
+% #include <dot.h>
+% #include <iostream>
+
+% int main()
+% {
+%   DFA_matrix<> A, B;
+%   dot(std::cout, dfirstc(A));
+
+%   DFA_dot out(std::cout);
+%   out.state_fontsize(18);     // customize display
+%   dot(out, dfirst_markc(B));  // if B is cyclic
+% }
+% \end{verbatim}
+% \paragraph{Notes \\}
+% \verb+dot+ is written as a call to the algorithm \verb+clone+.
+% \paragraph{See Also \\}
+% \verb+clone+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%% ACYCLIC MINIMIZATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf acyclic\_minimization}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename DFA>
+% void acyclic_minimization(DFA &a);
+% \end{verbatim}
+% \paragraph{Description \\}
+% Minimizes the size of \verb+a+ by removing redundant states and
+% transitions. From the languages point of a view, the minimized version
+% of \verb+a+ is strictly equivalent to the original one.
+% \paragraph{Definition \\}
+% \verb+minimize.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFA+ is a model of DFA.
+% \item \verb+DFA::tag_type+ is at least \verb+minimization_tag+.
+% \item The transitions of \verb+DFA+ are sorted, which
+%   means that this algorithm can not be used on containers
+%   \verb+DFA_mtf+, \verb+DFA_hash+ and \verb+DFA_tr+.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+a+ is acyclic.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% $n\log(n)$ where $n$ is \verb+a.trans_count()+.
+% \paragraph{Example}
+% \begin{verbatim}
+% #include <astl.h>
+% #include <minimize.h>
+% #include <language.h>
+% #include <iostream>
+% #include <cassert>
+
+% int main()
+% {
+%   DFA_matrix<plain, minimization_tag> A;
+%   unsigned long Q = A.state_count(), T = A.trans_count();
+%   language(std::cout, dfirstc(A));
+%   acyclic_minimization(A);
+%   language(std::cout, dfirstc(A));  // should be the same as above
+%   assert(A.state_count() <= Q && A.trans_count() <= T);
+% }
+% \end{verbatim}
+% %\paragraph{Notes}
+% %\begin{itemize}
+% %\item 
+% %\end{itemize}
+% \paragraph{See Also \\}
+% \verb+brzozowski+.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% BRZOZOWSKI %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf brzozowski}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename DFA1, typename DFA2>
+% void brzozowski(const DFA1 &A, DFA2 &B);
+% \end{verbatim}
+% \paragraph{Description \\}
+% \verb+brzozowski+ performs a minimization of the possibly cyclic DFA
+% \verb+A+ and copies the result into the DFA \verb+B+. This is a
+% generic implementation, on acyclic structures the algorithm
+% \verb+acyclic_minimization+ is much more efficient.
+% \paragraph{Definition \\}
+% \verb+minimize.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFA1+ and \verb+DFA2+ are models of DFA.
+% \item \verb+DFA1::char_type+ is convertible to
+%   \verb+DFA2::char_type+. 
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+B+ must be empty.
+% \item \verb+A+ must have sorted transitions.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% \paragraph{Example}
+% \begin{verbatim}
+% #include <astl.h>
+% #include <cursor.h>
+% #include <minimize.h>
+% #include <dfa.h>
+% #include <set_operation.h>
+% #include <cassert>
+% #include <iostream>
+
+% int main()
+% {
+%   DFA_map<> A;
+%   DFA_bin<> B;
+%   DFA_matrix<> C;
+%   brzozowski(A, B);
+%   assert(B.state_count() <= A.state_count() 
+%          && B.trans_count() <= A.trans_count());
+%   brzozowski(B, C);
+%   assert(isomorph(dfirst_markc(B), dfirst_mark(C)));
+% }
+% \end{verbatim}
+% \paragraph{Notes \\}
+% The \verb+A+ must stores the transitions in sorted containers which
+%   means that this algorithm can not be used with source containers of
+%   type \verb+DFA_mtf+, \verb+DFA_hash+ or \verb+DFA_tr+.
+% \paragraph{See Also \\}
+% \verb+acyclic_minimization+.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% REVERSE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf reverse}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename DFA, typename NFA>
+% void reverse(const DFA &A, NFA &B);
+% \end{verbatim}
+% \paragraph{Description \\}
+% \verb+reverse+ computes a non-deterministic automaton \verb+B+
+% recognizing the mirror-image language of a DFA \verb+A+, that is : 
+% $$ w = a_{1} a_{2} ...a_{n} \in L(A) \Leftrightarrow w' =
+% a_{n} a_{n-1} ...a_{1} \in L(B)$$ This algorithm is reused in the
+% Brzozowski's minimization algorithm. 
+% \paragraph{Definition \\}
+% \verb+minimize.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFA+ is a model of DFA.
+% \item \verb+NFA+ is a model of NFA.
+% \item \verb+DFA::char_type+ is convertible to \verb+NFA::char_type+. 
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+B+ must be empty.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% $n\log(m)$ where $n$ is \verb+A.trans_count()+ and $m$ is
+% \verb+A.state_count()+. 
+% \paragraph{Example}
+% \begin{verbatim}
+% #include <astl.h>
+% #include <ccopy.h>
+% #include <minimize.h>
+% #include <determinize.h>
+% #include <dfa.h>
+% #include <nfa.h>
+
+% int main()
+% {
+%   DFA_map<> A;
+%   NFA_mmap<> B;
+%   DFA_bin<> C;
+
+%   reverse(A, B);
+%   clone(C, dfirstc(forwarddc(B)));  // determinization
+% }
+% \end{verbatim}
+% %%%%%%%%%%%%%%%%%%%%%%%%% MAKE_HASH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf make\_hash}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename DFA>
+% void make_hash(DFA& a);
+% \end{verbatim}
+% \paragraph{Description \\}
+% \verb+make_hash+ computes the needed data to turn the DFA \verb+a+
+% into a hashing 
+% automaton. A hashing automaton provides a highly efficient way to
+% implement a bidirectionnal mapping (known as perfect hash function) 
+% between strings of any character type and the positive integers. Such
+% an automaton can be used with the algorithms \verb+hash_value+ and
+% \verb+value_hash+.
+% \paragraph{Definition \\}
+% \verb+hash.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFA+ is a model of DFA.
+% \item \verb+DFA::tag_type+ is \verb+hash_tag+ defined in \verb+hash.h+
+% \item The transitions of \verb+DFA+ are sorted.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+a+ is acyclic.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% $O(m)$ where $m$ is \verb+A.state_count()+.
+% \paragraph{Example}
+% \begin{verbatim}
+% #include <astl.h>
+% #include <dfa.h>
+% #include <cursor.h>
+% #include <hash.h>
+% #include <iostream>
+% #include <cassert>
+% #include <string>
+
+% int main()
+% {
+%   DFA_matrix<plain, hash_tag> A;
+%   make_hash(A);
+%   const char *word = ``word'';
+%   std::cout << hash_value(forwardc(A), word, word + 4) << std::endl;
+%   std::string s;
+%   value_hash(forwardc(A), 14, std::back_inserter(s));
+% } 
+% \end{verbatim}
+% \paragraph{Notes}
+% \begin{itemize}
+% \item The requirement that \verb+DFA::tag_type+ be
+%   \verb+hash_tag+ is a minimal assumption. The tag type can be
+%   {\em anything} provided that it is {\em at least} a \verb+hash_tag+.
+% \item The DFA must stores the transitions in sorted containers which
+%   means that this algorithm can not be used on containers
+%   \verb+DFA_mtf+, \verb+DFA_hash+ and \verb+DFA_tr+.
+% \item A DFA must be rehashed each time it undergoes any
+%   modifications. 
+% \end{itemize}
+% \paragraph{See Also \\}
+% \verb+hash_cursor+, \verb+hash_value+, \verb+value_hash+.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HASH_VALUE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf hash\_value}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename ForwardCursor, typename InputIterator>
+% int hash_value(ForwardCursor c, InputIterator first, InputIterator last);
+% \end{verbatim}
+% \paragraph{Description \\}
+% Returns the positive integer hash value associated to the sequence of
+% characters \verb+[first, last)+ by the hashing automaton pointed to by
+% \verb+c+. A null value is returned if the word is not recognized by
+% the automaton. 
+% \paragraph{Definition \\}
+% \verb+hash.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+ForwardCursor+ is a model of forward cursor.
+% \item \verb+InputIterator+ is a model of input iterator.
+% \item \verb+InputIterator::value_type+ is convertible to
+%   \verb+ForwardCursor::char_type+.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[first, last)+ is a valid range.
+% \item \verb+c+ points to a hashing automaton constructed with the
+%   algorithm \verb+make_hash+.
+% \item \verb+c+ points to the initial state of the hashing automaton. 
+% \end{itemize}
+% \paragraph{Complexity \\}
+% \verb+last - first+ calls to \verb+ForwardCursor::forward+.
+% \paragraph{Example}
+% \begin{verbatim}
+% #include <astl.h>
+% #include <dfa.h>
+% #include <cursor.h>
+% #include <hash.h>
+% #include <iostream>
+% #include <cassert>
+
+% int main()
+% {
+%   DFA_matrix<plain, hash_tag> A;
+%   make_hash(A);
+%   const char *word = ``word'';
+%   std::cout << hash_value(forwardc(A), word, word + 4) << std::endl;
+% } 
+% \end{verbatim}
+% \paragraph{See Also \\}
+% \verb+make_hash+, \verb+value_hash+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%% VALUE_HASH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf value\_hash}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename ForwardCursor, typename OutputIterator>
+% int value_hash(ForwardCursor c, int i, OutputIterator x);
+% \end{verbatim}
+% \paragraph{Description \\}
+% Returns the word associated to the positive integer \verb+i+ by the
+% hashing automaton pointed to by \verb+c+. The returned word is copied
+% to the output sequence pointed by \verb+x+ and the function returned
+% value is its length. 
+% \paragraph{Definition \\}
+% \verb+hash.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+ForwardCursor+ is a model of forward cursor.
+% \item \verb+OutputIterator+ is a model of output iterator.
+% \item \verb+ForwardCursor::char_type+ is convertible to
+%   \verb+OutputIterator::value_type+.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+c+ points to a hashing automaton constructed with the
+%   algorithm \verb+make_hash+.
+% \item \verb+c+ points to the initial state of the hashing automaton.
+% \item \verb+i+ is a strictly positive integer.
+% \item There is enough space to hold all of the elements being copied.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear in the length of the output word.
+% \paragraph{Example}
+% \begin{verbatim}
+% \end{verbatim}
+% \paragraph{See Also \\}
+% \verb+make_hash+, \verb+hash_value+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%% FIRST_MATCH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf first\_match}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename ForwardIterator, typename Cursor>
+% ForwardIterator 
+% first_match(ForwardIterator first, ForwardIterator last, Cursor &c);
+% \end{verbatim}
+% \paragraph{Description \\}
+% Returns a past-the-end iterator on the shortest prefix of the word 
+% \verb+[first, last)+ recognized by the automaton pointed by
+% \verb+c+. If none is found, \verb+first+ is returned which means that
+% either no final state has been reached during the traversal or a
+% transition was undefined.
+% \paragraph{Definition \\}
+% \verb+match.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+ForwardIterator+ is a model of forward iterator.
+% \item \verb+Cursor+ is a model of plain cursor.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[first, last)+ is a valid range.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear: at most \verb+last - first+ calls to \verb+Cursor::forward+.
+% \paragraph{Example}
+% \begin{verbatim}
+% \end{verbatim}
+% \paragraph{See Also \\}
+% \verb+longest_match+, \verb+match_count+
+% %%%%%%%%%%%%%%%%%%%%%%%% LONGEST_MATCH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf longest\_match}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <class ForwardIterator, class Cursor>
+% ForwardIterator 
+% longest_match(ForwardIterator first, ForwardIterator last, Cursor &c);
+% \end{verbatim}
+% \paragraph{Description \\} 
+% Returns a past-the-end iterator on the longest prefix of the word 
+% \verb+[first, last)+ recognized by the automaton pointed by
+% \verb+c+. If none is found, \verb+first+ is returned which means that
+% either no final state has been reached during the traversal or a
+% transition was undefined.
+% \paragraph{Definition \\}
+% \verb+match.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+ForwardIterator+ is a model of forward iterator.
+% \item \verb+Cursor+ is a model of plain cursor.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[first, last)+ is a valid range.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear: at most \verb+last - first+ calls to \verb+Cursor::forward+.
+% \paragraph{Example}
+% \begin{verbatim}
+% \end{verbatim}
+% \paragraph{See Also \\}
+% \verb+first_match+, \verb+match_count+
+% %%%%%%%%%%%%%%%%%%%%%%%%% LANGUAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf language}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename DFirstCursor>
+% void language(ostream &out,                              
+%               DFirstCursor first, DFirstCursor last = DFirstCursor());
+% \end{verbatim}
+% \paragraph{Description \\}
+% Output to \verb+out+ the language recognized by the DFA defined by
+% the range \verb+[first, last)+.
+% \paragraph{Definition \\}
+% \verb+language.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFirstCursor+ is a model of depth-first cursor.
+% \item \verb+operator<<(ostream&, DFirstCursor::char_type)+ is
+%   defined. 
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[first, last)+ is a valid range.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear
+% \paragraph{Example}
+% \begin{verbatim}
+% \end{verbatim}
+% \paragraph{See Also \\}
+% \verb+language_iterator+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%% IS_IN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf is\_in}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename InputIterator, typename Cursor>
+% bool is_in(InputIterator first, InputIterator last, Cursor c);
+% \end{verbatim}
+% \paragraph{Description \\}
+% Returns \verb+true+ if the word \verb+[first, last)+ is in the
+% language recognized by the DFA pointed by \verb+c+.
+% \paragraph{Definition \\}
+% \verb+language.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+InputIterator+ is a model of input iterator.
+% \item \verb+Cursor+ is a model of plain cursor.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[first, last)+ is a valid range.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear: at most \verb+last - first+ calls to \verb+Cursor::forward+.
+% \paragraph{Example}
+% \begin{verbatim}
+% \end{verbatim}
+% \paragraph{See Also \\}
+% \verb+first_match+, \verb+longest_match+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%% MATCH_COUNT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf match\_count}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename InputIterator, typename Cursor>
+% int match_count(InputIterator first, InputIterator last, Cursor &c);
+% \end{verbatim}
+% \paragraph{Description \\} 
+% Returns the number of prefixes of the word \verb+[first, last)+
+% recognized by the DFA pointed to by \verb+c+, in other words, the
+% number of final states \verb+c+ has reached along the path labelled
+% with \verb+[first, last)+.
+% \paragraph{Definition \\}
+% \verb+match.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+InputIterator+ is a model of input iterator.
+% \item \verb+Cursor+ is a model of plain cursor.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[first, last)+ is a valid range.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear: at most \verb+last - first+ calls to \verb+Cursor::forward+.
+% \paragraph{Example}
+% \begin{verbatim}
+% \end{verbatim}
+% \paragraph{See Also \\}
+% \verb+first_match+, \verb+longest_match+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% ISOMORPH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf isomorph}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename DFirstCursor1, typename DFirstCursor2>
+% bool isomorph(DFirstCursor1 left, DFirstCursor2 first, 
+%               DFirstCursor2 last = DFirstCursor2());
+% \end{verbatim}
+% \paragraph{Description \\} 
+% Returns \verb+true+ if the DFA defined by the range 
+% \verb+[left, DFirstCursor1())+ is isomorphic to the DFA defined by
+% \verb+[first, last)+. 
+% \paragraph{Definition \\}
+% \verb+set_operation.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+DFirstCursor1+ is a model of depth-first cursor.
+% \item \verb+DFirstCursor2+ is a model of depth-first cursor.
+% \item \verb+DFirstCursor2::char_type+ is convertible to
+%   \verb+DFirstCursor1::char_type+.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+[left, DFirstCursor1())+ is a valid range.
+% \item \verb+[first, last)+ is a valid range.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% Linear
+% \paragraph{Example}
+% \begin{verbatim}
+% \end{verbatim}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% TREE_BUILD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \noindent {\huge {\bf add\_word, add\_words}} \\
+% \noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+% \flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+% {\Large Function}} 
+% \end{tabular} \\
+% \paragraph{Prototype}
+% \begin{verbatim}
+% template <typename DFA1, typename InputIterator1>
+% void add_word(DFA1 &a, InputIterator1 first, InputIterator1 last, 
+%               const DFA1::tag_type &t = DFA1::tag_type());
+
+% template <typename DFA2, typename InputIterator2>
+% void add_words(DFA2 &a, InputIterator2 start, InputIterator2 finish);
+% \end{verbatim}
+% \paragraph{Description \\}
+% \verb+add_word+ adds the word \verb+[first, last)+ to the language
+% recognized by \verb+a+. The tag \verb+t+ is assigned to the newly
+% created final state. \verb+add_words+ adds a set of words to the
+% language, which means \verb+start+ points to containers of
+% characters. \verb+a+ must have a tree structure.
+% \paragraph{Definition \\}
+% \verb+astl_tree.h+
+% \paragraph{Requirements on types}
+% \begin{itemize}
+% \item \verb+InputIterator1+ and \verb+InputIterator2+ are models of
+%   input iterator.
+% \item \verb+DFA1+ and \verb+DFA2+ are models of DFA.
+% \end{itemize}
+% \paragraph{Preconditions}
+% \begin{itemize}
+% \item \verb+a+ has a tree structure, it must not be cyclic nor have a
+%   DAG (Directed Acyclic Graph) structure.
+% \item \verb+[first, last)+ is a valid range.
+% \item \verb+InputIterator1::value_type+ is convertible to
+%   \verb+DFA1::char_type+.
+% \item \verb+[start, finish)+ is a valid range.
+% \item \verb+InputIterator2::value_type+ is a container whose
+%   \verb+value_type+ is \verb+DFA2::char_type+.
+% \end{itemize}
+% \paragraph{Complexity \\}
+% \verb+add_word+: \verb+last - first+ calls to \verb+DFA::delta1+ or
+% \verb+DFA1::set_trans+. \\
+% \verb+add_words+: \verb+finish - start+ calls to \verb+add_word+.
+% \paragraph{Example}
+% \begin{verbatim}
+% \end{verbatim}
+\section{Advanced Examples}
+\end{document}

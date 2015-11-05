@@ -1,0 +1,28 @@
+#!/bin/bash
+
+PATH=../bin:$PATH
+
+if [[ $# -ne 0 && $# -ne 2 ]]; then echo "Usage: $0 [dictionary] [dictionary]"
+echo "       test ASTL sets operations"
+echo "       * dictionary files must contain one word per line"
+echo "       * languages intersection should be non-empty"
+exit 1
+fi
+
+# build all commands
+cd ../src
+make
+cd ../check
+
+# manage default arguments
+if [[ $# -eq 0 ]]
+then dictionary1=words
+dictionary2=words2
+else
+dictionary1=$1
+dictionary2=$2
+fi
+
+# run tests
+make DIC1="$dictionary1" DIC2="$dictionary2"
+exit $?

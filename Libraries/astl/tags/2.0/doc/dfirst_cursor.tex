@@ -1,0 +1,31 @@
+\verb+state_type+ & depth-first cursor & The type of the states
+handles of the underlying DFA. \\ \hline
+\verb+char_type+ & depth-first cursor & The type of the transitions
+letters. \\ \hline 
+\verb+tag_type+ & depth-first cursor & The type of the tags associated to
+states. \\ \hline 
+\verb+dfirst_cursor()+ & depth-first cursor & Construct a cursor with an
+empty stack useful as end-of-range iterator. \\ \hline
+\verb+dfirst_cursor(+ \verb+      const dfirst_cursor &c)+ &  depth-first cursor &
+Copy constructor. \\ \hline 
+\verb+state_type src() const+ & depth-first cursor & Return the state
+handle the cursor is pointing to. \\ \hline
+\verb+bool src_final() const+ & depth-first cursor & Return
+\verb+true+ if the pointed state is final. \\ \hline
+\verb+char_type letter() const+ & depth-first cursor & Return the
+letter on the pointed transition. \\ \hline
+\verb+bool aim() const+ & depth-first cursor & Return the handle of
+the aim state the cursor is pointing to. \\ \hline
+\verb+bool aim_final() const+  & depth-first cursor & Return
+\verb+true+ if the aim state is final. \\ \hline
+\verb+bool operator==(+ 
+\verb+ const dfirst_cursor &c) const+ & depth-first cursor & Return
+\verb+true+ iff both stacks are equal. \\ \hline
+\verb+bool forward()+ & depth-first cursor & Increment the cursor
+making it point to the next transition in the sequence. Return
+\verb+true+ if the transition reached has been pushed onto the
+stack. \\ \hline 
+\verb+Tag src_tag() const+ & depth-first cursor & Return the tag
+associated to the source state. \\ \hline
+\verb+Tag aim_tag() const+ & depth-first cursor & Return the tag
+associated to the aim state. \\ \hline

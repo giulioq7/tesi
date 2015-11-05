@@ -1,0 +1,23 @@
+ASTL beta2.0 
+Getting Started
+
+* Clean up directories and build the dependecies file Makefile.d by 
+  launching "make clean" (this file must be rebuild each time a new
+  .cc file is added into src/ or each time included header files
+  change).
+
+* Build all executables binaries in bin/ from .cc files in
+  src/ by running "make all". This is the default
+  target. This should create a bunch of executable files implementing
+  ASTL algorithms as command line filters, see documentation. 
+  Type "make RELEASE=1" to build an optimized version of the binaries.
+
+* Run basic tests by running "make check". The process should end with a
+  null return value.
+
+* Display possible targets by typing "make help".
+
+* Build the Doxygen documentation by typing "make doc".
+
+Vincent Le Maout, vintz@users.sourceforge.net
+

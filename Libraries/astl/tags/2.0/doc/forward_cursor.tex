@@ -1,0 +1,40 @@
+\input{cursor}
+\verb+char_type letter() const+ & forward cursor & Return the letter
+on the pointed transition. The cursor must have been set to point to a
+defined transition beforehand by succesfully calling
+\verb+first+, \verb+next()+ or \verb+find+. \\
+\hline 
+\verb+bool first()+ & forward cursor & Make the cursor
+point to the first element of the transitions sequence of the source
+state. Return \verb+true+ if there is such an element (if any
+transition is defined), otherwise the pointed transition is
+undefined. \\ \hline 
+\verb+bool next()+ & forward cursor & Move the cursor to
+the next element of the transitions sequence of source state. Return
+\verb+true+ if there is such an element (the cursor is not at the end
+of the sequence), otherwise the pointed transition is
+undefined. \verb+first+ must have been
+successfully called prior to using this method. \\ \hline
+\verb+bool find(const Alphabet &a)+ & forward cursor & Make the cursor
+point to the transition labelled with \verb+a+. Return \verb+true+ if
+such a transition exists, otherwise the pointed transition is
+undefined. \\ \hline 
+\verb+void forward()+ & forward cursor & Move forward on the currently
+pointed transition. The cursor must have been set to point to a
+defined transition beforehand by succesfully calling
+\verb+first+, \verb+next()+ or \verb+find+. \\
+\hline 
+\verb+bool aim_final() const+ & forward cursor & Return \verb+true+ if
+the aim state is final. The cursor must have been set to point to a
+defined transition beforehand by succesfully calling
+\verb+first+, \verb+next()+ or \verb+find+. \\
+\hline 
+\verb+tag_type aim_tag() const+ & forward cursor & Return the object
+associated with the aim state. The cursor must have been set to point to a
+defined transition beforehand by succesfully calling
+\verb+first+, \verb+next()+ or \verb+find+. \\
+\hline 
+\verb+state_type aim() const+ & forward cursor & Return the handle of
+the aim state the cursor is point to. The cursor must have been set to point to a
+defined transition beforehand by succesfully calling
+\verb+first+, \verb+next()+ or \verb+find+. \\ \hline

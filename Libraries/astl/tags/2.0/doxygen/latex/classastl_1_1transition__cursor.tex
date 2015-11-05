@@ -1,0 +1,211 @@
+\section{transition\+\_\+cursor$<$ F\+A $>$ Class Template Reference}
+\label{classastl_1_1transition__cursor}\index{transition\+\_\+cursor$<$ F\+A $>$@{transition\+\_\+cursor$<$ F\+A $>$}}
+
+
+A pointer to an automaton transition ({\itshape source} {\itshape state}, {\itshape letter}, {\itshape aim} {\itshape state}).  
+
+
+
+
+{\ttfamily \#include $<$cursor.\+h$>$}
+
+
+
+Inherits transition\+\_\+cursor\+\_\+concept.
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef F\+A\+::char\+\_\+traits {\bf char\+\_\+traits}\label{classastl_1_1transition__cursor_a4070d2f168f1d1019a37e4e23739ad64}
+
+\begin{DoxyCompactList}\small\item\em Character traits describing \doxyref{char\+\_\+type}{p.}{classastl_1_1transition__cursor_a4c19b73f99f3e9f2281b50cd6e58709a}. \end{DoxyCompactList}\item 
+typedef F\+A\+::char\+\_\+type {\bf char\+\_\+type}\label{classastl_1_1transition__cursor_a4c19b73f99f3e9f2281b50cd6e58709a}
+
+\begin{DoxyCompactList}\small\item\em The type of the transitions letters. \end{DoxyCompactList}\item 
+typedef F\+A\+::state\+\_\+type {\bf state\+\_\+type}\label{classastl_1_1transition__cursor_ade404a93074f9ff90314358f26200e47}
+
+\begin{DoxyCompactList}\small\item\em The type of the automaton-\/states identifiers. \end{DoxyCompactList}\item 
+typedef F\+A\+::tag\+\_\+type {\bf tag\+\_\+type}\label{classastl_1_1transition__cursor_acd1a2f652dfcbd3335dff2ba991ebb1a}
+
+\begin{DoxyCompactList}\small\item\em The type of the data attached to states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf state\+\_\+type} {\bf aim} () const 
+\begin{DoxyCompactList}\small\item\em Returns the aim state of the pointed transition. \end{DoxyCompactList}\item 
+bool {\bf aim\+\_\+final} () const \label{classastl_1_1transition__cursor_a8fdf66e2483d23e73580e5c9ed937dfb}
+
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if the aim state of the transition that this cursor points to is final. \end{DoxyCompactList}\item 
+const {\bf tag\+\_\+type} \& {\bf aim\+\_\+tag} () const \label{classastl_1_1transition__cursor_a6dae0fe9126450e9c463973e3414dbf0}
+
+\begin{DoxyCompactList}\small\item\em Returns the data attached to the aim state of the pointed transition. \end{DoxyCompactList}\item 
+bool {\bf first} ()
+\begin{DoxyCompactList}\small\item\em Makes this cursor point to the first element of the transitions sequence of the source state. \end{DoxyCompactList}\item 
+void {\bf forward} ()
+\begin{DoxyCompactList}\small\item\em Moves forward along the pointed transition. \end{DoxyCompactList}\item 
+{\bf char\+\_\+type} {\bf letter} () const 
+\begin{DoxyCompactList}\small\item\em Returns the letter on the pointed transition. \end{DoxyCompactList}\item 
+bool {\bf next} ()
+\begin{DoxyCompactList}\small\item\em Moves this cursor to the next element of the transitions sequence of the source state. \end{DoxyCompactList}\item 
+bool {\bf operator!=} (const {\bf self} \&x) const \label{classastl_1_1transition__cursor_aef9934be5de2e5c7dd83e1a6a71fd607}
+
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if {\ttfamily x} points to another transition than this cursor. \end{DoxyCompactList}\item 
+{\bf self} \& {\bf operator=} ({\bf state\+\_\+type} p)
+\begin{DoxyCompactList}\small\item\em Sets this cursor to point to state {\ttfamily p}. \end{DoxyCompactList}\item 
+bool {\bf operator==} (const {\bf self} \&x) const \label{classastl_1_1transition__cursor_a8a0948685b8eb65ce6775c8f12547439}
+
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if {\ttfamily x} points to the same transition as this cursor. \end{DoxyCompactList}\item 
+bool {\bf sink} () const \label{classastl_1_1transition__cursor_aaa86c67665c4228704986fda795267b4}
+
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if this cursor points to the sink state {\ttfamily F\+A\+::null\+\_\+state}. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf sink\+\_\+state} () const \label{classastl_1_1transition__cursor_a3d87af14424f9bc42682409b30c4861e}
+
+\begin{DoxyCompactList}\small\item\em Returns the identifier of the sink state {\ttfamily F\+A\+::null\+\_\+state}. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf src} () const \label{classastl_1_1transition__cursor_a137a201732fb341cc5972fe3781e50f0}
+
+\begin{DoxyCompactList}\small\item\em Returns the id of the state that this cursor points to. \end{DoxyCompactList}\item 
+bool {\bf src\+\_\+final} () const \label{classastl_1_1transition__cursor_adac68d94341c2d6f5005d3b21b823ff3}
+
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if the state this cursor points to is final. \end{DoxyCompactList}\item 
+const {\bf tag\+\_\+type} \& {\bf src\+\_\+tag} () const \label{classastl_1_1transition__cursor_ad566703edb60ad110408084dc8d9fef2}
+
+\begin{DoxyCompactList}\small\item\em Returns the data attached to the state this cursor points to. \end{DoxyCompactList}\item 
+{\bf transition\+\_\+cursor} (const F\+A \&a, {\bf state\+\_\+type} p)
+\begin{DoxyCompactList}\small\item\em Creates a cursor pointing to the state {\ttfamily p} of the automaton {\ttfamily a}. \end{DoxyCompactList}\item 
+{\bf transition\+\_\+cursor} (const F\+A \&a)\label{classastl_1_1transition__cursor_a250211cc9fa3bc331b066ccfadc83cdb}
+
+\begin{DoxyCompactList}\small\item\em Creates a cursor pointing to an undefined state of the automaton {\ttfamily a}. \end{DoxyCompactList}\item 
+{\bf transition\+\_\+cursor} ()\label{classastl_1_1transition__cursor_ac71dbb0729cf2a42c3a9ca0026a00bb6}
+
+\begin{DoxyCompactList}\small\item\em Creates a singular cursor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename F\+A$>$class astl\+::transition\+\_\+cursor$<$ F\+A $>$}
+
+A pointer to an automaton transition ({\itshape source} {\itshape state}, {\itshape letter}, {\itshape aim} {\itshape state}). 
+
+It implements traversals of the sequence of transitions going out of the source state. \begin{DoxyParagraph}{Template parameters}
+\begin{TabularC}{4}
+\hline
+\rowcolor{lightgray}{\bf Parameter}&{\bf Description}&{\bf Default}&{\bf Requirements }\\\cline{1-4}
+{\ttfamily F\+A} &The type of the automaton that this cursor will point to&&{\ttfamily F\+A} is a model of \#\+F\+A\\\cline{1-4}
+\end{TabularC}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Model of}
+\doxyref{transition\+\_\+cursor}{p.}{classastl_1_1transition__cursor_abed05cb242f7e3d4f12f243a45f68a78} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Associated Helper Functions}
+transitionc() 
+\end{DoxyParagraph}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}!transition\+\_\+cursor@{transition\+\_\+cursor}}
+\index{transition\+\_\+cursor@{transition\+\_\+cursor}!astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}}
+\subsubsection[{transition\+\_\+cursor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf transition\+\_\+cursor} (
+\begin{DoxyParamCaption}
+\item[{const F\+A \&}]{a, }
+\item[{{\bf state\+\_\+type}}]{p}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1transition__cursor_abed05cb242f7e3d4f12f243a45f68a78}
+
+
+Creates a cursor pointing to the state {\ttfamily p} of the automaton {\ttfamily a}. 
+
+\begin{DoxyPostcond}{Postcondition}
+
+\begin{DoxyCode}
+src() == p 
+\end{DoxyCode}
+ 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\index{astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}!aim@{aim}}
+\index{aim@{aim}!astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}}
+\subsubsection[{aim}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} aim (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1transition__cursor_a742bd0e539b1f9df56841304b7ef4272}
+
+
+Returns the aim state of the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The cursor shall have been set to point to a defined transition beforehand by successfully calling \doxyref{first}{p.}{classastl_1_1transition__cursor_ae9f7851f510732f6e146ce82bc44979e} or \doxyref{next}{p.}{classastl_1_1transition__cursor_a80870c233d0237e3588a2d6f8d176916} 
+\end{DoxyPrecond}
+\index{astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}!first@{first}}
+\index{first@{first}!astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}}
+\subsubsection[{first}]{\setlength{\rightskip}{0pt plus 5cm}bool first (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1transition__cursor_ae9f7851f510732f6e146ce82bc44979e}
+
+
+Makes this cursor point to the first element of the transitions sequence of the source state. 
+
+Returns {\ttfamily true} if such an element exists (if any transition is defined), otherwise the pointed transition is undefined \index{astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}!forward@{forward}}
+\index{forward@{forward}!astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}}
+\subsubsection[{forward}]{\setlength{\rightskip}{0pt plus 5cm}void forward (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1transition__cursor_a7de2a543986e45b9083c69f6138bf079}
+
+
+Moves forward along the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The cursor shall have been set to point to a defined transition beforehand by successfully calling \doxyref{first}{p.}{classastl_1_1transition__cursor_ae9f7851f510732f6e146ce82bc44979e} or \doxyref{next}{p.}{classastl_1_1transition__cursor_a80870c233d0237e3588a2d6f8d176916} 
+\end{DoxyPrecond}
+\index{astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}!letter@{letter}}
+\index{letter@{letter}!astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}}
+\subsubsection[{letter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf char\+\_\+type} letter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1transition__cursor_a6b28dc14fee32fdbd1e558b9c4884c9f}
+
+
+Returns the letter on the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The cursor shall have been set to point to a defined transition beforehand by successfully calling \doxyref{first}{p.}{classastl_1_1transition__cursor_ae9f7851f510732f6e146ce82bc44979e} or \doxyref{next}{p.}{classastl_1_1transition__cursor_a80870c233d0237e3588a2d6f8d176916} 
+\end{DoxyPrecond}
+\index{astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}!next@{next}}
+\index{next@{next}!astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}bool next (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1transition__cursor_a80870c233d0237e3588a2d6f8d176916}
+
+
+Moves this cursor to the next element of the transitions sequence of the source state. 
+
+Returns {\ttfamily true} if such an element exists (the cursor is not at the end of the sequence), otherwise the pointed transition is undefined. \begin{DoxyPrecond}{Precondition}
+The cursor shall have been set to point to a defined transition beforehand by successfully calling \doxyref{first}{p.}{classastl_1_1transition__cursor_ae9f7851f510732f6e146ce82bc44979e} or \doxyref{next}{p.}{classastl_1_1transition__cursor_a80870c233d0237e3588a2d6f8d176916} 
+\end{DoxyPrecond}
+\index{astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}!operator=@{operator=}}
+\index{operator=@{operator=}!astl\+::transition\+\_\+cursor@{astl\+::transition\+\_\+cursor}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf self}\& operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{p}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1transition__cursor_af2636a625f63fd707ee326cd3149dc48}
+
+
+Sets this cursor to point to state {\ttfamily p}. 
+
+\begin{DoxyPostcond}{Postcondition}
+
+\begin{DoxyCode}
+src() == p 
+\end{DoxyCode}
+ 
+\end{DoxyPostcond}

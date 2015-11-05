@@ -1,0 +1,370 @@
+\section{stack\+\_\+cursor$<$ Forward\+Cursor, Stack\+Container $>$ Class Template Reference}
+\label{classastl_1_1stack__cursor}\index{stack\+\_\+cursor$<$ Forward\+Cursor, Stack\+Container $>$@{stack\+\_\+cursor$<$ Forward\+Cursor, Stack\+Container $>$}}
+
+
+A \#forward\+\_\+cursor storing its path in a stack of cursors.  
+
+
+
+
+{\ttfamily \#include $<$cursor.\+h$>$}
+
+
+
+Inherits Stack\+Container, and stack\+\_\+cursor\+\_\+concept.
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef Forward\+Cursor\+::char\+\_\+traits {\bf char\+\_\+traits}\label{classastl_1_1stack__cursor_ad8bde426782829974765ca3cf9e55e88}
+
+\begin{DoxyCompactList}\small\item\em Character traits describing \doxyref{char\+\_\+type}{p.}{classastl_1_1stack__cursor_abca675437fcd5cc259bc0a9ff8ca5846}. \end{DoxyCompactList}\item 
+typedef Forward\+Cursor\+::char\+\_\+type {\bf char\+\_\+type}\label{classastl_1_1stack__cursor_abca675437fcd5cc259bc0a9ff8ca5846}
+
+\begin{DoxyCompactList}\small\item\em The type of the transitions letters. \end{DoxyCompactList}\item 
+typedef Forward\+Cursor\+::state\+\_\+type {\bf state\+\_\+type}\label{classastl_1_1stack__cursor_a40cdabeccae4cfdf971eb6593bdd602e}
+
+\begin{DoxyCompactList}\small\item\em The type of the automaton-\/states identifiers. \end{DoxyCompactList}\item 
+typedef Forward\+Cursor\+::tag\+\_\+type {\bf tag\+\_\+type}\label{classastl_1_1stack__cursor_a865d5f4253e69bee2ab7fff1cbcce2d0}
+
+\begin{DoxyCompactList}\small\item\em The type of the data attached to states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf state\+\_\+type} {\bf aim} () const 
+\begin{DoxyCompactList}\small\item\em Returns the aim state of the pointed transition. \end{DoxyCompactList}\item 
+bool {\bf aim\+\_\+final} () const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if the aim state of the transition that this cursor points to is final. \end{DoxyCompactList}\item 
+{\bf tag\+\_\+type} {\bf aim\+\_\+tag} () const 
+\begin{DoxyCompactList}\small\item\em Returns the data attached to the aim state of the pointed transition. \end{DoxyCompactList}\item 
+bool {\bf backward} ()
+\begin{DoxyCompactList}\small\item\em Pops the stack top and return {\ttfamily false} if the resulting stack is empty. \end{DoxyCompactList}\item 
+bool {\bf exists} (const {\bf char\+\_\+type} \&a) const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if an outgoing transition labeled with {\ttfamily a} exists. \end{DoxyCompactList}\item 
+bool {\bf find} (const {\bf char\+\_\+type} \&a)
+\begin{DoxyCompactList}\small\item\em Makes this cursor point to the transition labeled with {\ttfamily a}. \end{DoxyCompactList}\item 
+bool {\bf first} ()
+\begin{DoxyCompactList}\small\item\em Makes this cursor point to the first element of the transitions sequence of the source state. \end{DoxyCompactList}\item 
+void {\bf forward} ()
+\begin{DoxyCompactList}\small\item\em Moves forward along the pointed transition and the resulting cursor is pushed onto the stack. \end{DoxyCompactList}\item 
+bool {\bf forward} (const {\bf char\+\_\+type} \&a)
+\begin{DoxyCompactList}\small\item\em Moves along the outgoing transition labeled with {\ttfamily a} if defined, otherwise moves to sink state and returns {\ttfamily false}. \end{DoxyCompactList}\item 
+{\bf char\+\_\+type} {\bf letter} () const 
+\begin{DoxyCompactList}\small\item\em Returns the letter on the pointed transition. \end{DoxyCompactList}\item 
+bool {\bf next} ()
+\begin{DoxyCompactList}\small\item\em Moves this cursor to the next element of the transitions sequence of the source state. \end{DoxyCompactList}\item 
+bool {\bf sink} () const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if this cursor points to the sink state. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf sink\+\_\+state} () const 
+\begin{DoxyCompactList}\small\item\em Returns the sink state identifier. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf src} () const 
+\begin{DoxyCompactList}\small\item\em Returns the identifier of the state that this cursor points to. \end{DoxyCompactList}\item 
+bool {\bf src\+\_\+final} () const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if the state that this cursor points to is final. \end{DoxyCompactList}\item 
+{\bf tag\+\_\+type} {\bf src\+\_\+tag} () const 
+\begin{DoxyCompactList}\small\item\em Returns the data attached to the state that this cursor points to. \end{DoxyCompactList}\item 
+{\bf stack\+\_\+cursor} (const Forward\+Cursor \&x)\label{classastl_1_1stack__cursor_abe457749342fd1bf78860c966428035b}
+
+\begin{DoxyCompactList}\small\item\em Creates a cursor with a stack containing {\ttfamily x}. \end{DoxyCompactList}\item 
+{\bf stack\+\_\+cursor} ()\label{classastl_1_1stack__cursor_a66fe44763af97dded05e0af27444210b}
+
+\begin{DoxyCompactList}\small\item\em Creates a cursor with an empty stack. \end{DoxyCompactList}\item 
+const Forward\+Cursor \& {\bf top} () const 
+\begin{DoxyCompactList}\small\item\em Returns the stack top. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Forward\+Cursor, typename Stack\+Container = vector$<$\+Forward\+Cursor$>$$>$class astl\+::stack\+\_\+cursor$<$ Forward\+Cursor, Stack\+Container $>$}
+
+A \#forward\+\_\+cursor storing its path in a stack of cursors. 
+
+Each forward move along a transition pushes a new \#forward\+\_\+cursor onto the stack top and an extra method \doxyref{backward()}{p.}{classastl_1_1stack__cursor_ab861d77763d681d57e2ff48841e1f66f} allows to pop. The depth-\/first traversal cursor \#dfirst\+\_\+cursor relies on the \doxyref{stack\+\_\+cursor}{p.}{classastl_1_1stack__cursor_abe457749342fd1bf78860c966428035b} \begin{DoxyParagraph}{Template parameters}
+\begin{TabularC}{4}
+\hline
+\rowcolor{lightgray}{\bf Parameter}&{\bf Description}&{\bf Default}&{\bf Requirements }\\\cline{1-4}
+{\ttfamily Forward\+Cursor} &The type of the cursors that are stored on the stack&&{\ttfamily Forward\+Cursor} is a model of forward cursor \\\cline{1-4}
+{\ttfamily Stack\+Container} &The type of the sequential container managing the stack&{\ttfamily vector$<$\+Forward\+Cursor$>$} &{\ttfamily Stack\+Container} is a model of back insertion sequence and {\ttfamily Stack\+Container\+::value\+\_\+type} is {\ttfamily Forward\+Cursor} \\\cline{1-4}
+\end{TabularC}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Model of}
+cursor, transition cursor, forward cursor, stack cursor 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Associated Helper Functions}
+stackc() 
+\end{DoxyParagraph}
+
+
+\subsection{Member Function Documentation}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!aim@{aim}}
+\index{aim@{aim}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{aim}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} aim (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_a742bd0e539b1f9df56841304b7ef4272}
+
+
+Returns the aim state of the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+
+The cursor shall have been set to point to a defined transition beforehand by successfully calling \doxyref{first}{p.}{classastl_1_1stack__cursor_ae9f7851f510732f6e146ce82bc44979e}, \doxyref{next}{p.}{classastl_1_1stack__cursor_a80870c233d0237e3588a2d6f8d176916} or \doxyref{find}{p.}{classastl_1_1stack__cursor_a01fb64a042e3a398a2cdac850416a6cd} 
+\end{DoxyPrecond}
+
+
+Referenced by D\+F\+A\+\_\+min\+\_\+hash$<$ Char\+Traits $>$\+::insert().
+
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!aim\+\_\+final@{aim\+\_\+final}}
+\index{aim\+\_\+final@{aim\+\_\+final}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{aim\+\_\+final}]{\setlength{\rightskip}{0pt plus 5cm}bool aim\+\_\+final (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_a8fdf66e2483d23e73580e5c9ed937dfb}
+
+
+Returns {\ttfamily true} if the aim state of the transition that this cursor points to is final. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!aim\+\_\+tag@{aim\+\_\+tag}}
+\index{aim\+\_\+tag@{aim\+\_\+tag}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{aim\+\_\+tag}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tag\+\_\+type} aim\+\_\+tag (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_a76a01210687f95ea151f8073a0eac35f}
+
+
+Returns the data attached to the aim state of the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!backward@{backward}}
+\index{backward@{backward}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{backward}]{\setlength{\rightskip}{0pt plus 5cm}bool backward (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1stack__cursor_ab861d77763d681d57e2ff48841e1f66f}
+
+
+Pops the stack top and return {\ttfamily false} if the resulting stack is empty. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty 
+\end{DoxyPrecond}
+
+
+Referenced by D\+F\+A\+\_\+min\+\_\+hash$<$ Char\+Traits $>$\+::insert().
+
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!exists@{exists}}
+\index{exists@{exists}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{exists}]{\setlength{\rightskip}{0pt plus 5cm}bool exists (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{a}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_a76881664fce15da44fe584dd40f5fe88}
+
+
+Returns {\ttfamily true} if an outgoing transition labeled with {\ttfamily a} exists. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!find@{find}}
+\index{find@{find}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{find}]{\setlength{\rightskip}{0pt plus 5cm}bool find (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{a}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1stack__cursor_a01fb64a042e3a398a2cdac850416a6cd}
+
+
+Makes this cursor point to the transition labeled with {\ttfamily a}. 
+
+Returns {\ttfamily true} if such a transition exists, otherwise the pointed transition is undefined. \begin{DoxyPrecond}{Precondition}
+The stack is not empty 
+\end{DoxyPrecond}
+
+
+Referenced by D\+F\+A\+\_\+min\+\_\+hash$<$ Char\+Traits $>$\+::insert().
+
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!first@{first}}
+\index{first@{first}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{first}]{\setlength{\rightskip}{0pt plus 5cm}bool first (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1stack__cursor_ae9f7851f510732f6e146ce82bc44979e}
+
+
+Makes this cursor point to the first element of the transitions sequence of the source state. 
+
+Returns {\ttfamily true} if such an element exists (if any transition is defined), otherwise the pointed transition is undefined. \begin{DoxyPrecond}{Precondition}
+The stack is not empty 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!forward@{forward}}
+\index{forward@{forward}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{forward}]{\setlength{\rightskip}{0pt plus 5cm}void forward (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1stack__cursor_a7de2a543986e45b9083c69f6138bf079}
+
+
+Moves forward along the pointed transition and the resulting cursor is pushed onto the stack. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+
+The cursor shall have been set to point to a defined transition beforehand by successfully calling \doxyref{first}{p.}{classastl_1_1stack__cursor_ae9f7851f510732f6e146ce82bc44979e}, \doxyref{next}{p.}{classastl_1_1stack__cursor_a80870c233d0237e3588a2d6f8d176916} or \doxyref{find}{p.}{classastl_1_1stack__cursor_a01fb64a042e3a398a2cdac850416a6cd} 
+\end{DoxyPrecond}
+
+
+Referenced by D\+F\+A\+\_\+min\+\_\+hash$<$ Char\+Traits $>$\+::insert().
+
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!forward@{forward}}
+\index{forward@{forward}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{forward}]{\setlength{\rightskip}{0pt plus 5cm}bool forward (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{a}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1stack__cursor_ac091f7bf62a33b9952934100cd13a2f4}
+
+
+Moves along the outgoing transition labeled with {\ttfamily a} if defined, otherwise moves to sink state and returns {\ttfamily false}. 
+
+The resulting cursor is pushed onto the stack. \begin{DoxyPrecond}{Precondition}
+The stack is not empty 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!letter@{letter}}
+\index{letter@{letter}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{letter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf char\+\_\+type} letter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_a6b28dc14fee32fdbd1e558b9c4884c9f}
+
+
+Returns the letter on the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+
+The cursor shall have been set to point to a defined transition beforehand by successfully calling \doxyref{first}{p.}{classastl_1_1stack__cursor_ae9f7851f510732f6e146ce82bc44979e}, \doxyref{next}{p.}{classastl_1_1stack__cursor_a80870c233d0237e3588a2d6f8d176916} or \doxyref{find}{p.}{classastl_1_1stack__cursor_a01fb64a042e3a398a2cdac850416a6cd} 
+\end{DoxyPrecond}
+
+
+Referenced by D\+F\+A\+\_\+min\+\_\+hash$<$ Char\+Traits $>$\+::insert().
+
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!next@{next}}
+\index{next@{next}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}bool next (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1stack__cursor_a80870c233d0237e3588a2d6f8d176916}
+
+
+Moves this cursor to the next element of the transitions sequence of the source state. 
+
+Returns {\ttfamily true} if such an element exists (the cursor is not at the end of the sequence), otherwise the pointed transition is undefined. \begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+
+The cursor shall have been set to point to a defined transition beforehand by successfully calling \doxyref{first}{p.}{classastl_1_1stack__cursor_ae9f7851f510732f6e146ce82bc44979e}, \doxyref{next}{p.}{classastl_1_1stack__cursor_a80870c233d0237e3588a2d6f8d176916} or \doxyref{find}{p.}{classastl_1_1stack__cursor_a01fb64a042e3a398a2cdac850416a6cd} 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!sink@{sink}}
+\index{sink@{sink}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{sink}]{\setlength{\rightskip}{0pt plus 5cm}bool sink (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_aaa86c67665c4228704986fda795267b4}
+
+
+Returns {\ttfamily true} if this cursor points to the sink state. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!sink\+\_\+state@{sink\+\_\+state}}
+\index{sink\+\_\+state@{sink\+\_\+state}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{sink\+\_\+state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} sink\+\_\+state (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_a3d87af14424f9bc42682409b30c4861e}
+
+
+Returns the sink state identifier. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!src@{src}}
+\index{src@{src}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{src}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} src (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_a137a201732fb341cc5972fe3781e50f0}
+
+
+Returns the identifier of the state that this cursor points to. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+
+The stack is not empty. 
+\end{DoxyPrecond}
+
+
+Referenced by D\+F\+A\+\_\+min\+\_\+hash$<$ Char\+Traits $>$\+::insert().
+
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!src\+\_\+final@{src\+\_\+final}}
+\index{src\+\_\+final@{src\+\_\+final}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{src\+\_\+final}]{\setlength{\rightskip}{0pt plus 5cm}bool src\+\_\+final (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_adac68d94341c2d6f5005d3b21b823ff3}
+
+
+Returns {\ttfamily true} if the state that this cursor points to is final. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!src\+\_\+tag@{src\+\_\+tag}}
+\index{src\+\_\+tag@{src\+\_\+tag}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{src\+\_\+tag}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tag\+\_\+type} src\+\_\+tag (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_a530bf00de29674ef6743b3375d5732f5}
+
+
+Returns the data attached to the state that this cursor points to. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty. 
+\end{DoxyPrecond}
+\index{astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}!top@{top}}
+\index{top@{top}!astl\+::stack\+\_\+cursor@{astl\+::stack\+\_\+cursor}}
+\subsubsection[{top}]{\setlength{\rightskip}{0pt plus 5cm}const Forward\+Cursor\& top (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1stack__cursor_ac6fab922cd42c412bccb39ed0b7d0a13}
+
+
+Returns the stack top. 
+
+\begin{DoxyPrecond}{Precondition}
+The stack is not empty 
+\end{DoxyPrecond}

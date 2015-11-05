@@ -1,0 +1,62 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% algorithm.%name%
+\newpage
+\noindent {\huge {\bf %name%}} \\
+\noindent \begin{tabular}{p{7.25cm}p{7.25cm}} \hline
+\flushleft {\bf Category : {\Large Algorithm}} & \flushright {\bf Component Type :
+{\Large Function}} 
+\end{tabular} \\
+\paragraph{Prototype}
+\begin{verbatim}
+%prototype%
+\end{verbatim}
+\paragraph{Description \\} 
+%description%
+\paragraph{Definition \\}
+\verb+%definition%+
+\paragraph{Requirements on types}
+\begin{itemize}
+\item %requirement%
+\item %requirement%
+\item %requirement%
+\item %requirement%
+\item %requirement%
+\item %requirement%
+\item %requirement%
+\item %requirement%
+\item %requirement%
+\item %requirement%
+\end{itemize}
+\paragraph{Preconditions}
+\begin{itemize}
+\item %precondition%
+\item %precondition%
+\item %precondition%
+\item %precondition%
+\item %precondition%
+\item %precondition%
+\item %precondition%
+\item %precondition%
+\item %precondition%
+\item %precondition%
+\end{itemize}
+\paragraph{Complexity \\}
+%complexity%
+\paragraph{Example}
+\begin{verbatim}
+%example%
+\end{verbatim}
+\paragraph{Notes}
+\begin{itemize}
+\item %note%
+\item %note%
+\item %note%
+\item %note%
+\item %note%
+\item %note%
+\item %note%
+\item %note%
+\item %note%
+\item %note%
+\end{itemize}
+\paragraph{See Also \\}
+%seealso%

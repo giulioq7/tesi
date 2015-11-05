@@ -1,0 +1,135 @@
+\section{D\+F\+A\+\_\+min$<$ Char\+Traits, Tag $>$ Class Template Reference}
+\label{classastl_1_1DFA__min}\index{D\+F\+A\+\_\+min$<$ Char\+Traits, Tag $>$@{D\+F\+A\+\_\+min$<$ Char\+Traits, Tag $>$}}
+
+
+A dynamic minimal acyclic D\+F\+A container class.  
+
+
+
+
+{\ttfamily \#include $<$dfa\+\_\+min.\+h$>$}
+
+
+
+Inherits D\+F\+A\+\_\+concept.
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf clear} ()
+\item 
+void {\bf freeze} ()
+\begin{DoxyCompactList}\small\item\em Get rid of the extra data used for maintaining the automaton minimality. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Forward\+I $>$ }\\bool {\bf insert} (Forward\+I, Forward\+I)
+\begin{DoxyCompactList}\small\item\em Add a word defined by a range on a sequence of characters of type {\ttfamily char\+\_\+type}. \end{DoxyCompactList}\item 
+bool {\bf insert} (const basic\+\_\+string$<$ char\+\_\+type $>$ \&s)
+\begin{DoxyCompactList}\small\item\em Add a word defined by a character string. \end{DoxyCompactList}\item 
+unsigned int {\bf size} () const 
+\item 
+unsigned int {\bf wc} () const 
+\begin{DoxyCompactList}\small\item\em word count. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Char\+Traits = plain, typename Tag = empty\+\_\+tag$>$class astl\+::\+D\+F\+A\+\_\+min$<$ Char\+Traits, Tag $>$}
+
+A dynamic minimal acyclic D\+F\+A container class. 
+
+Words can be added keeping the automaton minimal. It does not define the standard D\+F\+A interface but a restricted one that allows only word insertions and read-\/only operations thus enforcing the invariants for the structure integrity to be guaranteed.
+
+\begin{DoxyParagraph}{Template parameters}
+\begin{TabularC}{4}
+\hline
+\rowcolor{lightgray}{\bf Parameter}&{\bf Description}&{\bf Default}&{\bf Requirements }\\\cline{1-4}
+{\ttfamily Char\+Traits} &Character traits describing the alphabet that the words are built with.&{\ttfamily plain} &{\ttfamily Char\+Traits} is a model of \#\+Alphabet and {\ttfamily Char\+Traits\+::char\+\_\+type} is a P\+O\+D type \\\cline{1-4}
+{\ttfamily Tag} &The type of the data attached to states.&{\ttfamily empty\+\_\+tag}  &\\\cline{1-4}
+\end{TabularC}
+
+\end{DoxyParagraph}
+
+
+\subsection{Member Function Documentation}
+\index{astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}!clear@{clear}}
+\index{clear@{clear}!astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}void clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__min_ac8bb3912a3ce86b15842e79d0b421204}
+\begin{DoxyPostcond}{Postcondition}
+
+\begin{DoxyCode}
+wc() == 0 
+\end{DoxyCode}
+ 
+\end{DoxyPostcond}
+\index{astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}!freeze@{freeze}}
+\index{freeze@{freeze}!astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}}
+\subsubsection[{freeze}]{\setlength{\rightskip}{0pt plus 5cm}void freeze (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__min_abd8698b462ce90fe56b15ce7a0192d3e}
+
+
+Get rid of the extra data used for maintaining the automaton minimality. 
+
+Once frozen, words can still be added but the next insertion will take more time to rebuild the necessary data structure that had been disposed of. \index{astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}!insert@{insert}}
+\index{insert@{insert}!astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}}
+\subsubsection[{insert}]{\setlength{\rightskip}{0pt plus 5cm}bool insert (
+\begin{DoxyParamCaption}
+\item[{Forward\+I}]{, }
+\item[{Forward\+I}]{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__min_a3a43f9279038d8072b59af3c45b9b9fb}
+
+
+Add a word defined by a range on a sequence of characters of type {\ttfamily char\+\_\+type}. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the word has been actually added, {\ttfamily false} if the word already exists and that the operation left the automaton unchanged. 
+\end{DoxyReturn}
+\begin{DoxyPostcond}{Postcondition}
+the automaton is minimal. 
+\end{DoxyPostcond}
+\index{astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}!insert@{insert}}
+\index{insert@{insert}!astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}}
+\subsubsection[{insert}]{\setlength{\rightskip}{0pt plus 5cm}bool insert (
+\begin{DoxyParamCaption}
+\item[{const basic\+\_\+string$<$ char\+\_\+type $>$ \&}]{s}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__min_a2c5644df13a4cb77ac2120138ca5df54}
+
+
+Add a word defined by a character string. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the word has been actually added, {\ttfamily false} if the word already exists and that the operation left the automaton unchanged. 
+\end{DoxyReturn}
+\begin{DoxyPostcond}{Postcondition}
+the automaton is minimal. 
+\end{DoxyPostcond}
+\index{astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}!size@{size}}
+\index{size@{size}!astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__min_a90ca964ebcc1b02bbcde225edd49e812}
+\begin{DoxyReturn}{Returns}
+{\ttfamily \doxyref{wc()}{p.}{classastl_1_1DFA__min_a5bc74fdaa5f23bc3e8e6479f9cac6203}} 
+\end{DoxyReturn}
+\index{astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}!wc@{wc}}
+\index{wc@{wc}!astl\+::\+D\+F\+A\+\_\+min@{astl\+::\+D\+F\+A\+\_\+min}}
+\subsubsection[{wc}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int wc (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__min_a5bc74fdaa5f23bc3e8e6479f9cac6203}
+
+
+word count. 
+
+\begin{DoxyReturn}{Returns}
+a count of the words in the automaton language 
+\end{DoxyReturn}

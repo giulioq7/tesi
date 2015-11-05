@@ -1,0 +1,56 @@
+\section{cursor.\+h File Reference}
+\label{cursor_8h}\index{cursor.\+h@{cursor.\+h}}
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$functional$>$}\\*
+{\ttfamily \#include $<$list$>$}\\*
+{\ttfamily \#include $<$deque$>$}\\*
+{\ttfamily \#include $<$queue$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class {\bf bfirst\+\_\+cursor$<$ Queue\+Cursor, Marker\+Function $>$}
+\begin{DoxyCompactList}\small\item\em A \doxyref{bfirst\+\_\+cursor}{p.}{classastl_1_1bfirst__cursor_a43b959e39feac33b5c81a1ca84ca7282} implements the breadth-\/first traversal on deterministic automata. \end{DoxyCompactList}\item 
+class {\bf cursor$<$ D\+F\+A $>$}
+\begin{DoxyCompactList}\small\item\em A plain cursor is a pointer to an automaton state that is able to move along defined transitions. \end{DoxyCompactList}\item 
+class {\bf dfirst\+\_\+cursor$<$ Stack\+Cursor, Marker\+Function $>$}
+\begin{DoxyCompactList}\small\item\em Implements the depth-\/first traversal on deterministic automata. \end{DoxyCompactList}\item 
+class {\bf forward\+\_\+cursor$<$ D\+F\+A $>$}
+\begin{DoxyCompactList}\small\item\em A pointer to a deterministic-\/automaton transition ({\itshape source} {\itshape state}, {\itshape letter}, {\itshape aim} {\itshape state}). \end{DoxyCompactList}\item 
+class {\bf queue\+\_\+cursor$<$ Forward\+Cursor, Queue\+Container $>$}
+\begin{DoxyCompactList}\small\item\em A \#forward\+\_\+cursor storing its path in a queue of cursors. \end{DoxyCompactList}\item 
+class {\bf stack\+\_\+cursor$<$ Forward\+Cursor, Stack\+Container $>$}
+\begin{DoxyCompactList}\small\item\em A \#forward\+\_\+cursor storing its path in a stack of cursors. \end{DoxyCompactList}\item 
+class {\bf transition\+\_\+cursor$<$ F\+A $>$}
+\begin{DoxyCompactList}\small\item\em A pointer to an automaton transition ({\itshape source} {\itshape state}, {\itshape letter}, {\itshape aim} {\itshape state}). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\bfirst\+\_\+mark\+\_\+cursor\+\_\+type$<$ T, typename T\+::concept, set\+\_\+marker$<$ typename T\+::state\+\_\+type $>$ $>$\+::model {\bfseries bfirst\+\_\+markc} (const T \&x)
+\begin{DoxyCompactList}\small\item\em Construct a \#bfirst\+\_\+cursor from either a cyclic automaton, a forward or queue cursor on cyclic structures. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\bfirst\+\_\+cursor\+\_\+type$<$ T, typename T\+::concept $>$\+::model {\bfseries bfirstc} (const T \&x)
+\begin{DoxyCompactList}\small\item\em Constructs a \#bfirst\+\_\+cursor from either an automaton, a forward cursor or a queue cursor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\dfirst\+\_\+mark\+\_\+cursor\+\_\+type$<$ T, typename T\+::concept, set\+\_\+marker$<$ typename T\+::state\+\_\+type $>$ $>$\+::model {\bfseries dfirst\+\_\+markc} (const T \&x)
+\begin{DoxyCompactList}\small\item\em Construct a \#dfirst\+\_\+cursor from either a cyclic automaton, a forward or stack cursor on cyclic structures. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\dfirst\+\_\+cursor\+\_\+type$<$ T, typename T\+::concept $>$\+::model {\bfseries dfirstc} (const T \&x)
+\begin{DoxyCompactList}\small\item\em Constructs a \#dfirst\+\_\+cursor from either an automaton, a forward cursor or a stack cursor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Cursor , typename Input\+Iterator $>$ }\\bool {\bfseries forward} (Cursor \&c, Input\+Iterator i, Input\+Iterator j)
+\begin{DoxyCompactList}\small\item\em Tries to move the cursor {\ttfamily c} along the path defined by the range {\ttfamily  [first, last) }. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename D\+F\+A $>$ }\\forward\+\_\+cursor$<$ D\+F\+A $>$ {\bfseries forwardc} (const D\+F\+A \&a, typename D\+F\+A\+::state\+\_\+type q)
+\begin{DoxyCompactList}\small\item\em Constructs a \#forward\+\_\+cursor that points to a specified state of a deterministic automaton. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename D\+F\+A $>$ }\\forward\+\_\+cursor$<$ D\+F\+A $>$ {\bfseries forwardc} (const D\+F\+A \&a)
+\begin{DoxyCompactList}\small\item\em Constructs a \#forward\+\_\+cursor that points to the initial state of a deterministic automaton. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename D\+F\+A $>$ }\\cursor$<$ D\+F\+A $>$ {\bfseries plainc} (const D\+F\+A \&a, typename D\+F\+A\+::state\+\_\+type q)
+\begin{DoxyCompactList}\small\item\em Constructs a plain \#cursor that points to a specified state of a deterministic automaton. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename D\+F\+A $>$ }\\cursor$<$ D\+F\+A $>$ {\bfseries plainc} (const D\+F\+A \&a)
+\begin{DoxyCompactList}\small\item\em Constructs a plain \#cursor that points to the initial state of a deterministic automaton. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Forward\+Cursor $>$ }\\queue\+\_\+cursor$<$ Forward\+Cursor $>$ {\bfseries queuec} (const Forward\+Cursor \&x)
+\begin{DoxyCompactList}\small\item\em Constructs a \#queue\+\_\+cursor from a \#forward\+\_\+cursor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Forward\+Cursor $>$ }\\stack\+\_\+cursor$<$ Forward\+Cursor $>$ {\bfseries stackc} (const Forward\+Cursor \&c)
+\begin{DoxyCompactList}\small\item\em Constructs a \#stack\+\_\+cursor containing a specified forward cursor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F\+A $>$ }\\transition\+\_\+cursor$<$ F\+A $>$ {\bfseries transitionc} (const F\+A \&a, typename F\+A\+::state\+\_\+type q)
+\begin{DoxyCompactList}\small\item\em Constructs a \#transition\+\_\+cursor that points to a specified state of an automaton. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F\+A $>$ }\\transition\+\_\+cursor$<$ F\+A $>$ {\bfseries transitionc} (const F\+A \&a)
+\begin{DoxyCompactList}\small\item\em Constructs a \#transition\+\_\+cursor that points to the initial state of an automaton. \end{DoxyCompactList}\end{DoxyCompactItemize}

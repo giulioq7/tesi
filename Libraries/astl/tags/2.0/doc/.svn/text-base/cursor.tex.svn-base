@@ -1,0 +1,30 @@
+% plain cursor interface specifications
+% to be included into a LaTeX tabular environment with 3 columns
+\verb+state_type+ & plain cursor & The type of the states handles of
+the underlying DFA, that is, \verb+DFA::state_type+ \\ \hline
+\verb+char_type+ & plain cursor & The type of the transitions letters,
+\verb+DFA::char_type+ \\ \hline
+\verb+tag_type+ & plain cursor & The type of the tags associated to states,
+\verb+DFA::tag_type+ \\ \hline
+\verb+char_traits+ & plain cursor & Character traits associated to
+\verb+char_type+ \\ \hline
+\verb+cursor()+ & plain cursor & Default constructor \\ \hline
+\verb+cursor(const cursor&)+ & plain cursor & Copy constructor \\ \hline
+\verb+state_type src() const+ & plain cursor & Return the state handle
+the cursor is pointing to\\ \hline
+\verb+cursor& operator=(state_type q)+ & plain cursor & Set the cursor
+to point to state \verb+q+ \\ \hline
+\verb+cursor& operator=(const cursor&)+ & plain cursor & Assignment operator \\ \hline
+\verb+bool operator==(const cursor&) const+ & plain cursor & Return
+\verb+true+ iff both cursors point to the same state \\ \hline
+\verb+bool sink() const+ & plain cursor & Return \verb+true+ iff the
+cursor points to the sink state \verb+DFA::null_state+ \\ \hline
+\verb+bool forward(const char_type &a)+ & plain cursor & Move along
+transition labeled with \verb+a+ if defined, otherwise move to sink
+state and return \verb+false+ \\ \hline
+\verb+bool exists(const char_type &a) const+ & plain cursor & Return
+\verb+true+ if a transition labeled with \verb+a+ is defined \\ \hline
+\verb+bool src_final() const+ & plain cursor & Return \verb+true+ if
+pointed state is final \\ \hline
+\verb+tag_type src_tag() const+ & plain cursor & Return the object
+associated to pointed state \\ \hline

@@ -1,0 +1,144 @@
+\section{cursor$<$ D\+F\+A $>$ Class Template Reference}
+\label{classastl_1_1cursor}\index{cursor$<$ D\+F\+A $>$@{cursor$<$ D\+F\+A $>$}}
+
+
+A plain cursor is a pointer to an automaton state that is able to move along defined transitions.  
+
+
+
+
+{\ttfamily \#include $<$cursor.\+h$>$}
+
+
+
+Inherits cursor\+\_\+concept.
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef D\+F\+A\+::char\+\_\+traits {\bf char\+\_\+traits}\label{classastl_1_1cursor_a6359447f7b84903df56c9979d803aa60}
+
+\begin{DoxyCompactList}\small\item\em Character traits describing \doxyref{char\+\_\+type}{p.}{classastl_1_1cursor_a6f0a01bfd199068ca92da76d90230cc5}. \end{DoxyCompactList}\item 
+typedef D\+F\+A\+::char\+\_\+type {\bf char\+\_\+type}\label{classastl_1_1cursor_a6f0a01bfd199068ca92da76d90230cc5}
+
+\begin{DoxyCompactList}\small\item\em The type of the transitions letters. \end{DoxyCompactList}\item 
+typedef D\+F\+A\+::state\+\_\+type {\bf state\+\_\+type}\label{classastl_1_1cursor_a5688781e11c8c2c97986575ce50490d2}
+
+\begin{DoxyCompactList}\small\item\em The type of the automaton-\/states identifiers. \end{DoxyCompactList}\item 
+typedef D\+F\+A\+::tag\+\_\+type {\bf tag\+\_\+type}\label{classastl_1_1cursor_a94f372c34a236e680045fd9067973591}
+
+\begin{DoxyCompactList}\small\item\em The type of the data attached to states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf cursor} ()\label{classastl_1_1cursor_aa3b267270ebe136571604fe35ce404fa}
+
+\begin{DoxyCompactList}\small\item\em Creates a singular cursor. \end{DoxyCompactList}\item 
+{\bf cursor} (const D\+F\+A \&a)\label{classastl_1_1cursor_a006684caa4b6bf6bbd2463042c909906}
+
+\begin{DoxyCompactList}\small\item\em Creates a cursor pointing to an undefined state of the automaton {\ttfamily a}. \end{DoxyCompactList}\item 
+{\bf cursor} (const D\+F\+A \&a, {\bf state\+\_\+type} p)
+\begin{DoxyCompactList}\small\item\em Creates a cursor pointing to state {\ttfamily p} of the automaton {\ttfamily a}. \end{DoxyCompactList}\item 
+bool {\bf exists} (const {\bf char\+\_\+type} \&a) const \label{classastl_1_1cursor_a76881664fce15da44fe584dd40f5fe88}
+
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if any outgoing transition labeled with {\ttfamily a} exists. \end{DoxyCompactList}\item 
+bool {\bf forward} (const {\bf char\+\_\+type} \&a)\label{classastl_1_1cursor_ac091f7bf62a33b9952934100cd13a2f4}
+
+\begin{DoxyCompactList}\small\item\em Moves along the outgoing transition labeled with {\ttfamily a} if defined, otherwise moves to sink state and returns {\ttfamily false}. \end{DoxyCompactList}\item 
+{\bf self} \& {\bf operator=} ({\bf state\+\_\+type} p)
+\begin{DoxyCompactList}\small\item\em Sets this cursor to point to the state {\ttfamily p}. \end{DoxyCompactList}\item 
+bool {\bf operator==} (const {\bf self} \&x) const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if {\ttfamily x} points to the same state as this cursor. \end{DoxyCompactList}\item 
+bool {\bf sink} () const \label{classastl_1_1cursor_aaa86c67665c4228704986fda795267b4}
+
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if this cursor points to the sink state {\ttfamily D\+F\+A\+::null\+\_\+state}. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf sink\+\_\+state} () const \label{classastl_1_1cursor_a3d87af14424f9bc42682409b30c4861e}
+
+\begin{DoxyCompactList}\small\item\em Returns the identifier of the sink state {\ttfamily D\+F\+A\+::null\+\_\+state}. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf src} () const \label{classastl_1_1cursor_a137a201732fb341cc5972fe3781e50f0}
+
+\begin{DoxyCompactList}\small\item\em Returns the identifier of the state that this cursor points to. \end{DoxyCompactList}\item 
+bool {\bf src\+\_\+final} () const \label{classastl_1_1cursor_adac68d94341c2d6f5005d3b21b823ff3}
+
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if the state that this cursor points to is final. \end{DoxyCompactList}\item 
+const {\bf tag\+\_\+type} \& {\bf src\+\_\+tag} () const \label{classastl_1_1cursor_ad566703edb60ad110408084dc8d9fef2}
+
+\begin{DoxyCompactList}\small\item\em Returns the data attached to the state that this cursor points to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename D\+F\+A$>$class astl\+::cursor$<$ D\+F\+A $>$}
+
+A plain cursor is a pointer to an automaton state that is able to move along defined transitions. 
+
+Its purpose is to implement simple traversals checking if a word is in the language defined by an automaton. \begin{DoxyParagraph}{Template parameters}
+\begin{TabularC}{4}
+\hline
+\rowcolor{lightgray}{\bf Parameter}&{\bf Description}&{\bf Default}&{\bf Requirements }\\\cline{1-4}
+{\ttfamily D\+F\+A} &The type of the D\+F\+A that this cursor will point to&&{\ttfamily D\+F\+A} is a model of \#\+D\+F\+A\\\cline{1-4}
+\end{TabularC}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Model of}
+\doxyref{cursor}{p.}{classastl_1_1cursor_aa3b267270ebe136571604fe35ce404fa} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Associated Helper Functions}
+plainc() 
+\end{DoxyParagraph}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{astl\+::cursor@{astl\+::cursor}!cursor@{cursor}}
+\index{cursor@{cursor}!astl\+::cursor@{astl\+::cursor}}
+\subsubsection[{cursor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cursor} (
+\begin{DoxyParamCaption}
+\item[{const D\+F\+A \&}]{a, }
+\item[{{\bf state\+\_\+type}}]{p}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1cursor_a8c6fc65aff5e93beef313d6b7a87f257}
+
+
+Creates a cursor pointing to state {\ttfamily p} of the automaton {\ttfamily a}. 
+
+\begin{DoxyPostcond}{Postcondition}
+
+\begin{DoxyCode}
+src() == p 
+\end{DoxyCode}
+ 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\index{astl\+::cursor@{astl\+::cursor}!operator=@{operator=}}
+\index{operator=@{operator=}!astl\+::cursor@{astl\+::cursor}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf self}\& operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{p}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1cursor_af2636a625f63fd707ee326cd3149dc48}
+
+
+Sets this cursor to point to the state {\ttfamily p}. 
+
+\begin{DoxyPostcond}{Postcondition}
+
+\begin{DoxyCode}
+src() == p
+\end{DoxyCode}
+ 
+\end{DoxyPostcond}
+\index{astl\+::cursor@{astl\+::cursor}!operator==@{operator==}}
+\index{operator==@{operator==}!astl\+::cursor@{astl\+::cursor}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf self} \&}]{x}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1cursor_a8a0948685b8eb65ce6775c8f12547439}
+
+
+Returns {\ttfamily true} if {\ttfamily x} points to the same state as this cursor. 
+
+\begin{DoxyPrecond}{Precondition}
+This cursor and {\ttfamily x} point to the same automaton 
+\end{DoxyPrecond}

@@ -1,0 +1,13 @@
+\section{ccopy.\+h File Reference}
+\label{ccopy_8h}\index{ccopy.\+h@{ccopy.\+h}}
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$stack$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class D\+First\+C , class D\+F\+A $>$ }\\D\+F\+A\+::state\+\_\+type {\bfseries clone} (D\+F\+A \&out, D\+First\+C first, D\+First\+C last=D\+First\+C())
+\begin{DoxyCompactList}\small\item\em Copies the source automaton defined by the range {\ttfamily  [first, last) } into the destination automaton by performing a depth-\/first traversal during which all transitions are duplicated. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename D\+First\+C , typename D\+F\+A $>$ }\\D\+F\+A\+::state\+\_\+type {\bfseries trim} (D\+F\+A \&out, D\+First\+C first, D\+First\+C last=D\+First\+C())
+\begin{DoxyCompactList}\small\item\em Copies the source automaton defined by the range {\ttfamily  [first, last) } into the destination automaton by performing a depth-\/first traversal during which only the paths leading to final states are copied \+: this algorithm trims uneeded states and transitions. \end{DoxyCompactList}\end{DoxyCompactItemize}

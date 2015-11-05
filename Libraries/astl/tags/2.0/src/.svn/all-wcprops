@@ -1,0 +1,221 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svnroot/astl/!svn/ver/5/tags/2.0/src
+END
+match.cc
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/astl/!svn/ver/5/tags/2.0/src/match.cc
+END
+build.cc
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/astl/!svn/ver/5/tags/2.0/src/build.cc
+END
+isomorph.cc
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/astl/!svn/ver/5/tags/2.0/src/isomorph.cc
+END
+combination.cc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/astl/!svn/ver/5/tags/2.0/src/combination.cc
+END
+concat.cc
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svnroot/astl/!svn/ver/5/tags/2.0/src/concat.cc
+END
+check_cursor.cc
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/astl/!svn/ver/5/tags/2.0/src/check_cursor.cc
+END
+determinize.cc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/astl/!svn/ver/5/tags/2.0/src/determinize.cc
+END
+language.cc
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/astl/!svn/ver/5/tags/2.0/src/language.cc
+END
+ahocorasick.cc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/astl/!svn/ver/5/tags/2.0/src/ahocorasick.cc
+END
+compact.cc
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/astl/!svn/ver/5/tags/2.0/src/compact.cc
+END
+check_dfa.cc
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/astl/!svn/ver/5/tags/2.0/src/check_dfa.cc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/astl/!svn/ver/5/tags/2.0/src/Makefile
+END
+regexp.cc
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svnroot/astl/!svn/ver/5/tags/2.0/src/regexp.cc
+END
+compress.cc
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/astl/!svn/ver/5/tags/2.0/src/compress.cc
+END
+neighbor.cc
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/astl/!svn/ver/5/tags/2.0/src/neighbor.cc
+END
+dfahash.cc
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/astl/!svn/ver/5/tags/2.0/src/dfahash.cc
+END
+dfamin.cc
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svnroot/astl/!svn/ver/5/tags/2.0/src/dfamin.cc
+END
+tree.cc
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svnroot/astl/!svn/ver/5/tags/2.0/src/tree.cc
+END
+not.cc
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svnroot/astl/!svn/ver/5/tags/2.0/src/not.cc
+END
+utregexp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/astl/!svn/ver/5/tags/2.0/src/utregexp.cpp
+END
+symdiff.cc
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/astl/!svn/ver/5/tags/2.0/src/symdiff.cc
+END
+check_nfa.cc
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/astl/!svn/ver/5/tags/2.0/src/check_nfa.cc
+END
+dfaminhash.cc
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/astl/!svn/ver/5/tags/2.0/src/dfaminhash.cc
+END
+strcursor.cc
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/astl/!svn/ver/5/tags/2.0/src/strcursor.cc
+END
+intersection.cc
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/astl/!svn/ver/5/tags/2.0/src/intersection.cc
+END
+permutation.cc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/astl/!svn/ver/5/tags/2.0/src/permutation.cc
+END
+utcapture.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/astl/!svn/ver/5/tags/2.0/src/utcapture.cpp
+END
+reverse.cc
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/astl/!svn/ver/5/tags/2.0/src/reverse.cc
+END
+trim.cc
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svnroot/astl/!svn/ver/5/tags/2.0/src/trim.cc
+END
+ddiff.cc
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/astl/!svn/ver/5/tags/2.0/src/ddiff.cc
+END
+dotout.cc
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svnroot/astl/!svn/ver/5/tags/2.0/src/dotout.cc
+END
+minimize.cc
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/astl/!svn/ver/5/tags/2.0/src/minimize.cc
+END
+generator.cc
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/astl/!svn/ver/5/tags/2.0/src/generator.cc
+END
+union.cc
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/astl/!svn/ver/5/tags/2.0/src/union.cc
+END
+dfadir.cc
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svnroot/astl/!svn/ver/5/tags/2.0/src/dfadir.cc
+END
+sigmastar.cc
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/astl/!svn/ver/5/tags/2.0/src/sigmastar.cc
+END

@@ -1,0 +1,260 @@
+\section{D\+F\+A\+\_\+base$<$ Char\+Traits, Tag\+Type, State\+Data\+\_\+, State\+Type $>$ Class Template Reference}
+\label{classastl_1_1DFA__base}\index{D\+F\+A\+\_\+base$<$ Char\+Traits, Tag\+Type, State\+Data\+\_\+, State\+Type $>$@{D\+F\+A\+\_\+base$<$ Char\+Traits, Tag\+Type, State\+Data\+\_\+, State\+Type $>$}}
+
+
+Base class for A\+S\+T\+L deterministic automaton containers.  
+
+
+
+
+{\ttfamily \#include $<$dfa\+\_\+base.\+h$>$}
+
+
+
+Inherits D\+F\+A\+\_\+concept.
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef Char\+Traits {\bf char\+\_\+traits}\label{classastl_1_1DFA__base_a7f7f29ddd3e8db5ce7820504bd30fdb9}
+
+\begin{DoxyCompactList}\small\item\em Character traits describing \doxyref{char\+\_\+type}{p.}{classastl_1_1DFA__base_a5cf5887889a6276ff07d3101391a63a3}. \end{DoxyCompactList}\item 
+typedef Char\+Traits\+::char\+\_\+type {\bf char\+\_\+type}\label{classastl_1_1DFA__base_a5cf5887889a6276ff07d3101391a63a3}
+
+\begin{DoxyCompactList}\small\item\em The type of the transitions letters. \end{DoxyCompactList}\item 
+typedef State\+Type {\bf state\+\_\+type}\label{classastl_1_1DFA__base_a133508bf1c8112d5cace97e216c278a2}
+
+\begin{DoxyCompactList}\small\item\em The type of the automaton-\/states identifiers. \end{DoxyCompactList}\item 
+typedef Tag\+Type {\bf tag\+\_\+type}\label{classastl_1_1DFA__base_a3c40b9376fa70e2df00a1938cc425082}
+
+\begin{DoxyCompactList}\small\item\em The type of the data attached to states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const\+\_\+iterator {\bf begin} () const 
+\item 
+void {\bf copy\+\_\+state} ({\bf state\+\_\+type} from, {\bf state\+\_\+type} to)
+\begin{DoxyCompactList}\small\item\em Makes the state {\ttfamily to} an exact copy of the state {\ttfamily from}. \end{DoxyCompactList}\item 
+void {\bf del\+\_\+state} ({\bf state\+\_\+type} s)
+\begin{DoxyCompactList}\small\item\em Destroyes the state {\ttfamily s}. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf duplicate\+\_\+state} ({\bf state\+\_\+type} q)
+\begin{DoxyCompactList}\small\item\em Allocates an exact copy of the state {\ttfamily q}. \end{DoxyCompactList}\item 
+const\+\_\+iterator {\bf end} () const 
+\item 
+bool {\bf final} ({\bf state\+\_\+type} s) const 
+\item 
+char \& {\bf final} ({\bf state\+\_\+type} s)
+\item 
+void {\bf initial} ({\bf state\+\_\+type} s)
+\begin{DoxyCompactList}\small\item\em Sets the initial state of the automaton to {\ttfamily s}. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf initial} () const 
+\item 
+{\bf state\+\_\+type} {\bf new\+\_\+state} ()
+\begin{DoxyCompactList}\small\item\em Allocates a new state structure. \end{DoxyCompactList}\item 
+unsigned long {\bf state\+\_\+count} () const 
+\item 
+{\bf tag\+\_\+type} \& {\bf tag} ({\bf state\+\_\+type} s)
+\item 
+const {\bf tag\+\_\+type} \& {\bf tag} ({\bf state\+\_\+type} s) const 
+\item 
+unsigned long {\bf trans\+\_\+count} () const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Char\+Traits, class Tag\+Type, class State\+Data\+\_\+, class State\+Type = unsigned int$>$class astl\+::\+D\+F\+A\+\_\+base$<$ Char\+Traits, Tag\+Type, State\+Data\+\_\+, State\+Type $>$}
+
+Base class for A\+S\+T\+L deterministic automaton containers. 
+
+It takes care of common functionalities dealing with states allocation/deallocation. 
+
+\subsection{Member Function Documentation}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!begin@{begin}}
+\index{begin@{begin}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{begin}]{\setlength{\rightskip}{0pt plus 5cm}const\+\_\+iterator begin (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__base_aa4b02d4f1a8500fb07a551069060709f}
+\begin{DoxyReturn}{Returns}
+a forward iterator on the beginning of the sequence of the automaton states of type {\ttfamily state\+\_\+type} arranged in an undefined order (probably in allocation order but that is not a requirement). 
+\end{DoxyReturn}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!copy\+\_\+state@{copy\+\_\+state}}
+\index{copy\+\_\+state@{copy\+\_\+state}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{copy\+\_\+state}]{\setlength{\rightskip}{0pt plus 5cm}void copy\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{from, }
+\item[{{\bf state\+\_\+type}}]{to}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__base_a4e3e0654b66dfe88b0a093de04437bec}
+
+
+Makes the state {\ttfamily to} an exact copy of the state {\ttfamily from}. 
+
+The tag and the transitions of {\ttfamily to} are destroyed and the new ones are copy-\/constructed from those of {\ttfamily from}. \begin{DoxyPrecond}{Precondition}
+{\ttfamily from} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+
+{\ttfamily to} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+\end{DoxyPrecond}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!del\+\_\+state@{del\+\_\+state}}
+\index{del\+\_\+state@{del\+\_\+state}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{del\+\_\+state}]{\setlength{\rightskip}{0pt plus 5cm}void del\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{s}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__base_a8bf68bf8c77e67ebfca27a8472e4c913}
+
+
+Destroyes the state {\ttfamily s}. 
+
+The tag and the transitions are destroyed. \begin{DoxyPrecond}{Precondition}
+{\ttfamily s} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+\end{DoxyPrecond}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!duplicate\+\_\+state@{duplicate\+\_\+state}}
+\index{duplicate\+\_\+state@{duplicate\+\_\+state}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{duplicate\+\_\+state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} duplicate\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{q}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__base_a4788aa4f6e09d5b70bc2f3defabb1ea7}
+
+
+Allocates an exact copy of the state {\ttfamily q}. 
+
+\begin{DoxyReturn}{Returns}
+the id of the freshly allocated state 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily q} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+\end{DoxyPrecond}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!end@{end}}
+\index{end@{end}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{end}]{\setlength{\rightskip}{0pt plus 5cm}const\+\_\+iterator end (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__base_a350132543d80a1c1e5be844e6d2878ea}
+\begin{DoxyReturn}{Returns}
+a past-\/the-\/end forward iterator on the sequence of the automaton states. 
+\end{DoxyReturn}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!final@{final}}
+\index{final@{final}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{final}]{\setlength{\rightskip}{0pt plus 5cm}bool final (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{s}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__base_ad1882121c53bdedd74df649d71b70a4c}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if {\ttfamily s} is a final state. 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily s} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+\end{DoxyPrecond}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!final@{final}}
+\index{final@{final}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{final}]{\setlength{\rightskip}{0pt plus 5cm}char\& final (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{s}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__base_a8011bf53b33ceac2c71ca364bbb1fbc3}
+\begin{DoxyReturn}{Returns}
+a reference to a boolean that, if assigned {\ttfamily true} sets the state {\ttfamily s} to be a final state and if assigned {\ttfamily false} sets {\ttfamily s} to be a non-\/final state. 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily s} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+\end{DoxyPrecond}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!initial@{initial}}
+\index{initial@{initial}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{initial}]{\setlength{\rightskip}{0pt plus 5cm}void initial (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{s}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__base_a0512d51289bf8ed1a0d42df6272c0d70}
+
+
+Sets the initial state of the automaton to {\ttfamily s}. 
+
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily s} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+
+\begin{DoxyCode}
+initial() == s 
+\end{DoxyCode}
+ 
+\end{DoxyPostcond}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!initial@{initial}}
+\index{initial@{initial}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{initial}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} initial (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__base_a4edaf60fafcacf017837f0a5eb5bc39b}
+\begin{DoxyReturn}{Returns}
+the initial state of the automaton. 
+\end{DoxyReturn}
+
+
+Referenced by D\+F\+A\+\_\+base$<$ Char\+Traits, Tag, matrix\+\_\+line$<$ Char\+Traits, unsigned short $>$, unsigned short $>$\+::del\+\_\+state().
+
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!new\+\_\+state@{new\+\_\+state}}
+\index{new\+\_\+state@{new\+\_\+state}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{new\+\_\+state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} new\+\_\+state (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}
+
+
+Allocates a new state structure. 
+
+The newly created state is non-\/final and has no transitions. The tag is default-\/constructed. \begin{DoxyReturn}{Returns}
+the id of the freshly allocated state 
+\end{DoxyReturn}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!state\+\_\+count@{state\+\_\+count}}
+\index{state\+\_\+count@{state\+\_\+count}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{state\+\_\+count}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long state\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__base_abbd3928d673458d0fa63e568a950a83d}
+\begin{DoxyReturn}{Returns}
+the number of states in the automaton 
+\end{DoxyReturn}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!tag@{tag}}
+\index{tag@{tag}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{tag}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tag\+\_\+type}\& tag (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{s}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1DFA__base_a3dd4257038bc77fa1cc7d9bf0afc29d5}
+\begin{DoxyReturn}{Returns}
+the data attached to the state {\ttfamily s} 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily s} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+\end{DoxyPrecond}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!tag@{tag}}
+\index{tag@{tag}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{tag}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf tag\+\_\+type}\& tag (
+\begin{DoxyParamCaption}
+\item[{{\bf state\+\_\+type}}]{s}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__base_aae6988f0a4fda8a527b52781ab9f0d59}
+\begin{DoxyReturn}{Returns}
+the data attached to the state {\ttfamily s} 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+{\ttfamily s} has been returned by a previous call to {\ttfamily \doxyref{new\+\_\+state()}{p.}{classastl_1_1DFA__base_a252db8b50da681bd88660c6f1166f6c7}} 
+\end{DoxyPrecond}
+\index{astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}!trans\+\_\+count@{trans\+\_\+count}}
+\index{trans\+\_\+count@{trans\+\_\+count}!astl\+::\+D\+F\+A\+\_\+base@{astl\+::\+D\+F\+A\+\_\+base}}
+\subsubsection[{trans\+\_\+count}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long trans\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1DFA__base_a3f2590089bd23eb738c72bf9acfb9c44}
+\begin{DoxyReturn}{Returns}
+the number of transitions in the automaton 
+\end{DoxyReturn}

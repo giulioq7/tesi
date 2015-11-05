@@ -1,0 +1,218 @@
+\section{bfirst\+\_\+cursor$<$ Queue\+Cursor, Marker\+Function $>$ Class Template Reference}
+\label{classastl_1_1bfirst__cursor}\index{bfirst\+\_\+cursor$<$ Queue\+Cursor, Marker\+Function $>$@{bfirst\+\_\+cursor$<$ Queue\+Cursor, Marker\+Function $>$}}
+
+
+A \doxyref{bfirst\+\_\+cursor}{p.}{classastl_1_1bfirst__cursor_a43b959e39feac33b5c81a1ca84ca7282} implements the breadth-\/first traversal on deterministic automata.  
+
+
+
+
+{\ttfamily \#include $<$cursor.\+h$>$}
+
+
+
+Inherits bfirst\+\_\+cursor\+\_\+concept.
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef Queue\+Cursor\+::char\+\_\+traits {\bf char\+\_\+traits}\label{classastl_1_1bfirst__cursor_a66e94af01b68f4ddbdb9d11e8fd5596e}
+
+\begin{DoxyCompactList}\small\item\em Character traits describing \doxyref{char\+\_\+type}{p.}{classastl_1_1bfirst__cursor_a2e0f3aa50487d878b4688afd95cc093c}. \end{DoxyCompactList}\item 
+typedef Queue\+Cursor\+::char\+\_\+type {\bf char\+\_\+type}\label{classastl_1_1bfirst__cursor_a2e0f3aa50487d878b4688afd95cc093c}
+
+\begin{DoxyCompactList}\small\item\em The type of the transitions letters. \end{DoxyCompactList}\item 
+typedef Queue\+Cursor\+::state\+\_\+type {\bf state\+\_\+type}\label{classastl_1_1bfirst__cursor_a86ea628a39e2fc04a741886783de367e}
+
+\begin{DoxyCompactList}\small\item\em The type of the automaton-\/states identifiers. \end{DoxyCompactList}\item 
+typedef Queue\+Cursor\+::tag\+\_\+type {\bf tag\+\_\+type}\label{classastl_1_1bfirst__cursor_a9427e44e81e59f72ffc04356531d6e1f}
+
+\begin{DoxyCompactList}\small\item\em The type of the data attached to states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf state\+\_\+type} {\bf aim} () const 
+\begin{DoxyCompactList}\small\item\em Returns the aim state of the pointed transition. \end{DoxyCompactList}\item 
+bool {\bf aim\+\_\+final} () const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if the aim state of the transition that this cursor points to is final. \end{DoxyCompactList}\item 
+{\bf tag\+\_\+type} {\bf aim\+\_\+tag} () const 
+\begin{DoxyCompactList}\small\item\em Returns the data attached to the aim state of the pointed transition. \end{DoxyCompactList}\item 
+{\bf bfirst\+\_\+cursor} (const Queue\+Cursor \&x, const Marker\+Function \&f=Marker\+Function())\label{classastl_1_1bfirst__cursor_a43b959e39feac33b5c81a1ca84ca7282}
+
+\begin{DoxyCompactList}\small\item\em Creates a cursor with {\ttfamily x} as queue. \end{DoxyCompactList}\item 
+{\bf bfirst\+\_\+cursor} ()\label{classastl_1_1bfirst__cursor_af626ca74d4cdd2b69a8bce2b5dc1d3b2}
+
+\begin{DoxyCompactList}\small\item\em Creates a cursor with an empty queue used as an end-\/of-\/range iterator. \end{DoxyCompactList}\item 
+{\bf char\+\_\+type} {\bf letter} () const 
+\begin{DoxyCompactList}\small\item\em Returns the letter on the pointed transition. \end{DoxyCompactList}\item 
+bool {\bf next} ()
+\begin{DoxyCompactList}\small\item\em Increments the cursor making it point to the next transition in the sequence. \end{DoxyCompactList}\item 
+bool {\bf operator!=} (const {\bf self} \&x) const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if queues are different compared element by element. \end{DoxyCompactList}\item 
+bool {\bf operator==} (const {\bf self} \&x) const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if both queues are equal compared element by element. \end{DoxyCompactList}\item 
+{\bf state\+\_\+type} {\bf src} () const 
+\begin{DoxyCompactList}\small\item\em Returns the identifier of the state that this cursor points to. \end{DoxyCompactList}\item 
+bool {\bf src\+\_\+final} () const 
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if the state that this cursor points to is final. \end{DoxyCompactList}\item 
+{\bf tag\+\_\+type} {\bf src\+\_\+tag} () const 
+\begin{DoxyCompactList}\small\item\em Returns the data attached to the state that this cursor points to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Queue\+Cursor, typename Marker\+Function = none$>$class astl\+::bfirst\+\_\+cursor$<$ Queue\+Cursor, Marker\+Function $>$}
+
+A \doxyref{bfirst\+\_\+cursor}{p.}{classastl_1_1bfirst__cursor_a43b959e39feac33b5c81a1ca84ca7282} implements the breadth-\/first traversal on deterministic automata. 
+
+It is an iterator on a sequence of transitions ordered according to the breadth-\/first traversal algorithm. The method \doxyref{next()}{p.}{classastl_1_1bfirst__cursor_a80870c233d0237e3588a2d6f8d176916} allows to increment the cursor, making it point to the next transition in the sequence. This methods returns {\ttfamily true} if the transition reached has been enqueued and {\ttfamily false} otherwise (dequeue). The \doxyref{bfirst\+\_\+cursor}{p.}{classastl_1_1bfirst__cursor} is used in the same way as the iterators on sequence to define ranges foralgorithms. \begin{DoxyParagraph}{Template parameters}
+\begin{TabularC}{4}
+\hline
+\rowcolor{lightgray}{\bf Parameter}&{\bf Description}&{\bf Default}&{\bf Requirements }\\\cline{1-4}
+{\ttfamily Queue\+Cursor} &The type of the queue cursor&&{\ttfamily Queue\+Cursor} is a model of queue cursor \\\cline{1-4}
+{\ttfamily Marker\+Function} &The type of state marker used for preventing the cursor from visiting twice the same transition on cyclic automata and D\+A\+Gs&{\ttfamily none} &{\ttfamily Marker\+Function} is either {\ttfamily none}, {\ttfamily set\+\_\+marker$<$\+Forward\+Cursor\+::state\+\_\+type$>$} or a model of state marker\\\cline{1-4}
+\end{TabularC}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Model of}
+\doxyref{bfirst\+\_\+cursor}{p.}{classastl_1_1bfirst__cursor_a43b959e39feac33b5c81a1ca84ca7282} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Associated Helper Functions}
+bfirstc(), bfirst\+\_\+markc() 
+\end{DoxyParagraph}
+
+
+\subsection{Member Function Documentation}
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!aim@{aim}}
+\index{aim@{aim}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{aim}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} aim (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_a742bd0e539b1f9df56841304b7ef4272}
+
+
+Returns the aim state of the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The queue is not empty 
+\end{DoxyPrecond}
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!aim\+\_\+final@{aim\+\_\+final}}
+\index{aim\+\_\+final@{aim\+\_\+final}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{aim\+\_\+final}]{\setlength{\rightskip}{0pt plus 5cm}bool aim\+\_\+final (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_a8fdf66e2483d23e73580e5c9ed937dfb}
+
+
+Returns {\ttfamily true} if the aim state of the transition that this cursor points to is final. 
+
+\begin{DoxyPrecond}{Precondition}
+The queue is not empty 
+\end{DoxyPrecond}
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!aim\+\_\+tag@{aim\+\_\+tag}}
+\index{aim\+\_\+tag@{aim\+\_\+tag}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{aim\+\_\+tag}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tag\+\_\+type} aim\+\_\+tag (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_a76a01210687f95ea151f8073a0eac35f}
+
+
+Returns the data attached to the aim state of the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The queue is not empty 
+\end{DoxyPrecond}
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!letter@{letter}}
+\index{letter@{letter}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{letter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf char\+\_\+type} letter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_a6b28dc14fee32fdbd1e558b9c4884c9f}
+
+
+Returns the letter on the pointed transition. 
+
+\begin{DoxyPrecond}{Precondition}
+The queue is not empty 
+\end{DoxyPrecond}
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!next@{next}}
+\index{next@{next}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}bool next (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classastl_1_1bfirst__cursor_a80870c233d0237e3588a2d6f8d176916}
+
+
+Increments the cursor making it point to the next transition in the sequence. 
+
+Returns {\ttfamily true} if the transition reached has been enqueued. \begin{DoxyPrecond}{Precondition}
+The queue is not empty 
+\end{DoxyPrecond}
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{operator"!=}]{\setlength{\rightskip}{0pt plus 5cm}bool operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf self} \&}]{x}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_aef9934be5de2e5c7dd83e1a6a71fd607}
+
+
+Returns {\ttfamily true} if queues are different compared element by element. 
+
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!operator==@{operator==}}
+\index{operator==@{operator==}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf self} \&}]{x}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_a8a0948685b8eb65ce6775c8f12547439}
+
+
+Returns {\ttfamily true} if both queues are equal compared element by element. 
+
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!src@{src}}
+\index{src@{src}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{src}]{\setlength{\rightskip}{0pt plus 5cm}{\bf state\+\_\+type} src (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_a137a201732fb341cc5972fe3781e50f0}
+
+
+Returns the identifier of the state that this cursor points to. 
+
+\begin{DoxyPrecond}{Precondition}
+The queue is not empty 
+\end{DoxyPrecond}
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!src\+\_\+final@{src\+\_\+final}}
+\index{src\+\_\+final@{src\+\_\+final}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{src\+\_\+final}]{\setlength{\rightskip}{0pt plus 5cm}bool src\+\_\+final (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_adac68d94341c2d6f5005d3b21b823ff3}
+
+
+Returns {\ttfamily true} if the state that this cursor points to is final. 
+
+\begin{DoxyPrecond}{Precondition}
+The queue is not empty 
+\end{DoxyPrecond}
+\index{astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}!src\+\_\+tag@{src\+\_\+tag}}
+\index{src\+\_\+tag@{src\+\_\+tag}!astl\+::bfirst\+\_\+cursor@{astl\+::bfirst\+\_\+cursor}}
+\subsubsection[{src\+\_\+tag}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tag\+\_\+type} src\+\_\+tag (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classastl_1_1bfirst__cursor_a530bf00de29674ef6743b3375d5732f5}
+
+
+Returns the data attached to the state that this cursor points to. 
+
+\begin{DoxyPrecond}{Precondition}
+The queue is not empty 
+\end{DoxyPrecond}
