@@ -114,10 +114,10 @@ int main(int argc, char** argv)
 
     // save data to archive
         {
-            //boost::archive::text_oarchive oa(ofs);
-            // write class instance to archive
-            //oa << driver.components.at(0);
-            // archive and stream closed when destructors are called
+            boost::archive::text_oarchive oa(ofs);
+            //write class instance to archive
+            oa << driver.components.at(0);
+            //archive and stream closed when destructors are called
         }
 
 

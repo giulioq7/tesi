@@ -1,0 +1,14 @@
+(START) |- 0
+0 i 1
+0 j 2
+2 k 3
+2 l 4
+2 m 5
+2 n 6
+3 l 7
+5 n 8
+1 -| (FINAL)
+4 -| (FINAL)
+6 -| (FINAL)
+7 -| (FINAL)
+8 -| (FINAL)

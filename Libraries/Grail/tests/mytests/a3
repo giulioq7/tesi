@@ -1,0 +1,10 @@
+(START) |- 0
+0 e 1
+0 f 2
+0 h 3
+2 g 4
+3 g 5
+4 h 6
+1 -| (FINAL)
+5 -| (FINAL)
+6 -| (FINAL)
