@@ -58,7 +58,7 @@ std::ostream& operator<<(std::ostream& out, const Transition& t)
 {
     return out /*<< "Transition: "*/ << t.name << endl
                << "In event: " << t.input_event << endl
-               /*<< "From - To: " << t.s1_s2 << endl*/
+               << "From - To: " << t.s1_s2 << endl
                << "Out events: " << t.out_events << endl;
 }
 
@@ -128,7 +128,7 @@ std::ostream& operator<<(std::ostream& out, const spec_driver& d)
 }
 
 
-std::ostream& operator<<(std::ostream& out, const StateData& s)
+std::ostream& operator<<(std::ostream& out, const StateData_str& s)
 {
     return out << s.state_name;
 }

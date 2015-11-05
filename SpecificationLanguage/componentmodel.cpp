@@ -14,6 +14,7 @@ void ComponentModel::build_automaton()
     {
         automaton.set_trans(find_state(trans.at(i).s1_s2.first),trans.at(i),find_state(trans.at(i).s1_s2.second));
     }
+    automaton.initial(autom_states[0]);
 
 }
 
@@ -21,14 +22,14 @@ void ComponentModel::build_states()
 {
     for(unsigned int i=0; i<states.size(); i++)
     {
-       DFA_map<Transition,StateData>::state_type s = automaton.new_state();
-       automaton.tag(s) = StateData(states.at(i));
+       DFA_map<Transition,StateData_str>::state_type s = automaton.new_state();
+       automaton.tag(s) = StateData_str(states.at(i));
        autom_states.push_back(s);
     }
 }
 
 
-DFA_map<Transition,StateData>::state_type ComponentModel::find_state(std::string name)
+DFA_map<Transition,StateData_str>::state_type ComponentModel::find_state(std::string name)
 {
      for(unsigned int i=0; i<autom_states.size(); i++)
      {
@@ -36,7 +37,7 @@ DFA_map<Transition,StateData>::state_type ComponentModel::find_state(std::string
             return autom_states.at(i);
      }
      //this return statement should never be reached
-     return DFA_map<Transition,StateData>::state_type();
+     return DFA_map<Transition,StateData_str>::state_type();
 }
 
 

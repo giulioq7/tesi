@@ -24,7 +24,7 @@ using namespace astl;
 
 //PUBLIC
 fm<TYPE>* start_build(std::vector<std::pair<std::string,std::string> > patterns);
-DFA_map<NetTransition,StateData>* from_grail_to_astl(fm<TYPE>* dfa, NetworkModel* net);
+DFA_map<NetTransition,StateData_str>* from_grail_to_astl(fm<TYPE>* dfa, NetworkModel* net);
 
 //PRIVATE
 grail::fm<TYPE>* patodfa(std::string regex);
@@ -94,7 +94,7 @@ int main(int argc, char** argv)
     vector<NetworkModel>::iterator it;
     for(it = driver.networks.begin(); it != driver.networks.end(); it++)
     {
-       DFA_map<NetTransition,StateData>* ptspace = from_grail_to_astl(start_build((*it).patterns),&(*it));
+       DFA_map<NetTransition,StateData_str>* ptspace = from_grail_to_astl(start_build((*it).patterns),&(*it));
        (*it).pattern_space = *ptspace;
 
        if(debug > 0)
@@ -109,17 +109,35 @@ int main(int argc, char** argv)
        }
     }
 
-    // create and open a character archive for output
-        std::ofstream ofs("filename");
+    ofstream f("prova");
+    full_dot(f,dfirst_markc(driver.components[1].automaton));
+    f.close();
 
+    std::ofstream ofs("filename");
     // save data to archive
         {
             boost::archive::text_oarchive oa(ofs);
-            //write class instance to archive
-            oa << driver.components.at(0);
-            //archive and stream closed when destructors are called
+            // write class instance to archive
+            oa << driver;
+            // archive and stream closed when destructors are called
         }
 
+        // ... some time later restore the class instance to its orginal state
+       spec_driver read_all(2,1);
+       //read_all.components = vector<ComponentModel>(driver.components.size());
+       //read_all.networks = vector<NetworkModel>(driver.networks.size());
+        {
+            // create and open an archive for input
+            std::ifstream ifs("filename");
+            boost::archive::text_iarchive ia(ifs);
+            // read class state from archive
+            ia >> read_all;
+            // archive and stream closed when destructors are called
+        }
+
+        ofstream f2("prova2");
+        full_dot(f2,dfirst_markc(read_all.components[1].automaton));
+        f2.close();
 
 }
 
@@ -490,7 +508,7 @@ void dot_draw(ostream& strm, fm<TYPE>* Pts)
 }
 
 
-DFA_map<NetTransition,StateData>* from_grail_to_astl(fm<TYPE> *dfa, NetworkModel* net)
+DFA_map<NetTransition,StateData_str>* from_grail_to_astl(fm<TYPE> *dfa, NetworkModel* net)
 {
     grail::set<grail::state> init;
     dfa->starts(init);
@@ -506,10 +524,10 @@ DFA_map<NetTransition,StateData>* from_grail_to_astl(fm<TYPE> *dfa, NetworkModel
     grail::set<inst<TYPE> > trans;
     dfa->get_arcs(trans);
 
-    DFA_map<NetTransition,StateData> *target = new DFA_map<NetTransition,StateData>;
+    DFA_map<NetTransition,StateData_str> *target = new DFA_map<NetTransition,StateData_str>;
 
     int n = dfa->number_of_states();
-    DFA_map<NetTransition,StateData>::state_type s[n];
+    DFA_map<NetTransition,StateData_str>::state_type s[n];
     target->new_state(n, s);
 
     for(int i=0; i<trans.size();i++)
@@ -530,12 +548,12 @@ DFA_map<NetTransition,StateData>* from_grail_to_astl(fm<TYPE> *dfa, NetworkModel
 
         if(fin.member(trans[i].get_source()) != -1)
         {
-            target->tag(s[index_src]) = StateData(tag_map[index_src]);
+            target->tag(s[index_src]) = StateData_str(tag_map[index_src]);
             target->final(s[index_src]) = true;
         }
         if(fin.member(trans[i].get_sink()) != -1)
         {
-            target->tag(s[index_aim]) = StateData(tag_map[index_aim]);
+            target->tag(s[index_aim]) = StateData_str(tag_map[index_aim]);
             target->final(s[index_aim]) = true;
         }
     }

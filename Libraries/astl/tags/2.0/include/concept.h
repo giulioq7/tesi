@@ -22,7 +22,8 @@
 #ifndef ASTL_CONCEPT_H
 #define ASTL_CONCEPT_H
 
-
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 namespace astl {
 
@@ -65,7 +66,7 @@ struct bfirst_cursor_concept
 };
 
 struct FA_concept {
-  typedef FA_concept concept;
+    typedef FA_concept concept;
 };
 
 struct DFA_concept : public FA_concept {

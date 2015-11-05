@@ -7,8 +7,25 @@
 #include "component.h"
 #include "nettransition.h"
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 class NetworkModel
 {
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & name;
+        ar & components;
+        ar & links;
+        ar & patterns;
+        ar & initials;
+        ar & viewer;
+        ar & ruler;
+        ar & pattern_space;
+    }
+
 public:
     std::string name;
     vector<Component> components;
@@ -19,7 +36,7 @@ public:
     map<pair<string,string>,string>   viewer;
     map<pair<string,string>,string>   ruler;
 
-    astl::DFA_map<NetTransition,StateData> pattern_space;
+    astl::DFA_map<NetTransition,StateData_str> pattern_space;
 
     int count;
     std::map<std::pair<std::string,std::string>,int> conv_str_int;

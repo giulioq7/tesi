@@ -6,6 +6,9 @@
 #include "system.h"
 #include <vector>
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 // Tell Flex the lexer's prototype ...
 # define YY_DECL \
     yy::spec_parser::symbol_type yylex(spec_driver&)
@@ -15,8 +18,23 @@ YY_DECL;
 
 class spec_driver
 {
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & components;
+        ar & networks;
+        ar & system;
+        ar & problem;
+    }
+
 public:
     spec_driver();
+    spec_driver(int n_comp, int n_net)
+    {
+        components = vector<ComponentModel>(n_comp);
+        networks = vector<NetworkModel>(n_net);
+    }
     virtual ~spec_driver();
 
     vector<ComponentModel> components;

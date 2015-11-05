@@ -5,14 +5,30 @@
 #include "transition.h"
 #include "statedata.h"
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 class ComponentModel{
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & autom_states;
+        ar & name;
+        ar & automaton;
+        ar & events;
+        ar & inputs;
+        ar & outputs;
+        ar & states;
+        ar & trans;
+    }
 
-
-    std::vector<astl::DFA_map<Transition,StateData>::state_type> autom_states;
 public:
+    std::vector<astl::DFA_map<Transition,StateData_str>::state_type> autom_states;
+
     std::string name ;
 
-    astl::DFA_map<Transition,StateData> automaton;
+    astl::DFA_map<Transition,StateData_str> automaton;
 
     vector<std::string> events;
     vector<std::string> inputs;
@@ -29,7 +45,7 @@ public:
 
 private:
     void build_states();
-    astl::DFA_map<Transition,StateData>::state_type find_state(std::string name);
+    astl::DFA_map<Transition,StateData_str>::state_type find_state(std::string name);
 };
 
 

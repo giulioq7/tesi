@@ -1,5 +1,5 @@
 #include "statedata.h"
 
-StateData::StateData()
+StateData_str::StateData_str()
 {
 }

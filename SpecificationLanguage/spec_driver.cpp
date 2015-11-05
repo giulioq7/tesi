@@ -502,29 +502,29 @@ void spec_driver::build_dependency_graph()
 {
     for(map<pair<string,string>,string>::iterator it = system.emergence.begin(); it != system.emergence.end(); it++)
     {
-        DFA_map<strings,StateData>::state_type s1 =  DFA_map<strings,StateData>::null_state;
-        DFA_map<strings,StateData>::state_type s2 = DFA_map<strings,StateData>::null_state;
-        DFA_map<strings,StateData>::const_iterator c;
+        DFA_map<strings,StateData_str>::state_type s1 =  DFA_map<strings,StateData_str>::null_state;
+        DFA_map<strings,StateData_str>::state_type s2 = DFA_map<strings,StateData_str>::null_state;
+        DFA_map<strings,StateData_str>::const_iterator c;
         //linear search in the state space (better improve efficiency in future)
         for(c = system.dependency_graph.begin(); c != system.dependency_graph.end(); c++)
         {
-            if(system.dependency_graph.tag(*c) == StateData(it->first.second))
+            if(system.dependency_graph.tag(*c) == StateData_str(it->first.second))
                 s1 = *c;
-            if(system.dependency_graph.tag(*c) == StateData(it->second))
+            if(system.dependency_graph.tag(*c) == StateData_str(it->second))
                 s2 = *c;
         }
 
-        if(s1 == DFA_map<strings,StateData>::null_state)
+        if(s1 == DFA_map<strings,StateData_str>::null_state)
         {
             s1 = system.dependency_graph.new_state();
-            system.dependency_graph.tag(s1) = StateData(it->first.second);
+            system.dependency_graph.tag(s1) = StateData_str(it->first.second);
             if(system.root->name == it->first.second)
                 system.dependency_graph.initial(s1);
         }
-        if(s2 == DFA_map<strings,StateData>::null_state)
+        if(s2 == DFA_map<strings,StateData_str>::null_state)
         {
             s2 = system.dependency_graph.new_state();
-            system.dependency_graph.tag(s2) = StateData(it->second);
+            system.dependency_graph.tag(s2) = StateData_str(it->second);
         }
         else if(system.dependency_graph.tag(s2) == system.root->name)
             error(loc,"Root node cannot have ingoing transitions");

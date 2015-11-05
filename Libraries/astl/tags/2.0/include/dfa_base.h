@@ -30,6 +30,10 @@
 #include <state.h>
 #include <vector>
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/vector.hpp>
+
 using std::vector;
 
 namespace astl {
@@ -48,6 +52,18 @@ namespace astl {
     typedef typename CharTraits::char_type char_type;   /**< @chartype */
     typedef StateType                      state_type;  /**< @statetype */
 
+  private:
+      friend class boost::serialization::access;
+      template<class Archive>
+      void serialize(Archive & ar, const unsigned int version)
+      {
+          ar & Q;
+          ar & I;
+          ar & F;
+          ar & state_count_;
+          ar & trans_count_;
+      }
+
   protected:
     typedef vector<char> set_F;
     typedef state_data<tag_type, StateData_> StateData;
@@ -60,6 +76,7 @@ namespace astl {
 
   public:
     typedef skip_blanks_iterator<StateData> const_iterator;
+
 
     static const state_type null_state;
 

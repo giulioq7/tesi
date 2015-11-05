@@ -4,12 +4,27 @@
 #include <iostream>
 #include "systemnode.h"
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 class System
 {
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & name;
+        ar & dependency_graph;
+        ar & node_list;
+        ar & id_root;
+        ar & root;
+        ar & emergence;
+    }
+
 public:
     std::string name;
 
-    astl::DFA_map<astl::strings,StateData> dependency_graph;
+    astl::DFA_map<astl::strings,StateData_str> dependency_graph;
 
     vector<SystemNode> node_list;
     std::string id_root;

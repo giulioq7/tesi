@@ -35,7 +35,7 @@ std::ostream& operator<<(std::ostream& out, const Problem& sys);
 
 std::ostream& operator<<(std::ostream& out, const spec_driver& d);
 
-std::ostream& operator<<(std::ostream& out, const StateData& d);
+std::ostream& operator<<(std::ostream& out, const StateData_str& d);
 
 std::ostream& operator<<(std::ostream& out, const NetTransition& t);
 

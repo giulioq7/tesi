@@ -4,8 +4,19 @@
 #include "transition.h"
 #include "component.h"
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 class NetTransition
 {
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & trans;
+        ar & component;
+    }
+
 public:
     Transition* trans;
     Component* component;

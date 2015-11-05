@@ -7,37 +7,29 @@
 #include <boost/serialization/map.hpp>
 
 #include "componentmodel.h"
-#include "transition.h"
+#include "networkmodel.h"
 
 namespace boost {
 namespace serialization {
 
 template<class Archive>
-void serialize(Archive & ar, Transition & trans, const unsigned int version)
+void serialize(Archive & ar,vector<ComponentModel> & vec, const unsigned int version)
 {
-    ar & trans.input_event;
-    ar & trans.name;
-    ar & trans.out_events;
-    ar & trans.s1_s2;
-}
+    for(vector<ComponentModel>::iterator it = vec.begin(); it != vec.end(); it++)
+        ar & (*it);
 
-//template<class Archive>
-//void serialize(Archive & ar, astl::DFA_map<Transition,StateData> & dfa, const unsigned int version)
-//{
-//    //ar & dfa.;
-//}
+}
 
 template<class Archive>
-void serialize(Archive & ar, ComponentModel & cm, const unsigned int version)
+void serialize(Archive & ar,vector<NetworkModel> & vec, const unsigned int version)
 {
-    ar & cm.events;
-    ar & cm.inputs;
-    ar & cm.name;
-    ar & cm.outputs;
-    ar & cm.states;
-    ar & cm.trans;
-    ar & cm.automaton;
+    for(vector<NetworkModel>::iterator it = vec.begin(); it != vec.end(); it++)
+        ar & (*it);
+
 }
+
+
+
 
 } // namespace serialization
 } // namespace boost

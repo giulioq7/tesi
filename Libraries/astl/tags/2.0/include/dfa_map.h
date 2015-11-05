@@ -28,6 +28,8 @@
 #include <vector>  
 #include <functional>   // binary_function<>       
 
+#include <boost/serialization/base_object.hpp>
+
 using namespace std;
 
 namespace astl {
@@ -37,7 +39,7 @@ struct dfa_map_key_compare
   : public binary_function<typename CharTraits::char_type, 
 			   typename CharTraits::char_type, bool>
 {
-  bool operator()(const typename CharTraits::char_type &x, 
+    bool operator()(const typename CharTraits::char_type &x,
 		  const typename CharTraits::char_type &y) const {
     return CharTraits::lt(x, y);
   }
@@ -71,8 +73,17 @@ class DFA_map
 			unsigned int, dfa_map_key_compare<CharTraits> > > 
 {
 protected:
-  typedef map<typename CharTraits::char_type, unsigned int, 
+    typedef map<typename CharTraits::char_type, unsigned int,
 	      dfa_map_key_compare<CharTraits> > transition_container;
+
+    friend class boost::serialization::access;
+   template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & boost::serialization::base_object<DFA_base<CharTraits, Tag,
+                map<typename CharTraits::char_type,
+                unsigned int, dfa_map_key_compare<CharTraits> > > >(*this);
+    }
 
 public:
   typedef DFA_base<CharTraits, Tag, transition_container> super;
