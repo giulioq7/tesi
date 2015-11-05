@@ -14,7 +14,7 @@
 #include "serialize.h"
 
 #define TYPE int
-#define GRAPHS_DIR "./Pts/"
+#define GRAPHS_DIR "./Graphs/"
 
 
 
@@ -66,6 +66,10 @@ int main(int argc, char** argv)
         driver.system.root = &driver.system.node_list.at(0);
     else
         driver.system.root = driver.find_node(driver.system.id_root);
+
+    std::string str = "../";
+    str.append(GRAPHS_DIR);
+    chdir(str.c_str());
 
     //dependency graph of system nodes
     driver.build_dependency_graph();
@@ -122,8 +126,6 @@ int main(int argc, char** argv)
 
 fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
 {
-    chdir(GRAPHS_DIR);
-
     vector<fm<TYPE>* >* v = new vector<fm<TYPE>* >;
 
     vector<std::pair<std::string,std::string> >::iterator it;
@@ -147,7 +149,7 @@ fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
 
    fm<TYPE> *merge = merge_dfa(v);
 
-   if(debug > 0)
+   if(debug > 1)
    {
        ofstream f;
        f.open("merge_before_eps");
@@ -157,7 +159,7 @@ fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
 
    add_eps_to_init(merge);
 
-   if(debug > 0)
+   if(debug > 1)
    {
        ofstream f;
        f.open("merge_after_eps");
@@ -221,7 +223,7 @@ fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
    }*/
 
    //draw merge2
-   if(debug > 0)
+   if(debug > 1)
    {
        std::string name = "pattern_space";
        ofstream f;

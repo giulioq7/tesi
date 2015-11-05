@@ -1,9 +1,11 @@
 %{
 # include <string>
 # include <iostream>
+# include <unistd.h>
 # include "spec_driver.h"
 # include "specparser.hpp"
 
+# define INPUT_FILE_DIR "./InputFiles/"
 
 using namespace std;
 
@@ -46,6 +48,7 @@ comment		\/\/.*
 #include          BEGIN(incl);
 <incl>[ \t]*      /* eat the whitespace */
 <incl>[^ \t\n]+   { /* got the include file name */
+                 chdir(INPUT_FILE_DIR);
                  FILE *file = fopen( yytext, "r" );
 
                  if (file == NULL)

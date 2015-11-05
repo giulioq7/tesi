@@ -560,9 +560,11 @@ char *yytext;
 #line 2 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 # include <string>
 # include <iostream>
+# include <unistd.h>
 # include "spec_driver.h"
 # include "specparser.hpp"
 
+# define INPUT_FILE_DIR "./InputFiles/"
 
 using namespace std;
 
@@ -577,10 +579,10 @@ using namespace std;
 yy::location loc;
 
 
-#line 36 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 38 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
   // Code run each time a pattern is matched.
   # define YY_USER_ACTION  loc.columns (yyleng);
-#line 584 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
+#line 586 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
 
 #define INITIAL 0
 #define incl 1
@@ -793,14 +795,14 @@ YY_DECL
 		}
 
 	{
-#line 40 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 42 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 
 
 
   // Code run each time yylex is called.
   loc.step ();
 
-#line 804 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
+#line 806 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
 
 	while ( 1 )		/* loops until end-of-file is reached */
 		{
@@ -859,18 +861,19 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 46 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 48 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 BEGIN(incl);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 47 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 49 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 /* eat the whitespace */
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 48 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 50 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 { /* got the include file name */
+                 chdir(INPUT_FILE_DIR);
                  FILE *file = fopen( yytext, "r" );
 
                  if (file == NULL)
@@ -887,23 +890,23 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 63 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 66 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 ;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 64 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 67 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 ;
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 66 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 69 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 {loc.lines (yyleng);loc.step();}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(incl):
-#line 68 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 71 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 {yypop_buffer_state();
 
                  if ( !YY_CURRENT_BUFFER )
@@ -914,215 +917,215 @@ case YY_STATE_EOF(incl):
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 76 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 79 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_COMPONENT(loc);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 77 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 80 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_MODEL(loc);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 78 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 81 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_IS(loc);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 79 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 82 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_END(loc);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 80 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 83 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_EVENT(loc);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 81 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 84 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_INPUT(loc);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 82 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 85 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_OUTPUT(loc);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 83 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 86 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_STATE(loc);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 84 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 87 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_TRANSITION(loc);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 85 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 88 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_NETWORK(loc);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 86 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 89 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_LINK(loc);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 87 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 90 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_PATTERN(loc);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 88 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 91 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_INITIAL(loc);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 89 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 92 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_VIEWER(loc);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 90 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 93 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_RULER(loc);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 91 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 94 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_SYSTEM(loc);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 92 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 95 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_NODE(loc);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 93 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 96 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_ROOT(loc);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 94 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 97 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_EMERGENCE(loc);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 95 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 98 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_PROBLEM(loc);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 96 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 99 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_OBS(loc);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 98 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 101 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_COMMA(loc);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 99 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 102 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_COLON(loc);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 100 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 103 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_SEMI_COLON(loc);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 101 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 104 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_DOT(loc);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 102 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 105 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_EQUALS(loc);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 103 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 106 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_ARROW(loc);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 104 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 107 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_L_BRACKET(loc);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 105 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 108 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_R_BRACKET(loc);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 106 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 109 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_L_SQUARE_BRACKET(loc);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 107 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 110 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_R_SQUARE_BRACKET(loc);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 108 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 111 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_L_CURLY_BRACKET(loc);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 109 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 112 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_R_CURLY_BRACKET(loc);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 110 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 113 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_AND(loc);
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 111 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 114 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_PIPE(loc);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 112 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 115 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_STAR(loc);
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 113 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 116 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_PLUS(loc);
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 114 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 117 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_OPT(loc);
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 115 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 118 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_TILDE(loc);
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 118 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 121 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 return yy::spec_parser::make_ID(yytext,loc);
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 119 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 122 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 {cout << "Lexical error: token \"" << yytext << "\" at " << loc << endl; exit(1);}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 120 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 123 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 ECHO;
 	YY_BREAK
-#line 1126 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
+#line 1129 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2078,7 +2081,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 119 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 122 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 
 
 
