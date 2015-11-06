@@ -7,6 +7,8 @@
 #include <ccopy.h>
 #include <dot.h>
 
+#include <statedata.h>
+
 using namespace std;
 
 class Utils
@@ -16,6 +18,7 @@ public:
     template <typename T> static bool contain(vector<T> &v, T &elem);
     template <typename T> static bool duplicate_content(vector<T> &v);
     template <typename SIGMA, typename TAG> static bool cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
+    template <typename SIGMA, typename TAG> static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa);
 };
 
 template <typename T>
@@ -99,6 +102,36 @@ bool Utils::cyclic_graph(astl::DFA_map<SIGMA,TAG>& dfa)
             return true;
     }
     return false;
+}
+
+
+template <typename SIGMA, typename TAG>
+bool Utils::disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa)
+{
+    using namespace astl;
+
+    vector<unsigned int> visited;
+    bfirst_cursor<queue_cursor<forward_cursor<DFA_map<SIGMA,TAG> > > > bfc = bfirstc(dfa), bfc_end;
+    while(bfc != bfc_end)
+    {
+        do
+        {
+            //cout << bfc.src() << bfc.letter() << bfc.aim() << endl;
+            unsigned int s1 = bfc.src();
+            if(!contain(visited, s1))
+                visited.push_back(s1);
+            unsigned int s2 = bfc.aim();
+            if(!contain(visited,s2))
+                visited.push_back(s2);
+        }while(bfc.next());
+    }
+
+    //cout << "visited: " << visited.size();
+    //cout << "total: " << dfa.state_count();
+    if(visited.size() < dfa.state_count())
+        return true;
+
+   return false;
 }
 
 #endif // UTILS_H
