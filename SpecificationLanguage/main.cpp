@@ -113,7 +113,7 @@ int main(int argc, char** argv)
     full_dot(f,dfirst_markc(driver.components[1].automaton));
     f.close();
 
-    std::ofstream ofs("filename");
+    std::ofstream ofs("data");
     // save data to archive
         {
             boost::archive::text_oarchive oa(ofs);
@@ -123,12 +123,12 @@ int main(int argc, char** argv)
         }
 
         // ... some time later restore the class instance to its orginal state
-       spec_driver read_all(2,1);
+       spec_driver read_all(driver.components.size(),driver.networks.size());
        //read_all.components = vector<ComponentModel>(driver.components.size());
        //read_all.networks = vector<NetworkModel>(driver.networks.size());
         {
             // create and open an archive for input
-            std::ifstream ifs("filename");
+            std::ifstream ifs("data");
             boost::archive::text_iarchive ia(ifs);
             // read class state from archive
             ia >> read_all;
