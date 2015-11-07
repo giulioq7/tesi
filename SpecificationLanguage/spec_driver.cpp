@@ -11,10 +11,6 @@ spec_driver::spec_driver(): trace_scanning (false), trace_parsing (false)
 {
 }
 
-spec_driver::~spec_driver()
-{
-}
-
 int spec_driver::parse (const std::string &f)
 {
   file = f;
@@ -206,6 +202,32 @@ void spec_driver::build_automata_comp()
 }
 
 
+void spec_driver::build_Isp()
+{
+     vector<ProblemNode>::iterator it;
+    for(it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+    {
+        DFA_map<strings,StateData_str>::state_type s = it->index_space.new_state();
+        it->index_space.tag(s) = StateData_str("I0");
+        it->index_space.initial(s);
+        vector<std::string>::iterator it2;
+        int count_state = 1;
+        for(it2 = it->observation.begin(); it2 != it->observation.end(); it2++)
+        {
+            DFA_map<strings,StateData_str>::state_type s1 = it->index_space.new_state();
+            std::stringstream ss;
+            ss << "I";
+            ss << count_state;
+            it->index_space.tag(s1) = StateData_str(ss.str());
+            it->index_space.set_trans(s,*it2,s1);
+            s = s1;
+            count_state++;
+        }
+        it->index_space.final(s) = true;
+    }
+}
+
+
 bool spec_driver::duplicate_component_model_id(std::string id)
 {
     for(vector<ComponentModel>::iterator it = components.begin(); it != components.end(); ++it)
@@ -346,7 +368,7 @@ void spec_driver::semantic_checks(NetworkModel nm)
         for(map<pair<string,string>, string>::iterator it2 = it1 ; it2 != nm.ruler.end(); )
         {
             it2++;
-            if(it1->second == it2->second)
+            if(it2 != nm.ruler.end() && it1->second == it2->second)
                 error(loc, "ruler mapping must be a bijection, duplicate fault label used");
         }
     }

@@ -14,7 +14,7 @@ class StateData_str
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-        ar & wc_;
+        //ar & wc_;
         ar & state_name;
     }
 
@@ -25,6 +25,7 @@ public:
 
 
     StateData_str();
+    ~StateData_str();
     StateData_str(std::string str) { state_name = str; }
 
     //members for make hash

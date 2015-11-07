@@ -109,9 +109,16 @@ int main(int argc, char** argv)
        }
     }
 
+    driver.build_Isp();
+    ofstream fi("Isp");
+    full_dot(fi,dfirst_markc(driver.problem.nodes[0].index_space));
+    fi.close();
+
     ofstream f("prova");
     full_dot(f,dfirst_markc(driver.components[1].automaton));
     f.close();
+
+
 
     std::ofstream ofs("data");
     // save data to archive
@@ -124,6 +131,7 @@ int main(int argc, char** argv)
 
         // ... some time later restore the class instance to its orginal state
        spec_driver read_all(driver.components.size(),driver.networks.size());
+       read_all.problem.nodes = vector<ProblemNode>(driver.problem.nodes.size());
        //read_all.components = vector<ComponentModel>(driver.components.size());
        //read_all.networks = vector<NetworkModel>(driver.networks.size());
         {
@@ -136,7 +144,7 @@ int main(int argc, char** argv)
         }
 
         ofstream f2("prova2");
-        full_dot(f2,dfirst_markc(read_all.components[1].automaton));
+        full_dot(f2,dfirst_markc(read_all.problem.nodes[0].index_space));
         f2.close();
 
 }

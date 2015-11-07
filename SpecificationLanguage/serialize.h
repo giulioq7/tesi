@@ -28,6 +28,13 @@ void serialize(Archive & ar,vector<NetworkModel> & vec, const unsigned int versi
 
 }
 
+template<class Archive>
+void serialize(Archive & ar,vector<ProblemNode> & vec, const unsigned int version)
+{
+    for(vector<ProblemNode>::iterator it = vec.begin(); it != vec.end(); it++)
+        ar & (*it);
+
+}
 
 
 

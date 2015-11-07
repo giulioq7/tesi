@@ -1,5 +1,7 @@
 #include "problemnode.h"
 
+using namespace astl;
+
 ProblemNode::ProblemNode()
 {
 }

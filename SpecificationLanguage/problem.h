@@ -20,8 +20,10 @@ public:
     std::string name;
     vector<ProblemNode> nodes;
 
+
     Problem();
     Problem(std::string str) { name = str;}
+
 };
 
 #endif // PROBLEM_H

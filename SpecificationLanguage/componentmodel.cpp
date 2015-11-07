@@ -20,10 +20,11 @@ void ComponentModel::build_automaton()
 
 void ComponentModel::build_states()
 {
-    for(unsigned int i=0; i<states.size(); i++)
+    vector<std::string>::iterator it;
+    for(it = states.begin(); it != states.end(); it++)
     {
        DFA_map<Transition,StateData_str>::state_type s = automaton.new_state();
-       automaton.tag(s) = StateData_str(states.at(i));
+       automaton.tag(s) = StateData_str(*it);
        autom_states.push_back(s);
     }
 }

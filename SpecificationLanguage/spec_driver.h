@@ -35,7 +35,6 @@ public:
         components = vector<ComponentModel>(n_comp);
         networks = vector<NetworkModel>(n_net);
     }
-    virtual ~spec_driver();
 
     vector<ComponentModel> components;
     vector<NetworkModel> networks;
@@ -71,6 +70,7 @@ public:
     void adjust_inherited();
     void build_automata_comp();
     void build_dependency_graph();
+    void build_Isp();
 
     //sem checks
     void semantic_checks(ComponentModel cm);
