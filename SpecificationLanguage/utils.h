@@ -91,8 +91,25 @@ bool Utils::cyclic_graph(astl::DFA_map<SIGMA,TAG>& dfa)
                         do
                         {
                             if(fc.aim() == *c)
-                                graph.del_trans(fc.src(),fc.letter());
-                        }while(fc.next());
+                            {
+                                typename DFA_map<SIGMA,TAG>::state_type s = fc.src();
+                                typename DFA_map<SIGMA,TAG>::char_type l = fc.letter();
+                                if(fc.next())
+                                {
+                                    graph.del_trans(s,l);
+                                    continue;
+                                }
+                                else
+                                {
+                                    graph.del_trans(s,l);
+                                    break;
+                                }
+                            }
+                            if(fc.next())
+                                continue;
+                            else
+                                break;
+                        }while(true);
                     }
                 }
                 leaf_exists = true;
