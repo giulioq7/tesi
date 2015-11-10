@@ -23,15 +23,15 @@ using namespace grail;
 using namespace astl;
 
 //PUBLIC
-fm<TYPE>* start_build(std::vector<std::pair<std::string,std::string> > patterns);
-DFA_map<NetTransition,StateData_str>* from_grail_to_astl(fm<TYPE>* dfa, NetworkModel* net);
+fm<int> start_build(std::vector<std::pair<std::string,std::string> > patterns);
+DFA_map<NetTransition, StateData_str>* from_grail_to_astl(fm<TYPE>* dfa, NetworkModel* net);
 
 //PRIVATE
-grail::fm<TYPE>* patodfa(std::string regex);
-void mark_finals(grail::fm<TYPE>* A, std::string patt);
+fm<int> patodfa(std::string regex);
+void mark_finals(fm<int> &A, std::string patt);
 grail::fm<TYPE>* merge_dfa(std::vector<grail::fm<TYPE>* > *vec);
-void add_eps_to_init(grail::fm<TYPE>* nfa);
-grail::fm<TYPE>* mysubset(grail::fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub);
+void add_eps_to_init(fm<int> &nfa);
+fm<int> mysubset(grail::fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub);
 void minimize(grail::fm<TYPE>* fm);
 void dot_draw(std::ostream &strm, grail::fm<TYPE>* Pts);
 
@@ -94,7 +94,8 @@ int main(int argc, char** argv)
     vector<NetworkModel>::iterator it;
     for(it = driver.networks.begin(); it != driver.networks.end(); it++)
     {
-       DFA_map<NetTransition,StateData_str>* ptspace = from_grail_to_astl(start_build((*it).patterns),&(*it));
+       fm<TYPE> gr = start_build((*it).patterns);
+       DFA_map<NetTransition,StateData_str>* ptspace = from_grail_to_astl(&gr,&(*it));
        (*it).pattern_space = *ptspace;
 
        if(debug > 0)
@@ -150,15 +151,16 @@ int main(int argc, char** argv)
 }
 
 
-fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
+fm<TYPE> start_build(vector<std::pair<std::string,std::string> > patterns)
 {
     vector<fm<TYPE>* >* v = new vector<fm<TYPE>* >;
 
     vector<std::pair<std::string,std::string> >::iterator it;
     for(it = patterns.begin(); it != patterns.end(); it++)
     {
-        fm<TYPE>* A = patodfa((*it).second);
-        mark_finals(A,(*it).first);
+        fm<TYPE> *A = new fm<TYPE>;
+        *A = patodfa((*it).second);
+        mark_finals(*A,(*it).first);
         v->push_back(A);
 
         if(debug > 0)
@@ -183,7 +185,7 @@ fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
        f.close();
    }
 
-   add_eps_to_init(merge);
+   add_eps_to_init(*merge);
 
    if(debug > 1)
    {
@@ -196,13 +198,13 @@ fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
    //merge->subset(); //this function has been modified (just a bit) in order to mantain subsets information
                       //to mark final states
    grail::list<grail::set<grail::state> > sub;
-   fm<TYPE> *merge2;
+   fm<TYPE> merge2;
    merge2 = mysubset(merge,sub);
    //merge2->min_by_partition(); //with this we'll lose final tags information
 
    //retrieves final states labels
    grail::set<grail::state> fin;
-   merge2->finals(fin);
+   merge2.finals(fin);
    grail::set<grail::state> fin_merge;
    merge->finals(fin_merge);
    for(int a=0; a<fin.size(); a++)
@@ -219,7 +221,7 @@ fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
        }
        str.resize(str.size()-1); //removes last comma (useless)
        str.append("}");
-       merge2->final_states[a].set_tag(str);
+       merge2.final_states[a].set_tag(str);
    }
 
    //this minimization seems to have some problems too (probably because it does not take into account transitions of the merged final states)
@@ -254,11 +256,14 @@ fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
        std::string name = "pattern_space";
        ofstream f;
        f.open(name.c_str());
-       dot_draw(f, merge2);
+       dot_draw(f, &merge2);
        f.close();
    }
 
-   v->erase(v->begin(),v->end());
+   vector<fm<TYPE>* >::iterator it_v;
+   for(it_v = v->begin(); it_v != v->end(); it_v++)
+       delete *it_v;
+   //v->erase(v->begin(),v->end());
    delete v;
    delete merge;
 
@@ -266,28 +271,28 @@ fm<TYPE>* start_build(vector<std::pair<std::string,std::string> > patterns)
 }
 
 
-fm<TYPE>* patodfa(std::string regex)
+fm<TYPE> patodfa(std::string regex)
 {
     re<TYPE> r;
     istringstream str(regex);
     str >> r;
-    fm<TYPE>* dfa = new fm<TYPE>;
-    r.retofm(*dfa);
-    dfa->subset();
+    fm<TYPE> dfa;
+    r.retofm(dfa);
+    dfa.subset();
 
     return dfa;
 }
 
 
-void mark_finals(fm<TYPE>* A, std::string patt)
+void mark_finals(fm<TYPE>& A, std::string patt)
 {
     grail::set<grail::state> finals;
-    A->finals(finals);
+    A.finals(finals);
     for(int i=0; i<finals.size();++i)
     {
         finals[i].set_tag(patt);
     }
-    A->set_finals(finals);
+    A.set_finals(finals);
 }
 
 
@@ -302,20 +307,20 @@ fm<TYPE>* merge_dfa(vector<fm<TYPE> *> *vec)
 }
 
 
-void add_eps_to_init(fm<TYPE>* nfa)
+void add_eps_to_init(fm<TYPE>& nfa)
 {
     grail::set<grail::state>  nodes;
-    nfa->states(nodes);
+    nfa.states(nodes);
     grail::set<grail::state> initials;
-    nfa->starts(initials);
+    nfa.starts(initials);
     grail::set<grail::state> finals;
-    nfa->finals(finals);
+    nfa.finals(finals);
 
     grail::set<grail::state> non_initials(nodes);
     non_initials -= initials;
 
     grail::set<grail::inst<TYPE> > arcs;
-    nfa->get_arcs(arcs);
+    nfa.get_arcs(arcs);
 
     //cout << nodes;
     //cout << initials;
@@ -328,18 +333,18 @@ void add_eps_to_init(fm<TYPE>* nfa)
         grail::state current = arcs[i].get_sink();
         if(non_initials.member(current)!=-1)
         {
-            for(int j=0;j<nfa->number_of_start_states(); ++j)
+            for(int j=0;j<nfa.number_of_start_states(); ++j)
             {
                 TYPE label = arcs[i].get_label();
                 inst<TYPE> trans;
                 trans.assign(arcs[i].get_source(),label,initials[j]);
-                nfa->add_instruction(trans);
+                nfa.add_instruction(trans);
                 if(finals.member(initials[j]) != -1)
                 {
                     grail::set<grail::state> fin;
-                    nfa->finals(fin);
+                    nfa.finals(fin);
                     fin += current;
-                    nfa->set_finals(fin);
+                    nfa.set_finals(fin);
                 }
             }
         }
@@ -347,10 +352,10 @@ void add_eps_to_init(fm<TYPE>* nfa)
 }
 
 
-fm<TYPE>* mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
+fm<TYPE> mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
 {
 
-    fm<TYPE>		*m = new fm<TYPE>;
+    fm<TYPE>		m;
     int			i;
     int			j;
     int			k;
@@ -365,7 +370,7 @@ fm<TYPE>* mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
 
     // if already deterministic, do nothing
     if (nfa->is_deterministic())
-        return nfa;
+        return *nfa;
 
     // sort if necessary
     nfa->arcs.sort();
@@ -385,7 +390,7 @@ fm<TYPE>* mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
     sub += nfa->start_states;
 
     s1 = 0;
-    m->start_states += s1;
+    m.start_states += s1;
     if (debug>8)
     {std::cout<<"in fm:subset(), added start states: 0"<<std::endl;}
 
@@ -394,7 +399,7 @@ fm<TYPE>* mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
         // the new start state to the list of final states
         temp2.intersect(nfa->final_states, nfa->start_states);
         if (temp2.size() > 0)
-            m->final_states += s1;
+            m.final_states += s1;
     if (debug>8)
     {std::cout<<"in fm:subset(), intesection of Start states and final states has "<<temp2.size()<<" elements"<<std::endl;}
 
@@ -425,7 +430,7 @@ fm<TYPE>* mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
                     s2 = no_states++;
                     temp2.intersect(nfa->final_states, target);
                     if (temp2.size() > 0)
-                        {m->final_states += s2;
+                        {m.final_states += s2;
     if (debug>8)
     {std::cout<<"in fm:subset(), added final states: 0"<<s2.value()<<std::endl;}}
                 }
@@ -433,7 +438,7 @@ fm<TYPE>* mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
                     s2 = k;
 
                 t.assign(s1, alphabet[j], s2);
-                m->arcs += t;
+                m.arcs += t;
     if (debug>8)
     {std::cout<<"in fm:subset(), added arcs states: 0"<<t.get_source().value()<<t.get_label()<<t.get_sink().value()<<std::endl;}
             }
@@ -516,7 +521,7 @@ void dot_draw(ostream& strm, fm<TYPE>* Pts)
 }
 
 
-DFA_map<NetTransition,StateData_str>* from_grail_to_astl(fm<TYPE> *dfa, NetworkModel* net)
+DFA_map<NetTransition, StateData_str> *from_grail_to_astl(fm<TYPE> *dfa, NetworkModel* net)
 {
     grail::set<grail::state> init;
     dfa->starts(init);
