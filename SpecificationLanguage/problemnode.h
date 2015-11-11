@@ -41,6 +41,8 @@ public:
     ProblemNode();
     ProblemNode(std::string str){ name = str;}
     Component* find_component(std::string id);
+
+    astl::DFA_map<Transition,StateData_str>::state_type find_initial_state(std::string str);
 };
 
 #endif // PROBLEMNODE_H

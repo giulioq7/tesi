@@ -41,11 +41,12 @@ public:
     ComponentModel(std::string str) { name = str;}
 
     void build_automaton();
+    astl::DFA_map<Transition,StateData_str>::state_type find_state(std::string name);
     Transition* find_trans(std::string name_tr);
 
 private:
     void build_states();
-    astl::DFA_map<Transition,StateData_str>::state_type find_state(std::string name);
+
 };
 
 

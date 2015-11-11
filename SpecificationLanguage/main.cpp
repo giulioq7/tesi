@@ -84,12 +84,29 @@ int main(int argc, char** argv)
     //build components models automata (initial state missed because it will be certainly defined only in problem node)
     driver.build_automata_comp();
 
+    for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
+    {
+        for(vector<Component>::iterator it2 = it->ref_node->net_model->components.begin();
+            it2 != it->ref_node->net_model->components.end(); it2++)
+        {
+            Component c(it2->name);
+            c.model = it2->model;
+            DFA_map<Transition,StateData_str> A;
+            A = it2->model->automaton;
+            A.initial(it->find_initial_state(c.name));
+            c.automaton = A;
+            it->concrete_components.push_back(c);
+            A =  DFA_map<Transition,StateData_str>();
+        }
+    }
+
     //print all info
     cout << driver;
 
-    //ofstream file("prova.xdot");
-    //full_dot(file, dfirst_markc(driver.components[1].automaton)); // write tags
-    //file.close();
+    //xdot file should be blank because initial state is missed
+    ofstream file("comp_model_bhv.xdot");
+    full_dot(file, dfirst_markc(driver.components[0].automaton)); // write tags
+    file.close();
 
     vector<NetworkModel>::iterator it;
     for(it = driver.networks.begin(); it != driver.networks.end(); it++)
@@ -115,38 +132,32 @@ int main(int argc, char** argv)
     full_dot(fi,dfirst_markc(driver.problem.nodes[0].index_space));
     fi.close();
 
-    ofstream f("prova");
-    full_dot(f,dfirst_markc(driver.components[1].automaton));
-    f.close();
-
-
-
     std::ofstream ofs("data");
     // save data to archive
-        {
-            boost::archive::text_oarchive oa(ofs);
-            // write class instance to archive
-            oa << driver;
-            // archive and stream closed when destructors are called
-        }
+    {
+        boost::archive::text_oarchive oa(ofs);
+        // write class instance to archive
+        oa << driver;
+        // archive and stream closed when destructors are called
+    }
 
-        // ... some time later restore the class instance to its orginal state
-       spec_driver read_all(driver.components.size(),driver.networks.size());
-       read_all.problem.nodes = vector<ProblemNode>(driver.problem.nodes.size());
-       //read_all.components = vector<ComponentModel>(driver.components.size());
-       //read_all.networks = vector<NetworkModel>(driver.networks.size());
-        {
-            // create and open an archive for input
-            std::ifstream ifs("data");
-            boost::archive::text_iarchive ia(ifs);
-            // read class state from archive
-            ia >> read_all;
-            // archive and stream closed when destructors are called
-        }
+    // ... some time later restore the class instance to its orginal state
+   spec_driver read_all(driver.components.size(),driver.networks.size());
+   read_all.problem.nodes = vector<ProblemNode>(driver.problem.nodes.size());
+   //read_all.components = vector<ComponentModel>(driver.components.size());
+   //read_all.networks = vector<NetworkModel>(driver.networks.size());
+    {
+        // create and open an archive for input
+        std::ifstream ifs("data");
+        boost::archive::text_iarchive ia(ifs);
+        // read class state from archive
+        ia >> read_all;
+        // archive and stream closed when destructors are called
+    }
 
-        ofstream f2("prova2");
-        full_dot(f2,dfirst_markc(read_all.problem.nodes[0].index_space));
-        f2.close();
+    ofstream f2("comp_concrete_bhv.xdot");
+    full_dot(f2,dfirst_markc(read_all.problem.nodes[0].concrete_components[0].automaton));
+    f2.close();
 
 }
 

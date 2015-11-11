@@ -22,6 +22,7 @@ class Component
 public:
     Component();
     Component(std::string str) { name = str; }
+    ~Component(){automaton = astl::DFA_map<Transition,StateData_str>();}
 
     std::string name;
     ComponentModel* model;

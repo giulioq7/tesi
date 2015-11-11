@@ -14,7 +14,9 @@ void ComponentModel::build_automaton()
     {
         automaton.set_trans(find_state(trans.at(i).s1_s2.first),trans.at(i),find_state(trans.at(i).s1_s2.second));
     }
-    automaton.initial(autom_states[0]);
+    //initial state is unknown in the model: it can be defined in a inherited way in
+    //network model, system and problem declaration within initial-section
+    //automaton.initial(autom_states[0]);
 
 }
 
