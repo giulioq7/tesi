@@ -208,10 +208,10 @@ void spec_driver::build_Isp()
     for(it = problem.nodes.begin(); it != problem.nodes.end(); it++)
     {
         DFA_map<strings,StateData_str>::state_type s = it->index_space.new_state();
-        it->index_space.tag(s) = StateData_str("I0");
+        it->index_space.tag(s) = StateData_str("I1");
         it->index_space.initial(s);
         vector<std::string>::iterator it2;
-        int count_state = 1;
+        int count_state = 2;
         for(it2 = it->observation.begin(); it2 != it->observation.end(); it2++)
         {
             DFA_map<strings,StateData_str>::state_type s1 = it->index_space.new_state();
@@ -390,6 +390,18 @@ void spec_driver::semantic_checks(System sys)
             error(loc, "component ID in emergence declaration does not exist");
     }
 
+    //verifies one-to-one mapping in emergence between nodes, in order to be a tree structure
+    for(map<pair<string,string>,string>::iterator it = sys.emergence.begin(); it != sys.emergence.end(); it++)
+    {
+        for(map<pair<string,string>,string>::iterator it2 = it; it2 != sys.emergence.end(); )
+        {
+            it2++;
+            if(it2 == sys.emergence.end())
+                break;
+            if(it->first == it2->first || it->second == it2->second)
+                error(loc, "system nodes dependencies must be a tree");
+        }
+    }
 
 }
 
