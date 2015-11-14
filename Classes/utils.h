@@ -7,7 +7,7 @@
 #include <ccopy.h>
 #include <dot.h>
 
-#include <statedata.h>
+#include "statedata.h"
 
 using namespace std;
 

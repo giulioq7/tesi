@@ -132,14 +132,43 @@ int main(int argc, char** argv)
     full_dot(fi,dfirst_markc(driver.problem.nodes[0].index_space));
     fi.close();
 
-    std::ofstream ofs("data");
+
     // save data to archive
     {
+        std::ofstream ofs("../../CompiledData/component_models.dat");
         boost::archive::text_oarchive oa(ofs);
         // write class instance to archive
-        oa << driver;
+        oa << driver.components;
         // archive and stream closed when destructors are called
     }
+
+    // save data to archive
+    {
+        std::ofstream ofs("../../CompiledData/network_models.dat");
+        boost::archive::text_oarchive oa(ofs);
+        // write class instance to archive
+        oa << driver.networks;
+        // archive and stream closed when destructors are called
+    }
+
+    // save data to archive
+    {
+        std::ofstream ofs("../../CompiledData/system.dat");
+        boost::archive::text_oarchive oa(ofs);
+        // write class instance to archive
+        oa << driver.system;
+        // archive and stream closed when destructors are called
+    }
+
+    // save data to archive
+    {
+        std::ofstream ofs("../../CompiledData/problem.dat");
+        boost::archive::text_oarchive oa(ofs);
+        // write class instance to archive
+        oa << driver.problem;
+        // archive and stream closed when destructors are called
+    }
+
 
     // ... some time later restore the class instance to its orginal state
    spec_driver read_all(driver.components.size(),driver.networks.size());

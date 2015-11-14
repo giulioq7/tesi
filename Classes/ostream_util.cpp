@@ -119,13 +119,6 @@ std::ostream& operator<<(std::ostream& out, const Problem& probl)
 }
 
 
-std::ostream& operator<<(std::ostream& out, const spec_driver& d)
-{
-    return out << "Component models\n" << d.components
-               << "Network models\n" << d.networks
-               << d.system
-               << d.problem;
-}
 
 
 std::ostream& operator<<(std::ostream& out, const StateData_str& s)
@@ -137,4 +130,23 @@ std::ostream& operator<<(std::ostream& out, const StateData_str& s)
 std::ostream& operator<<(std::ostream& out, const NetTransition& t)
 {
     return out << t.trans->name << "(" << t.component->name << ")";
+}
+
+std::ostream& operator<<(std::ostream& out, const SysTransition& t)
+{
+    return out << t.trans->name << "(" << t.component->name << "(" << t.node->name << "))";
+}
+
+
+std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
+{
+    out << "[";
+    for(int i=0; i<s.n_comps-1; i++)
+    {
+        out << s.S[i].src() << ",";
+    }
+    out << s.S[s.n_comps-1].src();
+    out << "]";
+    out << s.E;
+    return out;
 }

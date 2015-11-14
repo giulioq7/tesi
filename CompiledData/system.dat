@@ -1,0 +1,56 @@
+22 serialization::archive 13 0 0 17 PowerTransmission 0 0 0 0 0 0 8 0 -1 4 1 0
+0 0 0 2 W1 0 0 3 0 0 0 11 l(W1) -> W2 2 11 p(W1) -> W3 4 11 r(W1) -> W4 6 4
+1 2 W2 2 0 11 l(W2) -> W5 3 11 r(W2) -> W6 7 4
+2 2 W5 0 0 4
+3 2 W3 1 0 11 p(W3) -> W7 5 4
+4 2 W7 0 0 4
+5 2 W4 0 0 4
+6 2 W6 0 0 1 8 0 0 0 0 0 0 0 0 0 7 6 0 0 7 0 1 0
+7 2 W1 11 1 0
+8 12 ProtectionHW 0 0 3 0 1 0
+9 1 l 14 1 0
+10 2 0 1 2 7 Breaker 0 0 0 0 0 0 3 0 -1 19 1 0
+11 6 closed 0 0 3 0 0 0 1 0
+12 0 0 2 op 1 I 2 b1 0 0 0 0 6 closed 4 open 2
+13 2 op 1 I 2 b3 0 0 6 closed 6 closed 1
+14 2 cl 1 I 2 b5 0 0 6 closed 6 closed 1 19
+15 4 open 3 0
+16 2 cl 1 I 2 b2 0 0 4 open 6 closed 1
+17 2 cl 1 I 2 b4 0 0 4 open 4 open 2
+18 2 op 1 I 2 b6 0 0 4 open 4 open 2 0 3 0 0 0 0 2 6 0 0 2 0 2 op 2 cl 1 0 1 I 0 0 2 0 6 closed 4 open 0 0 6 0
+19 2 op 1 I 2 b1 0 0 6 closed 4 open
+20 2 cl 1 I 2 b2 0 0 4 open 6 closed
+21 2 op 1 I 2 b3 0 0 6 closed 6 closed
+22 2 cl 1 I 2 b4 0 0 4 open 4 open
+23 2 cl 1 I 2 b5 0 0 6 closed 6 closed
+24 2 op 1 I 2 b6 0 0 4 open 4 open 1 0 -1 0 1 0 0 0 0
+25 1 r 14 10 1 0 -1 0 1 0 0 0 0
+26 1 p 14
+27 2 0 1 2 16 ProtectionDevice 3 0 -1 19
+28 4 idle 2 0
+29 0  0  2 p1 1 0 2 op 1 O 4 idle 6 awaken 2
+30 0  0  2 p3 1 0 2 cl 1 O 4 idle 6 awaken 2 19
+31 6 awaken 2 0
+32 0  0  2 p2 1 0 2 cl 1 O 6 awaken 4 idle 1
+33 0  0  2 p4 1 0 2 op 1 O 6 awaken 4 idle 1 0 3 0 0 0 0 2 4 2 0 2 op 2 cl 0 0 1 0 1 O 2 0 4 idle 6 awaken 4 0
+34 0  0  2 p1 1 0 2 op 1 O 4 idle 6 awaken
+35 0  0  2 p2 1 0 2 cl 1 O 6 awaken 4 idle
+36 0  0  2 p3 1 0 2 cl 1 O 4 idle 6 awaken
+37 0  0  2 p4 1 0 2 op 1 O 6 awaken 4 idle 1 0 -1 0 1 0 0 0 0 0 0 2 0 0 0 1 O 1 p 1 I 1 l 1 O 1 p 1 I 1 r 4 0 3 fop 3 (0) 3 fcp 3 (1) 3 fdw 24 (0)|(2)(((3)(4)|(4)(3))) 3 frw 16 (1)|(5)((6)|(7)) 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 0 0 8 0 0 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp 0 0 0 0 0 0 12 0 -1 34 1 0
+38 0  0 0 4 0 0 0 0 0 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+39 9 {fop,fdw} 4 0 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+40 9 {fcp,frw} 4 0 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+41 0  6 0 22 21 13 9 6 22 21 13 25 7 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+42 0  6 0 22 22 13 9 8 22 22 13 25 9 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+43 0  5 0 22 21 13 25 10 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+44 0  5 0 22 21 13 9 11 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+45 5 {frw} 4 0 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+46 5 {frw} 4 0 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+47 5 {fdw} 4 0 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 34
+48 5 {fdw} 4 0 22 34 13 26 4 22 35 13 26 5 22 36 13 26 2 22 37 13 26 3 1 12 0 0 0 1 1 0 0 0 0 1 1 1 1 11 50 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp
+49 2 W2 11 8 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp
+50 2 W3 11 8 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp
+51 2 W4 11 8 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp
+52 2 W5 11 8 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp
+53 2 W6 11 8 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp
+54 2 W7 11 8 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp 0  10 7 6 0 1 l 2 W1 2 W2 1 l 2 W2 2 W5 1 p 2 W1 2 W3 1 p 2 W3 2 W7 1 r 2 W1 2 W4 1 r 2 W2 2 W6

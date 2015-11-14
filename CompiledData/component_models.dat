@@ -1,0 +1,27 @@
+22 serialization::archive 13 0 0 1 0
+0 2 0 1 2 7 Breaker 0 0 0 0 0 0 3 0 -1 6 1 0
+1 0 0 6 closed 0 0 3 0 0 0 1 0
+2 0 0 2 op 1 I 2 b1 0 0 0 0 6 closed 4 open 2
+3 2 op 1 I 2 b3 0 0 6 closed 6 closed 1
+4 2 cl 1 I 2 b5 0 0 6 closed 6 closed 1 6
+5 4 open 3 0
+6 2 cl 1 I 2 b2 0 0 4 open 6 closed 1
+7 2 cl 1 I 2 b4 0 0 4 open 4 open 2
+8 2 op 1 I 2 b6 0 0 4 open 4 open 2 0 3 0 0 0 0 2 6 0 0 2 0 2 op 2 cl 1 0 1 I 0 0 2 0 6 closed 4 open 0 0 6 0
+9 2 op 1 I 2 b1 0 0 6 closed 4 open
+10 2 cl 1 I 2 b2 0 0 4 open 6 closed
+11 2 op 1 I 2 b3 0 0 6 closed 6 closed
+12 2 cl 1 I 2 b4 0 0 4 open 4 open
+13 2 cl 1 I 2 b5 0 0 6 closed 6 closed
+14 2 op 1 I 2 b6 0 0 4 open 4 open
+15 2 0 1 2 16 ProtectionDevice 3 0 -1 6
+16 4 idle 2 0
+17 0  0  2 p1 1 0 2 op 1 O 4 idle 6 awaken 2
+18 0  0  2 p3 1 0 2 cl 1 O 4 idle 6 awaken 2 6
+19 6 awaken 2 0
+20 0  0  2 p2 1 0 2 cl 1 O 6 awaken 4 idle 1
+21 0  0  2 p4 1 0 2 op 1 O 6 awaken 4 idle 1 0 3 0 0 0 0 2 4 2 0 2 op 2 cl 0 0 1 0 1 O 2 0 4 idle 6 awaken 4 0
+22 0  0  2 p1 1 0 2 op 1 O 4 idle 6 awaken
+23 0  0  2 p2 1 0 2 cl 1 O 6 awaken 4 idle
+24 0  0  2 p3 1 0 2 cl 1 O 4 idle 6 awaken
+25 0  0  2 p4 1 0 2 op 1 O 6 awaken 4 idle

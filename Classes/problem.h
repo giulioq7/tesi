@@ -24,6 +24,9 @@ public:
     Problem();
     Problem(std::string str) { name = str;}
 
+    int concrete_components_count();
+    int input_terminals_count();
+
 };
 
 #endif // PROBLEM_H

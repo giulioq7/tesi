@@ -5,8 +5,13 @@
 #include "componentmodel.h"
 #include "component.h"
 #include "networkmodel.h"
-#include "spec_driver.h"
 #include "nettransition.h"
+#include "system.h"
+#include "systemnode.h"
+#include "problem.h"
+#include "problemnode.h"
+#include "systransition.h"
+#include "behaviorstate.h"
 
 
 std::ostream& operator<<(std::ostream& out, const ComponentModel& cm);
@@ -33,10 +38,12 @@ std::ostream& operator<<(std::ostream& out, const ProblemNode& node);
 
 std::ostream& operator<<(std::ostream& out, const Problem& sys);
 
-std::ostream& operator<<(std::ostream& out, const spec_driver& d);
-
 std::ostream& operator<<(std::ostream& out, const StateData_str& d);
 
 std::ostream& operator<<(std::ostream& out, const NetTransition& t);
+
+std::ostream& operator<<(std::ostream& out, const SysTransition& t);
+
+std::ostream& operator<<(std::ostream& out, const BehaviorState& d);
 
 #endif // OSTREAM_UTIL_H
