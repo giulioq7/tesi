@@ -147,6 +147,35 @@ std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
     }
     out << s.S[s.n_comps-1].src();
     out << "]";
-    out << s.E;
+    out << endl;
+    out << "[";
+    for(int i=0; i<s.n_inputs-1; i++)
+    {
+        out << s.E[i] << ",";
+    }
+    out << s.E[s.n_inputs-1];
+    out << "]" << endl;
+    out << "[";
+    for(int i=0; i<s.n_complex_inputs-1; i++)
+    {
+        out << s.Complex_E[i] << ",";
+    }
+    out << s.Complex_E[s.n_complex_inputs-1];
+    out << "]" << endl;
+    out << "[";
+    for(int i=0; i<s.n_pts-1; i++)
+    {
+        out << s.P[i].src() << ",";
+    }
+    out << s.P[s.n_pts-1].src();
+    out << "]" << endl;
+    out << "[";
+    for(int i=0; i<s.n_isp-1; i++)
+    {
+        out << s.I[i].src() << ",";
+    }
+    out << s.I[s.n_isp-1].src();
+    out << "]";
+
     return out;
 }

@@ -19,6 +19,7 @@ public:
 
     BehaviorState();
     BehaviorState(int n, int m, int m2, int k, int i);
+    ~BehaviorState();
 };
 
 #endif // BEHAVIORSTATE_H

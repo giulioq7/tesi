@@ -49,6 +49,7 @@ int main()
          // archive and stream closed when destructors are called
      }
 
+     vector<DFA_map<Transition,StateData_str>*> comp_automata;
      DFA_map<SysTransition,BehaviorState> behavior;
      BehaviorState tag_s0(problem.concrete_components_count(),problem.input_terminals_count(),system.emergence.size(), net_models.size(),problem.nodes.size());
      int index = 0;
@@ -59,7 +60,22 @@ int main()
              forward_cursor<DFA_map<Transition,StateData_str> > fc(it2->automaton,it2->automaton.initial());
              tag_s0.S[index] = fc;
              index++;
+             comp_automata.push_back(&it2->automaton);
          }
+     }
+     index = 0;
+     for(vector<NetworkModel>::iterator it = net_models.begin(); it != net_models.end(); it++)
+     {
+         forward_cursor<DFA_map<NetTransition,StateData_str> > fc(it->pattern_space,it->pattern_space.initial());
+         tag_s0.P[index] = fc;
+         index++;
+     }
+     index = 0;
+     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+     {
+         forward_cursor<DFA_map<strings,StateData_str> > fc(it->index_space,it->index_space.initial());
+         tag_s0.I[index] = fc;
+         index++;
      }
      DFA_map<SysTransition,BehaviorState>::state_type s0 = behavior.new_state();
      behavior.tag(s0) = tag_s0;
