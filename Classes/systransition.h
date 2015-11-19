@@ -1,19 +1,26 @@
 #ifndef SYSTRANSITION_H
 #define SYSTRANSITION_H
 
-#include "nettransition.h"
+#include "transition.h"
+#include "component.h"
 #include "systemnode.h"
 
-class SysTransition
+class SysTransition : public CHAR_TRAITS<SysTransition>
 {
 public:
     Transition* trans;
     Component* component;
     SystemNode* node;
+    pair<std::string, Terminal*> input_event;
+    vector<pair<std::string, OutputTerminal*> > output_events;
 
     SysTransition();
+    SysTransition(Transition *t, Component* c, SystemNode* n);
 
-    //required definitions to use a NetTransition as automata alphabet for astl lib
+    bool is_triggerable();
+    void effects();
+
+    //required definitions to use a SysTransition as automata alphabet for astl lib
     typedef SysTransition char_type;
     typedef long        int_type;
     static const size_t size;
@@ -21,14 +28,14 @@ public:
     static bool lt(const char_type &x, const char_type &y) { return x < y; }
     bool operator<(const SysTransition t) const
     {
-        std::string str1 = trans->name; str1.append("("); str1.append(component->name); str1.append("("); str1.append(node->name); str1.append(")");str1.append(")");
-        std::string str2 = t.trans->name; str2.append("("); str2.append(t.component->name); str2.append("("); str2.append(t.node->name); str2.append(")"); str2.append(")");
+        std::string str1 = trans->name; str1.append("("); str1.append(component->name); str1.append("("); str1.append(node->name); str1.append("))");
+        std::string str2 = t.trans->name; str2.append("("); str2.append(t.component->name); str2.append("("); str2.append(t.node->name); str2.append("))");
         return (str1 < str2);
     }
     bool operator==(const SysTransition t) const
     {
-        std::string str1 = trans->name; str1.append("("); str1.append(component->name); str1.append("("); str1.append(node->name); str1.append(")");str1.append(")");
-        std::string str2 = t.trans->name; str2.append("("); str2.append(t.component->name); str2.append("("); str2.append(t.node->name); str2.append(")"); str2.append(")");
+        std::string str1 = trans->name; str1.append("("); str1.append(component->name); str1.append("("); str1.append(node->name); str1.append("))");
+        std::string str2 = t.trans->name; str2.append("("); str2.append(t.component->name); str2.append("("); str2.append(t.node->name); str2.append("))");
         return (str1 == str2);
     }
 

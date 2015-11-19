@@ -43,6 +43,7 @@ public:
     Component* find_component(std::string id);
 
     astl::DFA_map<Transition,StateData_str>::state_type find_initial_state(std::string str);
+    void make_terminals();
 };
 
 #endif // PROBLEMNODE_H

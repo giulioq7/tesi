@@ -16,7 +16,10 @@ SOURCES += main.cpp \
     ../Classes/systemnode.cpp \
     ../Classes/transition.cpp \
     ../Classes/behaviorstate.cpp \
-    ../Classes/systransition.cpp
+    ../Classes/systransition.cpp \
+    bhvbuild.cpp \
+    terminal.cpp \
+    outputterminal.cpp
 
 HEADERS += \
     ../Classes/component.h \
@@ -33,7 +36,10 @@ HEADERS += \
     ../Classes/transition.h \
     ../Classes/utils.h \
     ../Classes/behaviorstate.h \
-    ../Classes/systransition.h
+    ../Classes/systransition.h \
+    bhvbuild.h \
+    terminal.h \
+    outputterminal.h
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
                "../Libraries/boost_1_59_0" \

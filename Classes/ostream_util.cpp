@@ -143,9 +143,9 @@ std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
     out << "[";
     for(int i=0; i<s.n_comps-1; i++)
     {
-        out << s.S[i].src() << ",";
+        out << s.S[i] << ",";
     }
-    out << s.S[s.n_comps-1].src();
+    out << s.S[s.n_comps-1];
     out << "]";
     out << endl;
     out << "[";

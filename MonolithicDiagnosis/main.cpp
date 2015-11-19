@@ -49,24 +49,50 @@ int main()
          // archive and stream closed when destructors are called
      }
 
-     vector<DFA_map<Transition,StateData_str>*> comp_automata;
-     DFA_map<SysTransition,BehaviorState> behavior;
-     BehaviorState tag_s0(problem.concrete_components_count(),problem.input_terminals_count(),system.emergence.size(), net_models.size(),problem.nodes.size());
-     int index = 0;
+     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+         it->make_terminals();
+
+     vector<SysTransition> sys_trans;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
      {
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
          {
+            for(vector<Transition>::iterator it3 = it2->model->trans.begin(); it3 != it2->model->trans.end(); it3++)
+            {
+                SysTransition t(&(*it3), &(*it2), it->ref_node);
+                cout << t.trans->name << " is triggerable: " << t.is_triggerable() << endl;
+                sys_trans.push_back(t);
+            }
+         }
+     }
+     vector<Component*> all_components;
+     vector< forward_cursor<DFA_map<Transition,StateData_str> > > fc_S;
+     vector<Terminal*> input_terminals;
+     DFA_map<SysTransition,BehaviorState> behavior;
+     BehaviorState tag_s0(problem.concrete_components_count(),problem.input_terminals_count(),system.emergence.size(), problem.nodes.size(),problem.nodes.size());
+     int index = 0;
+     int index_term = 0;
+     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+     {
+         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
+         {
+             for(vector<Terminal>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
+             {
+                 input_terminals.push_back(&(*it3));
+                 tag_s0.E[index_term++] = it3->value;
+             }
              forward_cursor<DFA_map<Transition,StateData_str> > fc(it2->automaton,it2->automaton.initial());
-             tag_s0.S[index] = fc;
+             fc_S.push_back(fc);
+             int value = fc.src();
+             tag_s0.S[index] = value;
              index++;
-             comp_automata.push_back(&it2->automaton);
+             all_components.push_back(&(*it2));
          }
      }
      index = 0;
-     for(vector<NetworkModel>::iterator it = net_models.begin(); it != net_models.end(); it++)
+     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
      {
-         forward_cursor<DFA_map<NetTransition,StateData_str> > fc(it->pattern_space,it->pattern_space.initial());
+         forward_cursor<DFA_map<NetTransition,StateData_str> > fc(it->ref_node->net_model->pattern_space,it->ref_node->net_model->pattern_space.initial());
          tag_s0.P[index] = fc;
          index++;
      }
@@ -80,17 +106,40 @@ int main()
      DFA_map<SysTransition,BehaviorState>::state_type s0 = behavior.new_state();
      behavior.tag(s0) = tag_s0;
      behavior.initial(s0);
-     DFA_map<SysTransition,BehaviorState>::state_type s1 = behavior.new_state();
-     behavior.tag(s1) = tag_s0;
-     SysTransition t;
-     t.trans = &comp_models[0].trans[0];
-     t.component = &problem.nodes[0].concrete_components[0];
-     t.node = &system.node_list[0];
-     behavior.set_trans(s0,t,s1);
+     index = 0;
+     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+     {
+         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
+         {
+             if(fc_S[index].first())
+             {
+                 do
+                 {
+                     SysTransition t(it2->model->find_trans(fc_S[index].letter().name),&(*it2),it->ref_node);
+                     if(t.is_triggerable())
+                     {
+                         DFA_map<SysTransition,BehaviorState>::state_type s1 = behavior.new_state();
+                         BehaviorState tag_s1 = tag_s0.copy();
+                         tag_s1.S[index] = fc_S[index].aim();
+                         t.effects();
+                         tag_s1.set_E(input_terminals);
+                         behavior.tag(s1) = tag_s1;
+                         behavior.set_trans(s0,t,s1);
+
+                     }
+                     for(unsigned int i=0; i<input_terminals.size(); i++)
+                         input_terminals[i]->value = tag_s0.E[i];
+                 }
+                 while(fc_S[index].next());
+             }
+             index++;
+         }
+     }
+
+
      ofstream file;
      file.open("prova");
      full_dot(file, dfirst_markc(behavior));
-
 
      return 0;
 }

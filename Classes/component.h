@@ -2,7 +2,10 @@
 #define COMPONENT_H
 
 #include <string>
+#include <vector>
 #include "componentmodel.h"
+#include "outputterminal.h"
+
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -27,8 +30,13 @@ public:
     std::string name;
     ComponentModel* model;
     astl::DFA_map<Transition,StateData_str> automaton;
+    vector<Terminal> input_terminals;
+    vector<OutputTerminal> output_terminals;
 
-     bool operator==(const Component c) const {return name == c.name;}
+    Terminal* find_terminal(std::string id);
+    OutputTerminal* find_output_terminal(std::string id);
+
+    bool operator==(const Component c) const {return name == c.name;}
 };
 
 
