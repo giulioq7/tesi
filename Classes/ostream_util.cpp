@@ -165,16 +165,16 @@ std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
     out << "[";
     for(int i=0; i<s.n_pts-1; i++)
     {
-        out << s.P[i].src() << ",";
+        out << s.P[i] << ",";
     }
-    out << s.P[s.n_pts-1].src();
+    out << s.P[s.n_pts-1];
     out << "]" << endl;
     out << "[";
     for(int i=0; i<s.n_isp-1; i++)
     {
-        out << s.I[i].src() << ",";
+        out << s.I[i] << ",";
     }
-    out << s.I[s.n_isp-1].src();
+    out << s.I[s.n_isp-1];
     out << "]";
 
     return out;

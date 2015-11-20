@@ -52,7 +52,7 @@ public:
 #endif
 
   DFA_dot(ostream &output)
-    : out(output), Q(0), _state_fontsize(40), _edge_fontsize(20),
+    : out(output), Q(0), _state_fontsize(30), _edge_fontsize(20),
       _ratio(.5), _ranksep(.4), _rankdir("TB"), _initial(true)
   { }
   

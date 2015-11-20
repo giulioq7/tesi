@@ -9,6 +9,7 @@ BehaviorState::BehaviorState()
     n_complex_inputs = 0;
     n_pts = 0;
     n_isp = 0;
+    marked = false;
 }
 
 BehaviorState::BehaviorState(int n, int m, int m2, int k, int i)
@@ -25,8 +26,8 @@ BehaviorState::BehaviorState(int n, int m, int m2, int k, int i)
     Complex_E = new std::string[n_complex_inputs];
     for(int i=0; i<m2; i++)
         Complex_E[i] = "<eps>";
-    P = new astl::forward_cursor<astl::DFA_map<NetTransition,StateData_str> >[n_pts];
-    I = new astl::forward_cursor<astl::DFA_map<astl::strings,StateData_str> >[n_isp];
+    P = new int[n_pts];
+    I = new int[n_isp];
     marked = false;
 }
 
@@ -68,4 +69,15 @@ void BehaviorState::set_Complex_E(vector<Terminal*> terms)
     int index = 0;
     for(it = terms.begin(); it != terms.end(); it++)
         Complex_E[index++] = (*it)->value;
+}
+
+
+bool BehaviorState::empty_terminals()
+{
+    for(int i=0; i<n_inputs; i++)
+    {
+        if(E[i] != "<eps>")
+                return false;
+    }
+    return true;
 }
