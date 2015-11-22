@@ -52,7 +52,7 @@ int main()
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
          it->make_terminals();
 
-     vector<SysTransition> sys_trans;
+     /*vector<SysTransition> sys_trans;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
      {
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
@@ -64,7 +64,7 @@ int main()
                 sys_trans.push_back(t);
             }
          }
-     }
+     }*/
      vector<Component*> all_components;
      vector< forward_cursor<DFA_map<Transition,StateData_str> > > fc_S;
      vector< forward_cursor<DFA_map<NetTransition,StateData_str> > > fc_P;
@@ -111,11 +111,18 @@ int main()
      stringstream ss;
      ss << tag_s0;
      size_t h = string_hash(ss.str());
-     cout << h;
+     //cout << h;
      DFA_map<SysTransition,BehaviorState>::state_type s0 = behavior.new_state();
      behavior.tag(s0) = tag_s0;
      behavior.initial(s0);
      hash_values[h] = s0;
+     for(int i =0; i<problem.concrete_components_count(); i++)
+         fc_S[i] = behavior.tag(s0).S[i];
+     for(unsigned int i =0; i<problem.nodes.size(); i++)
+     {
+         fc_P[i] = behavior.tag(s0).P[i];
+         fc_I[i] = behavior.tag(s0).I[i];
+     }
      index_comp = 0;
      int index_node = 0;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
@@ -143,24 +150,19 @@ int main()
                              continue;
                          //label is consistent with observation: updates index space
                          if(label != "" && fc_I[index_node].find(label))
-                         {
                              tag_s1.I[index_node] = fc_I[index_node].aim();
-                             fc_I[index_node].forward();
-                         }
                          //else: index space is unchanged
 
                          t.effects();
                          tag_s1.set_E(input_terminals);
                          NetTransition nt; nt.trans = t.trans; nt.component = t.component;
                          if(fc_P[index_node].find(nt))
-                         {
                              tag_s1.P[index_node] = fc_P[index_node].aim();
-                             fc_P[index_node].forward();
-                         }
+
                          stringstream s_str;
                          s_str << tag_s1;
                          size_t h = string_hash(s_str.str());
-                         cout << h << endl;
+                         //cout << h << endl;
                          DFA_map<SysTransition,BehaviorState>::state_type s1;
                          try{ s1 = hash_values.at(h);}
                          catch (const std::out_of_range&)
@@ -186,8 +188,6 @@ int main()
                             behavior.final(s1) = is_final;
                          }
                          behavior.set_trans(s0,t,s1);
-
-
                      }
 
                  }
