@@ -29,3 +29,18 @@ int Problem::input_terminals_count()
     }
     return count;
 }
+
+
+ProblemNode* Problem::find_problem_node(std::string id)
+{
+    ProblemNode* ref = NULL;
+    for(vector<ProblemNode>::iterator it = nodes.begin(); it != nodes.end(); it++)
+    {
+        if((*it).name == id)
+        {
+            ref = &(*it);
+            break;
+        }
+    }
+    return ref;
+}

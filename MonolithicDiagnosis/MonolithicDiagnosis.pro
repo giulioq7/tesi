@@ -19,7 +19,9 @@ SOURCES += main.cpp \
     ../Classes/systransition.cpp \
     bhvbuild.cpp \
     terminal.cpp \
-    outputterminal.cpp
+    outputterminal.cpp \
+    emergence.cpp \
+    complexterminal.cpp
 
 HEADERS += \
     ../Classes/component.h \
@@ -39,7 +41,9 @@ HEADERS += \
     ../Classes/systransition.h \
     bhvbuild.h \
     terminal.h \
-    outputterminal.h
+    outputterminal.h \
+    emergence.h \
+    complexterminal.h
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
                "../Libraries/boost_1_59_0" \

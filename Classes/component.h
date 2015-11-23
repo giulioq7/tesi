@@ -5,6 +5,7 @@
 #include <vector>
 #include "componentmodel.h"
 #include "outputterminal.h"
+#include "complexterminal.h"
 
 
 #include <boost/archive/text_oarchive.hpp>
@@ -31,6 +32,7 @@ public:
     ComponentModel* model;
     astl::DFA_map<Transition,StateData_str> automaton;
     vector<Terminal> input_terminals;
+    Terminal complex_input;
     vector<OutputTerminal> output_terminals;
 
     Terminal* find_terminal(std::string id);

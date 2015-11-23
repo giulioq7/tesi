@@ -7,6 +7,7 @@
 class OutputTerminal : public Terminal
 {
 public:
+    OutputTerminal();
     OutputTerminal(std::string n);
     std::vector<Terminal*> linked_terminals;
 

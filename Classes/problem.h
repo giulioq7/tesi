@@ -26,6 +26,7 @@ public:
 
     int concrete_components_count();
     int input_terminals_count();
+    ProblemNode *find_problem_node(std::string id);
 
 };
 

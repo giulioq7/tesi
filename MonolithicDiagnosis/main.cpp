@@ -5,6 +5,7 @@
 #include "astl.h"
 #include "systransition.h"
 #include "behaviorstate.h"
+#include "complexterminal.h"
 
 using namespace std;
 using namespace astl;
@@ -51,6 +52,11 @@ int main()
 
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
          it->make_terminals();
+     map<pair<string,string>,string>::iterator it;
+     for(it = system.emergence.begin(); it != system.emergence.end(); it++)
+     {
+         problem.find_problem_node(it->second)->complex_out.linked_terminals.push_back(&(problem.find_problem_node(it->first.second)->find_component(it->first.first)->complex_input));
+     }
 
      /*vector<SysTransition> sys_trans;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
@@ -70,12 +76,15 @@ int main()
      vector< forward_cursor<DFA_map<NetTransition,StateData_str> > > fc_P;
      vector< forward_cursor<DFA_map<strings,StateData_str> > > fc_I;
      vector<Terminal*> input_terminals;
+     vector<Terminal*> complex_terminals;
      DFA_map<SysTransition,BehaviorState> behavior;
      BehaviorState tag_s0(problem.concrete_components_count(),problem.input_terminals_count(),system.emergence.size(), problem.nodes.size(),problem.nodes.size());
      int index_comp = 0;
      int index_term = 0;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
      {
+         if(it->name != system.root->name)
+            complex_terminals.push_back(it->complex_out.linked_terminals[0]);
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
          {
              for(vector<Terminal>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
@@ -123,6 +132,8 @@ int main()
          fc_P[i] = behavior.tag(s0).P[i];
          fc_I[i] = behavior.tag(s0).I[i];
      }
+     cursor<DFA_map<SysTransition,BehaviorState> > c(behavior);
+     c = s0;
      index_comp = 0;
      int index_node = 0;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
@@ -135,6 +146,8 @@ int main()
                  {
                      for(unsigned int i=0; i<input_terminals.size(); i++)
                          input_terminals[i]->value = tag_s0.E[i];
+                     for(unsigned int i=0; i<complex_terminals.size(); i++)
+                         complex_terminals[i]->value = tag_s0.Complex_E[i];
                      SysTransition t(it2->model->find_trans(fc_S[index_comp].letter().name),&(*it2),it->ref_node);
                      if(t.is_triggerable())
                      {
@@ -155,6 +168,7 @@ int main()
 
                          t.effects();
                          tag_s1.set_E(input_terminals);
+                         tag_s1.set_Complex_E(complex_terminals);
                          NetTransition nt; nt.trans = t.trans; nt.component = t.component;
                          if(fc_P[index_node].find(nt))
                              tag_s1.P[index_node] = fc_P[index_node].aim();
