@@ -17,13 +17,34 @@ std::ostream& operator<<(std::ostream& out, const ComponentModel& cm);
 std::ostream& operator<<(std::ostream& out, const Component& cm);
 
 template <class T>
-std::ostream& operator<<(std::ostream& out, const vector<T>& cm);
+ostream& operator<<(ostream& out, const vector<T>& l)
+{
+    for (typename vector<T>::const_iterator it = l.begin(); it != l.end(); ++it)
+    {
+        out << *it << " ";
+    }
+
+    if(l.empty())
+        out << "<empty>";
+
+    return out;
+}
 
 template <class T1,class T2>
-std::ostream& operator<<(std::ostream& out, const pair<T1,T2>& p);
+std::ostream& operator<<(std::ostream& out, const pair<T1,T2>& p)
+{
+    return out << "(" << p.first << " - " << p.second << ")";
+}
+
 
 template <class T1,class T2>
-std::ostream& operator<<(std::ostream& out, const map<T1,T2> m);
+std::ostream& operator<<(std::ostream& out, const map<T1,T2> m)
+{
+    for(typename map<T1,T2>::const_iterator it=m.begin();it!=m.end();++it)
+        out << it->first << " -> " << it->second << " ";
+    return out;
+}
+
 
 std::ostream& operator<<(std::ostream& out, const Transition& t);
 

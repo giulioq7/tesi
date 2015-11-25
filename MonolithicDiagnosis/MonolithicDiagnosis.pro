@@ -4,50 +4,45 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    ../Classes/component.cpp \
-    ../Classes/componentmodel.cpp \
-    ../Classes/nettransition.cpp \
-    ../Classes/networkmodel.cpp \
-    ../Classes/ostream_util.cpp \
-    ../Classes/problem.cpp \
-    ../Classes/problemnode.cpp \
-    ../Classes/statedata.cpp \
-    ../Classes/system.cpp \
-    ../Classes/systemnode.cpp \
-    ../Classes/transition.cpp \
-    ../Classes/behaviorstate.cpp \
-    ../Classes/systransition.cpp \
-    bhvbuild.cpp \
-    emergence.cpp \
-    complexterminal.cpp \
-    ../Classes/outputterminal.cpp \
-    ../Classes/terminal.cpp
+    behaviorstate.cpp \
+    ../SharedClasses/component.cpp \
+    ../SharedClasses/componentmodel.cpp \
+    ../SharedClasses/nettransition.cpp \
+    ../SharedClasses/networkmodel.cpp \
+    ../SharedClasses/ostream_util.cpp \
+    ../SharedClasses/outputterminal.cpp \
+    ../SharedClasses/problem.cpp \
+    ../SharedClasses/problemnode.cpp \
+    ../SharedClasses/statedata.cpp \
+    ../SharedClasses/system.cpp \
+    ../SharedClasses/systemnode.cpp \
+    ../SharedClasses/systransition.cpp \
+    ../SharedClasses/terminal.cpp \
+    ../SharedClasses/transition.cpp
 
 HEADERS += \
-    ../Classes/component.h \
-    ../Classes/componentmodel.h \
-    ../Classes/nettransition.h \
-    ../Classes/networkmodel.h \
-    ../Classes/ostream_util.h \
-    ../Classes/problem.h \
-    ../Classes/problemnode.h \
-    ../Classes/statedata.h \
-    ../Classes/system.h \
-    ../Classes/systemnode.h \
-    ../Classes/transition.h \
-    ../Classes/utils.h \
-    ../Classes/behaviorstate.h \
-    ../Classes/systransition.h \
-    bhvbuild.h \
-    emergence.h \
-    complexterminal.h \
-    ../Classes/outputterminal.h \
-    ../Classes/terminal.h \
-    ../Classes/serialize.h
+    behaviorstate.h \
+    ../SharedClasses/component.h \
+    ../SharedClasses/componentmodel.h \
+    ../SharedClasses/nettransition.h \
+    ../SharedClasses/networkmodel.h \
+    ../SharedClasses/ostream_util.h \
+    ../SharedClasses/outputterminal.h \
+    ../SharedClasses/problem.h \
+    ../SharedClasses/problemnode.h \
+    ../SharedClasses/serialize.h \
+    ../SharedClasses/statedata.h \
+    ../SharedClasses/system.h \
+    ../SharedClasses/systemnode.h \
+    ../SharedClasses/systransition.h \
+    ../SharedClasses/terminal.h \
+    ../SharedClasses/transition.h \
+    ../SharedClasses/utils.h
+
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
-               "../Libraries/boost_1_59_0" \
-               "../Classes/"
+               "../Libraries/boost_1_59_0"\
+               "../SharedClasses/"
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../Libraries/boost_1_59_0/lib/release/ -lboost_serialization
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../Libraries/boost_1_59_0/lib/debug/ -lboost_serialization

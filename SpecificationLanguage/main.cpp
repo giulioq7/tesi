@@ -101,7 +101,7 @@ int main(int argc, char** argv)
     }
 
     //print all info
-    //cout << driver;
+    cout << driver;
 
     //xdot file should be blank because initial state is missed
     ofstream file("comp_model_bhv.xdot");

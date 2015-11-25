@@ -7,22 +7,20 @@ SOURCES += main.cpp \
     spec_driver.cpp \
     specparser.cpp \
     speclexer.cpp \
-    componentmodel.cpp \
-    transition.cpp \
-    component.cpp \
-    networkmodel.cpp \
-    ostream_util.cpp \
-    system.cpp \
-    systemnode.cpp \
-    problemnode.cpp \
-    problem.cpp \
-    statedata.cpp \
-    nettransition.cpp \
-    terminal.cpp \
-    systransition.cpp \
-    outputterminal.cpp
-
-
+    ../SharedClasses/component.cpp \
+    ../SharedClasses/componentmodel.cpp \
+    ../SharedClasses/nettransition.cpp \
+    ../SharedClasses/networkmodel.cpp \
+    ../SharedClasses/ostream_util.cpp \
+    ../SharedClasses/outputterminal.cpp \
+    ../SharedClasses/problem.cpp \
+    ../SharedClasses/problemnode.cpp \
+    ../SharedClasses/statedata.cpp \
+    ../SharedClasses/system.cpp \
+    ../SharedClasses/systemnode.cpp \
+    ../SharedClasses/systransition.cpp \
+    ../SharedClasses/terminal.cpp \
+    ../SharedClasses/transition.cpp
 
 OTHER_FILES += \
     specparser.yy \
@@ -31,27 +29,28 @@ OTHER_FILES += \
 HEADERS += \
     spec_driver.h \
     specparser.hpp \
-    componentmodel.h \
-    transition.h \
-    component.h \
-    networkmodel.h \
-    ostream_util.h \
-    system.h \
-    systemnode.h \
-    problemnode.h \
-    problem.h \
-    utils.h \
-    statedata.h \
     grail_lib.h \
-    nettransition.h \
-    serialize.h \
-    terminal.h \
-    systransition.h \
-    outputterminal.h
+    ../SharedClasses/component.h \
+    ../SharedClasses/componentmodel.h \
+    ../SharedClasses/nettransition.h \
+    ../SharedClasses/networkmodel.h \
+    ../SharedClasses/ostream_util.h \
+    ../SharedClasses/outputterminal.h \
+    ../SharedClasses/problem.h \
+    ../SharedClasses/problemnode.h \
+    ../SharedClasses/serialize.h \
+    ../SharedClasses/statedata.h \
+    ../SharedClasses/system.h \
+    ../SharedClasses/systemnode.h \
+    ../SharedClasses/systransition.h \
+    ../SharedClasses/terminal.h \
+    ../SharedClasses/transition.h \
+    ../SharedClasses/utils.h
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
                "./Libraries/boost_1_59_0" \
-               "../Libraries/Grail/"
+               "../Libraries/Grail/"\
+               "../SharedClasses/"
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../Libraries/boost_1_59_0/lib/release/ -lboost_serialization
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../Libraries/boost_1_59_0/lib/debug/ -lboost_serialization

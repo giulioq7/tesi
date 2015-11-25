@@ -81,3 +81,33 @@ bool BehaviorState::empty_terminals()
     }
     return true;
 }
+
+std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
+{
+    out << "[";
+    for(int i=0; i<s.n_comps-1; i++)
+        out << s.S[i] << ",";
+    out << s.S[s.n_comps-1] << "]" << endl;
+
+    out << "[";
+    for(int i=0; i<s.n_inputs-1; i++)
+        out << s.E[i] << ",";
+    out << s.E[s.n_inputs-1] << "]" << endl;
+
+    out << "[";
+    for(int i=0; i<s.n_complex_inputs-1; i++)
+        out << s.Complex_E[i] << ",";
+    out << s.Complex_E[s.n_complex_inputs-1] << "]" << endl;
+
+    out << "[";
+    for(int i=0; i<s.n_pts-1; i++)
+        out << s.P[i] << ",";
+    out << s.P[s.n_pts-1] << "]" << endl;
+
+    out << "[";
+    for(int i=0; i<s.n_isp-1; i++)
+        out << s.I[i] << ",";
+    out << s.I[s.n_isp-1] << "]";
+
+    return out;
+}

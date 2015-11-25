@@ -28,7 +28,8 @@ public:
     void set_Complex_E(vector<Terminal*> terms);
     bool empty_terminals();
     void mark_state(){marked = true;}
-
 };
+
+std::ostream& operator<<(std::ostream& out, const BehaviorState& s);
 
 #endif // BEHAVIORSTATE_H

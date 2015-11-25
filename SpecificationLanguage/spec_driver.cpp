@@ -579,3 +579,15 @@ void spec_driver::build_dependency_graph()
             || Utils::disconnected_graph(system.dependency_graph))      //detects disconnected subgraphs
         error(loc, "System nodes graph is not connected");
 }
+
+#include "ostream_util.h"
+
+std::ostream& operator<<(std::ostream& out, const spec_driver& d)
+{
+    out << d.components;
+    out << d.networks;
+    out << d.system;
+    out << d.problem;
+
+    return out;
+}

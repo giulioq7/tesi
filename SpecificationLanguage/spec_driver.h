@@ -81,4 +81,6 @@ public:
     void semantic_checks(ProblemNode pbn);
 };
 
+std::ostream& operator<<(std::ostream& out, const spec_driver& d);
+
 #endif // SPEC_DRIVER_H

@@ -4,7 +4,6 @@
 #include "astl.h"
 #include "systransition.h"
 #include "behaviorstate.h"
-#include "complexterminal.h"
 #include "serialize.h"
 
 using namespace std;
@@ -59,7 +58,7 @@ int main()
          problem.find_problem_node(it->second)->complex_out.linked_terminals.push_back(&(problem.find_problem_node(it->first.second)->find_component(it->first.first)->complex_input));
      }*/
 
-     vector<SysTransition> sys_trans;
+     /*vector<SysTransition> sys_trans;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
      {
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
@@ -71,7 +70,7 @@ int main()
                 sys_trans.push_back(t);
             }
          }
-     }
+     }*/
      vector<Component*> all_components;
      vector< forward_cursor<DFA_map<Transition,StateData_str> > > fc_S;
      vector< forward_cursor<DFA_map<NetTransition,StateData_str> > > fc_P;
@@ -166,7 +165,7 @@ int main()
                          t.effects();
                          tag_s1.set_E(input_terminals);
                          //tag_s1.set_Complex_E(complex_terminals);
-                         NetTransition nt; nt.trans = t.trans; nt.component = t.component;
+                         NetTransition nt(t.trans,t.component);
                          if(fc_P[index_node].find(nt))
                              tag_s1.P[index_node] = fc_P[index_node].aim();
 
