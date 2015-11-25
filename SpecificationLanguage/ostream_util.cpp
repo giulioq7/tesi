@@ -119,13 +119,6 @@ std::ostream& operator<<(std::ostream& out, const Problem& probl)
 }
 
 
-std::ostream& operator<<(std::ostream& out, const spec_driver& d)
-{
-    return out << "Component models\n" << d.components
-               << "Network models\n" << d.networks
-               << d.system
-               << d.problem;
-}
 
 
 std::ostream& operator<<(std::ostream& out, const StateData_str& s)
@@ -138,3 +131,52 @@ std::ostream& operator<<(std::ostream& out, const NetTransition& t)
 {
     return out << t.trans->name << "(" << t.component->name << ")";
 }
+
+std::ostream& operator<<(std::ostream& out, const SysTransition& t)
+{
+    return out << t.trans->name << "(" << t.component->name << "(" << t.node->name << "))";
+}
+
+
+/*std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
+{
+    out << "[";
+    for(int i=0; i<s.n_comps-1; i++)
+    {
+        out << s.S[i] << ",";
+    }
+    out << s.S[s.n_comps-1];
+    out << "]";
+    out << endl;
+    out << "[";
+    for(int i=0; i<s.n_inputs-1; i++)
+    {
+        out << s.E[i] << ",";
+    }
+    out << s.E[s.n_inputs-1];
+    out << "]" << endl;
+    out << "[";
+    for(int i=0; i<s.n_complex_inputs-1; i++)
+    {
+        out << s.Complex_E[i] << ",";
+    }
+    out << s.Complex_E[s.n_complex_inputs-1];
+    out << "]" << endl;
+    out << "[";
+    for(int i=0; i<s.n_pts-1; i++)
+    {
+        out << s.P[i] << ",";
+    }
+    out << s.P[s.n_pts-1];
+    out << "]" << endl;
+    out << "[";
+    for(int i=0; i<s.n_isp-1; i++)
+    {
+        out << s.I[i] << ",";
+    }
+    out << s.I[s.n_isp-1];
+    out << "]";
+
+    return out;
+}
+*/

@@ -101,7 +101,7 @@ int main(int argc, char** argv)
     }
 
     //print all info
-    cout << driver;
+    //cout << driver;
 
     //xdot file should be blank because initial state is missed
     ofstream file("comp_model_bhv.xdot");
@@ -132,6 +132,8 @@ int main(int argc, char** argv)
     full_dot(fi,dfirst_markc(driver.problem.nodes[0].index_space));
     fi.close();
 
+    for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
+            it->make_terminals();
 
     // save data to archive
     {
@@ -171,21 +173,45 @@ int main(int argc, char** argv)
 
 
     // ... some time later restore the class instance to its orginal state
-   spec_driver read_all(driver.components.size(),driver.networks.size());
-   read_all.problem.nodes = vector<ProblemNode>(driver.problem.nodes.size());
-   //read_all.components = vector<ComponentModel>(driver.components.size());
-   //read_all.networks = vector<NetworkModel>(driver.networks.size());
-    {
+   vector<ComponentModel> comps;
+   vector<NetworkModel> nets;
+   System system;
+   Problem problem;
+    /*{
         // create and open an archive for input
-        std::ifstream ifs("data");
+        std::ifstream ifs("../../CompiledData/component_models.dat");
         boost::archive::text_iarchive ia(ifs);
         // read class state from archive
-        ia >> read_all;
+        ia >> comps;
         // archive and stream closed when destructors are called
-    }
+    }*/
+   /*{
+       // create and open an archive for input
+       std::ifstream ifs("../../CompiledData/network_models.dat");
+       boost::archive::text_iarchive ia(ifs);
+       // read class state from archive
+       ia >> nets;
+       // archive and stream closed when destructors are called
+   }*/
+   {
+       // create and open an archive for input
+       std::ifstream ifs("../../CompiledData/system.dat");
+       boost::archive::text_iarchive ia(ifs);
+       // read class state from archive
+       ia >> system;
+       // archive and stream closed when destructors are called
+   }
+   {
+       // create and open an archive for input
+       std::ifstream ifs("../../CompiledData/problem.dat");
+       boost::archive::text_iarchive ia(ifs);
+       // read class state from archive
+       ia >> problem;
+       // archive and stream closed when destructors are called
+   }
 
     ofstream f2("comp_concrete_bhv.xdot");
-    full_dot(f2,dfirst_markc(read_all.problem.nodes[0].concrete_components[0].automaton));
+    //full_dot(f2,dfirst_markc(problem.nodes[0].concrete_components[0].automaton));
     f2.close();
 
 }
@@ -589,9 +615,9 @@ DFA_map<NetTransition, StateData_str> *from_grail_to_astl(fm<TYPE> *dfa, Network
         int index_aim = trans[i].get_sink().value();
         std::pair<std::string,std::string> p = net->conv_int_str[trans[i].get_label()];
         //cout << p.first << "(" << p.second << ")" << endl;
-        NetTransition t;
-        t.component = net->find_component(p.second);
-        t.trans = t.component->model->find_trans(p.first);
+        Component *comp = net->find_component(p.second);
+        Transition *tr = comp->model->find_trans(p.first);
+        NetTransition t(tr,comp);
         target->set_trans(s[index_src],t,s[index_aim]);
 
         if(init.member(trans[i].get_source()) != -1)

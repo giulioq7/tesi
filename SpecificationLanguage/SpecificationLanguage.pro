@@ -17,7 +17,10 @@ SOURCES += main.cpp \
     problemnode.cpp \
     problem.cpp \
     statedata.cpp \
-    nettransition.cpp
+    nettransition.cpp \
+    terminal.cpp \
+    systransition.cpp \
+    outputterminal.cpp
 
 
 
@@ -41,7 +44,10 @@ HEADERS += \
     statedata.h \
     grail_lib.h \
     nettransition.h \
-    serialize.h
+    serialize.h \
+    terminal.h \
+    systransition.h \
+    outputterminal.h
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
                "./Libraries/boost_1_59_0" \
