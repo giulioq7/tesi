@@ -12,17 +12,16 @@ using namespace astl;
 
 int main()
 {
-     vector<ComponentModel> comp_models = vector<ComponentModel>(2);
-     vector<NetworkModel> net_models = vector<NetworkModel>(2);
-     System system;
-     Problem problem;
-     problem.nodes = vector<ProblemNode>(7);
+     vector<ComponentModel> *comp_models = new vector<ComponentModel>;
+     vector<NetworkModel> *net_models = new vector<NetworkModel>;
+     System *system = new System;
+     Problem *problem = new Problem;
      {
          // create and open an archive for input
          std::ifstream ifs("../CompiledData/component_models.dat");
          boost::archive::text_iarchive ia(ifs);
          // read class state from archive
-         ia >> comp_models;
+         ia >> *comp_models;
          // archive and stream closed when destructors are called
      }
      {
@@ -30,7 +29,7 @@ int main()
          std::ifstream ifs("../CompiledData/network_models.dat");
          boost::archive::text_iarchive ia(ifs);
          // read class state from archive
-         ia >> net_models;
+         ia >> *net_models;
          // archive and stream closed when destructors are called
      }
      {
@@ -38,7 +37,7 @@ int main()
          std::ifstream ifs("../CompiledData/system.dat");
          boost::archive::text_iarchive ia(ifs);
          // read class state from archive
-         ia >> system;
+         ia >> *system;
          // archive and stream closed when destructors are called
      }
      {
@@ -46,17 +45,17 @@ int main()
          std::ifstream ifs("../CompiledData/problem.dat");
          boost::archive::text_iarchive ia(ifs);
          // read class state from archive
-         ia >> problem;
+         ia >> *problem;
          // archive and stream closed when destructors are called
      }
 
-     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+     /*for(vector<ProblemNode>::iterator it = problem->nodes.begin(); it != problem->nodes.end(); it++)
          it->make_terminals();
      map<pair<string,string>,string>::iterator it;
-     for(it = system.emergence.begin(); it != system.emergence.end(); it++)
+     for(it = system->emergence.begin(); it != system->emergence.end(); it++)
      {
-         problem.find_problem_node(it->second)->complex_out.linked_terminals.push_back(&(problem.find_problem_node(it->first.second)->find_component(it->first.first)->complex_input));
-     }
+         problem->find_problem_node(it->second)->complex_out.linked_terminals.push_back(&(problem->find_problem_node(it->first.second)->find_component(it->first.first)->complex_input));
+     }*/
 
      /*vector<SysTransition> sys_trans;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
@@ -78,12 +77,12 @@ int main()
      vector<Terminal*> input_terminals;
      vector<Terminal*> complex_terminals;
      DFA_map<SysTransition,BehaviorState> behavior;
-     BehaviorState tag_s0(problem.concrete_components_count(),problem.input_terminals_count(),system.emergence.size(), problem.nodes.size(),problem.nodes.size());
+     BehaviorState tag_s0(problem->concrete_components_count(),problem->input_terminals_count(),system->emergence.size(), problem->nodes.size(),problem->nodes.size());
      int index_comp = 0;
      int index_term = 0;
-     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+     for(vector<ProblemNode>::iterator it = problem->nodes.begin(); it != problem->nodes.end(); it++)
      {
-         if(it->name != system.root->name)
+         if(it->name != system->root->name)
             complex_terminals.push_back(it->complex_out.linked_terminals[0]);
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
          {
@@ -100,7 +99,7 @@ int main()
          }
      }
      index_comp = 0;
-     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+     for(vector<ProblemNode>::iterator it = problem->nodes.begin(); it != problem->nodes.end(); it++)
      {
          forward_cursor<DFA_map<NetTransition,StateData_str> > fc(it->ref_node->net_model->pattern_space,it->ref_node->net_model->pattern_space.initial());
          fc_P.push_back(fc);
@@ -108,7 +107,7 @@ int main()
          index_comp++;
      }
      index_comp = 0;
-     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+     for(vector<ProblemNode>::iterator it = problem->nodes.begin(); it != problem->nodes.end(); it++)
      {
          forward_cursor<DFA_map<strings,StateData_str> > fc(it->index_space,it->index_space.initial());
          fc_I.push_back(fc);
@@ -125,9 +124,9 @@ int main()
      behavior.tag(s0) = tag_s0;
      behavior.initial(s0);
      hash_values[h] = s0;
-     for(int i =0; i<problem.concrete_components_count(); i++)
+     for(int i =0; i<problem->concrete_components_count(); i++)
          fc_S[i] = behavior.tag(s0).S[i];
-     for(unsigned int i =0; i<problem.nodes.size(); i++)
+     for(unsigned int i =0; i<problem->nodes.size(); i++)
      {
          fc_P[i] = behavior.tag(s0).P[i];
          fc_I[i] = behavior.tag(s0).I[i];
@@ -136,7 +135,7 @@ int main()
      c = s0;
      index_comp = 0;
      int index_node = 0;
-     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
+     for(vector<ProblemNode>::iterator it = problem->nodes.begin(); it != problem->nodes.end(); it++)
      {
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
          {
@@ -189,7 +188,7 @@ int main()
                             bool is_final = true;
                             vector< forward_cursor<DFA_map<strings,StateData_str> > >::iterator it_fcI;
                             vector<ProblemNode>::iterator it_node;
-                            for(it_fcI = fc_I.begin(), it_node = problem.nodes.begin(); it_fcI != fc_I.end(), it_node != problem.nodes.end(); it_fcI++, it_node++)
+                            for(it_fcI = fc_I.begin(), it_node = problem->nodes.begin(); it_fcI != fc_I.end(), it_node != problem->nodes.end(); it_fcI++, it_node++)
                             {
                                 if(!it_node->index_space.final(it_fcI->src()))
                                 {

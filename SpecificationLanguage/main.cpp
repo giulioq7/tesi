@@ -173,32 +173,32 @@ int main(int argc, char** argv)
 
 
     // ... some time later restore the class instance to its orginal state
-   vector<ComponentModel> comps;
-   vector<NetworkModel> nets;
-   System system;
-   Problem problem;
-    /*{
+   vector<ComponentModel> *comps = new vector<ComponentModel>;
+   vector<NetworkModel> *nets = new vector<NetworkModel>;
+   System *system = new System;
+   Problem *problem = new Problem;
+    {
         // create and open an archive for input
         std::ifstream ifs("../../CompiledData/component_models.dat");
         boost::archive::text_iarchive ia(ifs);
         // read class state from archive
-        ia >> comps;
+        ia >> *comps;
         // archive and stream closed when destructors are called
-    }*/
-   /*{
+    }
+   {
        // create and open an archive for input
        std::ifstream ifs("../../CompiledData/network_models.dat");
        boost::archive::text_iarchive ia(ifs);
        // read class state from archive
-       ia >> nets;
+       ia >> *nets;
        // archive and stream closed when destructors are called
-   }*/
+   }
    {
        // create and open an archive for input
        std::ifstream ifs("../../CompiledData/system.dat");
        boost::archive::text_iarchive ia(ifs);
        // read class state from archive
-       ia >> system;
+       ia >> *system;
        // archive and stream closed when destructors are called
    }
    {
@@ -206,12 +206,12 @@ int main(int argc, char** argv)
        std::ifstream ifs("../../CompiledData/problem.dat");
        boost::archive::text_iarchive ia(ifs);
        // read class state from archive
-       ia >> problem;
+       ia >> *problem;
        // archive and stream closed when destructors are called
    }
 
     ofstream f2("comp_concrete_bhv.xdot");
-    //full_dot(f2,dfirst_markc(problem.nodes[0].concrete_components[0].automaton));
+    full_dot(f2,dfirst_markc(problem->nodes[0].concrete_components[0].automaton));
     f2.close();
 
 }

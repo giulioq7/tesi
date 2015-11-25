@@ -35,3 +35,19 @@ DFA_map<Transition,StateData_str>::state_type ProblemNode::find_initial_state(st
     //this return statement should never be reached
     return DFA_map<Transition,StateData_str>::state_type();
 }
+
+void ProblemNode::make_terminals()
+{
+    for(vector<Component>::iterator it = concrete_components.begin(); it != concrete_components.end(); it++)
+    {
+        for(vector<std::string>::iterator it2 = it->model->inputs.begin(); it2 != it->model->inputs.end(); it2++)
+            it->input_terminals.push_back(Terminal(*it2));
+        for(vector<std::string>::iterator it2 = it->model->outputs.begin(); it2 != it->model->outputs.end(); it2++)
+            it->output_terminals.push_back(OutputTerminal(*it2));
+    }
+    vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >::iterator it;
+    for(it = ref_node->net_model->links.begin(); it != ref_node->net_model->links.end(); it++)
+    {
+        find_component(it->first.second)->find_output_terminal(it->first.first)->linked_terminals.push_back(find_component(it->second.second)->find_terminal(it->second.first));
+    }
+}

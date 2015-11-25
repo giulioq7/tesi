@@ -23,7 +23,7 @@ public:
     Component* component;
     std::string name;
 
-    NetTransition(){}
+    NetTransition();
     NetTransition(Transition* t, Component* c);
 
     //required definitions to use a NetTransition as automata alphabet for astl lib

@@ -3,3 +3,7 @@
 Transition::Transition()
 {
 }
+
+Transition::~Transition()
+{
+}
