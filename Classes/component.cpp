@@ -7,7 +7,6 @@ Component::Component()
     model = NULL;
 }
 
-
 Terminal* Component::find_terminal(std::string id)
 {
     Terminal* ref = NULL;

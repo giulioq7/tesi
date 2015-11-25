@@ -4,6 +4,7 @@
 #include "transition.h"
 #include "component.h"
 #include "systemnode.h"
+#include "outputterminal.h"
 
 class SysTransition : public CHAR_TRAITS<SysTransition>
 {

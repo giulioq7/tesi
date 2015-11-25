@@ -132,8 +132,8 @@ int main(int argc, char** argv)
     full_dot(fi,dfirst_markc(driver.problem.nodes[0].index_space));
     fi.close();
 
-    for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
-            it->make_terminals();
+    //for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
+    //       it->make_terminals();
 
     // save data to archive
     {
@@ -173,16 +173,17 @@ int main(int argc, char** argv)
 
 
     // ... some time later restore the class instance to its orginal state
-   vector<ComponentModel> *comps = new vector<ComponentModel>;
-   vector<NetworkModel> *nets = new vector<NetworkModel>;
-   System *system = new System;
-   Problem *problem = new Problem;
+   vector<ComponentModel> comps = vector<ComponentModel>(2);
+   vector<NetworkModel> nets = vector<NetworkModel>(2);
+   System system;
+   Problem problem;
+   problem.nodes = vector<ProblemNode>(7);
     {
         // create and open an archive for input
         std::ifstream ifs("../../CompiledData/component_models.dat");
         boost::archive::text_iarchive ia(ifs);
         // read class state from archive
-        ia >> *comps;
+        ia >> comps;
         // archive and stream closed when destructors are called
     }
    {
@@ -190,7 +191,7 @@ int main(int argc, char** argv)
        std::ifstream ifs("../../CompiledData/network_models.dat");
        boost::archive::text_iarchive ia(ifs);
        // read class state from archive
-       ia >> *nets;
+       ia >> nets;
        // archive and stream closed when destructors are called
    }
    {
@@ -198,7 +199,7 @@ int main(int argc, char** argv)
        std::ifstream ifs("../../CompiledData/system.dat");
        boost::archive::text_iarchive ia(ifs);
        // read class state from archive
-       ia >> *system;
+       ia >> system;
        // archive and stream closed when destructors are called
    }
    {
@@ -206,12 +207,12 @@ int main(int argc, char** argv)
        std::ifstream ifs("../../CompiledData/problem.dat");
        boost::archive::text_iarchive ia(ifs);
        // read class state from archive
-       ia >> *problem;
+       ia >> problem;
        // archive and stream closed when destructors are called
    }
 
     ofstream f2("comp_concrete_bhv.xdot");
-    full_dot(f2,dfirst_markc(problem->nodes[0].concrete_components[0].automaton));
+    full_dot(f2,dfirst_markc(problem.nodes[0].concrete_components[2].automaton));
     f2.close();
 
 }

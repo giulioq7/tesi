@@ -1,4 +1,4 @@
-#ifndef SERIALIZE_H
+﻿#ifndef SERIALIZE_H
 #define SERIALIZE_H
 
 #include <boost/archive/text_oarchive.hpp>
@@ -38,6 +38,31 @@ void serialize(Archive & ar,vector<ProblemNode> & vec, const unsigned int versio
 
 }
 
+
+//template<class Archive>
+//void serialize(Archive & ar,vector<Terminal> & vec, const unsigned int version)
+//{
+//    for(vector<Terminal>::iterator it = vec.begin(); it != vec.end(); it++)
+//        ar & (*it);
+
+//}
+
+//template<class Archive>
+//inline void save_construct_data(Archive & ar, const ProblemNode  n, const unsigned int file_version)
+//{
+//    // save data required to construct instance
+//    ar << n.name;
+//}
+
+//template<class Archive>
+//inline void load_construct_data(Archive & ar, ProblemNode n, const unsigned int file_version)
+//{
+//    // retrieve data from archive required to construct new instance
+//    std::string name;
+//    ar >> name;
+//    // invoke inplace constructor to initialize instance of my_class
+//    ::new(&n)ProblemNode(name);
+//}
 
 
 } // namespace serialization

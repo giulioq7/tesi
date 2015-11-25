@@ -13,7 +13,6 @@ class OutputTerminal : public Terminal
     {
         // serialize base class information
         ar & boost::serialization::base_object<Terminal>(*this);
-        std::vector<Terminal*>::iterator it;
         ar & linked_terminals;
     }
 public:

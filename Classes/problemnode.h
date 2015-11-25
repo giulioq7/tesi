@@ -3,7 +3,7 @@
 
 
 #include "systemnode.h"
-#include "emergence.h"
+
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 
@@ -37,14 +37,13 @@ public:
     vector<std::string> observation;
 
     astl::DFA_map<astl::strings,StateData_str> index_space;
-    OutputTerminal complex_out;
 
     ProblemNode();
     ProblemNode(std::string str){ name = str;}
     Component* find_component(std::string id);
+    void make_terminals();
 
     astl::DFA_map<Transition,StateData_str>::state_type find_initial_state(std::string str);
-    void make_terminals();
 };
 
 #endif // PROBLEMNODE_H

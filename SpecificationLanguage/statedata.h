@@ -22,7 +22,6 @@ public:
 
 
     StateData_str();
-    ~StateData_str();
     StateData_str(std::string str) { state_name = str; }
 
     bool operator==(const StateData_str s) {return state_name == s.state_name;}

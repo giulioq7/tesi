@@ -2,9 +2,6 @@
 
 using namespace astl;
 
-ProblemNode::ProblemNode()
-{
-}
 
 
 Component* ProblemNode::find_component(std::string id)

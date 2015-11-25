@@ -7,7 +7,7 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 
-class NetTransition
+class NetTransition : public CHAR_TRAITS<NetTransition>
 {
     friend class boost::serialization::access;
     template<class Archive>
@@ -15,13 +15,16 @@ class NetTransition
     {
         ar & trans;
         ar & component;
+        ar & name;
     }
 
 public:
     Transition* trans;
     Component* component;
+    std::string name;
 
     NetTransition();
+    NetTransition(Transition* t, Component* c);
 
     //required definitions to use a NetTransition as automata alphabet for astl lib
     typedef NetTransition char_type;
@@ -31,15 +34,11 @@ public:
     static bool lt(const char_type &x, const char_type &y) { return x < y; }
     bool operator<(const NetTransition t) const
     {
-        std::string str1 = trans->name; str1.append("("); str1.append(component->name); str1.append(")");
-        std::string str2 = t.trans->name; str2.append("("); str2.append(t.component->name); str2.append(")");
-        return (str1 < str2);
+       return (name < t.name);
     }
     bool operator==(const NetTransition t) const
     {
-        std::string str1 = trans->name; str1.append("("); str1.append(component->name); str1.append(")");
-        std::string str2 = t.trans->name; str2.append("("); str2.append(t.component->name); str2.append(")");
-        return (str1 == str2);
+        return (name == t.name);
     }
 
 };

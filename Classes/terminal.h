@@ -1,30 +1,26 @@
-#ifndef PROBLEM_H
-#define PROBLEM_H
+#ifndef TERMINAL_H
+#define TERMINAL_H
 
-#include "problemnode.h"
-
+#include <iostream>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 
-class Problem
+class Terminal
 {
     friend class boost::serialization::access;
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
         ar & name;
-        ar & nodes;
+        ar & value;
     }
-
 public:
     std::string name;
-    vector<ProblemNode> nodes;
+    std::string value;
 
-    Problem();
-    Problem(std::string str) { name = str;}
-
-    int concrete_components_count();
-    int input_terminals_count();
+    Terminal();
+    ~Terminal();
+    Terminal(std::string n);
 };
 
-#endif // PROBLEM_H
+#endif // TERMINAL_H

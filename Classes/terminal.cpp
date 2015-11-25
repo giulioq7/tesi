@@ -13,3 +13,6 @@ Terminal::Terminal(string n)
     value = "<eps>";
 }
 
+Terminal::~Terminal()
+{
+}

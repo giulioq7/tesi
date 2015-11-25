@@ -24,6 +24,9 @@ class NetworkModel
         ar & viewer;
         ar & ruler;
         ar & pattern_space;
+        ar & count;
+        ar & conv_int_str;
+        ar & conv_str_int;
     }
 
 public:

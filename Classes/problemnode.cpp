@@ -36,7 +36,6 @@ DFA_map<Transition,StateData_str>::state_type ProblemNode::find_initial_state(st
     return DFA_map<Transition,StateData_str>::state_type();
 }
 
-
 void ProblemNode::make_terminals()
 {
     for(vector<Component>::iterator it = concrete_components.begin(); it != concrete_components.end(); it++)

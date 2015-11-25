@@ -18,10 +18,10 @@ SOURCES += main.cpp \
     ../Classes/behaviorstate.cpp \
     ../Classes/systransition.cpp \
     bhvbuild.cpp \
-    terminal.cpp \
-    outputterminal.cpp \
     emergence.cpp \
-    complexterminal.cpp
+    complexterminal.cpp \
+    ../Classes/outputterminal.cpp \
+    ../Classes/terminal.cpp
 
 HEADERS += \
     ../Classes/component.h \
@@ -31,7 +31,6 @@ HEADERS += \
     ../Classes/ostream_util.h \
     ../Classes/problem.h \
     ../Classes/problemnode.h \
-    ../Classes/serialize.h \
     ../Classes/statedata.h \
     ../Classes/system.h \
     ../Classes/systemnode.h \
@@ -40,10 +39,11 @@ HEADERS += \
     ../Classes/behaviorstate.h \
     ../Classes/systransition.h \
     bhvbuild.h \
-    terminal.h \
-    outputterminal.h \
     emergence.h \
-    complexterminal.h
+    complexterminal.h \
+    ../Classes/outputterminal.h \
+    ../Classes/terminal.h \
+    ../Classes/serialize.h
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
                "../Libraries/boost_1_59_0" \

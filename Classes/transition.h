@@ -39,6 +39,7 @@ public:
     bool operator==(const Transition t) const {return name == t.name;}
 
     Transition();
+    ~Transition();
 };
 
 
