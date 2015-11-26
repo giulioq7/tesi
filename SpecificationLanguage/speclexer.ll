@@ -60,6 +60,7 @@ comment		\/\/.*
 
                         yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
 
+                        chdir("../");
                  BEGIN(INITIAL);
                  }
 
@@ -103,6 +104,7 @@ obs         return yy::spec_parser::make_OBS(loc);
 ";"         return yy::spec_parser::make_SEMI_COLON(loc);
 "."         return yy::spec_parser::make_DOT(loc);
 "="         return yy::spec_parser::make_EQUALS(loc);
+"=="        return yy::spec_parser::make_DOUBLE_EQUALS(loc);
 "->"        return yy::spec_parser::make_ARROW(loc);
 "("         return yy::spec_parser::make_L_BRACKET(loc);
 ")"         return yy::spec_parser::make_R_BRACKET(loc);

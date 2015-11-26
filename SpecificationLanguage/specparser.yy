@@ -65,6 +65,7 @@ COLON ":"
 SEMI_COLON ";"
 DOT "."
 EQUALS "="
+DOUBLE_EQUALS "=="
 ARROW "->"
 L_BRACKET "("
 R_BRACKET ")"
@@ -243,8 +244,11 @@ ref_list        : ref COMMA ref_list { $$.push_back($1); $$ = Utils::merge($$,$3
 net_model_decl  : NETWORK MODEL ID IS
                     component_section
                     {
+                        driver.current_net_model = NetworkModel();
                         driver.current_net_model.components = $5;
                     }
+                    input_decl
+                    output_decl
                     link_section
                     pattern_section
                     initial_section
@@ -258,19 +262,21 @@ net_model_decl  : NETWORK MODEL ID IS
                         msg.append($3);
                         driver.error(loc,msg);
                     }
-                    if($3 != $13)
+                    if($3 != $15)
                     {
                         string msg = "Semantic error: wrong end ID ";
-                        msg.append($13);
+                        msg.append($15);
                         driver.error(loc, msg);
                     }
                     $$.name = $3;
                     $$.components = $5;
-                    $$.links = $7;
-                    $$.patterns = $8;
-                    $$.initials = $9;
-                    $$.viewer = $10;
-                    $$.ruler = $11;
+                    $$.inputs = $7;
+                    $$.outputs = $8;
+                    $$.links = $9;
+                    $$.patterns = $10;
+                    $$.initials = $11;
+                    $$.viewer = $12;
+                    $$.ruler = $13;
 
                     driver.semantic_checks($$);
                   }
@@ -305,7 +311,11 @@ pattern_list      : pattern_decl COMMA pattern_list { $$.push_back($1); $$ = Uti
                   | pattern_decl { $$.push_back($1); }
                   ;
 
-pattern_decl      : ID EQUALS expr { string s1 = $1; string s2 = $3; $$ = make_pair(s1,s2); }
+pattern_decl      : ID pattern_op expr { string s1 = $1; string s2 = $3; $$ = make_pair(s1,s2); }
+                  ;
+
+pattern_op        : EQUALS
+                  | DOUBLE_EQUALS
                   ;
 
 expr              : expr PIPE term { $$.append($1); $$.append("|"); $$.append($3); }

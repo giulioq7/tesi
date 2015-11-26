@@ -420,20 +420,21 @@ namespace yy {
         SEMI_COLON = 281,
         DOT = 282,
         EQUALS = 283,
-        ARROW = 284,
-        L_BRACKET = 285,
-        R_BRACKET = 286,
-        L_SQUARE_BRACKET = 287,
-        R_SQUARE_BRACKET = 288,
-        L_CURLY_BRACKET = 289,
-        R_CURLY_BRACKET = 290,
-        AND = 291,
-        PIPE = 292,
-        STAR = 293,
-        PLUS = 294,
-        OPT = 295,
-        TILDE = 296,
-        ID = 297
+        DOUBLE_EQUALS = 284,
+        ARROW = 285,
+        L_BRACKET = 286,
+        R_BRACKET = 287,
+        L_SQUARE_BRACKET = 288,
+        R_SQUARE_BRACKET = 289,
+        L_CURLY_BRACKET = 290,
+        R_CURLY_BRACKET = 291,
+        AND = 292,
+        PIPE = 293,
+        STAR = 294,
+        PLUS = 295,
+        OPT = 296,
+        TILDE = 297,
+        ID = 298
       };
     };
 
@@ -683,6 +684,10 @@ namespace yy {
     static inline
     symbol_type
     make_EQUALS (const location_type& l);
+
+    static inline
+    symbol_type
+    make_DOUBLE_EQUALS (const location_type& l);
 
     static inline
     symbol_type
@@ -945,12 +950,12 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 192,     ///< Last index in yytable_.
-      yynnts_ = 47,  ///< Number of nonterminal symbols.
+      yylast_ = 195,     ///< Last index in yytable_.
+      yynnts_ = 48,  ///< Number of nonterminal symbols.
       yyfinal_ = 17, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 43  ///< Number of tokens.
+      yyntokens_ = 44  ///< Number of tokens.
     };
 
 
@@ -996,9 +1001,9 @@ namespace yy {
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39,    40,    41,    42
+      35,    36,    37,    38,    39,    40,    41,    42,    43
     };
-    const unsigned int user_token_number_max_ = 297;
+    const unsigned int user_token_number_max_ = 298;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int>(t) <= yyeof_)
@@ -1031,102 +1036,102 @@ namespace yy {
   {
       switch (other.type_get ())
     {
-      case 48: // comp_model_decl
+      case 49: // comp_model_decl
         value.copy< ComponentModel > (other.value);
         break;
 
-      case 61: // net_model_decl
+      case 62: // net_model_decl
         value.copy< NetworkModel > (other.value);
         break;
 
-      case 85: // problem_decl
+      case 87: // problem_decl
         value.copy< Problem > (other.value);
         break;
 
-      case 87: // problem_node
+      case 89: // problem_node
         value.copy< ProblemNode > (other.value);
         break;
 
-      case 80: // system_decl
+      case 82: // system_decl
         value.copy< System > (other.value);
         break;
 
-      case 82: // system_node
+      case 84: // system_node
         value.copy< SystemNode > (other.value);
         break;
 
-      case 56: // trans_decl
+      case 57: // trans_decl
         value.copy< Transition > (other.value);
         break;
 
-      case 76: // viewer_section
-      case 77: // map_list
-      case 79: // ruler_section
-      case 84: // emergence_section
+      case 78: // viewer_section
+      case 79: // map_list
+      case 81: // ruler_section
+      case 86: // emergence_section
         value.copy< map<pair<string,string>,string>   > (other.value);
         break;
 
-      case 68: // link_decl
+      case 69: // link_decl
         value.copy< pair<pair<string,string>,pair<string,string> >  > (other.value);
         break;
 
-      case 78: // map_decl
+      case 80: // map_decl
         value.copy< pair<pair<string,string>,string>  > (other.value);
         break;
 
-      case 57: // event
-      case 58: // ref
-      case 71: // pattern_decl
+      case 58: // event
+      case 59: // ref
+      case 72: // pattern_decl
         value.copy< pair<string,string>  > (other.value);
         break;
 
-      case 42: // "id"
-      case 72: // expr
-      case 73: // term
-      case 74: // factor
-      case 83: // root_section
+      case 43: // "id"
+      case 74: // expr
+      case 75: // term
+      case 76: // factor
+      case 85: // root_section
         value.copy< string > (other.value);
         break;
 
-      case 63: // component_section
-      case 64: // decl_list
-      case 65: // decl
+      case 64: // component_section
+      case 65: // decl_list
+      case 66: // decl
         value.copy< vector<Component>  > (other.value);
         break;
 
-      case 86: // problem_node_list
+      case 88: // problem_node_list
         value.copy< vector<ProblemNode>  > (other.value);
         break;
 
-      case 81: // system_node_list
+      case 83: // system_node_list
         value.copy< vector<SystemNode>  > (other.value);
         break;
 
-      case 54: // transition_decl
-      case 55: // trans_decl_list
+      case 55: // transition_decl
+      case 56: // trans_decl_list
         value.copy< vector<Transition>  > (other.value);
         break;
 
-      case 66: // link_section
-      case 67: // link_list
+      case 67: // link_section
+      case 68: // link_list
         value.copy< vector<pair<pair<string,string>,pair<string,string> > >  > (other.value);
         break;
 
-      case 59: // opt_ref_list
-      case 60: // ref_list
-      case 69: // pattern_section
-      case 70: // pattern_list
-      case 75: // initial_section
+      case 60: // opt_ref_list
+      case 61: // ref_list
+      case 70: // pattern_section
+      case 71: // pattern_list
+      case 77: // initial_section
         value.copy< vector<pair<string,string> >  > (other.value);
         break;
 
-      case 49: // event_decl
-      case 50: // id_list
-      case 51: // input_decl
-      case 52: // output_decl
-      case 53: // state_decl
-      case 88: // obs_section
-      case 89: // opt_id_list
+      case 50: // event_decl
+      case 51: // id_list
+      case 52: // input_decl
+      case 53: // output_decl
+      case 54: // state_decl
+      case 90: // obs_section
+      case 91: // opt_id_list
         value.copy< vector<string>  > (other.value);
         break;
 
@@ -1147,102 +1152,102 @@ namespace yy {
     (void) v;
       switch (this->type_get ())
     {
-      case 48: // comp_model_decl
+      case 49: // comp_model_decl
         value.copy< ComponentModel > (v);
         break;
 
-      case 61: // net_model_decl
+      case 62: // net_model_decl
         value.copy< NetworkModel > (v);
         break;
 
-      case 85: // problem_decl
+      case 87: // problem_decl
         value.copy< Problem > (v);
         break;
 
-      case 87: // problem_node
+      case 89: // problem_node
         value.copy< ProblemNode > (v);
         break;
 
-      case 80: // system_decl
+      case 82: // system_decl
         value.copy< System > (v);
         break;
 
-      case 82: // system_node
+      case 84: // system_node
         value.copy< SystemNode > (v);
         break;
 
-      case 56: // trans_decl
+      case 57: // trans_decl
         value.copy< Transition > (v);
         break;
 
-      case 76: // viewer_section
-      case 77: // map_list
-      case 79: // ruler_section
-      case 84: // emergence_section
+      case 78: // viewer_section
+      case 79: // map_list
+      case 81: // ruler_section
+      case 86: // emergence_section
         value.copy< map<pair<string,string>,string>   > (v);
         break;
 
-      case 68: // link_decl
+      case 69: // link_decl
         value.copy< pair<pair<string,string>,pair<string,string> >  > (v);
         break;
 
-      case 78: // map_decl
+      case 80: // map_decl
         value.copy< pair<pair<string,string>,string>  > (v);
         break;
 
-      case 57: // event
-      case 58: // ref
-      case 71: // pattern_decl
+      case 58: // event
+      case 59: // ref
+      case 72: // pattern_decl
         value.copy< pair<string,string>  > (v);
         break;
 
-      case 42: // "id"
-      case 72: // expr
-      case 73: // term
-      case 74: // factor
-      case 83: // root_section
+      case 43: // "id"
+      case 74: // expr
+      case 75: // term
+      case 76: // factor
+      case 85: // root_section
         value.copy< string > (v);
         break;
 
-      case 63: // component_section
-      case 64: // decl_list
-      case 65: // decl
+      case 64: // component_section
+      case 65: // decl_list
+      case 66: // decl
         value.copy< vector<Component>  > (v);
         break;
 
-      case 86: // problem_node_list
+      case 88: // problem_node_list
         value.copy< vector<ProblemNode>  > (v);
         break;
 
-      case 81: // system_node_list
+      case 83: // system_node_list
         value.copy< vector<SystemNode>  > (v);
         break;
 
-      case 54: // transition_decl
-      case 55: // trans_decl_list
+      case 55: // transition_decl
+      case 56: // trans_decl_list
         value.copy< vector<Transition>  > (v);
         break;
 
-      case 66: // link_section
-      case 67: // link_list
+      case 67: // link_section
+      case 68: // link_list
         value.copy< vector<pair<pair<string,string>,pair<string,string> > >  > (v);
         break;
 
-      case 59: // opt_ref_list
-      case 60: // ref_list
-      case 69: // pattern_section
-      case 70: // pattern_list
-      case 75: // initial_section
+      case 60: // opt_ref_list
+      case 61: // ref_list
+      case 70: // pattern_section
+      case 71: // pattern_list
+      case 77: // initial_section
         value.copy< vector<pair<string,string> >  > (v);
         break;
 
-      case 49: // event_decl
-      case 50: // id_list
-      case 51: // input_decl
-      case 52: // output_decl
-      case 53: // state_decl
-      case 88: // obs_section
-      case 89: // opt_id_list
+      case 50: // event_decl
+      case 51: // id_list
+      case 52: // input_decl
+      case 53: // output_decl
+      case 54: // state_decl
+      case 90: // obs_section
+      case 91: // opt_id_list
         value.copy< vector<string>  > (v);
         break;
 
@@ -1420,102 +1425,102 @@ namespace yy {
     // Type destructor.
     switch (yytype)
     {
-      case 48: // comp_model_decl
+      case 49: // comp_model_decl
         value.template destroy< ComponentModel > ();
         break;
 
-      case 61: // net_model_decl
+      case 62: // net_model_decl
         value.template destroy< NetworkModel > ();
         break;
 
-      case 85: // problem_decl
+      case 87: // problem_decl
         value.template destroy< Problem > ();
         break;
 
-      case 87: // problem_node
+      case 89: // problem_node
         value.template destroy< ProblemNode > ();
         break;
 
-      case 80: // system_decl
+      case 82: // system_decl
         value.template destroy< System > ();
         break;
 
-      case 82: // system_node
+      case 84: // system_node
         value.template destroy< SystemNode > ();
         break;
 
-      case 56: // trans_decl
+      case 57: // trans_decl
         value.template destroy< Transition > ();
         break;
 
-      case 76: // viewer_section
-      case 77: // map_list
-      case 79: // ruler_section
-      case 84: // emergence_section
+      case 78: // viewer_section
+      case 79: // map_list
+      case 81: // ruler_section
+      case 86: // emergence_section
         value.template destroy< map<pair<string,string>,string>   > ();
         break;
 
-      case 68: // link_decl
+      case 69: // link_decl
         value.template destroy< pair<pair<string,string>,pair<string,string> >  > ();
         break;
 
-      case 78: // map_decl
+      case 80: // map_decl
         value.template destroy< pair<pair<string,string>,string>  > ();
         break;
 
-      case 57: // event
-      case 58: // ref
-      case 71: // pattern_decl
+      case 58: // event
+      case 59: // ref
+      case 72: // pattern_decl
         value.template destroy< pair<string,string>  > ();
         break;
 
-      case 42: // "id"
-      case 72: // expr
-      case 73: // term
-      case 74: // factor
-      case 83: // root_section
+      case 43: // "id"
+      case 74: // expr
+      case 75: // term
+      case 76: // factor
+      case 85: // root_section
         value.template destroy< string > ();
         break;
 
-      case 63: // component_section
-      case 64: // decl_list
-      case 65: // decl
+      case 64: // component_section
+      case 65: // decl_list
+      case 66: // decl
         value.template destroy< vector<Component>  > ();
         break;
 
-      case 86: // problem_node_list
+      case 88: // problem_node_list
         value.template destroy< vector<ProblemNode>  > ();
         break;
 
-      case 81: // system_node_list
+      case 83: // system_node_list
         value.template destroy< vector<SystemNode>  > ();
         break;
 
-      case 54: // transition_decl
-      case 55: // trans_decl_list
+      case 55: // transition_decl
+      case 56: // trans_decl_list
         value.template destroy< vector<Transition>  > ();
         break;
 
-      case 66: // link_section
-      case 67: // link_list
+      case 67: // link_section
+      case 68: // link_list
         value.template destroy< vector<pair<pair<string,string>,pair<string,string> > >  > ();
         break;
 
-      case 59: // opt_ref_list
-      case 60: // ref_list
-      case 69: // pattern_section
-      case 70: // pattern_list
-      case 75: // initial_section
+      case 60: // opt_ref_list
+      case 61: // ref_list
+      case 70: // pattern_section
+      case 71: // pattern_list
+      case 77: // initial_section
         value.template destroy< vector<pair<string,string> >  > ();
         break;
 
-      case 49: // event_decl
-      case 50: // id_list
-      case 51: // input_decl
-      case 52: // output_decl
-      case 53: // state_decl
-      case 88: // obs_section
-      case 89: // opt_id_list
+      case 50: // event_decl
+      case 51: // id_list
+      case 52: // input_decl
+      case 53: // output_decl
+      case 54: // state_decl
+      case 90: // obs_section
+      case 91: // opt_id_list
         value.template destroy< vector<string>  > ();
         break;
 
@@ -1542,102 +1547,102 @@ namespace yy {
     super_type::move(s);
       switch (this->type_get ())
     {
-      case 48: // comp_model_decl
+      case 49: // comp_model_decl
         value.move< ComponentModel > (s.value);
         break;
 
-      case 61: // net_model_decl
+      case 62: // net_model_decl
         value.move< NetworkModel > (s.value);
         break;
 
-      case 85: // problem_decl
+      case 87: // problem_decl
         value.move< Problem > (s.value);
         break;
 
-      case 87: // problem_node
+      case 89: // problem_node
         value.move< ProblemNode > (s.value);
         break;
 
-      case 80: // system_decl
+      case 82: // system_decl
         value.move< System > (s.value);
         break;
 
-      case 82: // system_node
+      case 84: // system_node
         value.move< SystemNode > (s.value);
         break;
 
-      case 56: // trans_decl
+      case 57: // trans_decl
         value.move< Transition > (s.value);
         break;
 
-      case 76: // viewer_section
-      case 77: // map_list
-      case 79: // ruler_section
-      case 84: // emergence_section
+      case 78: // viewer_section
+      case 79: // map_list
+      case 81: // ruler_section
+      case 86: // emergence_section
         value.move< map<pair<string,string>,string>   > (s.value);
         break;
 
-      case 68: // link_decl
+      case 69: // link_decl
         value.move< pair<pair<string,string>,pair<string,string> >  > (s.value);
         break;
 
-      case 78: // map_decl
+      case 80: // map_decl
         value.move< pair<pair<string,string>,string>  > (s.value);
         break;
 
-      case 57: // event
-      case 58: // ref
-      case 71: // pattern_decl
+      case 58: // event
+      case 59: // ref
+      case 72: // pattern_decl
         value.move< pair<string,string>  > (s.value);
         break;
 
-      case 42: // "id"
-      case 72: // expr
-      case 73: // term
-      case 74: // factor
-      case 83: // root_section
+      case 43: // "id"
+      case 74: // expr
+      case 75: // term
+      case 76: // factor
+      case 85: // root_section
         value.move< string > (s.value);
         break;
 
-      case 63: // component_section
-      case 64: // decl_list
-      case 65: // decl
+      case 64: // component_section
+      case 65: // decl_list
+      case 66: // decl
         value.move< vector<Component>  > (s.value);
         break;
 
-      case 86: // problem_node_list
+      case 88: // problem_node_list
         value.move< vector<ProblemNode>  > (s.value);
         break;
 
-      case 81: // system_node_list
+      case 83: // system_node_list
         value.move< vector<SystemNode>  > (s.value);
         break;
 
-      case 54: // transition_decl
-      case 55: // trans_decl_list
+      case 55: // transition_decl
+      case 56: // trans_decl_list
         value.move< vector<Transition>  > (s.value);
         break;
 
-      case 66: // link_section
-      case 67: // link_list
+      case 67: // link_section
+      case 68: // link_list
         value.move< vector<pair<pair<string,string>,pair<string,string> > >  > (s.value);
         break;
 
-      case 59: // opt_ref_list
-      case 60: // ref_list
-      case 69: // pattern_section
-      case 70: // pattern_list
-      case 75: // initial_section
+      case 60: // opt_ref_list
+      case 61: // ref_list
+      case 70: // pattern_section
+      case 71: // pattern_list
+      case 77: // initial_section
         value.move< vector<pair<string,string> >  > (s.value);
         break;
 
-      case 49: // event_decl
-      case 50: // id_list
-      case 51: // input_decl
-      case 52: // output_decl
-      case 53: // state_decl
-      case 88: // obs_section
-      case 89: // opt_id_list
+      case 50: // event_decl
+      case 51: // id_list
+      case 52: // input_decl
+      case 53: // output_decl
+      case 54: // state_decl
+      case 90: // obs_section
+      case 91: // opt_id_list
         value.move< vector<string>  > (s.value);
         break;
 
@@ -1700,7 +1705,7 @@ namespace yy {
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296,   297
+     295,   296,   297,   298
     };
     return static_cast<token_type> (yytoken_number_[type]);
   }
@@ -1868,6 +1873,12 @@ namespace yy {
   }
 
   spec_parser::symbol_type
+  spec_parser::make_DOUBLE_EQUALS (const location_type& l)
+  {
+    return symbol_type (token::DOUBLE_EQUALS, l);
+  }
+
+  spec_parser::symbol_type
   spec_parser::make_ARROW (const location_type& l)
   {
     return symbol_type (token::ARROW, l);
@@ -1954,7 +1965,7 @@ namespace yy {
 
 
 } // yy
-#line 1958 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
+#line 1969 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
 
 
 

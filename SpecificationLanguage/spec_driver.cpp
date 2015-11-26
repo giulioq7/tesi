@@ -121,13 +121,13 @@ void spec_driver::adjust_inherited()
         {
             if((*it).ref_node->viewer.empty())
             {
-                if((*it).ref_node->net_model->viewer.empty())
+                /*if((*it).ref_node->net_model->viewer.empty())
                 {
                     string msg = "Viewer undefined for problem node ";
                     msg.append((*it).name);
                     error(loc,msg);
                 }
-                else
+                else*/
                     (*it).viewer = (*it).ref_node->net_model->viewer;
             }
             else
@@ -138,13 +138,13 @@ void spec_driver::adjust_inherited()
         {
             if((*it).ref_node->ruler.empty())
             {
-                if((*it).ref_node->net_model->ruler.empty())
+                /*if((*it).ref_node->net_model->ruler.empty())
                 {
                     string msg = "Ruler undefined for problem node ";
                     msg.append((*it).name);
                     error(loc,msg);
                 }
-                else
+                else*/
                     (*it).ruler = (*it).ref_node->net_model->ruler;
             }
             else
@@ -168,25 +168,25 @@ void spec_driver::adjust_inherited()
 
         if((*it).viewer.empty())
         {
-            if((*it).net_model->viewer.empty())
+            /*if((*it).net_model->viewer.empty())
             {
                 string msg = "Viewer undefined for system node ";
                 msg.append((*it).name);
                 error(loc,msg);
             }
-            else
+            else*/
                 (*it).viewer = (*it).net_model->viewer;
         }
 
         if((*it).ruler.empty())
         {
-            if((*it).net_model->ruler.empty())
+            /*if((*it).net_model->ruler.empty())
             {
                 string msg = "Ruler undefined for system node ";
                 msg.append((*it).name);
                 error(loc,msg);
             }
-            else
+            else*/
                 (*it).ruler = (*it).net_model->ruler;
         }
     }
@@ -287,6 +287,14 @@ void spec_driver::semantic_checks(NetworkModel nm)
     if(Utils::duplicate_content(nm.components))
         error(loc, "Semantic error: duplicate component ID");
 
+    //verifies that input terminals are unique
+    if(Utils::duplicate_content(nm.inputs))
+        error(loc, "Semantic error: duplicate input terminal ID");
+
+    //verifies that output terminals are unique
+    if(Utils::duplicate_content(nm.outputs))
+        error(loc, "Semantic error: duplicate output terminal ID");
+
     //saves a list of components ids
     vector<string> comp_ids;
     for(vector<Component>::iterator it = nm.components.begin(); it != nm.components.end(); it++)
@@ -296,10 +304,18 @@ void spec_driver::semantic_checks(NetworkModel nm)
     for(vector<pair<pair<string,string>,pair<string,string> > >::iterator it = nm.links.begin();
         it != nm.links.end(); it++)
     {
-        if(!Utils::contain(comp_ids,(*it).first.second))
-            error(loc, "component ID in link does not exist");
-        if(!Utils::contain(nm.find_component((*it).first.second)->model->outputs,(*it).first.first))
-            error(loc, "output terminal ID in link does not exist");
+        if(it->first.second != "this")
+        {
+            if(!Utils::contain(comp_ids,(*it).first.second))
+                error(loc, "component ID in link does not exist");
+            if(!Utils::contain(nm.find_component((*it).first.second)->model->outputs,(*it).first.first))
+                error(loc, "output terminal ID in link does not exist");
+        }
+        else
+        {
+            if(!Utils::contain(nm.inputs,it->first.first))
+                error(loc, "input terminal ID in network does not exist");
+        }
         if(!Utils::contain(comp_ids,(*it).second.second))
             error(loc, "component ID in link does not exist");
         if(!Utils::contain(nm.find_component((*it).second.second)->model->inputs,(*it).second.first))
@@ -330,7 +346,11 @@ void spec_driver::semantic_checks(NetworkModel nm)
     for(map<pair<string,string>,int>::iterator it = nm.conv_str_int.begin(); it != nm.conv_str_int.end(); it++)
     {
         if(!Utils::contain(comp_ids,(string&)it->first.second))
-            error(loc, "component ID in pattern declaration does not exist");
+        {
+            std::string msg = "component ID in pattern declaration does not exist ";
+            cout << nm;
+            error(loc, msg);
+        }
         if(nm.find_component(it->first.second)->model->find_trans(it->first.first) == NULL)
             error(loc, "transition ID in pattern declaration does not exist");
     }

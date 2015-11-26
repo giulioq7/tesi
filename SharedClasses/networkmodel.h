@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "component.h"
 #include "nettransition.h"
+#include "pattern.h"
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -18,6 +19,8 @@ class NetworkModel
     {
         ar & name;
         ar & components;
+        ar & inputs;
+        ar & outputs;
         ar & links;
         ar & patterns;
         ar & initials;
@@ -32,9 +35,12 @@ class NetworkModel
 public:
     std::string name;
     vector<Component> components;
+    vector<std::string> inputs;
+    vector<std::string> outputs;
     vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > > links;
 
     vector<pair<std::string,std::string> > patterns;
+    vector<Pattern> patt;
     vector<pair<std::string,std::string> > initials;
     map<pair<string,string>,string>   viewer;
     map<pair<string,string>,string>   ruler;

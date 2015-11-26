@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     ../SharedClasses/systemnode.cpp \
     ../SharedClasses/systransition.cpp \
     ../SharedClasses/terminal.cpp \
-    ../SharedClasses/transition.cpp
+    ../SharedClasses/transition.cpp \
+    ../SharedClasses/pattern.cpp
 
 OTHER_FILES += \
     specparser.yy \
@@ -45,7 +46,8 @@ HEADERS += \
     ../SharedClasses/systransition.h \
     ../SharedClasses/terminal.h \
     ../SharedClasses/transition.h \
-    ../SharedClasses/utils.h
+    ../SharedClasses/utils.h \
+    ../SharedClasses/pattern.h
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
                "./Libraries/boost_1_59_0" \

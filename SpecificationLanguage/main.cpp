@@ -67,8 +67,7 @@ int main(int argc, char** argv)
     else
         driver.system.root = driver.find_node(driver.system.id_root);
 
-    std::string str = "../";
-    str.append(GRAPHS_DIR);
+    std::string str(GRAPHS_DIR);
     chdir(str.c_str());
 
     //dependency graph of system nodes
@@ -129,7 +128,7 @@ int main(int argc, char** argv)
 
     driver.build_Isp();
     ofstream fi("Isp");
-    full_dot(fi,dfirst_markc(driver.problem.nodes[0].index_space));
+    full_dot(fi,dfirst_markc(driver.problem.nodes[2].index_space));
     fi.close();
 
     //for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
@@ -173,11 +172,11 @@ int main(int argc, char** argv)
 
 
     // ... some time later restore the class instance to its orginal state
-   vector<ComponentModel> comps = vector<ComponentModel>(2);
-   vector<NetworkModel> nets = vector<NetworkModel>(2);
+   vector<ComponentModel> comps = vector<ComponentModel>(driver.components.size());
+   vector<NetworkModel> nets = vector<NetworkModel>(driver.networks.size());
    System system;
    Problem problem;
-   problem.nodes = vector<ProblemNode>(7);
+   problem.nodes = vector<ProblemNode>(driver.problem.nodes.size());
     {
         // create and open an archive for input
         std::ifstream ifs("../../CompiledData/component_models.dat");
@@ -212,7 +211,7 @@ int main(int argc, char** argv)
    }
 
     ofstream f2("comp_concrete_bhv.xdot");
-    full_dot(f2,dfirst_markc(problem.nodes[0].concrete_components[2].automaton));
+    full_dot(f2,dfirst_markc(problem.nodes[2].concrete_components[2].automaton));
     f2.close();
 
 }
