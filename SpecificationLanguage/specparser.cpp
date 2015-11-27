@@ -267,6 +267,10 @@ namespace yy {
         value.move< NetworkModel > (that.value);
         break;
 
+      case 72: // pattern_decl
+        value.move< Pattern > (that.value);
+        break;
+
       case 87: // problem_decl
         value.move< Problem > (that.value);
         break;
@@ -287,10 +291,13 @@ namespace yy {
         value.move< Transition > (that.value);
         break;
 
+      case 73: // pattern_op
+        value.move< bool > (that.value);
+        break;
+
       case 78: // viewer_section
       case 79: // map_list
       case 81: // ruler_section
-      case 86: // emergence_section
         value.move< map<pair<string,string>,string>   > (that.value);
         break;
 
@@ -304,7 +311,6 @@ namespace yy {
 
       case 58: // event
       case 59: // ref
-      case 72: // pattern_decl
         value.move< pair<string,string>  > (that.value);
         break;
 
@@ -322,6 +328,11 @@ namespace yy {
         value.move< vector<Component>  > (that.value);
         break;
 
+      case 70: // pattern_section
+      case 71: // pattern_list
+        value.move< vector<Pattern>  > (that.value);
+        break;
+
       case 88: // problem_node_list
         value.move< vector<ProblemNode>  > (that.value);
         break;
@@ -337,13 +348,12 @@ namespace yy {
 
       case 67: // link_section
       case 68: // link_list
+      case 86: // emergence_section
         value.move< vector<pair<pair<string,string>,pair<string,string> > >  > (that.value);
         break;
 
       case 60: // opt_ref_list
       case 61: // ref_list
-      case 70: // pattern_section
-      case 71: // pattern_list
       case 77: // initial_section
         value.move< vector<pair<string,string> >  > (that.value);
         break;
@@ -381,6 +391,10 @@ namespace yy {
         value.copy< NetworkModel > (that.value);
         break;
 
+      case 72: // pattern_decl
+        value.copy< Pattern > (that.value);
+        break;
+
       case 87: // problem_decl
         value.copy< Problem > (that.value);
         break;
@@ -401,10 +415,13 @@ namespace yy {
         value.copy< Transition > (that.value);
         break;
 
+      case 73: // pattern_op
+        value.copy< bool > (that.value);
+        break;
+
       case 78: // viewer_section
       case 79: // map_list
       case 81: // ruler_section
-      case 86: // emergence_section
         value.copy< map<pair<string,string>,string>   > (that.value);
         break;
 
@@ -418,7 +435,6 @@ namespace yy {
 
       case 58: // event
       case 59: // ref
-      case 72: // pattern_decl
         value.copy< pair<string,string>  > (that.value);
         break;
 
@@ -436,6 +452,11 @@ namespace yy {
         value.copy< vector<Component>  > (that.value);
         break;
 
+      case 70: // pattern_section
+      case 71: // pattern_list
+        value.copy< vector<Pattern>  > (that.value);
+        break;
+
       case 88: // problem_node_list
         value.copy< vector<ProblemNode>  > (that.value);
         break;
@@ -451,13 +472,12 @@ namespace yy {
 
       case 67: // link_section
       case 68: // link_list
+      case 86: // emergence_section
         value.copy< vector<pair<pair<string,string>,pair<string,string> > >  > (that.value);
         break;
 
       case 60: // opt_ref_list
       case 61: // ref_list
-      case 70: // pattern_section
-      case 71: // pattern_list
       case 77: // initial_section
         value.copy< vector<pair<string,string> >  > (that.value);
         break;
@@ -510,58 +530,58 @@ namespace yy {
     {
             case 43: // "id"
 
-#line 129 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
+#line 130 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 516 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
+#line 536 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
         break;
 
       case 49: // comp_model_decl
 
-#line 130 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
+#line 131 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< ComponentModel > (); }
-#line 523 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
+#line 543 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
         break;
 
       case 57: // trans_decl
 
-#line 131 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
+#line 132 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< Transition > (); }
-#line 530 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
+#line 550 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
         break;
 
       case 62: // net_model_decl
 
-#line 132 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
+#line 133 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< NetworkModel > (); }
-#line 537 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
+#line 557 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
         break;
 
       case 74: // expr
 
-#line 129 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
+#line 130 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 544 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
+#line 564 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
         break;
 
       case 75: // term
 
-#line 129 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
+#line 130 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 551 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
+#line 571 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
         break;
 
       case 76: // factor
 
-#line 129 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
+#line 130 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 558 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
+#line 578 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
         break;
 
       case 85: // root_section
 
-#line 129 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
+#line 130 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 565 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
+#line 585 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:636
         break;
 
 
@@ -680,7 +700,7 @@ namespace yy {
   yyla.location.begin.filename = yyla.location.end.filename = &driver.file;
 }
 
-#line 684 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:741
+#line 704 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:741
 
     /* Initialize the stack.  The initial state will be set in
        yynewstate, since the latter expects the semantical and the
@@ -778,6 +798,10 @@ namespace yy {
         yylhs.value.build< NetworkModel > ();
         break;
 
+      case 72: // pattern_decl
+        yylhs.value.build< Pattern > ();
+        break;
+
       case 87: // problem_decl
         yylhs.value.build< Problem > ();
         break;
@@ -798,10 +822,13 @@ namespace yy {
         yylhs.value.build< Transition > ();
         break;
 
+      case 73: // pattern_op
+        yylhs.value.build< bool > ();
+        break;
+
       case 78: // viewer_section
       case 79: // map_list
       case 81: // ruler_section
-      case 86: // emergence_section
         yylhs.value.build< map<pair<string,string>,string>   > ();
         break;
 
@@ -815,7 +842,6 @@ namespace yy {
 
       case 58: // event
       case 59: // ref
-      case 72: // pattern_decl
         yylhs.value.build< pair<string,string>  > ();
         break;
 
@@ -833,6 +859,11 @@ namespace yy {
         yylhs.value.build< vector<Component>  > ();
         break;
 
+      case 70: // pattern_section
+      case 71: // pattern_list
+        yylhs.value.build< vector<Pattern>  > ();
+        break;
+
       case 88: // problem_node_list
         yylhs.value.build< vector<ProblemNode>  > ();
         break;
@@ -848,13 +879,12 @@ namespace yy {
 
       case 67: // link_section
       case 68: // link_list
+      case 86: // emergence_section
         yylhs.value.build< vector<pair<pair<string,string>,pair<string,string> > >  > ();
         break;
 
       case 60: // opt_ref_list
       case 61: // ref_list
-      case 70: // pattern_section
-      case 71: // pattern_list
       case 77: // initial_section
         yylhs.value.build< vector<pair<string,string> >  > ();
         break;
@@ -887,49 +917,49 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 138 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 139 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {  }
-#line 893 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 3:
-#line 141 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    {  }
-#line 899 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 4:
-#line 142 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { }
-#line 905 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 5:
-#line 145 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { }
-#line 911 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 6:
-#line 146 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { driver.system = System(yystack_[0].value.as< System > ()); }
-#line 917 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 7:
-#line 147 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { driver.problem = Problem(yystack_[0].value.as< Problem > ()); }
 #line 923 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 8:
-#line 150 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { ComponentModel(yystack_[0].value.as< ComponentModel > ()); driver.components.push_back(yystack_[0].value.as< ComponentModel > ()); }
+  case 3:
+#line 142 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    {  }
 #line 929 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
+  case 4:
+#line 143 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { }
+#line 935 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 5:
+#line 146 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { }
+#line 941 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 6:
+#line 147 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { driver.system = System(yystack_[0].value.as< System > ()); }
+#line 947 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 7:
+#line 148 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { driver.problem = Problem(yystack_[0].value.as< Problem > ()); }
+#line 953 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 8:
+#line 151 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { ComponentModel(yystack_[0].value.as< ComponentModel > ()); driver.components.push_back(yystack_[0].value.as< ComponentModel > ()); }
+#line 959 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
   case 9:
-#line 152 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 153 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                     NetworkModel(yystack_[0].value.as< NetworkModel > ()); driver.networks.push_back(yystack_[0].value.as< NetworkModel > ());
                     vector<NetworkModel>::reverse_iterator it = driver.networks.rbegin();
@@ -940,11 +970,11 @@ namespace yy {
                     }
                     driver.semantic_checks(driver.current_net_model);
                 }
-#line 944 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 974 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 10:
-#line 171 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 172 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                     if(driver.duplicate_component_model_id(yystack_[8].value.as< string > ()))
                     {
@@ -967,138 +997,138 @@ namespace yy {
 
                     driver.semantic_checks(yylhs.value.as< ComponentModel > ());
                   }
-#line 971 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 11:
-#line 195 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<string>  > () = yystack_[1].value.as< vector<string>  > (); }
-#line 977 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 12:
-#line 199 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<string>  > ().push_back(yystack_[2].value.as< string > ()); yylhs.value.as< vector<string>  > () = Utils::merge(yylhs.value.as< vector<string>  > (),yystack_[0].value.as< vector<string>  > ()); }
-#line 983 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 13:
-#line 200 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<string>  > ().push_back(yystack_[0].value.as< string > ()); }
-#line 989 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 14:
-#line 203 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<string>  > () = yystack_[1].value.as< vector<string>  > (); }
-#line 995 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 15:
-#line 204 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { }
 #line 1001 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 16:
-#line 207 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+  case 11:
+#line 196 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< vector<string>  > () = yystack_[1].value.as< vector<string>  > (); }
 #line 1007 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 17:
-#line 208 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { }
+  case 12:
+#line 200 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<string>  > ().push_back(yystack_[2].value.as< string > ()); yylhs.value.as< vector<string>  > () = Utils::merge(yylhs.value.as< vector<string>  > (),yystack_[0].value.as< vector<string>  > ()); }
 #line 1013 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 18:
-#line 211 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<string>  > () = yystack_[1].value.as< vector<string>  > (); }
+  case 13:
+#line 201 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<string>  > ().push_back(yystack_[0].value.as< string > ()); }
 #line 1019 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 19:
-#line 214 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Transition>  > () = yystack_[1].value.as< vector<Transition>  > (); }
+  case 14:
+#line 204 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<string>  > () = yystack_[1].value.as< vector<string>  > (); }
 #line 1025 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 20:
-#line 217 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Transition>  > ().push_back(yystack_[2].value.as< Transition > ()); yylhs.value.as< vector<Transition>  > () = Utils::merge(yylhs.value.as< vector<Transition>  > (),yystack_[0].value.as< vector<Transition>  > ()); }
+  case 15:
+#line 205 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { }
 #line 1031 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 21:
-#line 218 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Transition>  > ().push_back(yystack_[0].value.as< Transition > ()); }
+  case 16:
+#line 208 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<string>  > () = yystack_[1].value.as< vector<string>  > (); }
 #line 1037 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
+  case 17:
+#line 209 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { }
+#line 1043 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 18:
+#line 212 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<string>  > () = yystack_[1].value.as< vector<string>  > (); }
+#line 1049 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 19:
+#line 215 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Transition>  > () = yystack_[1].value.as< vector<Transition>  > (); }
+#line 1055 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 20:
+#line 218 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Transition>  > ().push_back(yystack_[2].value.as< Transition > ()); yylhs.value.as< vector<Transition>  > () = Utils::merge(yylhs.value.as< vector<Transition>  > (),yystack_[0].value.as< vector<Transition>  > ()); }
+#line 1061 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 21:
+#line 219 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Transition>  > ().push_back(yystack_[0].value.as< Transition > ()); }
+#line 1067 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
   case 22:
-#line 222 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 223 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                     yylhs.value.as< Transition > ().name = yystack_[10].value.as< string > (); yylhs.value.as< Transition > ().input_event = yystack_[8].value.as< pair<string,string>  > ();
                     string s1 = yystack_[6].value.as< string > (); string s2 = yystack_[4].value.as< string > (); yylhs.value.as< Transition > ().s1_s2 = make_pair(s1,s2);
                     yylhs.value.as< Transition > ().out_events = yystack_[1].value.as< vector<pair<string,string> >  > ();
                   }
-#line 1047 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 23:
-#line 229 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< pair<string,string>  > () = yystack_[0].value.as< pair<string,string>  > (); }
-#line 1053 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 24:
-#line 230 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    {}
-#line 1059 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 25:
-#line 233 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { string s1 = yystack_[3].value.as< string > (); string s2 = yystack_[1].value.as< string > (); yylhs.value.as< pair<string,string>  > () = make_pair(s1,s2); }
-#line 1065 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 26:
-#line 236 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<string,string> >  > () = yystack_[0].value.as< vector<pair<string,string> >  > (); }
-#line 1071 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 27:
-#line 237 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    {}
 #line 1077 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 28:
-#line 240 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<string,string> >  > ().push_back(yystack_[2].value.as< pair<string,string>  > ()); yylhs.value.as< vector<pair<string,string> >  > () = Utils::merge(yylhs.value.as< vector<pair<string,string> >  > (),yystack_[0].value.as< vector<pair<string,string> >  > ()); }
+  case 23:
+#line 230 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< pair<string,string>  > () = yystack_[0].value.as< pair<string,string>  > (); }
 #line 1083 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 29:
-#line 241 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<string,string> >  > ().push_back(yystack_[0].value.as< pair<string,string>  > ()); }
+  case 24:
+#line 231 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    {}
 #line 1089 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
+  case 25:
+#line 234 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { string s1 = yystack_[3].value.as< string > (); string s2 = yystack_[1].value.as< string > (); yylhs.value.as< pair<string,string>  > () = make_pair(s1,s2); }
+#line 1095 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 26:
+#line 237 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<pair<string,string> >  > () = yystack_[0].value.as< vector<pair<string,string> >  > (); }
+#line 1101 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 27:
+#line 238 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    {}
+#line 1107 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 28:
+#line 241 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<pair<string,string> >  > ().push_back(yystack_[2].value.as< pair<string,string>  > ()); yylhs.value.as< vector<pair<string,string> >  > () = Utils::merge(yylhs.value.as< vector<pair<string,string> >  > (),yystack_[0].value.as< vector<pair<string,string> >  > ()); }
+#line 1113 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 29:
+#line 242 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<pair<string,string> >  > ().push_back(yystack_[0].value.as< pair<string,string>  > ()); }
+#line 1119 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
   case 30:
-#line 246 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 247 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                         driver.current_net_model = NetworkModel();
                         driver.current_net_model.components = yystack_[0].value.as< vector<Component>  > ();
                     }
-#line 1098 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1128 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 31:
-#line 258 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 259 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                     if(driver.duplicate_network_model_id(yystack_[12].value.as< string > ()))
                     {
@@ -1117,164 +1147,182 @@ namespace yy {
                     yylhs.value.as< NetworkModel > ().inputs = yystack_[8].value.as< vector<string>  > ();
                     yylhs.value.as< NetworkModel > ().outputs = yystack_[7].value.as< vector<string>  > ();
                     yylhs.value.as< NetworkModel > ().links = yystack_[6].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ();
-                    yylhs.value.as< NetworkModel > ().patterns = yystack_[5].value.as< vector<pair<string,string> >  > ();
+                    yylhs.value.as< NetworkModel > ().patterns = yystack_[5].value.as< vector<Pattern>  > ();
                     yylhs.value.as< NetworkModel > ().initials = yystack_[4].value.as< vector<pair<string,string> >  > ();
                     yylhs.value.as< NetworkModel > ().viewer = yystack_[3].value.as< map<pair<string,string>,string>   > ();
                     yylhs.value.as< NetworkModel > ().ruler = yystack_[2].value.as< map<pair<string,string>,string>   > ();
 
                     driver.semantic_checks(yylhs.value.as< NetworkModel > ());
                   }
-#line 1128 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 32:
-#line 285 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Component>  > () = yystack_[1].value.as< vector<Component>  > (); }
-#line 1134 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 33:
-#line 288 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[2].value.as< vector<Component>  > ()); yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[0].value.as< vector<Component>  > ()); }
-#line 1140 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 34:
-#line 289 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[0].value.as< vector<Component>  > ()); }
-#line 1146 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 35:
-#line 292 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Component>  > () = driver.build_components(yystack_[2].value.as< vector<string>  > (),yystack_[0].value.as< string > ());  }
-#line 1152 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 36:
-#line 295 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > () = yystack_[1].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > (); }
 #line 1158 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 37:
-#line 296 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { }
+  case 32:
+#line 286 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Component>  > () = yystack_[1].value.as< vector<Component>  > (); }
 #line 1164 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 38:
-#line 299 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ().push_back(yystack_[2].value.as< pair<pair<string,string>,pair<string,string> >  > ()); yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > () = Utils::merge(yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > (),yystack_[0].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ()); }
+  case 33:
+#line 289 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[2].value.as< vector<Component>  > ()); yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[0].value.as< vector<Component>  > ()); }
 #line 1170 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 39:
-#line 300 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ().push_back(yystack_[0].value.as< pair<pair<string,string>,pair<string,string> >  > ()); }
+  case 34:
+#line 290 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[0].value.as< vector<Component>  > ()); }
 #line 1176 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 40:
-#line 303 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    {  yylhs.value.as< pair<pair<string,string>,pair<string,string> >  > () = make_pair(yystack_[2].value.as< pair<string,string>  > (),yystack_[0].value.as< pair<string,string>  > ()); }
+  case 35:
+#line 293 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Component>  > () = driver.build_components(yystack_[2].value.as< vector<string>  > (),yystack_[0].value.as< string > ());  }
 #line 1182 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 41:
-#line 306 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<string,string> >  > () = yystack_[1].value.as< vector<pair<string,string> >  > (); }
+  case 36:
+#line 296 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > () = yystack_[1].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > (); }
 #line 1188 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 42:
-#line 307 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+  case 37:
+#line 297 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { }
 #line 1194 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 43:
-#line 310 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<string,string> >  > ().push_back(yystack_[2].value.as< pair<string,string>  > ()); yylhs.value.as< vector<pair<string,string> >  > () = Utils::merge(yylhs.value.as< vector<pair<string,string> >  > (),yystack_[0].value.as< vector<pair<string,string> >  > ()); }
+  case 38:
+#line 300 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ().push_back(yystack_[2].value.as< pair<pair<string,string>,pair<string,string> >  > ()); yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > () = Utils::merge(yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > (),yystack_[0].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ()); }
 #line 1200 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 44:
-#line 311 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<pair<string,string> >  > ().push_back(yystack_[0].value.as< pair<string,string>  > ()); }
+  case 39:
+#line 301 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ().push_back(yystack_[0].value.as< pair<pair<string,string>,pair<string,string> >  > ()); }
 #line 1206 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 45:
-#line 314 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { string s1 = yystack_[2].value.as< string > (); string s2 = yystack_[0].value.as< string > (); yylhs.value.as< pair<string,string>  > () = make_pair(s1,s2); }
+  case 40:
+#line 304 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    {  yylhs.value.as< pair<pair<string,string>,pair<string,string> >  > () = make_pair(yystack_[2].value.as< pair<string,string>  > (),yystack_[0].value.as< pair<string,string>  > ()); }
 #line 1212 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 48:
-#line 321 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append(yystack_[2].value.as< string > ()); yylhs.value.as< string > ().append("|"); yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); }
+  case 41:
+#line 307 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Pattern>  > () = yystack_[1].value.as< vector<Pattern>  > (); }
 #line 1218 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 49:
-#line 322 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); }
+  case 42:
+#line 308 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { }
 #line 1224 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 50:
-#line 325 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); }
+  case 43:
+#line 311 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Pattern>  > ().push_back(yystack_[2].value.as< Pattern > ()); yylhs.value.as< vector<Pattern>  > () = Utils::merge(yylhs.value.as< vector<Pattern>  > (),yystack_[0].value.as< vector<Pattern>  > ()); }
 #line 1230 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 51:
-#line 326 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append("("); yylhs.value.as< string > ().append(yystack_[2].value.as< string > ()); yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); yylhs.value.as< string > ().append("|"); yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); yylhs.value.as< string > ().append(yystack_[2].value.as< string > ()); yylhs.value.as< string > ().append(")"); }
+  case 44:
+#line 312 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<Pattern>  > ().push_back(yystack_[0].value.as< Pattern > ()); }
 #line 1236 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 52:
-#line 327 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); }
-#line 1242 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
-    break;
-
-  case 53:
-#line 330 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append("*"); }
+  case 45:
+#line 316 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    {
+                        yylhs.value.as< Pattern > () = Pattern(yystack_[2].value.as< pair<string,string>  > ().first);
+                        yylhs.value.as< Pattern > ().set_terminal_id(yystack_[2].value.as< pair<string,string>  > ().second);
+                        if(yystack_[1].value.as< bool > ())
+                            yylhs.value.as< Pattern > ().choose_max_language();
+                        yylhs.value.as< Pattern > ().set_expr(yystack_[0].value.as< string > ());
+                    }
 #line 1248 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 54:
-#line 331 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append("*");}
+  case 46:
+#line 325 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< bool > () = false; }
 #line 1254 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 55:
-#line 332 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append("("); yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append("|"); yylhs.value.as< string > ().append("\"\""); yylhs.value.as< string > ().append(")"); }
+  case 47:
+#line 326 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< bool > () = true; }
 #line 1260 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 56:
-#line 333 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > ().append("("); yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append(")"); }
+  case 48:
+#line 329 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append(yystack_[2].value.as< string > ()); yylhs.value.as< string > ().append("|"); yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); }
 #line 1266 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
-  case 57:
+  case 49:
+#line 330 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); }
+#line 1272 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 50:
+#line 333 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); }
+#line 1278 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 51:
+#line 334 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append("("); yylhs.value.as< string > ().append(yystack_[2].value.as< string > ()); yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); yylhs.value.as< string > ().append("|"); yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); yylhs.value.as< string > ().append(yystack_[2].value.as< string > ()); yylhs.value.as< string > ().append(")"); }
+#line 1284 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 52:
 #line 335 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append(yystack_[0].value.as< string > ()); }
+#line 1290 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 53:
+#line 338 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append("*"); }
+#line 1296 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 54:
+#line 339 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append("*");}
+#line 1302 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 55:
+#line 340 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append("("); yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append("|"); yylhs.value.as< string > ().append("\"\""); yylhs.value.as< string > ().append(")"); }
+#line 1308 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 56:
+#line 341 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > ().append("("); yylhs.value.as< string > ().append(yystack_[1].value.as< string > ()); yylhs.value.as< string > ().append(")"); }
+#line 1314 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+    break;
+
+  case 57:
+#line 343 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { string str = yystack_[0].value.as< pair<string,string>  > ().first; str.append("("); str.append(yystack_[0].value.as< pair<string,string>  > ().second); str.append(")");
                       yylhs.value.as< string > ().append(driver.current_net_model.not_trans(str));
                     }
-#line 1274 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1322 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 58:
-#line 339 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 347 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { //$$.append($1.first); $$.append("("); $$.append($1.second); $$.append(")");
                     //string str = $1.first; str.append("("); str.append($1.second); str.append(")");
                     pair<string,string> p = make_pair(yystack_[0].value.as< pair<string,string>  > ().first, yystack_[0].value.as< pair<string,string>  > ().second);
@@ -1290,35 +1338,35 @@ namespace yy {
                     yylhs.value.as< string > ().append(ss.str());
                     yylhs.value.as< string > ().append(")");
                   }
-#line 1294 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1342 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 59:
-#line 356 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 364 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< vector<pair<string,string> >  > () = yystack_[1].value.as< vector<pair<string,string> >  > (); }
-#line 1300 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1348 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 60:
-#line 357 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 365 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { }
-#line 1306 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1354 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 61:
-#line 360 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 368 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< map<pair<string,string>,string>   > () = yystack_[1].value.as< map<pair<string,string>,string>   > (); }
-#line 1312 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1360 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 62:
-#line 361 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 369 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { }
-#line 1318 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1366 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 63:
-#line 365 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 373 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                         yylhs.value.as< map<pair<string,string>,string>   > ().insert(yystack_[2].value.as< pair<pair<string,string>,string>  > ());
 
@@ -1335,35 +1383,35 @@ namespace yy {
                             }
                         }
                     }
-#line 1339 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1387 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 64:
-#line 382 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 390 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< map<pair<string,string>,string>   > ().insert(yystack_[0].value.as< pair<pair<string,string>,string>  > ()); }
-#line 1345 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1393 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 65:
-#line 385 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 393 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< pair<pair<string,string>,string>  > ().first = yystack_[2].value.as< pair<string,string>  > (); yylhs.value.as< pair<pair<string,string>,string>  > ().second = yystack_[0].value.as< string > (); }
-#line 1351 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1399 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 66:
-#line 388 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 396 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< map<pair<string,string>,string>   > () = yystack_[1].value.as< map<pair<string,string>,string>   > (); }
-#line 1357 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1405 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 67:
-#line 389 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 397 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { }
-#line 1363 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1411 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 68:
-#line 397 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 405 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                         if(driver.system.name != "")
                             driver.error(loc,"Multiple system declaration (system must be unique)");
@@ -1376,27 +1424,27 @@ namespace yy {
                         yylhs.value.as< System > ().name = yystack_[6].value.as< string > ();
                         yylhs.value.as< System > ().node_list = yystack_[4].value.as< vector<SystemNode>  > ();
                         yylhs.value.as< System > ().id_root = yystack_[3].value.as< string > ();
-                        yylhs.value.as< System > ().emergence = yystack_[2].value.as< map<pair<string,string>,string>   > ();
+                        yylhs.value.as< System > ().emergence = yystack_[2].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ();
 
                         driver.semantic_checks(yylhs.value.as< System > ());
                     }
-#line 1384 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1432 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 69:
-#line 415 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 423 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< vector<SystemNode>  > ().push_back(yystack_[2].value.as< SystemNode > ()); yylhs.value.as< vector<SystemNode>  > () = Utils::merge(yylhs.value.as< vector<SystemNode>  > (),yystack_[0].value.as< vector<SystemNode>  > ()); }
-#line 1390 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1438 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 70:
-#line 416 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 424 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< vector<SystemNode>  > ().push_back(yystack_[1].value.as< SystemNode > ()); }
-#line 1396 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1444 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 71:
-#line 424 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 432 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                         if(yystack_[8].value.as< string > () != yystack_[0].value.as< string > ())
                         {
@@ -1410,35 +1458,35 @@ namespace yy {
                         yylhs.value.as< SystemNode > ().viewer = yystack_[3].value.as< map<pair<string,string>,string>   > ();
                         yylhs.value.as< SystemNode > ().ruler = yystack_[2].value.as< map<pair<string,string>,string>   > ();
                     }
-#line 1414 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1462 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 72:
-#line 439 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 447 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< string > () = yystack_[1].value.as< string > (); }
-#line 1420 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1468 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 73:
-#line 440 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 448 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { }
-#line 1426 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1474 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 74:
-#line 443 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< map<pair<string,string>,string>   > () = yystack_[1].value.as< map<pair<string,string>,string>   > (); }
-#line 1432 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 451 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+    { yylhs.value.as< vector<pair<pair<string,string>,pair<string,string> > >  > () = yystack_[1].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > (); }
+#line 1480 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 75:
-#line 444 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 452 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { }
-#line 1438 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1486 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 76:
-#line 450 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 458 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                         if(driver.problem.name != "")
                             driver.error(loc,"Multiple problem declaration (problem must be unique)");
@@ -1453,23 +1501,23 @@ namespace yy {
 
                         driver.semantic_checks(yylhs.value.as< Problem > ());
                     }
-#line 1457 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1505 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 77:
-#line 466 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 474 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< vector<ProblemNode>  > ().push_back(yystack_[2].value.as< ProblemNode > ()); yylhs.value.as< vector<ProblemNode>  > () = Utils::merge(yylhs.value.as< vector<ProblemNode>  > (),yystack_[0].value.as< vector<ProblemNode>  > ()); }
-#line 1463 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1511 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 78:
-#line 467 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 475 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< vector<ProblemNode>  > ().push_back(yystack_[1].value.as< ProblemNode > ()); }
-#line 1469 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1517 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 79:
-#line 476 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 484 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                         if(yystack_[7].value.as< string > () != yystack_[0].value.as< string > ())
                         {
@@ -1484,29 +1532,29 @@ namespace yy {
                         yylhs.value.as< ProblemNode > ().observation = yystack_[3].value.as< vector<string>  > ();
                         yylhs.value.as< ProblemNode > ().ruler = yystack_[2].value.as< map<pair<string,string>,string>   > ();
                     }
-#line 1488 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1536 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 80:
-#line 493 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 501 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< vector<string>  > () = yystack_[2].value.as< vector<string>  > (); }
-#line 1494 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1542 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 81:
-#line 496 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 504 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { yylhs.value.as< vector<string>  > () = yystack_[0].value.as< vector<string>  > (); }
-#line 1500 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1548 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 82:
-#line 497 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
+#line 505 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     { }
-#line 1506 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1554 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
 
-#line 1510 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
+#line 1558 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
             default:
               break;
             }
@@ -1761,33 +1809,33 @@ namespace yy {
   }
 
 
-  const short int spec_parser::yypact_ninf_ = -159;
+  const short int spec_parser::yypact_ninf_ = -160;
 
   const signed char spec_parser::yytable_ninf_ = -1;
 
   const short int
   spec_parser::yypact_[] =
   {
-       3,     6,    16,    -8,     7,    49,  -159,    26,  -159,  -159,
-    -159,  -159,  -159,    11,    12,    51,    52,  -159,     3,    53,
-      54,    41,    42,  -159,    55,    60,    21,    45,   -13,    23,
-      61,     8,    25,    62,    25,  -159,    44,    28,    56,    41,
-    -159,    68,    32,    42,  -159,    57,    50,    25,    70,    58,
-      63,    64,    62,    39,    65,    43,    78,  -159,    72,  -159,
-    -159,    25,  -159,    66,    25,    80,    59,  -159,    25,    70,
-      88,  -159,    67,    69,    71,    76,    73,    43,    85,  -159,
-    -159,    77,    25,    83,  -159,  -159,    91,    72,    74,    75,
-    -159,    43,  -159,    81,    82,    43,    84,  -159,    86,    79,
-      90,    43,    92,    85,    87,  -159,  -159,    43,  -159,    89,
-      93,    94,  -159,    95,    98,    96,    97,    99,   101,   104,
-     100,    72,    94,  -159,  -159,  -159,    25,    43,   107,   -17,
-    -159,    79,  -159,    43,  -159,    43,    19,   105,   106,    85,
-     108,  -159,   102,   111,   103,   109,   110,  -159,  -159,  -159,
-    -159,  -159,  -159,   -14,  -159,   100,    94,   112,   113,  -159,
-    -159,  -159,   114,   -14,    43,  -159,   115,   -19,     4,  -159,
-     119,  -159,  -159,   117,    -1,  -159,   -14,   -14,     4,  -159,
-    -159,  -159,   116,   118,  -159,   -19,     4,  -159,   120,   121,
-      43,   122,  -159,  -159
+       2,     6,    15,   -16,   -11,    50,  -160,    27,  -160,  -160,
+    -160,  -160,  -160,    13,    14,    53,    54,  -160,     2,    55,
+      56,    43,    44,  -160,    57,    63,    24,    48,   -13,    26,
+      64,    11,    28,    65,    28,  -160,    52,    32,    58,    43,
+    -160,    73,    37,    44,  -160,    59,    60,    28,    72,    62,
+      66,    67,    65,    39,    68,    41,    82,  -160,    74,  -160,
+    -160,    28,  -160,    69,    28,    80,    61,  -160,    28,    72,
+      88,  -160,    70,    75,    76,    79,    71,    41,    83,  -160,
+    -160,    81,    28,    85,  -160,  -160,    93,    74,    77,    41,
+    -160,    41,  -160,    84,    86,    41,    87,  -160,    89,    78,
+      92,    41,    97,    83,    90,  -160,  -160,    41,  -160,    94,
+      91,    95,    96,    99,  -160,    98,   101,   104,   100,   105,
+      41,    74,    99,  -160,  -160,   102,  -160,    41,    28,    41,
+     107,   -22,  -160,    78,  -160,  -160,    16,   106,   109,    83,
+     112,  -160,  -160,  -160,   103,   108,   110,   114,   115,  -160,
+    -160,  -160,  -160,     0,  -160,    41,    99,   111,   116,  -160,
+    -160,  -160,   113,     0,    41,  -160,   117,   -14,     8,  -160,
+     119,  -160,  -160,   118,   -26,  -160,     0,     0,     8,  -160,
+    -160,  -160,   120,   121,  -160,   -14,     8,  -160,   123,   122,
+      41,   124,  -160,  -160
   };
 
   const unsigned char
@@ -1800,15 +1848,15 @@ namespace yy {
       70,     0,     0,     0,    78,    13,     0,     0,    17,     0,
        0,    34,    15,     0,     0,     0,     0,    69,    60,    76,
       77,     0,    11,     0,     0,     0,     0,    32,     0,    17,
-       0,    72,     0,     0,     0,    64,     0,     0,    62,    12,
+       0,    72,     0,     0,     0,    39,     0,     0,    62,    12,
       14,     0,     0,     0,    35,    33,    37,    60,     0,     0,
       74,     0,    68,    29,     0,     0,     0,    16,     0,     0,
-       0,     0,    42,    62,     0,    65,    63,     0,    59,     0,
-       0,    67,    18,     0,     0,    21,     0,     0,     0,    39,
-       0,    60,    67,    25,    28,    61,    82,     0,     0,     0,
-      19,     0,    10,     0,    36,     0,     0,     0,    44,    62,
-       0,    81,     0,     0,     0,     0,     0,    23,    20,    40,
-      38,    46,    47,     0,    41,     0,    67,     0,     0,    66,
+       0,     0,    42,    62,     0,    40,    38,     0,    59,     0,
+       0,    64,     0,    67,    18,     0,     0,    21,     0,     0,
+       0,    60,    67,    25,    28,     0,    61,     0,    82,     0,
+       0,     0,    19,     0,    10,    36,     0,     0,    44,    62,
+       0,    65,    63,    81,     0,     0,     0,     0,     0,    23,
+      20,    46,    47,     0,    41,     0,    67,     0,     0,    66,
       79,    24,     0,     0,     0,    58,    45,    49,    52,    43,
        0,    71,    80,     0,     0,    57,     0,     0,    50,    53,
       54,    55,     0,     0,    56,    48,    51,    31,     0,     0,
@@ -1818,71 +1866,71 @@ namespace yy {
   const short int
   spec_parser::yypgoto_[] =
   {
-    -159,  -159,   124,  -159,  -159,  -159,  -159,   -31,   123,   125,
-    -159,  -159,   -21,  -159,  -159,   -55,  -159,  -105,  -159,  -159,
-    -159,   127,  -159,  -159,    -3,  -159,  -159,   -34,  -159,  -159,
-     -30,   -38,  -158,   -83,   -98,   -88,  -159,  -114,  -159,   126,
-    -159,  -159,  -159,  -159,   128,  -159,  -159,  -159
+    -160,  -160,   126,  -160,  -160,  -160,  -160,   -31,   125,   127,
+    -160,  -160,   -10,  -160,  -160,   -55,  -160,  -105,  -160,  -160,
+    -160,   129,  -160,  -160,   -76,  -160,  -160,   -25,  -160,  -160,
+     -27,   -38,  -159,   -83,  -100,   -74,  -160,  -115,  -160,   128,
+    -160,  -160,  -160,  -160,   130,  -160,  -160,  -160
   };
 
   const short int
   spec_parser::yydefgoto_[] =
   {
       -1,     5,     6,     7,     8,     9,    33,    49,    48,    65,
-      83,   100,   114,   115,   146,   165,   191,    94,    10,    52,
-      35,    50,    51,   102,   118,   119,   121,   137,   138,   153,
-     166,   167,   168,    78,    96,    74,    75,   128,    11,    27,
-      28,    38,    56,    12,    30,    31,   111,   142
+      83,   100,   116,   117,   148,   165,   191,    94,    10,    52,
+      35,    50,    51,   102,    74,    75,   121,   137,   138,   153,
+     166,   167,   168,    78,    96,   110,   111,   130,    11,    27,
+      28,    38,    56,    12,    30,    31,   113,   144
   };
 
   const unsigned char
   spec_parser::yytable_[] =
   {
-      73,    46,   124,   106,   103,   122,     1,   109,   140,   178,
-      13,    39,   163,    40,   145,     2,    63,   163,   177,   186,
-      14,     3,    93,   164,    72,     4,    72,   178,   164,    72,
-      79,   184,    43,    81,    44,    15,    73,   176,   139,   143,
-      73,   156,   170,   179,   180,   181,   117,   151,   152,    17,
-      16,    98,    93,    18,    19,    20,    21,    22,    24,    25,
-      26,    29,    32,    34,    36,    37,    41,    42,    45,    53,
-      47,    54,    73,    58,   147,    59,    62,    55,   149,    64,
-     117,    61,    70,    66,    76,   192,    72,    77,    68,    67,
-      82,    71,    80,    87,    99,   141,   116,    90,    88,    89,
-      91,    95,    84,    97,   101,   107,   120,   110,   108,   175,
-     148,   127,   112,   144,   157,   125,    92,   104,   105,   123,
-     131,   169,   113,   129,   130,   182,   126,   134,   135,   133,
-     155,   154,   150,   174,   162,    93,   158,   159,   185,   172,
-     132,   161,    23,   136,   189,     0,   160,   183,     0,     0,
-       0,     0,     0,   176,     0,   171,   190,   173,   193,   187,
-       0,   188,     0,     0,     0,    57,     0,     0,     0,     0,
-       0,    60,     0,     0,     0,    69,     0,     0,     0,     0,
+      73,    46,   124,   122,   103,     1,   184,   140,   178,   147,
+      13,    39,   176,    40,     2,   106,    63,   163,   186,    14,
+       3,    72,    93,   177,     4,   119,   178,    15,   164,    72,
+      79,   163,    16,    81,   105,    43,    73,    44,   139,   156,
+     109,   170,   164,    72,   151,   152,    73,   179,   180,   181,
+      17,    98,    93,   142,    18,   145,    19,    20,    21,    22,
+      24,    25,    26,    29,    32,   136,    34,    36,    37,    41,
+      42,    45,   109,    47,   109,    54,   149,    53,    58,    55,
+      59,    64,    70,    61,    72,   192,    62,    66,    76,    77,
+      82,    68,    67,    87,    71,    80,    99,   143,   118,    95,
+     136,    88,    90,    91,    84,    89,   101,    97,   107,   175,
+     112,   120,   108,   146,    92,   114,   129,   126,   157,   127,
+     104,   115,   123,   150,   125,   182,   131,   132,   133,   128,
+     169,   135,   154,   155,   159,    93,   174,   158,   185,   162,
+       0,     0,   172,   134,    23,   141,   161,   189,   183,     0,
+       0,     0,     0,   160,   171,   176,   173,   190,     0,     0,
+     193,     0,     0,   187,   188,     0,     0,    57,     0,     0,
+       0,     0,     0,    60,     0,     0,     0,    69,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    86,    85
+       0,     0,     0,     0,     0,     0,    86,    85
   };
 
   const short int
   spec_parser::yycheck_[] =
   {
-      55,    32,   107,    91,    87,   103,     3,    95,   122,   167,
-       4,    24,    31,    26,    31,    12,    47,    31,    37,   177,
-       4,    18,    77,    42,    43,    22,    43,   185,    42,    43,
-      61,    32,    24,    64,    26,    43,    91,    38,   121,   127,
-      95,   139,   156,    39,    40,    41,   101,    28,    29,     0,
-      43,    82,   107,    27,    43,    43,     5,     5,     5,     5,
-      19,    19,     7,     3,    43,    20,    43,     6,    43,    25,
-       8,    43,   127,     5,   129,    43,    26,    21,   133,     9,
-     135,    24,    43,    25,     6,   190,    43,    15,    24,    26,
-      10,    26,    26,     5,    11,   126,     6,    26,    31,    30,
-      24,    16,    43,    26,    13,    24,    14,    23,    26,   164,
-     131,    17,    26,     6,     6,    26,    43,    43,    43,    32,
-      24,   155,    43,    28,    26,     6,    33,    26,    24,    30,
-      24,    26,   135,   163,    24,   190,    34,    26,   176,    26,
-      43,    32,    18,    43,    24,    -1,    43,    30,    -1,    -1,
-      -1,    -1,    -1,    38,    -1,    43,    35,    43,    36,    43,
-      -1,    43,    -1,    -1,    -1,    39,    -1,    -1,    -1,    -1,
-      -1,    43,    -1,    -1,    -1,    52,    -1,    -1,    -1,    -1,
+      55,    32,   107,   103,    87,     3,    32,   122,   167,    31,
+       4,    24,    38,    26,    12,    91,    47,    31,   177,     4,
+      18,    43,    77,    37,    22,   101,   185,    43,    42,    43,
+      61,    31,    43,    64,    89,    24,    91,    26,   121,   139,
+      95,   156,    42,    43,    28,    29,   101,    39,    40,    41,
+       0,    82,   107,   127,    27,   129,    43,    43,     5,     5,
+       5,     5,    19,    19,     7,   120,     3,    43,    20,    43,
+       6,    43,   127,     8,   129,    43,   131,    25,     5,    21,
+      43,     9,    43,    24,    43,   190,    26,    25,     6,    15,
+      10,    24,    26,     5,    26,    26,    11,   128,     6,    16,
+     155,    31,    26,    24,    43,    30,    13,    26,    24,   164,
+      23,    14,    26,     6,    43,    26,    17,    26,     6,    24,
+      43,    43,    32,   133,    30,     6,    28,    26,    24,    33,
+     155,    26,    26,    24,    26,   190,   163,    34,   176,    24,
+      -1,    -1,    26,    43,    18,    43,    32,    24,    30,    -1,
+      -1,    -1,    -1,    43,    43,    38,    43,    35,    -1,    -1,
+      36,    -1,    -1,    43,    43,    -1,    -1,    39,    -1,    -1,
+      -1,    -1,    -1,    43,    -1,    -1,    -1,    52,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    69,    68
+      -1,    -1,    -1,    -1,    -1,    -1,    69,    68
   };
 
   const unsigned char
@@ -1895,15 +1943,15 @@ namespace yy {
       26,    43,     6,    24,    26,    43,    51,     8,    52,    51,
       65,    66,    63,    25,    43,    21,    86,    83,     5,    43,
       88,    24,    26,    51,     9,    53,    25,    26,    24,    52,
-      43,    26,    43,    59,    79,    80,     6,    15,    77,    51,
+      43,    26,    43,    59,    68,    69,     6,    15,    77,    51,
       26,    51,    10,    54,    43,    65,    53,     5,    31,    30,
       26,    24,    43,    59,    61,    16,    78,    26,    51,    11,
-      55,    13,    67,    77,    43,    43,    79,    24,    26,    79,
-      23,    90,    26,    43,    56,    57,     6,    59,    68,    69,
-      14,    70,    78,    32,    61,    26,    33,    17,    81,    28,
-      26,    24,    43,    30,    26,    24,    43,    71,    72,    77,
-      81,    51,    91,    79,     6,    31,    58,    59,    56,    59,
-      68,    28,    29,    73,    26,    24,    78,     6,    34,    26,
+      55,    13,    67,    77,    43,    59,    68,    24,    26,    59,
+      79,    80,    23,    90,    26,    43,    56,    57,     6,    68,
+      14,    70,    78,    32,    61,    30,    26,    24,    33,    17,
+      81,    28,    26,    24,    43,    26,    59,    71,    72,    77,
+      81,    43,    79,    51,    91,    79,     6,    31,    58,    59,
+      56,    28,    29,    73,    26,    24,    78,     6,    34,    26,
       43,    32,    24,    31,    42,    59,    74,    75,    76,    71,
       81,    43,    26,    43,    74,    59,    38,    37,    76,    39,
       40,    41,     6,    30,    32,    75,    76,    43,    43,    24,
@@ -1968,15 +2016,15 @@ namespace yy {
   const unsigned short int
   spec_parser::yyrline_[] =
   {
-       0,   138,   138,   141,   142,   145,   146,   147,   150,   151,
-     164,   195,   198,   200,   203,   204,   207,   208,   211,   214,
-     217,   218,   221,   229,   230,   233,   236,   237,   240,   241,
-     246,   244,   285,   288,   289,   292,   295,   296,   299,   300,
-     303,   306,   307,   310,   311,   314,   317,   318,   321,   322,
-     325,   326,   327,   330,   331,   332,   333,   334,   338,   356,
-     357,   360,   361,   364,   381,   385,   388,   389,   392,   415,
-     416,   419,   439,   440,   443,   444,   447,   466,   467,   470,
-     492,   496,   497
+       0,   139,   139,   142,   143,   146,   147,   148,   151,   152,
+     165,   196,   199,   201,   204,   205,   208,   209,   212,   215,
+     218,   219,   222,   230,   231,   234,   237,   238,   241,   242,
+     247,   245,   286,   289,   290,   293,   296,   297,   300,   301,
+     304,   307,   308,   311,   312,   315,   325,   326,   329,   330,
+     333,   334,   335,   338,   339,   340,   341,   342,   346,   364,
+     365,   368,   369,   372,   389,   393,   396,   397,   400,   423,
+     424,   427,   447,   448,   451,   452,   455,   474,   475,   478,
+     500,   504,   505
   };
 
   // Print the state stack on the debug stream.
@@ -2011,8 +2059,8 @@ namespace yy {
 
 
 } // yy
-#line 2015 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:1167
-#line 501 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:1168
+#line 2063 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:1167
+#line 509 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:1168
 
 
 void yy::spec_parser::error (const location_type& l, const std::string& m)

@@ -336,8 +336,13 @@ void spec_driver::semantic_checks(NetworkModel nm)
 
     //saves a list of patterns ids
     vector<string> patt_ids;
-    for(vector<pair<string,string> >::iterator it = nm.patterns.begin(); it != nm.patterns.end(); it++)
-        patt_ids.push_back((*it).first);
+    for(vector<Pattern>::iterator it = nm.patterns.begin(); it != nm.patterns.end(); it++)
+    {
+        patt_ids.push_back(it->get_name());
+        std::string  id = it->get_terminal_id();
+        if(!Utils::contain(nm.outputs,id))
+            error(loc, "Semantic error: output pattern terminal ID of network does not exist");
+    }
     //verifies that patterns ids are unique
     if(Utils::duplicate_content(patt_ids))
         error(loc, "Semantic error: duplicate pattern ID");
@@ -401,17 +406,20 @@ void spec_driver::semantic_checks(System sys)
     for(vector<SystemNode>::iterator it = sys.node_list.begin(); it != sys.node_list.end(); it++)
         semantic_checks(*it);
 
-    //verifies components and transitions existence involved in emergence declarations
-    for(map<pair<string,string>,string>::iterator it = sys.emergence.begin(); it != sys.emergence.end(); it++)
+    //verifies nodes and relative terminals existence involved in emergence declarations
+    vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >::iterator it;
+    for(it = sys.emergence.begin(); it != sys.emergence.end(); it++)
     {
-        if(sys.find_node(it->first.second) == NULL || sys.find_node(it->second) == NULL)
+        if(sys.find_node(it->first.second) == NULL || sys.find_node(it->second.second) == NULL)
             error(loc, "system node ID in emergence declaration does not exist");
-        if(sys.find_node(it->first.second)->net_model->find_component(it->first.first) == NULL)
-            error(loc, "component ID in emergence declaration does not exist");
+        if(!Utils::contain(sys.find_node(it->first.second)->net_model->outputs,it->first.first))
+            error(loc, "network output terminal ID in emergence declaration does not exist");
+        if(!Utils::contain(sys.find_node(it->second.second)->net_model->inputs,it->second.first))
+            error(loc, "network input terminal ID in emergence declaration does not exist");
     }
 
-    //verifies one-to-one mapping in emergence between nodes, in order to be a tree structure
-    for(map<pair<string,string>,string>::iterator it = sys.emergence.begin(); it != sys.emergence.end(); it++)
+    //verifies one-to-one mapping in emergence between nodes, in order to be a tree structure OLD REQUIREMENT
+    /*for(map<pair<string,string>,string>::iterator it = sys.emergence.begin(); it != sys.emergence.end(); it++)
     {
         for(map<pair<string,string>,string>::iterator it2 = it; it2 != sys.emergence.end(); )
         {
@@ -421,7 +429,7 @@ void spec_driver::semantic_checks(System sys)
             if(it->first == it2->first || it->second == it2->second)
                 error(loc, "system nodes dependencies must be a tree");
         }
-    }
+    }*/
 
 }
 
@@ -554,49 +562,49 @@ void spec_driver::semantic_checks(ProblemNode node)
 
 void spec_driver::build_dependency_graph()
 {
-    for(map<pair<string,string>,string>::iterator it = system.emergence.begin(); it != system.emergence.end(); it++)
+    vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >::iterator it;
+    for(it = system.emergence.begin(); it != system.emergence.end(); it++)
     {
         DFA_map<strings,StateData_str>::state_type s1 =  DFA_map<strings,StateData_str>::null_state;
         DFA_map<strings,StateData_str>::state_type s2 = DFA_map<strings,StateData_str>::null_state;
         DFA_map<strings,StateData_str>::const_iterator c;
-        //linear search in the state space (better improve efficiency in future)
+        //linear search in the state space (better improve efficiency in future: hash)
         for(c = system.dependency_graph.begin(); c != system.dependency_graph.end(); c++)
         {
-            if(system.dependency_graph.tag(*c) == StateData_str(it->first.second))
+            if(system.dependency_graph.tag(*c) == StateData_str(it->second.second))
                 s1 = *c;
-            if(system.dependency_graph.tag(*c) == StateData_str(it->second))
+            if(system.dependency_graph.tag(*c) == StateData_str(it->first.second))
                 s2 = *c;
         }
 
         if(s1 == DFA_map<strings,StateData_str>::null_state)
         {
             s1 = system.dependency_graph.new_state();
-            system.dependency_graph.tag(s1) = StateData_str(it->first.second);
-            if(system.root->name == it->first.second)
+            system.dependency_graph.tag(s1) = StateData_str(it->second.second);
+            if(system.root->name == it->second.second)
                 system.dependency_graph.initial(s1);
         }
         if(s2 == DFA_map<strings,StateData_str>::null_state)
         {
             s2 = system.dependency_graph.new_state();
-            system.dependency_graph.tag(s2) = StateData_str(it->second);
+            system.dependency_graph.tag(s2) = StateData_str(it->first.second);
         }
-        else if(system.dependency_graph.tag(s2) == system.root->name)
-            error(loc,"Root node cannot have ingoing transitions");
+        /*else if(system.dependency_graph.tag(s2) == system.root->name)
+            error(loc,"Root node cannot have ingoing transitions");*/
 
         string label;
         label = it->first.first;
         label.append("("); label.append(it->first.second); label.append(")");
         label.append(" -> ");
-        label.append(it->second);
+        label.append(it->second.first);
+        label.append("("); label.append(it->second.second); label.append(")");
         system.dependency_graph.set_trans(s1,label,s2);
-
-        //make_hash(system.dependency_graph);
     }
 
-    if(Utils::cyclic_graph(system.dependency_graph))
-        error(loc, "Cyclic dependencies between system nodes");
+    //if(Utils::cyclic_graph(system.dependency_graph))
+        //error(loc, "Cyclic dependencies between system nodes");
     if(system.dependency_graph.state_count() < system.node_list.size()  //detects single disconnected nodes
-            || Utils::disconnected_graph(system.dependency_graph))      //detects disconnected subgraphs
+            || Utils::disconnected_cyclic_graph(system.dependency_graph))      //detects disconnected subgraphs
         error(loc, "System nodes graph is not connected");
 }
 

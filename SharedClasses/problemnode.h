@@ -16,6 +16,8 @@ class ProblemNode
     {
         ar & name;
         ar & ref_node;
+        ar & input_terminals;
+        ar & output_terminals;
         ar & concrete_components;
         ar & initials;
         ar & viewer;
@@ -30,6 +32,9 @@ public:
     SystemNode* ref_node;
 
     vector<Component> concrete_components;
+    vector<Terminal> input_terminals;
+    vector<Terminal> output_terminals;
+
 
     vector<pair<std::string,std::string> > initials;
     map<pair<string,string>,string>   viewer;

@@ -103,12 +103,13 @@ TILDE "~"
 %type <vector<Component> > decl
 %type <vector<pair<pair<string,string>,pair<string,string> > > > link_list
 %type <pair<pair<string,string>,pair<string,string> > > link_decl
-%type <vector<pair<string,string> > > pattern_section
+%type <vector<Pattern> > pattern_section
 %type <vector<pair<string,string> > > initial_section
 %type <map<pair<string,string>,string>  > viewer_section
 %type <map<pair<string,string>,string>  > ruler_section
-%type <vector<pair<string,string> > > pattern_list
-%type <pair<string,string> >  pattern_decl
+%type <vector<Pattern> > pattern_list
+%type <Pattern>  pattern_decl
+%type <bool> pattern_op
 %type <string> expr
 %type <string> term
 %type <string> factor
@@ -117,7 +118,7 @@ TILDE "~"
 %type <System> system_decl
 %type <vector<SystemNode> > system_node_list
 %type <string> root_section
-%type <map<pair<string,string>,string>  > emergence_section
+%type <vector<pair<pair<string,string>,pair<string,string> > > > emergence_section
 %type <SystemNode> system_node
 %type <Problem> problem_decl
 %type <vector<ProblemNode> > problem_node_list
@@ -311,11 +312,18 @@ pattern_list      : pattern_decl COMMA pattern_list { $$.push_back($1); $$ = Uti
                   | pattern_decl { $$.push_back($1); }
                   ;
 
-pattern_decl      : ID pattern_op expr { string s1 = $1; string s2 = $3; $$ = make_pair(s1,s2); }
+pattern_decl      : ref pattern_op expr
+                    {
+                        $$ = Pattern($1.first);
+                        $$.set_terminal_id($1.second);
+                        if($2)
+                            $$.choose_max_language();
+                        $$.set_expr($3);
+                    }
                   ;
 
-pattern_op        : EQUALS
-                  | DOUBLE_EQUALS
+pattern_op        : EQUALS { $$ = false; }
+                  | DOUBLE_EQUALS { $$ = true; }
                   ;
 
 expr              : expr PIPE term { $$.append($1); $$.append("|"); $$.append($3); }
@@ -440,7 +448,7 @@ root_section      : ROOT ID SEMI_COLON { $$ = $2; }
                   | { }
                   ;
 
-emergence_section : EMERGENCE map_list SEMI_COLON { $$ = $2; }
+emergence_section : EMERGENCE link_list SEMI_COLON { $$ = $2; }
                   | { }
                   ;
 

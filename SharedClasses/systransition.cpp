@@ -9,7 +9,7 @@ SysTransition::SysTransition(Transition* t, Component *c, SystemNode *n)
     trans = t;
     component = c;
     node = n;
-    input_event = make_pair(trans->input_event.first, component->find_terminal(trans->input_event.second));
+    input_event = make_pair(trans->input_event.first, component->find_input_terminal(trans->input_event.second));
     vector<pair<std::string,std::string> >::iterator it;
     for(it = trans->out_events.begin(); it!= trans->out_events.end(); it++)
         output_events.push_back(make_pair(it->first,component->find_output_terminal(it->second)));
@@ -21,7 +21,7 @@ bool SysTransition::is_triggerable()
     if(input_event.first != "" && input_event.first != input_event.second->value)
         return false;
     //verifies that all links outgoing from the output terminal involved in the transition are empty (saturation policy: WAIT)
-    vector<pair<std::string, OutputTerminal*> >::iterator it;
+    vector<pair<std::string, Terminal*> >::iterator it;
     for(it = output_events.begin(); it != output_events.end(); it++)
     {
         vector<Terminal*>::iterator it2;
@@ -38,7 +38,7 @@ void SysTransition::effects()
 {
     if(input_event.first != "")
         input_event.second->value = "<eps>";
-    vector<pair<std::string, OutputTerminal*> >::iterator it;
+    vector<pair<std::string, Terminal*> >::iterator it;
     for(it = output_events.begin(); it != output_events.end(); it++)
     {
         vector<Terminal*>::iterator it2;

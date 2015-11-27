@@ -298,70 +298,77 @@ namespace yy {
       // net_model_decl
       char dummy2[sizeof(NetworkModel)];
 
+      // pattern_decl
+      char dummy3[sizeof(Pattern)];
+
       // problem_decl
-      char dummy3[sizeof(Problem)];
+      char dummy4[sizeof(Problem)];
 
       // problem_node
-      char dummy4[sizeof(ProblemNode)];
+      char dummy5[sizeof(ProblemNode)];
 
       // system_decl
-      char dummy5[sizeof(System)];
+      char dummy6[sizeof(System)];
 
       // system_node
-      char dummy6[sizeof(SystemNode)];
+      char dummy7[sizeof(SystemNode)];
 
       // trans_decl
-      char dummy7[sizeof(Transition)];
+      char dummy8[sizeof(Transition)];
+
+      // pattern_op
+      char dummy9[sizeof(bool)];
 
       // viewer_section
       // map_list
       // ruler_section
-      // emergence_section
-      char dummy8[sizeof(map<pair<string,string>,string>  )];
+      char dummy10[sizeof(map<pair<string,string>,string>  )];
 
       // link_decl
-      char dummy9[sizeof(pair<pair<string,string>,pair<string,string> > )];
+      char dummy11[sizeof(pair<pair<string,string>,pair<string,string> > )];
 
       // map_decl
-      char dummy10[sizeof(pair<pair<string,string>,string> )];
+      char dummy12[sizeof(pair<pair<string,string>,string> )];
 
       // event
       // ref
-      // pattern_decl
-      char dummy11[sizeof(pair<string,string> )];
+      char dummy13[sizeof(pair<string,string> )];
 
       // "id"
       // expr
       // term
       // factor
       // root_section
-      char dummy12[sizeof(string)];
+      char dummy14[sizeof(string)];
 
       // component_section
       // decl_list
       // decl
-      char dummy13[sizeof(vector<Component> )];
+      char dummy15[sizeof(vector<Component> )];
+
+      // pattern_section
+      // pattern_list
+      char dummy16[sizeof(vector<Pattern> )];
 
       // problem_node_list
-      char dummy14[sizeof(vector<ProblemNode> )];
+      char dummy17[sizeof(vector<ProblemNode> )];
 
       // system_node_list
-      char dummy15[sizeof(vector<SystemNode> )];
+      char dummy18[sizeof(vector<SystemNode> )];
 
       // transition_decl
       // trans_decl_list
-      char dummy16[sizeof(vector<Transition> )];
+      char dummy19[sizeof(vector<Transition> )];
 
       // link_section
       // link_list
-      char dummy17[sizeof(vector<pair<pair<string,string>,pair<string,string> > > )];
+      // emergence_section
+      char dummy20[sizeof(vector<pair<pair<string,string>,pair<string,string> > > )];
 
       // opt_ref_list
       // ref_list
-      // pattern_section
-      // pattern_list
       // initial_section
-      char dummy18[sizeof(vector<pair<string,string> > )];
+      char dummy21[sizeof(vector<pair<string,string> > )];
 
       // event_decl
       // id_list
@@ -370,7 +377,7 @@ namespace yy {
       // state_decl
       // obs_section
       // opt_id_list
-      char dummy19[sizeof(vector<string> )];
+      char dummy22[sizeof(vector<string> )];
 };
 
     /// Symbol semantic values.
@@ -476,6 +483,8 @@ namespace yy {
 
   basic_symbol (typename Base::kind_type t, const NetworkModel v, const location_type& l);
 
+  basic_symbol (typename Base::kind_type t, const Pattern v, const location_type& l);
+
   basic_symbol (typename Base::kind_type t, const Problem v, const location_type& l);
 
   basic_symbol (typename Base::kind_type t, const ProblemNode v, const location_type& l);
@@ -485,6 +494,8 @@ namespace yy {
   basic_symbol (typename Base::kind_type t, const SystemNode v, const location_type& l);
 
   basic_symbol (typename Base::kind_type t, const Transition v, const location_type& l);
+
+  basic_symbol (typename Base::kind_type t, const bool v, const location_type& l);
 
   basic_symbol (typename Base::kind_type t, const map<pair<string, string>, string>   v, const location_type& l);
 
@@ -497,6 +508,8 @@ namespace yy {
   basic_symbol (typename Base::kind_type t, const string v, const location_type& l);
 
   basic_symbol (typename Base::kind_type t, const vector<Component>  v, const location_type& l);
+
+  basic_symbol (typename Base::kind_type t, const vector<Pattern>  v, const location_type& l);
 
   basic_symbol (typename Base::kind_type t, const vector<ProblemNode>  v, const location_type& l);
 
@@ -950,7 +963,7 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 195,     ///< Last index in yytable_.
+      yylast_ = 197,     ///< Last index in yytable_.
       yynnts_ = 48,  ///< Number of nonterminal symbols.
       yyfinal_ = 17, ///< Termination state number.
       yyterror_ = 1,
@@ -1044,6 +1057,10 @@ namespace yy {
         value.copy< NetworkModel > (other.value);
         break;
 
+      case 72: // pattern_decl
+        value.copy< Pattern > (other.value);
+        break;
+
       case 87: // problem_decl
         value.copy< Problem > (other.value);
         break;
@@ -1064,10 +1081,13 @@ namespace yy {
         value.copy< Transition > (other.value);
         break;
 
+      case 73: // pattern_op
+        value.copy< bool > (other.value);
+        break;
+
       case 78: // viewer_section
       case 79: // map_list
       case 81: // ruler_section
-      case 86: // emergence_section
         value.copy< map<pair<string,string>,string>   > (other.value);
         break;
 
@@ -1081,7 +1101,6 @@ namespace yy {
 
       case 58: // event
       case 59: // ref
-      case 72: // pattern_decl
         value.copy< pair<string,string>  > (other.value);
         break;
 
@@ -1099,6 +1118,11 @@ namespace yy {
         value.copy< vector<Component>  > (other.value);
         break;
 
+      case 70: // pattern_section
+      case 71: // pattern_list
+        value.copy< vector<Pattern>  > (other.value);
+        break;
+
       case 88: // problem_node_list
         value.copy< vector<ProblemNode>  > (other.value);
         break;
@@ -1114,13 +1138,12 @@ namespace yy {
 
       case 67: // link_section
       case 68: // link_list
+      case 86: // emergence_section
         value.copy< vector<pair<pair<string,string>,pair<string,string> > >  > (other.value);
         break;
 
       case 60: // opt_ref_list
       case 61: // ref_list
-      case 70: // pattern_section
-      case 71: // pattern_list
       case 77: // initial_section
         value.copy< vector<pair<string,string> >  > (other.value);
         break;
@@ -1160,6 +1183,10 @@ namespace yy {
         value.copy< NetworkModel > (v);
         break;
 
+      case 72: // pattern_decl
+        value.copy< Pattern > (v);
+        break;
+
       case 87: // problem_decl
         value.copy< Problem > (v);
         break;
@@ -1180,10 +1207,13 @@ namespace yy {
         value.copy< Transition > (v);
         break;
 
+      case 73: // pattern_op
+        value.copy< bool > (v);
+        break;
+
       case 78: // viewer_section
       case 79: // map_list
       case 81: // ruler_section
-      case 86: // emergence_section
         value.copy< map<pair<string,string>,string>   > (v);
         break;
 
@@ -1197,7 +1227,6 @@ namespace yy {
 
       case 58: // event
       case 59: // ref
-      case 72: // pattern_decl
         value.copy< pair<string,string>  > (v);
         break;
 
@@ -1215,6 +1244,11 @@ namespace yy {
         value.copy< vector<Component>  > (v);
         break;
 
+      case 70: // pattern_section
+      case 71: // pattern_list
+        value.copy< vector<Pattern>  > (v);
+        break;
+
       case 88: // problem_node_list
         value.copy< vector<ProblemNode>  > (v);
         break;
@@ -1230,13 +1264,12 @@ namespace yy {
 
       case 67: // link_section
       case 68: // link_list
+      case 86: // emergence_section
         value.copy< vector<pair<pair<string,string>,pair<string,string> > >  > (v);
         break;
 
       case 60: // opt_ref_list
       case 61: // ref_list
-      case 70: // pattern_section
-      case 71: // pattern_list
       case 77: // initial_section
         value.copy< vector<pair<string,string> >  > (v);
         break;
@@ -1281,6 +1314,13 @@ namespace yy {
   {}
 
   template <typename Base>
+  spec_parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const Pattern v, const location_type& l)
+    : Base (t)
+    , value (v)
+    , location (l)
+  {}
+
+  template <typename Base>
   spec_parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const Problem v, const location_type& l)
     : Base (t)
     , value (v)
@@ -1310,6 +1350,13 @@ namespace yy {
 
   template <typename Base>
   spec_parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const Transition v, const location_type& l)
+    : Base (t)
+    , value (v)
+    , location (l)
+  {}
+
+  template <typename Base>
+  spec_parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const bool v, const location_type& l)
     : Base (t)
     , value (v)
     , location (l)
@@ -1352,6 +1399,13 @@ namespace yy {
 
   template <typename Base>
   spec_parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const vector<Component>  v, const location_type& l)
+    : Base (t)
+    , value (v)
+    , location (l)
+  {}
+
+  template <typename Base>
+  spec_parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const vector<Pattern>  v, const location_type& l)
     : Base (t)
     , value (v)
     , location (l)
@@ -1433,6 +1487,10 @@ namespace yy {
         value.template destroy< NetworkModel > ();
         break;
 
+      case 72: // pattern_decl
+        value.template destroy< Pattern > ();
+        break;
+
       case 87: // problem_decl
         value.template destroy< Problem > ();
         break;
@@ -1453,10 +1511,13 @@ namespace yy {
         value.template destroy< Transition > ();
         break;
 
+      case 73: // pattern_op
+        value.template destroy< bool > ();
+        break;
+
       case 78: // viewer_section
       case 79: // map_list
       case 81: // ruler_section
-      case 86: // emergence_section
         value.template destroy< map<pair<string,string>,string>   > ();
         break;
 
@@ -1470,7 +1531,6 @@ namespace yy {
 
       case 58: // event
       case 59: // ref
-      case 72: // pattern_decl
         value.template destroy< pair<string,string>  > ();
         break;
 
@@ -1488,6 +1548,11 @@ namespace yy {
         value.template destroy< vector<Component>  > ();
         break;
 
+      case 70: // pattern_section
+      case 71: // pattern_list
+        value.template destroy< vector<Pattern>  > ();
+        break;
+
       case 88: // problem_node_list
         value.template destroy< vector<ProblemNode>  > ();
         break;
@@ -1503,13 +1568,12 @@ namespace yy {
 
       case 67: // link_section
       case 68: // link_list
+      case 86: // emergence_section
         value.template destroy< vector<pair<pair<string,string>,pair<string,string> > >  > ();
         break;
 
       case 60: // opt_ref_list
       case 61: // ref_list
-      case 70: // pattern_section
-      case 71: // pattern_list
       case 77: // initial_section
         value.template destroy< vector<pair<string,string> >  > ();
         break;
@@ -1555,6 +1619,10 @@ namespace yy {
         value.move< NetworkModel > (s.value);
         break;
 
+      case 72: // pattern_decl
+        value.move< Pattern > (s.value);
+        break;
+
       case 87: // problem_decl
         value.move< Problem > (s.value);
         break;
@@ -1575,10 +1643,13 @@ namespace yy {
         value.move< Transition > (s.value);
         break;
 
+      case 73: // pattern_op
+        value.move< bool > (s.value);
+        break;
+
       case 78: // viewer_section
       case 79: // map_list
       case 81: // ruler_section
-      case 86: // emergence_section
         value.move< map<pair<string,string>,string>   > (s.value);
         break;
 
@@ -1592,7 +1663,6 @@ namespace yy {
 
       case 58: // event
       case 59: // ref
-      case 72: // pattern_decl
         value.move< pair<string,string>  > (s.value);
         break;
 
@@ -1610,6 +1680,11 @@ namespace yy {
         value.move< vector<Component>  > (s.value);
         break;
 
+      case 70: // pattern_section
+      case 71: // pattern_list
+        value.move< vector<Pattern>  > (s.value);
+        break;
+
       case 88: // problem_node_list
         value.move< vector<ProblemNode>  > (s.value);
         break;
@@ -1625,13 +1700,12 @@ namespace yy {
 
       case 67: // link_section
       case 68: // link_list
+      case 86: // emergence_section
         value.move< vector<pair<pair<string,string>,pair<string,string> > >  > (s.value);
         break;
 
       case 60: // opt_ref_list
       case 61: // ref_list
-      case 70: // pattern_section
-      case 71: // pattern_list
       case 77: // initial_section
         value.move< vector<pair<string,string> >  > (s.value);
         break;
@@ -1965,7 +2039,7 @@ namespace yy {
 
 
 } // yy
-#line 1969 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
+#line 2043 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.hpp" // lalr1.cc:377
 
 
 

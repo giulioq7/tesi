@@ -12,22 +12,22 @@ Pattern::Pattern(std::string str)
 }
 
 
-std::string Pattern::get_name()
+std::string Pattern::get_name() const
 {
     return name;
 }
 
-std::string Pattern::get_terminal_id()
+std::string Pattern::get_terminal_id() const
 {
     return terminal_id;
 }
 
-std::string Pattern::get_expr()
+std::string Pattern::get_expr() const
 {
     return expr;
 }
 
-bool Pattern::is_max_language()
+bool Pattern::is_max_language() const
 {
     return max_language;
 }
@@ -42,7 +42,7 @@ void Pattern::set_expr(std::string str)
     expr = str;
 }
 
-void Pattern::chose_max_language()
+void Pattern::choose_max_language()
 {
     max_language = true;
 }

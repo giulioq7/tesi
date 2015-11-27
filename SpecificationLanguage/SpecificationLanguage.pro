@@ -12,7 +12,6 @@ SOURCES += main.cpp \
     ../SharedClasses/nettransition.cpp \
     ../SharedClasses/networkmodel.cpp \
     ../SharedClasses/ostream_util.cpp \
-    ../SharedClasses/outputterminal.cpp \
     ../SharedClasses/problem.cpp \
     ../SharedClasses/problemnode.cpp \
     ../SharedClasses/statedata.cpp \
@@ -36,7 +35,6 @@ HEADERS += \
     ../SharedClasses/nettransition.h \
     ../SharedClasses/networkmodel.h \
     ../SharedClasses/ostream_util.h \
-    ../SharedClasses/outputterminal.h \
     ../SharedClasses/problem.h \
     ../SharedClasses/problemnode.h \
     ../SharedClasses/serialize.h \

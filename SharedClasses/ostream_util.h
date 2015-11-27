@@ -64,4 +64,6 @@ std::ostream& operator<<(std::ostream& out, const NetTransition& t);
 
 std::ostream& operator<<(std::ostream& out, const SysTransition& t);
 
+std::ostream& operator<<(std::ostream& out, const Pattern& p);
+
 #endif // OSTREAM_UTIL_H

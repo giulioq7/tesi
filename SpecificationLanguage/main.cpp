@@ -23,7 +23,7 @@ using namespace grail;
 using namespace astl;
 
 //PUBLIC
-fm<int> start_build(std::vector<std::pair<std::string,std::string> > patterns);
+fm<int> start_build(vector<Pattern> patterns);
 DFA_map<NetTransition, StateData_str>* from_grail_to_astl(fm<TYPE>* dfa, NetworkModel* net);
 
 //PRIVATE
@@ -131,8 +131,25 @@ int main(int argc, char** argv)
     full_dot(fi,dfirst_markc(driver.problem.nodes[2].index_space));
     fi.close();
 
-    //for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
-    //       it->make_terminals();
+    /*for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
+    {
+        for(vector<std::string>::iterator it2 = it->ref_node->net_model->inputs.begin(); it2 != it->ref_node->net_model->inputs.end(); it2++)
+            it->input_terminals.push_back(Terminal(*it2));
+        for(vector<std::string>::iterator it2 = it->ref_node->net_model->outputs.begin(); it2 != it->ref_node->net_model->outputs.end(); it2++)
+            it->output_terminals.push_back(Terminal(*it2));
+    }
+    for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
+           it->make_terminals();
+    for(vector<std::pair<std::pair<std::string,std::string>,std::pair<std::string,std::string> > >::iterator it = driver.system.emergence.begin(); it != driver.system.emergence.end(); it++)
+    {
+        Terminal *t1, *t2;
+        ProblemNode *n1, *n2;
+        n1 = Utils::find_from_id(driver.problem.nodes, it->first.second);
+        t1 = Utils::find_from_id(n1->output_terminals, it->first.first);
+        n2 = Utils::find_from_id(driver.problem.nodes, it->second.second);
+        t2 = Utils::find_from_id(n2->input_terminals, it->second.first);
+        t1->linked_terminals.push_back(t2);
+    }*/
 
     // save data to archive
     {
@@ -217,16 +234,16 @@ int main(int argc, char** argv)
 }
 
 
-fm<TYPE> start_build(vector<std::pair<std::string,std::string> > patterns)
+fm<TYPE> start_build(vector<Pattern > patterns)
 {
     vector<fm<TYPE>* >* v = new vector<fm<TYPE>* >;
 
-    vector<std::pair<std::string,std::string> >::iterator it;
+    vector<Pattern>::iterator it;
     for(it = patterns.begin(); it != patterns.end(); it++)
     {
         fm<TYPE> *A = new fm<TYPE>;
-        *A = patodfa((*it).second);
-        mark_finals(*A,(*it).first);
+        *A = patodfa(it->get_expr());
+        mark_finals(*A, it->get_name());
         v->push_back(A);
 
         if(debug > 0)
@@ -234,7 +251,7 @@ fm<TYPE> start_build(vector<std::pair<std::string,std::string> > patterns)
            ofstream f;
            stringstream ss;
            ss << "A_";
-           ss << (*it).first;
+           ss << it->get_name();
            f.open(ss.str().c_str());
            dot_draw(f, A);
            f.close();

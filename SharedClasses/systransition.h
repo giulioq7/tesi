@@ -4,7 +4,7 @@
 #include "transition.h"
 #include "component.h"
 #include "systemnode.h"
-#include "outputterminal.h"
+#include "terminal.h"
 
 class SysTransition : public CHAR_TRAITS<SysTransition>
 {
@@ -13,7 +13,7 @@ public:
     Component* component;
     SystemNode* node;
     pair<std::string, Terminal*> input_event;
-    vector<pair<std::string, OutputTerminal*> > output_events;
+    vector<pair<std::string,Terminal*> > output_events;
 
     SysTransition();
     SysTransition(Transition *t, Component* c, SystemNode* n);

@@ -29,7 +29,7 @@ public:
     vector<SystemNode> node_list;
     std::string id_root;
     SystemNode* root;
-    map<pair<string,string>,string>  emergence;
+    vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >  emergence;
 
     System();
     System(std::string str) { name = str;}

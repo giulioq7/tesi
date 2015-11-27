@@ -13,13 +13,14 @@ class Terminal
     {
         ar & name;
         ar & value;
+        ar & linked_terminals;
     }
 public:
     std::string name;
     std::string value;
+    std::vector<Terminal*> linked_terminals;
 
     Terminal();
-    ~Terminal();
     Terminal(std::string n);
 };
 

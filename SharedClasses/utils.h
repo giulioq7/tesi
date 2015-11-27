@@ -17,8 +17,10 @@ public:
     template <typename T> static std::vector<T> merge(std::vector<T> &v1, std::vector<T> &v2);
     template <typename T> static bool contain(vector<T> &v, T &elem);
     template <typename T> static bool duplicate_content(vector<T> &v);
+    template <typename T> static T* find_from_id(vector<T> &v,std::string id);
     template <typename SIGMA, typename TAG> static bool cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
     template <typename SIGMA, typename TAG> static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa);
+    template <typename SIGMA, typename TAG> static bool disconnected_cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
 };
 
 template <typename T>
@@ -62,6 +64,21 @@ bool Utils::duplicate_content(vector<T> &v)
     return false;
 }
 
+
+template <typename T>
+T* Utils::find_from_id(vector<T> &v,std::string id)
+{
+    T* ref = NULL;
+    for(typename vector<T>::iterator it = v.begin(); it != v.end(); it++)
+    {
+        if((*it).name == id)
+        {
+            ref = &(*it);
+            break;
+        }
+    }
+    return ref;
+}
 
 template <typename SIGMA, typename TAG>
 bool Utils::cyclic_graph(astl::DFA_map<SIGMA,TAG>& dfa)
@@ -121,7 +138,7 @@ bool Utils::cyclic_graph(astl::DFA_map<SIGMA,TAG>& dfa)
     return false;
 }
 
-
+//Works only for ACYCLIC dfa
 template <typename SIGMA, typename TAG>
 bool Utils::disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa)
 {
@@ -149,6 +166,37 @@ bool Utils::disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa)
         return true;
 
    return false;
+}
+
+template <typename SIGMA, typename TAG>
+bool Utils::disconnected_cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa)
+{
+    using namespace astl;
+
+    vector<unsigned int> visited;
+    typename bfirst_mark_cursor_type<DFA_map<SIGMA, TAG>, DFA_concept, set_marker
+            <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(dfa), bfc_end;
+
+    while(bfc != bfc_end)
+    {
+        do
+        {
+            //cout << bfc.src() << bfc.letter() << bfc.aim() << endl;
+            unsigned int s1 = bfc.src();
+            if(!contain(visited, s1))
+                visited.push_back(s1);
+            unsigned int s2 = bfc.aim();
+            if(!contain(visited,s2))
+                visited.push_back(s2);
+        }while(bfc.next());
+    }
+
+    //cout << "visited: " << visited.size();
+    //cout << "total: " << dfa.state_count();
+    if(visited.size() < dfa.state_count())
+        return true;
+
+    return false;
 }
 
 #endif // UTILS_H

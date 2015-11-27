@@ -105,3 +105,11 @@ std::ostream& operator<<(std::ostream& out, const SysTransition& t)
 {
     return out << t.trans->name << "(" << t.component->name << "(" << t.node->name << "))";
 }
+
+
+std::ostream& operator<<(std::ostream& out, const Pattern& p)
+{
+    out << make_pair(p.get_name(),p.get_terminal_id()) << ": ";
+    out << p.get_expr();
+    return out;
+}

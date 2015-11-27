@@ -39,8 +39,7 @@ public:
     vector<std::string> outputs;
     vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > > links;
 
-    vector<pair<std::string,std::string> > patterns;
-    vector<Pattern> patt;
+    vector<Pattern> patterns;
     vector<pair<std::string,std::string> > initials;
     map<pair<string,string>,string>   viewer;
     map<pair<string,string>,string>   ruler;
