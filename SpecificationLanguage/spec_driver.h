@@ -39,6 +39,7 @@ public:
     vector<ComponentModel> components;
     vector<NetworkModel> networks;
     NetworkModel current_net_model;
+    bool current_patt_maxl;
     System system;
     Problem problem;
 

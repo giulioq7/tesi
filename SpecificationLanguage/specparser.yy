@@ -316,8 +316,12 @@ pattern_decl      : ref pattern_op expr
                     {
                         $$ = Pattern($1.first);
                         $$.set_terminal_id($1.second);
+                        driver.current_patt_maxl = false;
                         if($2)
+                        {
+                            driver.current_patt_maxl = true;
                             $$.choose_max_language();
+                        }
                         $$.set_expr($3);
                     }
                   ;
@@ -341,7 +345,8 @@ factor            : factor STAR { $$.append($1); $$.append("*"); }
                   | L_BRACKET expr R_BRACKET { $$.append("("); $$.append($2); $$.append(")"); }
                   | TILDE ref
                     { string str = $2.first; str.append("("); str.append($2.second); str.append(")");
-                      $$.append(driver.current_net_model.not_trans(str));
+                      if(driver.current_patt_maxl)
+                        $$.append(driver.current_net_model.not_trans(str));
                     }
                   | ref
                   { //$$.append($1.first); $$.append("("); $$.append($1.second); $$.append(")");
