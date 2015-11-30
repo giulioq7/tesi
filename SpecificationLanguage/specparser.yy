@@ -314,20 +314,16 @@ pattern_list      : pattern_decl COMMA pattern_list { $$.push_back($1); $$ = Uti
 
 pattern_decl      : ref pattern_op expr
                     {
-                        $$ = Pattern($1.first);
-                        $$.set_terminal_id($1.second);
-                        driver.current_patt_maxl = false;
                         if($2)
-                        {
-                            driver.current_patt_maxl = true;
                             $$.choose_max_language();
-                        }
+                        $$ = Pattern($1.first);
+                        $$.set_terminal_id($1.second);                     
                         $$.set_expr($3);
                     }
                   ;
 
-pattern_op        : EQUALS { $$ = false; }
-                  | DOUBLE_EQUALS { $$ = true; }
+pattern_op        : EQUALS { $$ = false; driver.current_patt_maxl = false; }
+                  | DOUBLE_EQUALS { $$ = true; driver.current_patt_maxl = true; }
                   ;
 
 expr              : expr PIPE term { $$.append($1); $$.append("|"); $$.append($3); }
@@ -347,6 +343,22 @@ factor            : factor STAR { $$.append($1); $$.append("*"); }
                     { string str = $2.first; str.append("("); str.append($2.second); str.append(")");
                       if(driver.current_patt_maxl)
                         $$.append(driver.current_net_model.not_trans(str));
+                      else
+                      {
+                          pair<string,string> p = make_pair($2.first, $2.second);
+                          if(driver.current_net_model.conv_str_int.find(p) == driver.current_net_model.conv_str_int.end())
+                          {
+                              driver.current_net_model.conv_str_int[p] = driver.current_net_model.count;
+                              driver.current_net_model.conv_int_str[driver.current_net_model.count] = p;
+                              driver.current_net_model.count++;
+                          }
+                          $$.append("(");
+                          $$.append("~");
+                          stringstream ss;
+                          ss << driver.current_net_model.conv_str_int[p];
+                          $$.append(ss.str());
+                          $$.append(")");
+                      }
                     }
                   | ref
                   { //$$.append($1.first); $$.append("("); $$.append($1.second); $$.append(")");

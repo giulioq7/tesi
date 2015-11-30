@@ -4,6 +4,8 @@
 #include <iostream>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <astl.h>
+#include "nettransition.h"
 
 class Pattern
 {
