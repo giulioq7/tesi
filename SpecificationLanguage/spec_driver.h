@@ -40,6 +40,7 @@ public:
     vector<NetworkModel> networks;
     NetworkModel current_net_model;
     bool current_patt_maxl;
+    Pattern current_pattern;
     System system;
     Problem problem;
 

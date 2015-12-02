@@ -111,5 +111,6 @@ std::ostream& operator<<(std::ostream& out, const Pattern& p)
 {
     out << make_pair(p.get_name(),p.get_terminal_id()) << ": ";
     out << p.get_expr();
+    out << ", language: " << p.get_language();
     return out;
 }

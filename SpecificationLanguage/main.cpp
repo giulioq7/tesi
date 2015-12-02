@@ -99,6 +99,14 @@ int main(int argc, char** argv)
         }
     }
 
+    for(vector<NetworkModel>::iterator it = driver.networks.begin(); it != driver.networks.end(); it++)
+    {
+        for(vector<Pattern>::iterator it2 = it->patterns.begin(); it2 != it->patterns.end(); it2++)
+        {
+            if(!it2->is_max_language())
+                it2->not_substitution();
+        }
+    }
     //print all info
     cout << driver;
 

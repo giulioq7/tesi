@@ -308,17 +308,20 @@ pattern_section   : PATTERN pattern_list SEMI_COLON { $$ = $2; }
                   | { }
                   ;
 
-pattern_list      : pattern_decl COMMA pattern_list { $$.push_back($1); $$ = Utils::merge($$,$3); }
-                  | pattern_decl { $$.push_back($1); }
+pattern_list      : pattern_decl COMMA pattern_list { driver.current_pattern = Pattern(); $$.push_back($1); $$ = Utils::merge($$,$3); }
+                  | pattern_decl { driver.current_pattern = Pattern(); $$.push_back($1); }
                   ;
 
 pattern_decl      : ref pattern_op expr
                     {
+                        $$ = Pattern($1.first);
+                        $$.set_terminal_id($1.second);
                         if($2)
                             $$.choose_max_language();
-                        $$ = Pattern($1.first);
-                        $$.set_terminal_id($1.second);                     
+                        else
+                            $$.assign_language(driver.current_pattern.get_language());
                         $$.set_expr($3);
+                        driver.current_pattern.assign_language(vector<int>());
                     }
                   ;
 
@@ -351,7 +354,12 @@ factor            : factor STAR { $$.append($1); $$.append("*"); }
                               driver.current_net_model.conv_str_int[p] = driver.current_net_model.count;
                               driver.current_net_model.conv_int_str[driver.current_net_model.count] = p;
                               driver.current_net_model.count++;
+                              //driver.current_pattern.add_trans(driver.current_net_model.conv_str_int[p]);
                           }
+                          int val = driver.current_net_model.conv_str_int[p];
+                          vector<int> l = driver.current_pattern.get_language();
+                          if(!Utils::contain(l,val))
+                              driver.current_pattern.add_trans(val);
                           $$.append("(");
                           $$.append("~");
                           stringstream ss;
@@ -369,7 +377,12 @@ factor            : factor STAR { $$.append($1); $$.append("*"); }
                         driver.current_net_model.conv_str_int[p] = driver.current_net_model.count;
                         driver.current_net_model.conv_int_str[driver.current_net_model.count] = p;
                         driver.current_net_model.count++;
+                        //driver.current_pattern.add_trans(driver.current_net_model.conv_str_int[p]);
                     }
+                    int val = driver.current_net_model.conv_str_int[p];
+                    vector<int> l = driver.current_pattern.get_language();
+                    if(!Utils::contain(l,val))
+                        driver.current_pattern.add_trans(val);
                     $$.append("(");
                     stringstream ss;
                     ss << driver.current_net_model.conv_str_int[p];
