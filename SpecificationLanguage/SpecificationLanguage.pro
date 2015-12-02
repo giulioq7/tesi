@@ -37,7 +37,6 @@ HEADERS += \
     ../SharedClasses/ostream_util.h \
     ../SharedClasses/problem.h \
     ../SharedClasses/problemnode.h \
-    ../SharedClasses/serialize.h \
     ../SharedClasses/statedata.h \
     ../SharedClasses/system.h \
     ../SharedClasses/systemnode.h \

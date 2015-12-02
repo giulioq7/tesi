@@ -11,7 +11,6 @@
 #include "grail_lib.h"
 #include "nettransition.h"
 #include "minimize.h"
-#include "serialize.h"
 
 #define TYPE int
 #define GRAPHS_DIR "./Graphs/"
@@ -91,9 +90,9 @@ int main(int argc, char** argv)
             Component c(it2->name);
             c.model = it2->model;
             DFA_map<Transition,StateData_str> A;
-            A = it2->model->automaton;
+            A = *it2->model->automaton;
             A.initial(it->find_initial_state(c.name));
-            c.automaton = A;
+            *c.automaton = A;
             it->concrete_components.push_back(c);
             A =  DFA_map<Transition,StateData_str>();
         }
@@ -112,7 +111,7 @@ int main(int argc, char** argv)
 
     //xdot file should be blank because initial state is missed
     ofstream file("comp_model_bhv.xdot");
-    full_dot(file, dfirst_markc(driver.components[0].automaton)); // write tags
+    full_dot(file, dfirst_markc(*driver.components[0].automaton)); // write tags
     file.close();
 
     vector<NetworkModel>::iterator it;
@@ -120,7 +119,7 @@ int main(int argc, char** argv)
     {
        fm<TYPE> gr = start_build((*it).patterns);
        DFA_map<NetTransition,StateData_str>* ptspace = from_grail_to_astl(&gr,&(*it));
-       (*it).pattern_space = *ptspace;
+       it->pattern_space.push_back(ptspace);
 
        if(debug > 0)
        {
@@ -128,7 +127,7 @@ int main(int argc, char** argv)
            std::string str = "pts_";
            str.append((*it).name);
            file.open (str.c_str());
-           full_dot(file, dfirst_markc((*it).pattern_space));
+           full_dot(file, dfirst_markc(*it->pattern_space[0]));
            file.close();
            //full_dump(cout, dfirst_markc(*ptspace));
        }
@@ -136,10 +135,10 @@ int main(int argc, char** argv)
 
     driver.build_Isp();
     ofstream fi("Isp");
-    full_dot(fi,dfirst_markc(driver.problem.nodes[2].index_space));
+    full_dot(fi,dfirst_markc(*driver.problem.nodes[2].index_space));
     fi.close();
 
-    /*for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
+    for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
         for(vector<std::string>::iterator it2 = it->ref_node->net_model->inputs.begin(); it2 != it->ref_node->net_model->inputs.end(); it2++)
             it->input_terminals.push_back(Terminal(*it2));
@@ -157,7 +156,7 @@ int main(int argc, char** argv)
         n2 = Utils::find_from_id(driver.problem.nodes, it->second.second);
         t2 = Utils::find_from_id(n2->input_terminals, it->second.first);
         t1->linked_terminals.push_back(t2);
-    }*/
+    }
 
     // save data to archive
     {
@@ -197,11 +196,11 @@ int main(int argc, char** argv)
 
 
     // ... some time later restore the class instance to its orginal state
-   vector<ComponentModel> comps = vector<ComponentModel>(driver.components.size());
-   vector<NetworkModel> nets = vector<NetworkModel>(driver.networks.size());
+   vector<ComponentModel> comps;// = vector<ComponentModel>(driver.components.size());
+   vector<NetworkModel> nets;// = vector<NetworkModel>(driver.networks.size());
    System system;
    Problem problem;
-   problem.nodes = vector<ProblemNode>(driver.problem.nodes.size());
+   //problem.nodes = vector<ProblemNode>(driver.problem.nodes.size());
     {
         // create and open an archive for input
         std::ifstream ifs("../../CompiledData/component_models.dat");
@@ -236,7 +235,7 @@ int main(int argc, char** argv)
    }
 
     ofstream f2("comp_concrete_bhv.xdot");
-    full_dot(f2,dfirst_markc(problem.nodes[2].concrete_components[2].automaton));
+    full_dot(f2,dfirst_markc(*problem.nodes[2].concrete_components[2].automaton));
     f2.close();
 
 }

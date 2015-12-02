@@ -44,7 +44,7 @@ public:
     map<pair<string,string>,string>   viewer;
     map<pair<string,string>,string>   ruler;
 
-    astl::DFA_map<NetTransition,StateData_str> pattern_space;
+    vector<astl::DFA_map<NetTransition,StateData_str> *> pattern_space;
 
     int count;
     std::map<std::pair<std::string,std::string>,int> conv_str_int;

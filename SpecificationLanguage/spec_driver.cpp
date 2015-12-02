@@ -207,23 +207,23 @@ void spec_driver::build_Isp()
      vector<ProblemNode>::iterator it;
     for(it = problem.nodes.begin(); it != problem.nodes.end(); it++)
     {
-        DFA_map<strings,StateData_str>::state_type s = it->index_space.new_state();
-        it->index_space.tag(s) = StateData_str("I1");
-        it->index_space.initial(s);
+        DFA_map<strings,StateData_str>::state_type s = it->index_space->new_state();
+        it->index_space->tag(s) = StateData_str("I1");
+        it->index_space->initial(s);
         vector<std::string>::iterator it2;
         int count_state = 2;
         for(it2 = it->observation.begin(); it2 != it->observation.end(); it2++)
         {
-            DFA_map<strings,StateData_str>::state_type s1 = it->index_space.new_state();
+            DFA_map<strings,StateData_str>::state_type s1 = it->index_space->new_state();
             std::stringstream ss;
             ss << "I";
             ss << count_state;
-            it->index_space.tag(s1) = StateData_str(ss.str());
-            it->index_space.set_trans(s,*it2,s1);
+            it->index_space->tag(s1) = StateData_str(ss.str());
+            it->index_space->set_trans(s,*it2,s1);
             s = s1;
             count_state++;
         }
-        it->index_space.final(s) = true;
+        it->index_space->final(s) = true;
     }
 }
 

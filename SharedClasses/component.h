@@ -24,12 +24,12 @@ class Component
 
 public:
     Component();
-    Component(std::string str) { name = str; }
-    ~Component(){automaton = astl::DFA_map<Transition,StateData_str>();}
+    Component(std::string str) { name = str; automaton = new astl::DFA_map<Transition,StateData_str>(); }
+    ~Component(){}
 
     std::string name;
     ComponentModel* model;
-    astl::DFA_map<Transition,StateData_str> automaton;
+    astl::DFA_map<Transition,StateData_str> *automaton;
     vector<Terminal> input_terminals;
     vector<Terminal> output_terminals;
 

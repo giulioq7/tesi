@@ -41,10 +41,10 @@ public:
     map<pair<string,string>,string>   ruler;
     vector<std::string> observation;
 
-    astl::DFA_map<astl::strings,StateData_str> index_space;
+    astl::DFA_map<astl::strings,StateData_str> *index_space;
 
-    ProblemNode(){}
-    ProblemNode(std::string str){ name = str;}
+    ProblemNode(){index_space = new  astl::DFA_map<astl::strings,StateData_str>();}
+    ProblemNode(std::string str){ name = str; index_space = new  astl::DFA_map<astl::strings,StateData_str>();}
     Component* find_component(std::string id);
     void make_terminals();
 
