@@ -57,13 +57,7 @@ std::ostream& operator<<(std::ostream& out, const SystemNode& node)
 std::ostream& operator<<(std::ostream& out, const System& sys)
 {
    out << "System: " << sys.name << endl
-               << "Nodes: " << sys.node_list
-               << "Root: ";
-   if(sys.root != NULL)
-       out << sys.root->name << endl;
-   else
-       out << "<none>" << endl;
-
+               << "Nodes: " << sys.node_list;
    out << "Emergence: " << sys.emergence << endl;
 
    return out;

@@ -55,7 +55,6 @@ VIEWER
 RULER
 SYSTEM
 NODE
-ROOT
 EMERGENCE
 PROBLEM
 OBS
@@ -117,7 +116,6 @@ TILDE "~"
 %type <pair<pair<string,string>,string> >   map_decl
 %type <System> system_decl
 %type <vector<SystemNode> > system_node_list
-%type <string> root_section
 %type <vector<pair<pair<string,string>,pair<string,string> > > > emergence_section
 %type <SystemNode> system_node
 %type <Problem> problem_decl
@@ -429,22 +427,20 @@ ruler_section     : RULER map_list SEMI_COLON { $$ = $2; }
 
 system_decl       : SYSTEM ID IS
                         system_node_list
-                        root_section
                         emergence_section
                     END ID
                     {
                         if(driver.system.name != "")
                             driver.error(loc,"Multiple system declaration (system must be unique)");
-                        if($2 != $8)
+                        if($2 != $7)
                         {
                             string msg = "Semantic error: wrong end ID ";
-                            msg.append($8);
+                            msg.append($7);
                             driver.error(loc, msg);
                         }
                         $$.name = $2;
                         $$.node_list = $4;
-                        $$.id_root = $5;
-                        $$.emergence = $6;
+                        $$.emergence = $5;
 
                         driver.semantic_checks($$);
                     }
@@ -473,10 +469,6 @@ system_node       : NODE ID COLON ID IS
                         $$.ruler = $8;
                     }
                    ;
-
-root_section      : ROOT ID SEMI_COLON { $$ = $2; }
-                  | { }
-                  ;
 
 emergence_section : EMERGENCE link_list SEMI_COLON { $$ = $2; }
                   | { }

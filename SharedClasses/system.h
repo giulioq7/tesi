@@ -16,8 +16,6 @@ class System
         ar & name;
         ar & dependency_graph;
         ar & node_list;
-        ar & id_root;
-        ar & root;
         ar & emergence;
     }
 
@@ -27,8 +25,6 @@ public:
     astl::DFA_map<astl::strings,StateData_str> dependency_graph;
 
     vector<SystemNode> node_list;
-    std::string id_root;
-    SystemNode* root;
     vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >  emergence;
 
     System();

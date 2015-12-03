@@ -1,9 +1,9 @@
 22 serialization::archive 13 0 0 17 PowerTransmission 1 0
 0 0 0 0 0 5 0 -1 4 1 0
-1 0 0 2 N2 0 0 2 0 0 0 15 O(N3) -> I1(N2) 2 15 O(N4) -> I2(N2) 3 4
-2 2 N3 1 0 14 O(N1) -> I(N3) 4 4
-3 2 N4 0 0 4
-4 2 N1 1 0 14 O(N2) -> I(N1) 1 4 5 0 0 0 0 0 0 4 4 0 0 4 0 1 0
+1 0 0 2 N1 0 0 1 0 0 0 14 O(N2) -> I(N1) 2 4
+2 2 N2 2 0 15 O(N3) -> I1(N2) 3 15 O(N4) -> I2(N2) 4 4
+3 2 N3 1 0 14 O(N1) -> I(N3) 1 4
+4 2 N4 0 0 1 5 0 0 0 0 0 0 4 4 0 0 4 0 1 0
 5 2 N1 11 1 0
 6 7 LineNet 0 0 1 0 1 0
 7 1 L 14 1 0
@@ -185,4 +185,4 @@
 183 4 {nc} 2 0 22 158 13 148 5 p2(p) 3 22 160 13 148 5 p4(p) 2 41
 184 0  3 0 22 142 13 146 5 b4(r) 7 22 158 13 148 5 p2(p) 3 22 160 13 148 5 p4(p) 2 41
 185 4 {nc} 2 0 22 158 13 148 5 p2(p) 3 22 160 13 148 5 p4(p) 2 1 8 0 0 0 1 0 0 1 0 1 7 20 0 14 0 0 2 b1 1 l 1 2 b1 1 r 2 2 b2 1 l 3 2 b2 1 r 4 2 p3 1 p 5 2 p1 1 p 6 2 b3 1 l 7 2 b3 1 r 8 2 p4 1 p 9 2 p2 1 p 10 2 b5 1 r 11 2 b4 1 l 12 2 b5 1 l 13 2 b4 1 r 14 0 2 b1 1 l 0 2 b1 1 r 1 2 b2 1 l 2 2 b2 1 r 3 2 b3 1 l 6 2 b3 1 r 7 2 b4 1 l 11 2 b4 1 r 13 2 b5 1 l 12 2 b5 1 r 10 2 p1 1 p 5 2 p2 1 p 9 2 p3 1 p 4 2 p4 1 p 8 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp
-186 2 N4 11 127 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp 0  10 5 4 0 1 O 2 N3 2 I1 2 N2 1 O 2 N4 2 I2 2 N2 1 O 2 N2 1 I 2 N1 1 O 2 N1 1 I 2 N3
+186 2 N4 11 127 3 0 6 closed 1 l 6 closed 1 r 4 idle 1 p 8 0 2 b1 1 l 3 opl 2 b1 1 r 3 opr 2 b2 1 l 3 cll 2 b2 1 r 3 clr 2 p1 1 p 3 awk 2 p2 1 p 3 ide 2 p3 1 p 3 awk 2 p4 1 p 3 ide 6 0 2 b3 1 l 3 nol 2 b3 1 r 3 nor 2 b4 1 l 3 ncl 2 b4 1 r 3 ncr 2 p3 1 p 3 fop 2 p4 1 p 3 fcp 4 0 1 O 2 N2 1 I 2 N1 1 O 2 N3 2 I1 2 N2 1 O 2 N4 2 I2 2 N2 1 O 2 N1 1 I 2 N3

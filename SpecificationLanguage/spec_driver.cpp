@@ -581,7 +581,8 @@ void spec_driver::build_dependency_graph()
         {
             s1 = system.dependency_graph.new_state();
             system.dependency_graph.tag(s1) = StateData_str(it->second.second);
-            if(system.root->name == it->second.second)
+            //initial node (arbitrary) made just for automaton visualitation
+            if(system.dependency_graph.initial() == DFA_map<strings,StateData_str>::null_state)
                 system.dependency_graph.initial(s1);
         }
         if(s2 == DFA_map<strings,StateData_str>::null_state)
@@ -589,8 +590,6 @@ void spec_driver::build_dependency_graph()
             s2 = system.dependency_graph.new_state();
             system.dependency_graph.tag(s2) = StateData_str(it->first.second);
         }
-        /*else if(system.dependency_graph.tag(s2) == system.root->name)
-            error(loc,"Root node cannot have ingoing transitions");*/
 
         string label;
         label = it->first.first;

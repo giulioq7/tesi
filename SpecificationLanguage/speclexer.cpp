@@ -373,8 +373,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 49
-#define YY_END_OF_BUFFER 50
+#define YY_NUM_RULES 48
+#define YY_END_OF_BUFFER 49
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -382,25 +382,25 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[158] =
+static yyconst flex_int16_t yy_accept[155] =
     {   0,
-        0,    0,    2,    2,   50,   48,    4,    6,   48,   41,
-       35,   36,   43,   44,   28,   48,   31,   48,   29,   30,
-       32,   45,   47,   37,   38,   47,   47,   47,   47,   47,
-       47,   47,   47,   47,   47,   47,   47,   39,   42,   40,
-       46,    3,    2,   49,    4,    0,   34,    5,   33,   47,
-       47,   47,   47,   47,   47,    9,   47,   47,   47,   47,
-       47,   47,   47,   47,   47,   47,   47,   47,   47,   47,
-        3,    2,    0,    5,   47,   47,   10,   47,   47,   47,
-       47,   47,   47,   47,   27,   47,   47,   47,   47,   47,
-       47,   47,   47,   47,    0,   47,   47,   47,   47,   47,
+        0,    0,    2,    2,   49,   47,    4,    6,   47,   40,
+       34,   35,   42,   43,   27,   47,   30,   47,   28,   29,
+       31,   44,   46,   36,   37,   46,   46,   46,   46,   46,
+       46,   46,   46,   46,   46,   46,   46,   38,   41,   39,
+       45,    3,    2,   48,    4,    0,   33,    5,   32,   46,
+       46,   46,   46,   46,   46,    9,   46,   46,   46,   46,
+       46,   46,   46,   46,   46,   46,   46,   46,   46,    3,
+        2,    0,    5,   46,   46,   10,   46,   46,   46,   46,
+       46,   46,   46,   26,   46,   46,   46,   46,   46,   46,
+       46,   46,    0,   46,   46,   46,   46,   46,   17,   46,
 
-       17,   47,   47,   23,   47,   47,   47,   24,   47,   47,
-       47,   47,   47,    0,   47,   47,   11,   47,   12,    8,
-       47,   47,   47,   47,   21,   14,   47,   47,   47,    0,
-       47,   47,   47,   47,   13,   47,   47,   22,   47,   20,
-        0,   47,   47,   19,   16,   18,   26,   47,    1,   47,
-       47,   47,    7,   25,   47,   15,    0
+       46,   23,   46,   46,   46,   46,   46,   46,   46,   46,
+        0,   46,   46,   11,   46,   12,    8,   46,   46,   46,
+       46,   21,   14,   46,   46,   46,    0,   46,   46,   46,
+       46,   13,   46,   46,   22,   46,   20,    0,   46,   46,
+       19,   16,   18,   25,   46,    1,   46,   46,   46,    7,
+       24,   46,   15,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -444,106 +444,102 @@ static yyconst flex_int32_t yy_meta[48] =
         4,    4,    4,    1,    1,    1,    1
     } ;
 
-static yyconst flex_int16_t yy_base[162] =
+static yyconst flex_int16_t yy_base[159] =
     {   0,
-        0,    0,   46,   48,  173,  174,  170,  174,  141,  174,
-      174,  174,  174,  174,  174,  152,  174,  156,  174,  174,
-      151,  174,    0,  174,  174,  132,   19,   20,  136,  130,
-       27,   31,   33,   24,   22,  127,  133,  174,  174,  174,
-      174,    0,  160,  174,  159,  126,  174,    0,  174,    0,
-      126,  130,  130,  128,   33,    0,  121,  127,  114,  125,
-      113,  111,  110,  113,  112,  114,  121,  106,  119,  114,
-        0,  139,  114,    0,  103,  101,    0,  103,   97,   95,
-      103,  105,   90,  103,    0,   94,   90,  103,   88,   98,
-       86,   85,   89,   80,   89,   85,   90,   79,   87,   77,
+        0,    0,   46,   48,  170,  171,  167,  171,  138,  171,
+      171,  171,  171,  171,  171,  149,  171,  153,  171,  171,
+      148,  171,    0,  171,  171,  129,   19,   20,  133,  127,
+       27,   31,   33,  121,   20,  123,  129,  171,  171,  171,
+      171,    0,  156,  171,  155,  122,  171,    0,  171,    0,
+      122,  126,  126,  124,   31,    0,  117,  123,  110,  121,
+      109,  107,  106,  109,  111,  118,  103,  116,  111,    0,
+      136,  111,    0,  100,   98,    0,  100,   94,   92,  100,
+      102,   87,  100,    0,   91,   87,  100,   96,   84,   83,
+       87,   78,   87,   83,   88,   77,   85,   75,    0,   81,
 
-        0,   83,   79,    0,   73,   84,   79,    0,   73,   81,
-       80,   69,   78,   65,   70,   75,    0,   78,    0,    0,
-       64,   61,   62,   70,    0,    0,   64,   66,   58,   67,
-       65,   58,   59,   59,    0,   55,   55,    0,   48,    0,
-       58,   51,   58,    0,    0,    0,    0,   52,  174,   39,
-       49,   33,    0,    0,   33,    0,  174,   71,   62,   75,
-       79
+       77,    0,   71,   82,   77,   71,   79,   78,   67,   76,
+       63,   68,   73,    0,   76,    0,    0,   62,   59,   60,
+       68,    0,    0,   62,   64,   56,   65,   63,   56,   57,
+       57,    0,   53,   53,    0,   46,    0,   56,   48,   52,
+        0,    0,    0,    0,   47,  171,   30,   40,   31,    0,
+        0,   31,    0,  171,   71,   60,   75,   79
     } ;
 
-static yyconst flex_int16_t yy_def[162] =
+static yyconst flex_int16_t yy_def[159] =
     {   0,
-      157,    1,  158,  158,  157,  157,  157,  157,  157,  157,
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
-      157,  157,  159,  157,  157,  159,  159,  159,  159,  159,
-      159,  159,  159,  159,  159,  159,  159,  157,  157,  157,
-      157,  160,  157,  157,  157,  157,  157,  161,  157,  159,
-      159,  159,  159,  159,  159,  159,  159,  159,  159,  159,
-      159,  159,  159,  159,  159,  159,  159,  159,  159,  159,
-      160,  157,  157,  161,  159,  159,  159,  159,  159,  159,
-      159,  159,  159,  159,  159,  159,  159,  159,  159,  159,
-      159,  159,  159,  159,  157,  159,  159,  159,  159,  159,
+      154,    1,  155,  155,  154,  154,  154,  154,  154,  154,
+      154,  154,  154,  154,  154,  154,  154,  154,  154,  154,
+      154,  154,  156,  154,  154,  156,  156,  156,  156,  156,
+      156,  156,  156,  156,  156,  156,  156,  154,  154,  154,
+      154,  157,  154,  154,  154,  154,  154,  158,  154,  156,
+      156,  156,  156,  156,  156,  156,  156,  156,  156,  156,
+      156,  156,  156,  156,  156,  156,  156,  156,  156,  157,
+      154,  154,  158,  156,  156,  156,  156,  156,  156,  156,
+      156,  156,  156,  156,  156,  156,  156,  156,  156,  156,
+      156,  156,  154,  156,  156,  156,  156,  156,  156,  156,
 
-      159,  159,  159,  159,  159,  159,  159,  159,  159,  159,
-      159,  159,  159,  157,  159,  159,  159,  159,  159,  159,
-      159,  159,  159,  159,  159,  159,  159,  159,  159,  157,
-      159,  159,  159,  159,  159,  159,  159,  159,  159,  159,
-      157,  159,  159,  159,  159,  159,  159,  159,  157,  159,
-      159,  159,  159,  159,  159,  159,    0,  157,  157,  157,
-      157
+      156,  156,  156,  156,  156,  156,  156,  156,  156,  156,
+      154,  156,  156,  156,  156,  156,  156,  156,  156,  156,
+      156,  156,  156,  156,  156,  156,  154,  156,  156,  156,
+      156,  156,  156,  156,  156,  156,  156,  154,  156,  156,
+      156,  156,  156,  156,  156,  154,  156,  156,  156,  156,
+      156,  156,  156,    0,  154,  154,  154,  154
     } ;
 
-static yyconst flex_int16_t yy_nxt[222] =
+static yyconst flex_int16_t yy_nxt[219] =
     {   0,
         6,    7,    8,    9,   10,   11,   12,   13,   14,   15,
        16,   17,   18,    6,   19,   20,   21,    6,   22,   23,
        24,   25,    6,   23,   23,   26,   23,   27,   23,   28,
        23,   29,   30,   31,   32,   33,   34,   35,   36,   23,
        37,   23,   23,   38,   39,   40,   41,   43,   44,   43,
-       44,   52,   53,   55,   59,   61,   63,   56,   65,   54,
-       67,   60,   79,   66,   68,   50,  156,  155,   80,   64,
-       62,   42,   42,   42,   42,   71,  154,  153,   71,   74,
-       74,  152,   74,  151,  150,  149,  148,  147,  146,  145,
-      144,  143,  142,  141,  140,  139,  138,  137,  136,  135,
+       44,   52,   53,   55,   59,   61,   63,   56,   66,   54,
+       78,   60,   67,   50,  153,  152,   79,  151,  150,   64,
+       62,   42,   42,   42,   42,   70,  149,  148,   70,   73,
+       73,  147,   73,  146,  145,  144,  143,  142,  141,  140,
+      139,  138,  137,  136,  135,  134,  133,  132,  131,  130,
 
-      134,  133,  132,  131,  130,  129,  128,  127,  126,  125,
-      124,  123,  122,  121,  120,  119,  118,  117,  116,  115,
-      114,  113,  112,  111,  110,  109,  108,  107,  106,  105,
-      104,  103,  102,  101,  100,   99,   98,   97,   96,   95,
-       72,   94,   93,   92,   91,   90,   89,   88,   87,   86,
-       85,   84,   83,   82,   81,   78,   77,   76,   75,   73,
-       45,   72,   70,   69,   58,   57,   51,   49,   48,   47,
-       46,   45,  157,    5,  157,  157,  157,  157,  157,  157,
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
+      129,  128,  127,  126,  125,  124,  123,  122,  121,  120,
+      119,  118,  117,  116,  115,  114,  113,  112,  111,  110,
+      109,  108,  107,  106,  105,  104,  103,  102,  101,  100,
+       99,   98,   97,   96,   95,   94,   93,   71,   92,   91,
+       90,   89,   88,   87,   86,   85,   84,   83,   82,   81,
+       80,   77,   76,   75,   74,   72,   45,   71,   69,   68,
+       65,   58,   57,   51,   49,   48,   47,   46,   45,  154,
+        5,  154,  154,  154,  154,  154,  154,  154,  154,  154,
+      154,  154,  154,  154,  154,  154,  154,  154,  154,  154,
+      154,  154,  154,  154,  154,  154,  154,  154,  154,  154,
 
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
-      157
+      154,  154,  154,  154,  154,  154,  154,  154,  154,  154,
+      154,  154,  154,  154,  154,  154,  154,  154
     } ;
 
-static yyconst flex_int16_t yy_chk[222] =
+static yyconst flex_int16_t yy_chk[219] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    3,    3,    4,
-        4,   27,   27,   28,   31,   32,   33,   28,   34,   27,
-       35,   31,   55,   34,   35,  159,  155,  152,   55,   33,
-       32,  158,  158,  158,  158,  160,  151,  150,  160,  161,
-      161,  148,  161,  143,  142,  141,  139,  137,  136,  134,
-      133,  132,  131,  130,  129,  128,  127,  124,  123,  122,
+        4,   27,   27,   28,   31,   32,   33,   28,   35,   27,
+       55,   31,   35,  156,  152,  149,   55,  148,  147,   33,
+       32,  155,  155,  155,  155,  157,  145,  140,  157,  158,
+      158,  139,  158,  138,  136,  134,  133,  131,  130,  129,
+      128,  127,  126,  125,  124,  121,  120,  119,  118,  115,
 
-      121,  118,  116,  115,  114,  113,  112,  111,  110,  109,
-      107,  106,  105,  103,  102,  100,   99,   98,   97,   96,
-       95,   94,   93,   92,   91,   90,   89,   88,   87,   86,
-       84,   83,   82,   81,   80,   79,   78,   76,   75,   73,
-       72,   70,   69,   68,   67,   66,   65,   64,   63,   62,
-       61,   60,   59,   58,   57,   54,   53,   52,   51,   46,
-       45,   43,   37,   36,   30,   29,   26,   21,   18,   16,
-        9,    7,    5,  157,  157,  157,  157,  157,  157,  157,
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
+      113,  112,  111,  110,  109,  108,  107,  106,  105,  104,
+      103,  101,  100,   98,   97,   96,   95,   94,   93,   92,
+       91,   90,   89,   88,   87,   86,   85,   83,   82,   81,
+       80,   79,   78,   77,   75,   74,   72,   71,   69,   68,
+       67,   66,   65,   64,   63,   62,   61,   60,   59,   58,
+       57,   54,   53,   52,   51,   46,   45,   43,   37,   36,
+       34,   30,   29,   26,   21,   18,   16,    9,    7,    5,
+      154,  154,  154,  154,  154,  154,  154,  154,  154,  154,
+      154,  154,  154,  154,  154,  154,  154,  154,  154,  154,
+      154,  154,  154,  154,  154,  154,  154,  154,  154,  154,
 
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
-      157,  157,  157,  157,  157,  157,  157,  157,  157,  157,
-      157
+      154,  154,  154,  154,  154,  154,  154,  154,  154,  154,
+      154,  154,  154,  154,  154,  154,  154,  154
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -586,7 +582,7 @@ yy::location loc;
 #line 38 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
   // Code run each time a pattern is matched.
   # define YY_USER_ACTION  loc.columns (yyleng);
-#line 590 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
+#line 586 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
 
 #define INITIAL 0
 #define incl 1
@@ -806,7 +802,7 @@ YY_DECL
   // Code run each time yylex is called.
   loc.step ();
 
-#line 810 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
+#line 806 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
 
 	while ( 1 )		/* loops until end-of-file is reached */
 		{
@@ -833,13 +829,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 158 )
+				if ( yy_current_state >= 155 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 174 );
+		while ( yy_base[yy_current_state] != 171 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -1008,134 +1004,129 @@ return yy::spec_parser::make_NODE(loc);
 case 24:
 YY_RULE_SETUP
 #line 97 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_ROOT(loc);
+return yy::spec_parser::make_EMERGENCE(loc);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 98 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_EMERGENCE(loc);
+return yy::spec_parser::make_PROBLEM(loc);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 99 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_PROBLEM(loc);
+return yy::spec_parser::make_OBS(loc);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 100 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_OBS(loc);
+#line 101 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+return yy::spec_parser::make_COMMA(loc);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 102 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_COMMA(loc);
+return yy::spec_parser::make_COLON(loc);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 103 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_COLON(loc);
+return yy::spec_parser::make_SEMI_COLON(loc);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 104 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_SEMI_COLON(loc);
+return yy::spec_parser::make_DOT(loc);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 105 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_DOT(loc);
+return yy::spec_parser::make_EQUALS(loc);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 106 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_EQUALS(loc);
+return yy::spec_parser::make_DOUBLE_EQUALS(loc);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 107 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_DOUBLE_EQUALS(loc);
+return yy::spec_parser::make_ARROW(loc);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 108 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_ARROW(loc);
+return yy::spec_parser::make_L_BRACKET(loc);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 109 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_L_BRACKET(loc);
+return yy::spec_parser::make_R_BRACKET(loc);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 110 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_R_BRACKET(loc);
+return yy::spec_parser::make_L_SQUARE_BRACKET(loc);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 111 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_L_SQUARE_BRACKET(loc);
+return yy::spec_parser::make_R_SQUARE_BRACKET(loc);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 112 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_R_SQUARE_BRACKET(loc);
+return yy::spec_parser::make_L_CURLY_BRACKET(loc);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 113 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_L_CURLY_BRACKET(loc);
+return yy::spec_parser::make_R_CURLY_BRACKET(loc);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 114 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_R_CURLY_BRACKET(loc);
+return yy::spec_parser::make_AND(loc);
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 115 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_AND(loc);
+return yy::spec_parser::make_PIPE(loc);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 116 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_PIPE(loc);
+return yy::spec_parser::make_STAR(loc);
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 117 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_STAR(loc);
+return yy::spec_parser::make_PLUS(loc);
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 118 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_PLUS(loc);
+return yy::spec_parser::make_OPT(loc);
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 119 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_OPT(loc);
+return yy::spec_parser::make_TILDE(loc);
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 120 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_TILDE(loc);
+#line 122 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+return yy::spec_parser::make_ID(yytext,loc);
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 123 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-return yy::spec_parser::make_ID(yytext,loc);
+{cout << "Lexical error: token \"" << yytext << "\" at " << loc << endl; exit(1);}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 124 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
-{cout << "Lexical error: token \"" << yytext << "\" at " << loc << endl; exit(1);}
-	YY_BREAK
-case 49:
-YY_RULE_SETUP
-#line 125 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 ECHO;
 	YY_BREAK
-#line 1139 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
+#line 1130 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1426,7 +1417,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 158 )
+			if ( yy_current_state >= 155 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1454,11 +1445,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 158 )
+		if ( yy_current_state >= 155 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 157);
+	yy_is_jam = (yy_current_state == 154);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2091,7 +2082,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 124 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
+#line 123 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/speclexer.ll"
 
 
 

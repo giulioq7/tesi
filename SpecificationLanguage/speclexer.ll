@@ -94,7 +94,6 @@ viewer      return yy::spec_parser::make_VIEWER(loc);
 ruler       return yy::spec_parser::make_RULER(loc);
 system      return yy::spec_parser::make_SYSTEM(loc);
 node        return yy::spec_parser::make_NODE(loc);
-root        return yy::spec_parser::make_ROOT(loc);
 emergence   return yy::spec_parser::make_EMERGENCE(loc);
 problem     return yy::spec_parser::make_PROBLEM(loc);
 obs         return yy::spec_parser::make_OBS(loc);

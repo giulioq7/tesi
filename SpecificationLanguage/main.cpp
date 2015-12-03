@@ -60,12 +60,6 @@ int main(int argc, char** argv)
         }
     }
 
-    //entails system root node
-    if(driver.system.id_root == "")
-        driver.system.root = &driver.system.node_list.at(0);
-    else
-        driver.system.root = driver.find_node(driver.system.id_root);
-
     std::string str(GRAPHS_DIR);
     chdir(str.c_str());
 
