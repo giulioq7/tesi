@@ -32,8 +32,8 @@ public:
     SystemNode* ref_node;
 
     vector<Component> concrete_components;
-    vector<Terminal> input_terminals;
-    vector<Terminal> output_terminals;
+    vector<Terminal*> input_terminals;
+    vector<Terminal*> output_terminals;
 
 
     vector<pair<std::string,std::string> > initials;

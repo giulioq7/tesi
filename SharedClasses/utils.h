@@ -18,6 +18,7 @@ public:
     template <typename T> static bool contain(vector<T> &v, T &elem);
     template <typename T> static bool duplicate_content(vector<T> &v);
     template <typename T> static T* find_from_id(vector<T> &v,std::string id);
+    template <typename T> static T findptr_from_id(vector<T> &v,std::string id);
     template <typename SIGMA, typename TAG> static bool cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
     template <typename SIGMA, typename TAG> static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa);
     template <typename SIGMA, typename TAG> static bool disconnected_cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
@@ -74,6 +75,21 @@ T* Utils::find_from_id(vector<T> &v,std::string id)
         if((*it).name == id)
         {
             ref = &(*it);
+            break;
+        }
+    }
+    return ref;
+}
+
+template <typename T>
+T Utils::findptr_from_id(vector<T> &v,std::string id)
+{
+    T ref = NULL;
+    for(typename vector<T>::iterator it = v.begin(); it != v.end(); it++)
+    {
+        if((*it)->name == id)
+        {
+            ref = *it;
             break;
         }
     }

@@ -117,20 +117,39 @@ int main(int argc, char** argv)
     vector<NetworkModel>::iterator it;
     for(it = driver.networks.begin(); it != driver.networks.end(); it++)
     {
-       fm<TYPE> gr = start_build((*it).patterns);
-       DFA_map<NetTransition,StateData_str>* ptspace = from_grail_to_astl(&gr,&(*it));
-       it->pattern_space.push_back(ptspace);
+        int num_pts = 0;
+        vector<Pattern> remaining = it->patterns;
+        while(!remaining.empty())
+        {
+            vector<Pattern> same_language;
+            same_language.push_back(remaining.at(0));
+            remaining.erase(remaining.begin());
+            vector<Pattern>::iterator it2;
+            for(it2 = remaining.begin(); it2 != remaining.end();it2++)
+            {
+                if(same_language.at(0).get_language() == it2->get_language())
+                {
+                    same_language.push_back(*it2);
+                    remaining.erase(it2);
+                    it2--;
+                }
+            }
+            fm<TYPE> gr = start_build(same_language);
+            DFA_map<NetTransition,StateData_str>* ptspace = from_grail_to_astl(&gr,&(*it));
+            it->pattern_space.push_back(ptspace);
 
-       if(debug > 0)
-       {
-           ofstream file;
-           std::string str = "pts_";
-           str.append((*it).name);
-           file.open (str.c_str());
-           full_dot(file, dfirst_markc(*it->pattern_space[0]));
-           file.close();
-           //full_dump(cout, dfirst_markc(*ptspace));
-       }
+            if(debug > 0)
+            {
+               ofstream file;
+               stringstream ss;
+               ss << "pts_" << it->name << num_pts;
+               file.open (ss.str().c_str());
+               full_dot(file, dfirst_markc(*ptspace));
+               file.close();
+               //full_dump(cout, dfirst_markc(*ptspace));
+            }
+            num_pts++;
+        }
     }
 
     driver.build_Isp();
@@ -141,9 +160,15 @@ int main(int argc, char** argv)
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
         for(vector<std::string>::iterator it2 = it->ref_node->net_model->inputs.begin(); it2 != it->ref_node->net_model->inputs.end(); it2++)
-            it->input_terminals.push_back(Terminal(*it2));
+        {
+            Terminal *t = new Terminal(*it2);
+            it->input_terminals.push_back(t);
+        }
         for(vector<std::string>::iterator it2 = it->ref_node->net_model->outputs.begin(); it2 != it->ref_node->net_model->outputs.end(); it2++)
-            it->output_terminals.push_back(Terminal(*it2));
+        {
+            Terminal *t = new Terminal(*it2);
+            it->output_terminals.push_back(t);
+        }
     }
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
            it->make_terminals();
@@ -152,9 +177,9 @@ int main(int argc, char** argv)
         Terminal *t1, *t2;
         ProblemNode *n1, *n2;
         n1 = Utils::find_from_id(driver.problem.nodes, it->first.second);
-        t1 = Utils::find_from_id(n1->output_terminals, it->first.first);
+        t1 = Utils::findptr_from_id(n1->output_terminals, it->first.first);
         n2 = Utils::find_from_id(driver.problem.nodes, it->second.second);
-        t2 = Utils::find_from_id(n2->input_terminals, it->second.first);
+        t2 = Utils::findptr_from_id(n2->input_terminals, it->second.first);
         t1->linked_terminals.push_back(t2);
     }
 
@@ -196,19 +221,18 @@ int main(int argc, char** argv)
 
 
     // ... some time later restore the class instance to its orginal state
-   vector<ComponentModel> comps;// = vector<ComponentModel>(driver.components.size());
-   vector<NetworkModel> nets;// = vector<NetworkModel>(driver.networks.size());
+   vector<ComponentModel> comps;
+   vector<NetworkModel> nets;
    System system;
    Problem problem;
-   //problem.nodes = vector<ProblemNode>(driver.problem.nodes.size());
-    {
+   {
         // create and open an archive for input
         std::ifstream ifs("../../CompiledData/component_models.dat");
         boost::archive::text_iarchive ia(ifs);
         // read class state from archive
         ia >> comps;
         // archive and stream closed when destructors are called
-    }
+   }
    {
        // create and open an archive for input
        std::ifstream ifs("../../CompiledData/network_models.dat");
@@ -315,7 +339,7 @@ fm<TYPE> start_build(vector<Pattern > patterns)
    }
 
    //this minimization seems to have some problems too (probably because it does not take into account transitions of the merged final states)
-   //minimize(merge2);
+   //minimize(&merge2);
 
    /*
    if(debug > 0)

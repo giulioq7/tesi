@@ -38,9 +38,15 @@ void ProblemNode::make_terminals()
     for(vector<Component>::iterator it = concrete_components.begin(); it != concrete_components.end(); it++)
     {
         for(vector<std::string>::iterator it2 = it->model->inputs.begin(); it2 != it->model->inputs.end(); it2++)
-            it->input_terminals.push_back(Terminal(*it2));
+        {
+            Terminal *t = new Terminal(*it2);
+            it->input_terminals.push_back(t);
+        }
         for(vector<std::string>::iterator it2 = it->model->outputs.begin(); it2 != it->model->outputs.end(); it2++)
-            it->output_terminals.push_back(Terminal(*it2));
+        {
+            Terminal *t = new Terminal(*it2);
+            it->output_terminals.push_back(t);
+        }
     }
     vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >::iterator it;
     for(it = ref_node->net_model->links.begin(); it != ref_node->net_model->links.end(); it++)
@@ -48,7 +54,7 @@ void ProblemNode::make_terminals()
         Component* c = find_component(it->first.second);
         Terminal *t;
         if(c == NULL)
-            t = Utils::find_from_id(input_terminals,it->first.first);
+            t = Utils::findptr_from_id(input_terminals,it->first.first);
         else
             t = c->find_output_terminal(it->first.first);
         t->linked_terminals.push_back(find_component(it->second.second)->find_input_terminal(it->second.first));

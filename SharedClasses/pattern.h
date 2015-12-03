@@ -2,6 +2,7 @@
 #define PATTERN_H
 
 #include <iostream>
+#include <algorithm>
 #include <sstream>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>

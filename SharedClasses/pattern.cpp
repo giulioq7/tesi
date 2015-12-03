@@ -1,5 +1,7 @@
 #include "pattern.h"
 
+using namespace std;
+
 Pattern::Pattern()
 {
 }
@@ -60,6 +62,8 @@ void Pattern::add_trans(int t)
 void Pattern::assign_language(vector<int> l)
 {
     language = l;
+    //sorts elements in the vector, in order to make future comparison of languages
+    sort(language.begin(),language.end());
 }
 
 

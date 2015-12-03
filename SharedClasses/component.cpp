@@ -11,11 +11,11 @@ Component::Component()
 Terminal* Component::find_input_terminal(std::string id)
 {
     Terminal* ref = NULL;
-    for(vector<Terminal>::iterator it = input_terminals.begin(); it != input_terminals.end(); it++)
+    for(vector<Terminal*>::iterator it = input_terminals.begin(); it != input_terminals.end(); it++)
     {
-        if((*it).name == id)
+        if((*it)->name == id)
         {
-            ref = &(*it);
+            ref = *it;
             break;
         }
     }
@@ -25,11 +25,11 @@ Terminal* Component::find_input_terminal(std::string id)
 Terminal* Component::find_output_terminal(std::string id)
 {
     Terminal* ref = NULL;
-    for(vector<Terminal>::iterator it = output_terminals.begin(); it != output_terminals.end(); it++)
+    for(vector<Terminal*>::iterator it = output_terminals.begin(); it != output_terminals.end(); it++)
     {
-        if((*it).name == id)
+        if((*it)->name == id)
         {
-            ref = &(*it);
+            ref = *it;
             break;
         }
     }
