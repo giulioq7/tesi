@@ -60,10 +60,14 @@ std::ostream& operator<<(std::ostream& out, const Problem& sys);
 
 std::ostream& operator<<(std::ostream& out, const StateData_str& d);
 
+std::ostream& operator<<(std::ostream& out, const StateData_strList& d);
+
 std::ostream& operator<<(std::ostream& out, const NetTransition& t);
 
 std::ostream& operator<<(std::ostream& out, const SysTransition& t);
 
 std::ostream& operator<<(std::ostream& out, const Pattern& p);
+
+std::ostream& operator<<(std::ostream& out, const Terminal& t);
 
 #endif // OSTREAM_UTIL_H

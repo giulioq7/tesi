@@ -10,7 +10,6 @@ SOURCES += main.cpp \
     ../SharedClasses/nettransition.cpp \
     ../SharedClasses/networkmodel.cpp \
     ../SharedClasses/ostream_util.cpp \
-    ../SharedClasses/outputterminal.cpp \
     ../SharedClasses/problem.cpp \
     ../SharedClasses/problemnode.cpp \
     ../SharedClasses/statedata.cpp \
@@ -18,7 +17,9 @@ SOURCES += main.cpp \
     ../SharedClasses/systemnode.cpp \
     ../SharedClasses/systransition.cpp \
     ../SharedClasses/terminal.cpp \
-    ../SharedClasses/transition.cpp
+    ../SharedClasses/transition.cpp \
+    ../SharedClasses/pattern.cpp \
+    ../SharedClasses/statedata_strlist.cpp
 
 HEADERS += \
     behaviorstate.h \
@@ -27,17 +28,17 @@ HEADERS += \
     ../SharedClasses/nettransition.h \
     ../SharedClasses/networkmodel.h \
     ../SharedClasses/ostream_util.h \
-    ../SharedClasses/outputterminal.h \
     ../SharedClasses/problem.h \
     ../SharedClasses/problemnode.h \
-    ../SharedClasses/serialize.h \
     ../SharedClasses/statedata.h \
     ../SharedClasses/system.h \
     ../SharedClasses/systemnode.h \
     ../SharedClasses/systransition.h \
     ../SharedClasses/terminal.h \
     ../SharedClasses/transition.h \
-    ../SharedClasses/utils.h
+    ../SharedClasses/utils.h \
+    ../SharedClasses/pattern.h \
+    ../SharedClasses/statedata_strlist.h
 
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \

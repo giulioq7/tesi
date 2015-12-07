@@ -31,6 +31,7 @@ public:
     System(std::string str) { name = str;}
 
     SystemNode* find_node(std::string);
+    int pts_count();
 };
 
 #endif // SYSTEM_H

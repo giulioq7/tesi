@@ -90,6 +90,22 @@ std::ostream& operator<<(std::ostream& out, const StateData_str& s)
 }
 
 
+std::ostream& operator<<(std::ostream& out, const StateData_strList& s)
+{
+    if(s.elements.empty())
+        return out;
+    std::string str = "{";
+    for(std::set<std::string>::iterator it = s.elements.begin(); it != s.elements.end(); it++)
+    {
+        str.append(*it);
+        str.append(",");
+    }
+    str.resize(str.size()-1);
+    str.append("}");
+
+    return out << str;
+}
+
 std::ostream& operator<<(std::ostream& out, const NetTransition& t)
 {
     return out << t.trans->name << "(" << t.component->name << ")";
@@ -97,7 +113,7 @@ std::ostream& operator<<(std::ostream& out, const NetTransition& t)
 
 std::ostream& operator<<(std::ostream& out, const SysTransition& t)
 {
-    return out << t.trans->name << "(" << t.component->name << "(" << t.node->name << "))";
+    return out << t.name;
 }
 
 
@@ -106,5 +122,16 @@ std::ostream& operator<<(std::ostream& out, const Pattern& p)
     out << make_pair(p.get_name(),p.get_terminal_id()) << ": ";
     out << p.get_expr();
     out << ", language: " << p.get_language();
+    return out;
+}
+
+
+std::ostream& operator<<(std::ostream& out, const Terminal& t)
+{
+    out << "Terminal " << t.name << " = " << t.value;
+    out << ", linked terminals: ";
+    vector<Terminal*>::const_iterator it;
+    for(it = t.linked_terminals.begin(); it != t.linked_terminals.end(); it++)
+            out << **it;
     return out;
 }

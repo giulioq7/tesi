@@ -9,6 +9,7 @@
 class SysTransition : public CHAR_TRAITS<SysTransition>
 {
 public:
+    std::string name;
     Transition* trans;
     Component* component;
     SystemNode* node;
@@ -29,15 +30,11 @@ public:
     static bool lt(const char_type &x, const char_type &y) { return x < y; }
     bool operator<(const SysTransition t) const
     {
-        std::string str1 = trans->name; str1.append("("); str1.append(component->name); str1.append("("); str1.append(node->name); str1.append("))");
-        std::string str2 = t.trans->name; str2.append("("); str2.append(t.component->name); str2.append("("); str2.append(t.node->name); str2.append("))");
-        return (str1 < str2);
+        return (name < t.name);
     }
     bool operator==(const SysTransition t) const
     {
-        std::string str1 = trans->name; str1.append("("); str1.append(component->name); str1.append("("); str1.append(node->name); str1.append("))");
-        std::string str2 = t.trans->name; str2.append("("); str2.append(t.component->name); str2.append("("); str2.append(t.node->name); str2.append("))");
-        return (str1 == str2);
+        return (name == t.name);
     }
 
 };

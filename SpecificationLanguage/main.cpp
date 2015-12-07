@@ -1,6 +1,7 @@
 #include <iostream>
 #include <utility>
 #include <unistd.h>
+#include <boost/algorithm/string.hpp>
 #include "spec_driver.h"
 #include "ostream_util.h"
 #include "utils.h"
@@ -20,10 +21,11 @@
 using namespace std;
 using namespace grail;
 using namespace astl;
+using namespace boost;
 
 //PUBLIC
 fm<int> start_build(vector<Pattern> patterns);
-DFA_map<NetTransition, StateData_str>* from_grail_to_astl(fm<TYPE>* dfa, NetworkModel* net);
+DFA_map<NetTransition, StateData_strList>* from_grail_to_astl(fm<TYPE>* dfa, NetworkModel* net);
 
 //PRIVATE
 fm<int> patodfa(std::string regex);
@@ -129,7 +131,7 @@ int main(int argc, char** argv)
                 }
             }
             fm<TYPE> gr = start_build(same_language);
-            DFA_map<NetTransition,StateData_str>* ptspace = from_grail_to_astl(&gr,&(*it));
+            DFA_map<NetTransition,StateData_strList>* ptspace = from_grail_to_astl(&gr,&(*it));
             it->pattern_space.push_back(ptspace);
 
             if(debug > 0)
@@ -148,7 +150,7 @@ int main(int argc, char** argv)
 
     driver.build_Isp();
     ofstream fi("Isp");
-    full_dot(fi,dfirst_markc(*driver.problem.nodes[2].index_space));
+    full_dot(fi,dfirst_markc(*driver.problem.nodes[1].index_space));
     fi.close();
 
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
@@ -253,7 +255,7 @@ int main(int argc, char** argv)
    }
 
     ofstream f2("comp_concrete_bhv.xdot");
-    full_dot(f2,dfirst_markc(*problem.nodes[2].concrete_components[2].automaton));
+    full_dot(f2,dfirst_markc(*problem.nodes[1].concrete_components[2].automaton));
     f2.close();
 
 }
@@ -333,7 +335,7 @@ fm<TYPE> start_build(vector<Pattern > patterns)
    }
 
    //this minimization seems to have some problems too (probably because it does not take into account transitions of the merged final states)
-   //minimize(&merge2);
+   minimize(&merge2);
 
    /*
    if(debug > 0)
@@ -629,7 +631,7 @@ void dot_draw(ostream& strm, fm<TYPE>* Pts)
 }
 
 
-DFA_map<NetTransition, StateData_str> *from_grail_to_astl(fm<TYPE> *dfa, NetworkModel* net)
+DFA_map<NetTransition, StateData_strList> *from_grail_to_astl(fm<TYPE> *dfa, NetworkModel* net)
 {
     grail::set<grail::state> init;
     dfa->starts(init);
@@ -645,10 +647,10 @@ DFA_map<NetTransition, StateData_str> *from_grail_to_astl(fm<TYPE> *dfa, Network
     grail::set<inst<TYPE> > trans;
     dfa->get_arcs(trans);
 
-    DFA_map<NetTransition,StateData_str> *target = new DFA_map<NetTransition,StateData_str>;
+    DFA_map<NetTransition,StateData_strList> *target = new DFA_map<NetTransition,StateData_strList>;
 
     int n = dfa->number_of_states();
-    DFA_map<NetTransition,StateData_str>::state_type s[n];
+    DFA_map<NetTransition,StateData_strList>::state_type s[n];
     target->new_state(n, s);
 
     for(int i=0; i<trans.size();i++)
@@ -669,12 +671,22 @@ DFA_map<NetTransition, StateData_str> *from_grail_to_astl(fm<TYPE> *dfa, Network
 
         if(fin.member(trans[i].get_source()) != -1)
         {
-            target->tag(s[index_src]) = StateData_str(tag_map[index_src]);
+            std::string str = tag_map[index_src];
+            trim_left_if(str,is_any_of("{")); trim_right_if(str,is_any_of("}"));
+            typedef std::set<std::string> split_vector_type;
+            split_vector_type set_str; // #2: Search for tokens
+            split(set_str, str, is_any_of(","),token_compress_on);
+            target->tag(s[index_src]) = StateData_strList(set_str);
             target->final(s[index_src]) = true;
         }
         if(fin.member(trans[i].get_sink()) != -1)
         {
-            target->tag(s[index_aim]) = StateData_str(tag_map[index_aim]);
+            std::string str = tag_map[index_aim];
+            trim_left_if(str,is_any_of("{")); trim_right_if(str,is_any_of("}"));
+            typedef std::set<std::string> split_vector_type;
+            split_vector_type set_str; // #2: Search for tokens
+            split(set_str, str, is_any_of(","),token_compress_on);
+            target->tag(s[index_aim]) = StateData_strList(set_str);
             target->final(s[index_aim]) = true;
         }
     }

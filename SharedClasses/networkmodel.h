@@ -7,6 +7,7 @@
 #include "component.h"
 #include "nettransition.h"
 #include "pattern.h"
+#include "statedata_strlist.h"
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -44,7 +45,7 @@ public:
     map<pair<string,string>,string>   viewer;
     map<pair<string,string>,string>   ruler;
 
-    vector<astl::DFA_map<NetTransition,StateData_str> *> pattern_space;
+    vector<astl::DFA_map<NetTransition,StateData_strList> *> pattern_space;
 
     int count;
     std::map<std::pair<std::string,std::string>,int> conv_str_int;

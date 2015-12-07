@@ -2,6 +2,7 @@
 
 SysTransition::SysTransition()
 {
+    name = "";
 }
 
 SysTransition::SysTransition(Transition* t, Component *c, SystemNode *n)
@@ -13,6 +14,10 @@ SysTransition::SysTransition(Transition* t, Component *c, SystemNode *n)
     vector<pair<std::string,std::string> >::iterator it;
     for(it = trans->out_events.begin(); it!= trans->out_events.end(); it++)
         output_events.push_back(make_pair(it->first,component->find_output_terminal(it->second)));
+    std::string str = trans->name;
+    str.append("("); str.append(component->name);
+    str.append("("); str.append(node->name); str.append("))");
+    name = str;
 }
 
 bool SysTransition::is_triggerable()
