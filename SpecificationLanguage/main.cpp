@@ -335,7 +335,7 @@ fm<TYPE> start_build(vector<Pattern > patterns)
    }
 
    //this minimization seems to have some problems too (probably because it does not take into account transitions of the merged final states)
-   minimize(&merge2);
+   //minimize(&merge2);
 
    /*
    if(debug > 0)

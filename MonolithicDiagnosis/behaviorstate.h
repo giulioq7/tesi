@@ -18,6 +18,8 @@ public:
     int  *P;
     int  *I;
 
+    std::set<std::set<std::string> > candidate_diagnosis;
+
     BehaviorState();
     BehaviorState(int n, int m, int k, int i);
     ~BehaviorState();

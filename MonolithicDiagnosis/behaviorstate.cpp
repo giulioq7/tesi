@@ -91,7 +91,11 @@ std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
     out << "[";
     for(int i=0; i<s.n_isp-1; i++)
         out << s.I[i] << ",";
-    out << s.I[s.n_isp-1] << "]";
+    out << s.I[s.n_isp-1] << "]" << endl;
+
+    if(!s.candidate_diagnosis.empty())
+        out << s.candidate_diagnosis;
+
 
     return out;
 }
