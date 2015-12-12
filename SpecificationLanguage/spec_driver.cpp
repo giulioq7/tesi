@@ -562,6 +562,13 @@ void spec_driver::semantic_checks(ProblemNode node)
 
 void spec_driver::build_dependency_graph()
 {
+    if(system.emergence.empty())
+    {
+        DFA_map<strings,StateData_str>::state_type single_state;
+        single_state = system.dependency_graph.new_state();
+        system.dependency_graph.tag(single_state) = StateData_str(system.node_list.at(0).name);
+        system.dependency_graph.initial(single_state);
+    }
     vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >::iterator it;
     for(it = system.emergence.begin(); it != system.emergence.end(); it++)
     {

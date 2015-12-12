@@ -150,7 +150,7 @@ int main(int argc, char** argv)
 
     driver.build_Isp();
     ofstream fi("Isp");
-    full_dot(fi,dfirst_markc(*driver.problem.nodes[1].index_space));
+    full_dot(fi,dfirst_markc(*driver.problem.nodes[0].index_space));
     fi.close();
 
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
@@ -255,7 +255,7 @@ int main(int argc, char** argv)
    }
 
     ofstream f2("comp_concrete_bhv.xdot");
-    full_dot(f2,dfirst_markc(*problem.nodes[1].concrete_components[2].automaton));
+    full_dot(f2,dfirst_markc(*problem.nodes[0].concrete_components[2].automaton));
     f2.close();
 
 }
@@ -335,7 +335,7 @@ fm<TYPE> start_build(vector<Pattern > patterns)
    }
 
    //this minimization seems to have some problems too (probably because it does not take into account transitions of the merged final states)
-   //minimize(&merge2);
+   minimize(&merge2);
 
    /*
    if(debug > 0)

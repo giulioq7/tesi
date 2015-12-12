@@ -8,10 +8,17 @@ BehaviorState::BehaviorState()
     n_inputs = 0;
     n_pts = 0;
     n_isp = 0;
+    S = new int[1];
+    E = new std::string[0];
+    P = new int[1];
+    I = new int[1];
+    S[0] = 0;
+    P[0] = 0;
+    I[0] = 0;
     marked = false;
 }
 
-BehaviorState::BehaviorState(int n, int m, int k, int i)
+BehaviorState::BehaviorState( int n, int m, int k, int i)
 {
     n_comps = n;
     n_inputs = m;
@@ -21,13 +28,23 @@ BehaviorState::BehaviorState(int n, int m, int k, int i)
     E = new std::string[n_inputs];
     for(int i=0; i<m; i++)
         E[i] = "<eps>";
-    P = new int[n_pts];
+    if(n_pts == 0)
+    {
+        P = new int[1];
+        P[0] = 0;
+    }
+    else
+        P = new int[n_pts];
     I = new int[n_isp];
     marked = false;
 }
 
 BehaviorState::~BehaviorState()
 {
+    //delete[] S;
+    //delete[] E;
+    //delete[] P;
+    //delete[] I;
 }
 
 
@@ -78,10 +95,15 @@ std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
         out << s.S[i] << ",";
     out << s.S[s.n_comps-1] << "]" << endl;
 
-    out << "[";
-    for(int i=0; i<s.n_inputs-1; i++)
-        out << s.E[i] << ",";
-    out << s.E[s.n_inputs-1] << "]" << endl;
+    if(s.n_inputs == 0)
+        out << "[ ]" << endl;
+    else
+    {
+        out << "[";
+        for(int i=0; i<s.n_inputs-1; i++)
+            out << s.E[i] << ",";
+        out << s.E[s.n_inputs-1] << "]" << endl;
+    }
 
     out << "[";
     for(int i=0; i<s.n_pts-1; i++)

@@ -189,6 +189,9 @@ bool Utils::disconnected_cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa)
 {
     using namespace astl;
 
+    if(dfa.state_count() == 1)
+        return false;
+
     vector<unsigned int> visited;
     typename bfirst_mark_cursor_type<DFA_map<SIGMA, TAG>, DFA_concept, set_marker
             <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(dfa), bfc_end;

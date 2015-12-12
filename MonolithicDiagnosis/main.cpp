@@ -1,6 +1,7 @@
 #include <iostream>
 #include <boost/functional/hash.hpp>
 #include <sys/time.h>
+#include <stdlib.h>
 #include "ostream_util.h"
 #include "astl.h"
 #include "systransition.h"
@@ -8,6 +9,8 @@
 
 using namespace std;
 using namespace astl;
+
+void decorate(DFA_map<SysTransition,BehaviorState> &dfa, DFA_map<SysTransition,BehaviorState>::state_type beta, set<set<string> > diagnosis, Problem &problem);
 
 int main()
 {
@@ -73,6 +76,8 @@ int main()
    obs.set_trans(i5,"ide",i6);
    obs.final(i4) = true;
    obs.final(i6) = true;
+   obs.final(i1) = true;
+   //problem.nodes[1].index_space = &obs;
    //problem.nodes[2].index_space = &obs;
    //problem.nodes[3].index_space = &obs;
 
@@ -318,65 +323,37 @@ int main()
      //deletes first fictitious transition needed to start the loop
      behavior.del_trans(behavior.initial(),SysTransition());
 
-     ofstream file;
-     file.open("behavior_spurious.xdot");
-     full_dot(file, dfirst_markc(behavior));
+     DFA_map<SysTransition,BehaviorState> bhv;
 
      //removes all spurious states and transitions that are not in a path from the initial state to a final state
-     DFA_map<SysTransition,BehaviorState>::state_type init = trim(behavior,dfirst_markc(behavior));
-     behavior.initial(init);
+     DFA_map<SysTransition,BehaviorState>::state_type init = trim(bhv,dfirst_markc(behavior));
 
-     std::set<DFA_map<SysTransition,BehaviorState>::state_type> finals;
-
-     bfc = bfirst_markc(behavior);
-
-     //candidate diagnosis of the initial state is the empty set
-     behavior.tag(behavior.initial()).candidate_diagnosis.insert(std::set<std::string>());
-
-     while(bfc != bfc_end)
+     if(init == DFA_map<SysTransition,BehaviorState>::null_state)
      {
-         do
-         {
-             std::pair<std::string,std::string> net_t = make_pair(bfc.letter().trans->name,bfc.letter().component->name);
-             ProblemNode *node = Utils::find_from_id(problem.nodes,bfc.letter().node->name);
-             bool fault = (node->ruler.find(net_t) != node->ruler.end());
-             std::string fault_label = node->ruler[net_t];
-             std::set<std::set<std::string> >::iterator it;
-             for(it = behavior.tag(bfc.src()).candidate_diagnosis.begin(); it != behavior.tag(bfc.src()).candidate_diagnosis.end(); it++)
-             {
-                 std::set<std::string> candidate;
-                 std::set<std::string>::iterator it2;
-                 for(it2 = it->begin(); it2 != it->end(); it2++)
-                    candidate.insert(*it2);
-
-                 if(fault)
-                 {
-                     std::set<std::string> singleton;
-                     singleton.insert(fault_label);
-                     set_union(candidate.begin(),candidate.end(),singleton.begin(),singleton.end(),std::inserter(candidate,candidate.end()));
-                     std::set<std::string>::iterator del_it = candidate.find("");
-                     if(del_it != candidate.end())
-                        candidate.erase(del_it);
-                 }
-
-                 behavior.tag(bfc.aim()).candidate_diagnosis.insert(candidate);
-                 if(behavior.final(bfc.aim()))
-                     finals.insert(bfc.aim());
-             }
-
-         }
-         while(bfc.next());
+         cout << "Empty behavior" << endl;
+         exit(0);
      }
 
-     cout << finals << endl;
+     bhv.initial(init);
+
+     bfc = bfirst_markc(bhv);
+
+     //candidate diagnosis of the initial state is the empty set
+     bhv.tag(bhv.initial()).candidate_diagnosis.insert(set<string>());
+
+     decorate(bhv,bhv.initial(),  bhv.tag(bhv.initial()).candidate_diagnosis, problem);
 
      set<set<string> > diagnosis;
-     std::set<DFA_map<SysTransition,BehaviorState>::state_type>::iterator it;
-     for(it = finals.begin(); it != finals.end(); it++)
+     DFA_map<SysTransition,BehaviorState>::const_iterator c;
+     for(c = bhv.begin(); c != bhv.end(); c++)
      {
-         std::set<std::set<std::string> >::iterator it2;
-         for(it2 = behavior.tag(*it).candidate_diagnosis.begin(); it2 != behavior.tag(*it).candidate_diagnosis.end(); it2++)
-            diagnosis.insert(*it2);
+         cout << "State " << *c << " : " << bhv.tag(*c).candidate_diagnosis << endl;
+         if(bhv.final(*c))
+         {
+             std::set<std::set<std::string> >::iterator it2;
+             for(it2 = bhv.tag(*c).candidate_diagnosis.begin(); it2 != bhv.tag(*c).candidate_diagnosis.end(); it2++)
+                diagnosis.insert(*it2);
+         }
      }
 
      cout << "Diagnosis: " << diagnosis << endl;
@@ -391,12 +368,56 @@ int main()
      //stampa
      cout << elapsedTime << " ms.\n";
 
+     ofstream file;
+     file.open("behavior_spurious.xdot");
+     full_dot(file, dfirst_markc(behavior));
+     //std::system("dot -Tjpg behavior_spurious.xdot > behavior_spurious.jpg");
+
      ofstream file2;
      file2.open("behavior.xdot");
-     full_dot(file2, dfirst_markc(behavior));
-
-
+     full_dot(file2, dfirst_markc(bhv));
+     //std::system("dot -Tjpg behavior.xdot > behavior.jpg");
 
      return 0;
 }
 
+
+void decorate(DFA_map<SysTransition,BehaviorState> &dfa, DFA_map<SysTransition,BehaviorState>::state_type beta, set<set<string> > diagnosis, Problem &problem)
+{
+    forward_cursor<DFA_map<SysTransition,BehaviorState> > fc(dfa,beta);
+    if(fc.first())
+    {
+        do
+        {
+            set<set<string> > diagnosis_plus;
+            set<set<string> >::iterator it;
+            for(it = diagnosis.begin(); it != diagnosis.end(); it++)
+            {
+                set<string> delta;
+                std::pair<string,string> net_t = make_pair(fc.letter().trans->name,fc.letter().component->name);
+                ProblemNode *node = Utils::find_from_id(problem.nodes,fc.letter().node->name);
+                bool fault = (node->ruler.find(net_t) != node->ruler.end());
+                if(fault)
+                {
+                    std::string fault_label = node->ruler[net_t];
+                    set<string> singleton;
+                    singleton.insert(fault_label);
+                    set_union(it->begin(),it->end(),singleton.begin(),singleton.end(),std::inserter(delta,delta.end()));
+                }
+                else
+                    delta = *it;
+                set<set<string> > temp;
+                temp.insert(delta);
+                if(!includes(fc.aim_tag().candidate_diagnosis.begin(),fc.aim_tag().candidate_diagnosis.end(),temp.begin(),temp.end()))
+                {
+                    dfa.tag(fc.aim()).candidate_diagnosis.insert(delta);
+                    diagnosis_plus.insert(delta);
+                }
+            }
+            if(!diagnosis_plus.empty())
+                //recursive call
+                decorate(dfa,fc.aim(),diagnosis_plus,problem);
+        }
+        while(fc.next());
+    }
+}
