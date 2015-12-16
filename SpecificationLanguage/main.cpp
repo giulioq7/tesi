@@ -106,9 +106,9 @@ int main(int argc, char** argv)
     cout << driver;
 
     //xdot file should be blank because initial state is missed
-    ofstream file("comp_model_bhv.xdot");
+    /*ofstream file("comp_model_bhv.xdot");
     full_dot(file, dfirst_markc(*driver.components[0].automaton)); // write tags
-    file.close();
+    file.close();*/
 
     vector<NetworkModel>::iterator it;
     for(it = driver.networks.begin(); it != driver.networks.end(); it++)
@@ -132,6 +132,7 @@ int main(int argc, char** argv)
             }
             fm<TYPE> gr = start_build(same_language);
             DFA_map<NetTransition,StateData_strList>* ptspace = from_grail_to_astl(&gr,&(*it));
+            Utils::minimize_by_partition(*ptspace);
             it->pattern_space.push_back(ptspace);
 
             if(debug > 0)
@@ -149,9 +150,9 @@ int main(int argc, char** argv)
     }
 
     driver.build_Isp();
-    ofstream fi("Isp");
+    /*ofstream fi("Isp");
     full_dot(fi,dfirst_markc(*driver.problem.nodes[0].index_space));
-    fi.close();
+    fi.close();*/
 
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
@@ -254,9 +255,9 @@ int main(int argc, char** argv)
        // archive and stream closed when destructors are called
    }
 
-    ofstream f2("comp_concrete_bhv.xdot");
+    /*ofstream f2("comp_concrete_bhv.xdot");
     full_dot(f2,dfirst_markc(*problem.nodes[0].concrete_components[2].automaton));
-    f2.close();
+    f2.close();*/
 
 }
 
@@ -310,7 +311,7 @@ fm<TYPE> start_build(vector<Pattern > patterns)
    grail::list<grail::set<grail::state> > sub;
    fm<TYPE> merge2;
    merge2 = mysubset(merge,sub);
-   //merge2->min_by_partition(); //with this we'll lose final tags information
+   //merge2.min_by_partition(); //with this we'll lose final tags information
 
    //retrieves final states labels
    grail::set<grail::state> fin;
@@ -335,7 +336,7 @@ fm<TYPE> start_build(vector<Pattern > patterns)
    }
 
    //this minimization seems to have some problems too (probably because it does not take into account transitions of the merged final states)
-   minimize(&merge2);
+   //minimize(&merge2);
 
    /*
    if(debug > 0)
@@ -676,6 +677,11 @@ DFA_map<NetTransition, StateData_strList> *from_grail_to_astl(fm<TYPE> *dfa, Net
             typedef std::set<std::string> split_vector_type;
             split_vector_type set_str; // #2: Search for tokens
             split(set_str, str, is_any_of(","),token_compress_on);
+            for(split_vector_type::iterator it = set_str.begin(); it != set_str.end(); it++)
+            {
+                if(*it == "")
+                    set_str.erase(it);
+            }
             target->tag(s[index_src]) = StateData_strList(set_str);
             target->final(s[index_src]) = true;
         }
@@ -686,6 +692,11 @@ DFA_map<NetTransition, StateData_strList> *from_grail_to_astl(fm<TYPE> *dfa, Net
             typedef std::set<std::string> split_vector_type;
             split_vector_type set_str; // #2: Search for tokens
             split(set_str, str, is_any_of(","),token_compress_on);
+            for(split_vector_type::iterator it = set_str.begin(); it != set_str.end(); it++)
+            {
+                if(*it == "")
+                    set_str.erase(it);
+            }
             target->tag(s[index_aim]) = StateData_strList(set_str);
             target->final(s[index_aim]) = true;
         }

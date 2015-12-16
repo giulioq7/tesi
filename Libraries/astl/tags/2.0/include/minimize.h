@@ -264,9 +264,11 @@ acyclic_minimization(DFA &dfa)
     matrix partition(1, new vector< Dstate>); 
     height(dfa,dfa.initial(),partition);
     
-    if (partition[0]->empty() == false) {
+    if (partition[1]->empty() == false) {
       typename matrix::iterator where;
-      for (where = partition.begin(); where != partition.end(); ++where) {
+      where = partition.begin();
+      where++;
+      for (; where != partition.end(); ++where) {
 	redirect_edges(dfa, **where);
 	refine_partition(dfa, **where, (typename matrix::size_type) 0, 
 			 (**where).size() - 1);
