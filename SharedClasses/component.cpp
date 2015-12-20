@@ -5,7 +5,7 @@ using namespace astl;
 Component::Component()
 {
     model = NULL;
-    automaton = new astl::DFA_map<Transition,StateData_str>();
+    //automaton = new astl::DFA_map<Transition,StateData_str>();
 }
 
 Terminal* Component::find_input_terminal(std::string id)

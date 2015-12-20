@@ -8,14 +8,15 @@ BehaviorState::BehaviorState()
     n_inputs = 0;
     n_pts = 0;
     n_isp = 0;
-    S = new int[1];
-    E = new std::string[0];
-    P = new int[1];
-    I = new int[1];
+    S = vector<int>(1);
+    E = vector<std::string>(0);
+    P = vector<int>(1);
+    I = vector<int>(1);
     S[0] = 0;
     P[0] = 0;
     I[0] = 0;
     marked = false;
+    number = -1;
 }
 
 BehaviorState::BehaviorState( int n, int m, int k, int i)
@@ -24,27 +25,24 @@ BehaviorState::BehaviorState( int n, int m, int k, int i)
     n_inputs = m;
     n_pts = k;
     n_isp = i;
-    S = new int[n_comps];
-    E = new std::string[n_inputs];
+    S = vector<int>(n_comps);
+    E = vector<std::string>(n_inputs);
     for(int i=0; i<m; i++)
         E[i] = "<eps>";
     if(n_pts == 0)
     {
-        P = new int[1];
+        P = vector<int>(1);
         P[0] = 0;
     }
     else
-        P = new int[n_pts];
-    I = new int[n_isp];
+        P = vector<int>(n_pts);
+    I = vector<int>(n_isp);
     marked = false;
+    number = -1;
 }
 
 BehaviorState::~BehaviorState()
 {
-    //delete[] S;
-    //delete[] E;
-    //delete[] P;
-    //delete[] I;
 }
 
 
@@ -90,6 +88,7 @@ bool BehaviorState::empty_terminals()
 
 std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
 {
+    //out << s.get_number() << endl;
     out << "[";
     for(int i=0; i<s.n_comps-1; i++)
         out << s.S[i] << ",";

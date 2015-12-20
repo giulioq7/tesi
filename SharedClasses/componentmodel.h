@@ -38,7 +38,7 @@ public:
     vector<Transition> trans;
 
     ComponentModel();
-    ComponentModel(std::string str) { name = str; automaton = new astl::DFA_map<Transition,StateData_str>();}
+    ComponentModel(std::string str) { name = str; /*automaton = new astl::DFA_map<Transition,StateData_str>();*/}
 
     void build_automaton();
     astl::DFA_map<Transition,StateData_str>::state_type find_state(std::string name);

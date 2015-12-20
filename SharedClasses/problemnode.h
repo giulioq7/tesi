@@ -43,8 +43,8 @@ public:
 
     astl::DFA_map<astl::strings,StateData_str> *index_space;
 
-    ProblemNode(){index_space = new  astl::DFA_map<astl::strings,StateData_str>();}
-    ProblemNode(std::string str){ name = str; index_space = new  astl::DFA_map<astl::strings,StateData_str>();}
+    ProblemNode(){/*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}
+    ProblemNode(std::string str){ name = str; /*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}
     Component* find_component(std::string id);
     void make_terminals();
 

@@ -22,7 +22,6 @@ public:
     template <typename T> static T findptr_from_id(vector<T> &v,std::string id);
     template <typename SIGMA, typename TAG> static bool cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
     template <typename SIGMA, typename TAG> static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa);
-    template <typename SIGMA, typename TAG> static bool disconnected_cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
     template <typename SIGMA, typename TAG> static void minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa);
 };
 
@@ -166,38 +165,9 @@ bool Utils::cyclic_graph(astl::DFA_map<SIGMA,TAG>& dfa)
     return false;
 }
 
-//Works only for ACYCLIC dfa
+
 template <typename SIGMA, typename TAG>
 bool Utils::disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa)
-{
-    using namespace astl;
-
-    vector<unsigned int> visited;
-    bfirst_cursor<queue_cursor<forward_cursor<DFA_map<SIGMA,TAG> > > > bfc = bfirstc(dfa), bfc_end;
-    while(bfc != bfc_end)
-    {
-        do
-        {
-            //cout << bfc.src() << bfc.letter() << bfc.aim() << endl;
-            unsigned int s1 = bfc.src();
-            if(!contain(visited, s1))
-                visited.push_back(s1);
-            unsigned int s2 = bfc.aim();
-            if(!contain(visited,s2))
-                visited.push_back(s2);
-        }while(bfc.next());
-    }
-
-    //cout << "visited: " << visited.size();
-    //cout << "total: " << dfa.state_count();
-    if(visited.size() < dfa.state_count())
-        return true;
-
-   return false;
-}
-
-template <typename SIGMA, typename TAG>
-bool Utils::disconnected_cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa)
 {
     using namespace astl;
 
@@ -265,15 +235,6 @@ void Utils::minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa)
         }
         it_r++;
     }
-
-    /*for(unsigned int i=0; i<partition_table.size(); i++)
-    {
-        for(unsigned int j=0; j<partition_table.at(i).size(); j++)
-        {
-            cout << partition_table.at(i).at(j) << " ";
-        }
-        cout << endl;
-    }*/
 
     it_r = dfa.begin(); it_r++;
     for(unsigned int i=0; i<partition_table.size(); i++)
@@ -363,15 +324,6 @@ void Utils::minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa)
         it_r++;
     }
 
-    /*for(unsigned int i=0; i<partition_table.size(); i++)
-    {
-        for(unsigned int j=0; j<partition_table.at(i).size(); j++)
-        {
-            cout << partition_table.at(i).at(j) << " ";
-        }
-        cout << endl;
-    }*/
-
     vector<set<unsigned int> > parts;
     it_r = dfa.begin(); it_r++;
     for(unsigned int i=0; i<partition_table.size(); i++)
@@ -418,39 +370,7 @@ void Utils::minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa)
         it_r++;
     }
 
-
-    //cout << parts;
-
-    bool merged;
-
-    do
-    {
-        merged = false;
-        for(vector<set<unsigned int> >::iterator it = parts.begin(); it != parts.end(); it++)
-        {
-           vector<set<unsigned int> >::iterator it2 = it;
-           it2++;
-           for(; it2 != parts.end(); it2++)
-            {
-                set<unsigned int> common;
-                set_intersection(it->begin(),it->end(),it2->begin(),it2->end(),std::inserter(common,common.end()));
-                if(!common.empty())
-                {
-                    set<unsigned int> merge;
-                    set_union(it->begin(),it->end(),it2->begin(),it2->end(),std::inserter(merge,merge.end()));
-                    parts.push_back(merge);
-                    parts.erase(it);
-                    parts.erase(it2);
-                    merged = true;
-                    break;
-                }
-            }
-            if(merged)
-                break;
-        }
-    }while(merged);
-
-    //cout << parts;
+    cout << parts << endl;
 
     typename bfirst_mark_cursor_type<DFA_map<SIGMA, TAG>, DFA_concept, set_marker
             <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(dfa), bfc_end;
@@ -495,12 +415,9 @@ void Utils::minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa)
         set<unsigned int>::iterator it2 = it->begin();
         it2++;
         for(; it2 != it->end(); it2++)
-        {
             dfa.del_state(*it2);
-        }
     }
 
-    cout << parts;
 }
 
 #endif // UTILS_H

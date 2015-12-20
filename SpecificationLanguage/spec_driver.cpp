@@ -51,6 +51,7 @@ vector<Component> spec_driver::build_components(vector<string> ids, string id_mo
     {
         Component c(*it);
         c.model = ref;
+        c.automaton = NULL;
         l.push_back(c);
     }
 
@@ -207,6 +208,7 @@ void spec_driver::build_Isp()
      vector<ProblemNode>::iterator it;
     for(it = problem.nodes.begin(); it != problem.nodes.end(); it++)
     {
+        it->index_space = new astl::DFA_map<astl::strings,StateData_str>();
         DFA_map<strings,StateData_str>::state_type s = it->index_space->new_state();
         it->index_space->tag(s) = StateData_str("I1");
         it->index_space->initial(s);
@@ -610,7 +612,7 @@ void spec_driver::build_dependency_graph()
     //if(Utils::cyclic_graph(system.dependency_graph))
         //error(loc, "Cyclic dependencies between system nodes");
     if(system.dependency_graph.state_count() < system.node_list.size()  //detects single disconnected nodes
-            || Utils::disconnected_cyclic_graph(system.dependency_graph))      //detects disconnected subgraphs
+            || Utils::disconnected_graph(system.dependency_graph))      //detects disconnected subgraphs
         error(loc, "System nodes graph is not connected");
 }
 

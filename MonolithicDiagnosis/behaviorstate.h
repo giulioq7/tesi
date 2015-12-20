@@ -9,14 +9,15 @@
 
 class BehaviorState
 {
+    int number;
     bool marked;
 public:
     int n_comps, n_inputs, n_pts, n_isp;
 
-    int  *S;
-    std::string *E;
-    int  *P;
-    int  *I;
+    vector<int>  S;
+    vector<std::string> E;
+    vector<int>  P;
+    vector<int>  I;
 
     std::set<std::set<std::string> > candidate_diagnosis;
 
@@ -28,7 +29,9 @@ public:
     void set_E(vector<Terminal*> terms);
     bool empty_terminals();
     bool is_marked() const;
-    void mark_state(){marked = true;}
+    int get_number() const{return number;}
+    void mark_state() { marked = true; }
+    void set_number(int n) { number = n; }
 };
 
 std::ostream& operator<<(std::ostream& out, const BehaviorState& s);

@@ -85,12 +85,11 @@ int main(int argc, char** argv)
         {
             Component c(it2->name);
             c.model = it2->model;
-            DFA_map<Transition,StateData_str> A;
-            A = *it2->model->automaton;
-            A.initial(it->find_initial_state(c.name));
-            *c.automaton = A;
+            DFA_map<Transition,StateData_str> *A = new DFA_map<Transition,StateData_str>();
+            *A = *it2->model->automaton;
+            A->initial(it->find_initial_state(c.name));
+            c.automaton =  A;
             it->concrete_components.push_back(c);
-            A =  DFA_map<Transition,StateData_str>();
         }
     }
 

@@ -4,12 +4,13 @@ using namespace astl;
 
 ComponentModel::ComponentModel()
 {
-    automaton = new DFA_map<Transition,StateData_str>();
+    //automaton = new DFA_map<Transition,StateData_str>();
 }
 
 
 void ComponentModel::build_automaton()
 {
+    automaton = new DFA_map<Transition,StateData_str>();
     build_states();
     for(unsigned int i=0; i<trans.size(); i++)
     {
