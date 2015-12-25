@@ -51,7 +51,7 @@ vector<Component> spec_driver::build_components(vector<string> ids, string id_mo
     {
         Component c(*it);
         c.model = ref;
-        c.automaton = NULL;
+        c.automaton = new DFA_map<Transition,StateData_str>;
         l.push_back(c);
     }
 

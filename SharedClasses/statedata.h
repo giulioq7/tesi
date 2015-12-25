@@ -23,8 +23,14 @@ public:
 
     StateData_str();
     StateData_str(std::string str) { state_name = str; }
+    ~StateData_str(){}
 
-    bool operator==(const StateData_str s) {return state_name == s.state_name;}
+    //bool operator==(const StateData_str s) {return state_name == s.state_name;}
 };
+
+inline bool operator==(const StateData_str s1, const StateData_str s2)
+{
+    return s1.state_name == s2.state_name;
+}
 
 #endif // STATEDATA_H

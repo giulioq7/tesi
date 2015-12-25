@@ -288,18 +288,16 @@ int main()
 
                                 //checks if the new state is final, so if all current states of index spaces are final and all links are empty
                                 bool is_final = true;
-                                vector< forward_cursor<DFA_map<strings,StateData_str> > >::iterator it_fcI;
-                                vector<ProblemNode>::iterator it_node;
-                                for(it_fcI = fc_I.begin(), it_node = problem.nodes.begin(); it_fcI != fc_I.end(), it_node != problem.nodes.end(); it_fcI++, it_node++)
+                                for(unsigned int i = 0; i< problem.nodes.size(); i++)
                                 {
-                                    if(!it_node->index_space->final(it_fcI->src()))
+                                    if(!problem.nodes[i].index_space->final(tag_s1.I[i]))
                                     {
                                         is_final = false;
                                         break;
                                     }
                                 }
-                                if(is_final)
-                                    is_final = tag_s1.empty_terminals();
+                                //if(is_final)
+                                    //is_final = tag_s1.empty_terminals();
                                 behavior.final(s1) = is_final;
                              }
                              behavior.set_trans(s0,t,s1);

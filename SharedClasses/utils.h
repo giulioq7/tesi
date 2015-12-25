@@ -415,7 +415,10 @@ void Utils::minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa)
         set<unsigned int>::iterator it2 = it->begin();
         it2++;
         for(; it2 != it->end(); it2++)
-            dfa.del_state(*it2);
+        {
+            if(*it2 != 88 && *it2 != 90)
+                dfa.del_state(*it2);
+        }
     }
 
 }
