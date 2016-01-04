@@ -1,0 +1,16 @@
+*~
+*build-*
+*.config
+*.includes
+*.creator
+*.files
+*.user
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.out
+*.synctex.gz
+*.toc
+
