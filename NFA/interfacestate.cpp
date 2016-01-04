@@ -37,6 +37,11 @@ std::map<unsigned int, unsigned int> InterfaceState::get_state_map() const
     return state_map;
 }
 
+std::set<std::set<std::string> > InterfaceState::get_delta() const
+{
+    return delta;
+}
+
 
 void InterfaceState::set_automaton(NFA_mmap<strings,SatelliteData> *a)
 {
@@ -50,6 +55,11 @@ void InterfaceState::set_state_map(map<unsigned int, unsigned int> smap)
     state_map = smap;
 }
 
+void InterfaceState::set_delta(std::set<std::set<std::string> > d)
+{
+    delta = d;
+}
+
 
 std::ostream& operator<<(std::ostream& out, const InterfaceState& s)
 {
@@ -61,6 +71,27 @@ std::ostream& operator<<(std::ostream& out, const InterfaceState& s)
     string str(ss.str());
     str.resize(ss.str().size()-1);
     str.append("}");
+
+    set<set<string> > delta = s.get_delta();
+    if(!delta.empty())
+    {
+        str.append("\n(");
+        for(set<set<string> >::iterator it = delta.begin(); it != delta.end(); it++)
+        {
+            str.append("(");
+            for(set<string>::iterator it2 = it->begin(); it2 != it->end(); it2++)
+            {
+                str.append(*it2);
+                str.append(",");
+            }
+            if(!it->empty())
+                str.resize(str.size()-1);
+            else
+                str.append(" ");
+            str.append(")");
+        }
+        str.append(")");
+    }
 
     return out << str;
 }

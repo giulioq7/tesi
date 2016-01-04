@@ -15,4 +15,6 @@ public:
     SatelliteData& operator=(SatelliteData s) { name = s.name; return *this;}
 };
 
+std::ostream& operator<<(std::ostream& out, const SatelliteData& s);
+
 #endif // SATELLITEDATA_H

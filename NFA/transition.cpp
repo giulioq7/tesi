@@ -5,6 +5,7 @@ using namespace std;
 Transition::Transition()
 {
     name = "";
+    delta = set<set<string> >();
 }
 
 
