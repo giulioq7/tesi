@@ -132,7 +132,7 @@ public:
     //    typedef    value_compare;
 
 #ifdef WIN32    
-    class const_iterator 
+    class const_iterator
       : public iterator<forward_iterator_tag, value_type, difference_type>
 #else
     class const_iterator 
