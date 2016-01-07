@@ -9,12 +9,15 @@
 
 class System
 {
+    bool acyclic;
+
     friend class boost::serialization::access;
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
         ar & name;
         ar & dependency_graph;
+        ar & acyclic;
         ar & node_list;
         ar & emergence;
     }
@@ -28,7 +31,10 @@ public:
     vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >  emergence;
 
     System();
-    System(std::string str) { name = str;}
+    System(std::string str);
+
+    bool is_acyclic() const;
+    void set_acyclic();
 
     SystemNode* find_node(std::string);
     int pts_count();

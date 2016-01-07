@@ -21,6 +21,7 @@ public:
     template <typename T> static T* find_from_id(vector<T> &v,std::string id);
     template <typename T> static T findptr_from_id(vector<T> &v,std::string id);
     template <typename SIGMA, typename TAG> static bool cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
+    template <typename SIGMA, typename TAG> static std::vector<unsigned int> topological_sort(astl::DFA_map<SIGMA,TAG> &dfa);
     template <typename SIGMA, typename TAG> static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa);
     template <typename SIGMA, typename TAG> static void minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa);
 };
@@ -163,6 +164,67 @@ bool Utils::cyclic_graph(astl::DFA_map<SIGMA,TAG>& dfa)
             return true;
     }
     return false;
+}
+
+//Call this only on acyclic graphs!
+template <typename SIGMA, typename TAG>
+vector<unsigned int> Utils::topological_sort(astl::DFA_map<SIGMA,TAG>& dfa)
+{
+    using namespace astl;
+
+    vector<unsigned int> sorted;
+
+    DFA_map<SIGMA,TAG> graph;
+    clone(graph,dfirst_markc(dfa));
+    graph.initial(dfa.initial());
+
+    while(graph.begin() != graph.end())
+    {
+        typename DFA_map<SIGMA,TAG>::const_iterator c;
+
+        for(c = graph.begin(); c != graph.end(); c++)
+        {
+            typename DFA_map<SIGMA,TAG>::edges_type aims = graph.delta2(*c);
+            if(aims.empty())
+            {
+                sorted.push_back(*c);
+                graph.del_state(*c);
+                typename DFA_map<SIGMA,TAG>::const_iterator c2;
+                for(c2 = graph.begin(); c2 != graph.end(); c2++)
+                {
+                    forward_cursor<DFA_map<SIGMA,TAG> > fc(graph,*c2);
+                    if(fc.first())
+                    {
+                        do
+                        {
+                            if(fc.aim() == *c)
+                            {
+                                typename DFA_map<SIGMA,TAG>::state_type s = fc.src();
+                                typename DFA_map<SIGMA,TAG>::char_type l = fc.letter();
+                                if(fc.next())
+                                {
+                                    graph.del_trans(s,l);
+                                    continue;
+                                }
+                                else
+                                {
+                                    graph.del_trans(s,l);
+                                    break;
+                                }
+                            }
+                            if(fc.next())
+                                continue;
+                            else
+                                break;
+                        }while(true);
+                    }
+                }
+
+            }
+        }
+    }
+
+    return sorted;
 }
 
 

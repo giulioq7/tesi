@@ -609,11 +609,35 @@ void spec_driver::build_dependency_graph()
         system.dependency_graph.set_trans(s1,label,s2);
     }
 
-    //if(Utils::cyclic_graph(system.dependency_graph))
-        //error(loc, "Cyclic dependencies between system nodes");
     if(system.dependency_graph.state_count() < system.node_list.size()  //detects single disconnected nodes
             || Utils::disconnected_graph(system.dependency_graph))      //detects disconnected subgraphs
         error(loc, "System nodes graph is not connected");
+
+    if(!Utils::cyclic_graph(system.dependency_graph))
+    {
+        //error(loc, "Cyclic dependencies between system nodes"); //Old specification: system graph had to be a tree
+        system.set_acyclic();
+        vector<unsigned int> sorted = Utils::topological_sort(system.dependency_graph);
+        vector<int> top_order;
+        for(vector<unsigned int>::iterator it = sorted.begin(); it != sorted.end(); it++)
+            top_order.push_back(problem.find_index(system.dependency_graph.tag(*it).state_name));
+        problem.topological_order = top_order;
+        for(DFA_map<strings,StateData_str>::const_iterator c = system.dependency_graph.begin(); c != system.dependency_graph.end(); c++)
+        {
+            forward_cursor<DFA_map<strings,StateData_str> > fc(system.dependency_graph, *c);
+            if(fc.first())
+            {
+                ProblemNode *pn = problem.find_node(system.dependency_graph.tag(*c).state_name);
+                do
+                {
+                    int index = problem.find_index(fc.aim_tag().state_name);
+                    pn->depends.push_back(index);
+                }
+                while(fc.next());
+            }
+        }
+    }
+
 }
 
 #include "ostream_util.h"

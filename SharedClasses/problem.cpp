@@ -4,6 +4,30 @@ Problem::Problem()
 {
 }
 
+ProblemNode* Problem::find_node(std::string id)
+{
+    ProblemNode* ref = NULL;
+    for(vector<ProblemNode>::iterator it = nodes.begin(); it != nodes.end(); it++)
+    {
+        if(it->name == id)
+        {
+            ref = &(*it);
+            break;
+        }
+    }
+    return ref;
+}
+
+int Problem::find_index(std::string id)
+{
+    for(int i=0; i<nodes.size(); i++)
+    {
+        if(nodes.at(i).name == id)
+            return i;
+    }
+    return -1;
+}
+
 int Problem::concrete_components_count()
 {
     int count = 0;

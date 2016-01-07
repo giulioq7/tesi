@@ -2,7 +2,26 @@
 
 System::System()
 {
+    name = "";
+    acyclic = false;
 }
+
+System::System(std::string str)
+{
+    name = str;
+    acyclic = false;
+}
+
+bool System::is_acyclic() const
+{
+    return acyclic;
+}
+
+void System::set_acyclic()
+{
+    acyclic = true;
+}
+
 
 SystemNode* System::find_node(std::string id)
 {

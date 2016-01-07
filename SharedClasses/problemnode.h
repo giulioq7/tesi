@@ -24,6 +24,7 @@ class ProblemNode
         ar & ruler;
         ar & observation;
         ar & index_space;
+        ar & depends;
     }
 
 public:
@@ -42,6 +43,8 @@ public:
     vector<std::string> observation;
 
     astl::DFA_map<astl::strings,StateData_str> *index_space;
+
+    vector<int> depends;
 
     ProblemNode(){/*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}
     ProblemNode(std::string str){ name = str; /*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}

@@ -156,6 +156,15 @@ int main()
          tag_s0.I[index_comp] = fc.src();
          index_comp++;
      }
+
+     map<Terminal*,int> term_map;
+     int m = 0;
+     for(vector<Terminal*>::iterator it = input_terminals.begin(); it != input_terminals.end(); it++)
+     {
+         term_map[*it] = m;
+         m++;
+     }
+
      map<size_t,DFA_map<SysTransition,BehaviorState>::state_type> hash_values;
      boost::hash<std::string> string_hash;
      stringstream ss;

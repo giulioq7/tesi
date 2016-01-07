@@ -1,4 +1,4 @@
-22 serialization::archive 13 0 0 2 0 1 0
+22 serialization::archive 13 0 0 4 0 1 0
 0 2 0 1 2 7 Breaker 3 1 0
 1 0 0 0 0 3 0 -1 6 1 0
 2 0 0 6 closed 0 0 3 0 0 0 1 0
@@ -27,3 +27,34 @@
 25 0  0  2 p2 1 0 2 cl 1 O 6 awaken 4 idle
 26 0  0  2 p3 1 0 2 cl 1 O 4 idle 6 awaken
 27 0  0  2 p4 1 0 2 op 1 O 6 awaken 4 idle
+28 3 0 1 2 3 18 ProtectionHardware 3
+29 4 0 -1 6
+30 3 con 2 0
+31 2 nd 3 Cot 2 w1 0 0 3 con 3 con 1
+32 2 di 3 Cot 2 w2 0 0 3 con 4 dis1 2 6
+33 4 dis1 3 0
+34 2 di 3 Cot 2 w3 0 0 4 dis1 4 dis2 3
+35 2 co 3 Cot 2 w5 0 0 4 dis1 3 con 1
+36 2 nc 3 Cot 2 w6 0 0 4 dis1 4 dis1 2 6
+37 4 dis2 2 0
+38 2 co 3 Cot 2 w4 0 0 4 dis2 4 dis1 2
+39 2 nc 3 Cot 2 w7 0 0 4 dis2 4 dis2 3 0 4 0 0 0 0 0 3 7 4 0 2 nd 2 di 2 co 2 nc 1 0 3 Cot 0 0 3 0 3 con 4 dis1 4 dis2 7 0
+40 2 nd 3 Cot 2 w1 0 0 3 con 3 con
+41 2 di 3 Cot 2 w2 0 0 3 con 4 dis1
+42 2 di 3 Cot 2 w3 0 0 4 dis1 4 dis2
+43 2 co 3 Cot 2 w4 0 0 4 dis2 4 dis1
+44 2 co 3 Cot 2 w5 0 0 4 dis1 3 con
+45 2 nc 3 Cot 2 w6 0 0 4 dis1 4 dis1
+46 2 nc 3 Cot 2 w7 0 0 4 dis2 4 dis2
+47 4 0 1 2 3 4 4 Line 3
+48 5 0 -1 6
+49 6 normal 3 0
+50 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted 2
+51 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated 3
+52 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent 4 6
+53 7 shorted 0 0 6
+54 8 isolated 0 0 6
+55 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 3 Cot 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
+56 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
+57 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
+58 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent
