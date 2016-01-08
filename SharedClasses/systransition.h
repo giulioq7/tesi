@@ -2,25 +2,42 @@
 #define SYSTRANSITION_H
 
 #include "transition.h"
-#include "component.h"
 #include "systemnode.h"
 #include "terminal.h"
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 class SysTransition : public CHAR_TRAITS<SysTransition>
 {
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & name;
+        ar & trans;
+        ar & component;
+        ar & node;
+        ar & input_event;
+        ar & output_events;
+        ar & net_trans;
+        ar & t_name_c_name;
+    }
 public:
     std::string name;
     Transition* trans;
-    Component* component;
+    NetComponent* component;
     SystemNode* node;
-    pair<std::string, Terminal*> input_event;
-    vector<pair<std::string,Terminal*> > output_events;
+    pair<std::string, int> input_event;
+    vector<pair<std::string,vector<int> > > output_events;
+    NetTransition net_trans;
+    pair<string, string> t_name_c_name;
 
     SysTransition();
-    SysTransition(Transition *t, Component* c, SystemNode* n);
+    SysTransition(Transition *t, NetComponent* c, SystemNode* n);
 
-    bool is_triggerable();
-    void effects();
+    bool is_triggerable(vector<string> &E);
+    void effects(vector<string> &E);
 
     //required definitions to use a SysTransition as automata alphabet for astl lib
     typedef SysTransition char_type;

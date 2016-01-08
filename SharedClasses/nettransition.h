@@ -2,7 +2,7 @@
 #define NETTRANSITION_H
 
 #include "transition.h"
-#include "component.h"
+#include "netcomponent.h"
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -20,11 +20,11 @@ class NetTransition : public CHAR_TRAITS<NetTransition>
 
 public:
     Transition* trans;
-    Component* component;
+    NetComponent* component;
     std::string name;
 
     NetTransition();
-    NetTransition(Transition* t, Component* c);
+    NetTransition(Transition* t, NetComponent* c);
 
     //required definitions to use a NetTransition as automata alphabet for astl lib
     typedef NetTransition char_type;

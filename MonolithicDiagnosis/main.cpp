@@ -52,59 +52,14 @@ int main()
        // archive and stream closed when destructors are called
    }
 
-   //constructs partial ordered observation from paper HDES example
-   /*DFA_map<strings,StateData_str> obs;
-   DFA_map<strings,StateData_str>::state_type i1 = obs.new_state();
-   DFA_map<strings,StateData_str>::state_type i2 = obs.new_state();
-   DFA_map<strings,StateData_str>::state_type i3 = obs.new_state();
-   DFA_map<strings,StateData_str>::state_type i4 = obs.new_state();
-   DFA_map<strings,StateData_str>::state_type i5 = obs.new_state();
-   DFA_map<strings,StateData_str>::state_type i6 = obs.new_state();
-   obs.tag(i1) = StateData_str("I1");
-   obs.tag(i2) = StateData_str("I2");
-   obs.tag(i3) = StateData_str("I3");
-   obs.tag(i4) = StateData_str("I4");
-   obs.tag(i5) = StateData_str("I5");
-   obs.tag(i6) = StateData_str("I6");
-   obs.initial(i1);
-   obs.set_trans(i1,"awk",i2);
-   obs.set_trans(i1,"opl",i3);
-   obs.set_trans(i2,"opl",i3);
-   obs.set_trans(i3,"ide",i4);
-   obs.set_trans(i3,"clr",i5);
-   obs.set_trans(i4,"clr",i6);
-   obs.set_trans(i5,"ide",i6);
-   obs.final(i4) = true;
-   obs.final(i6) = true;
-   obs.final(i1) = true;*/
-   //problem.nodes[1].index_space = &obs;
-   //problem.nodes[2].index_space = &obs;
-   //problem.nodes[3].index_space = &obs;
 
-   /*ofstream f;
-   f.open("paper_obs.xdot");
-   full_dot(f, dfirst_markc(obs));*/
+     timeval start, stop;
+     double elapsedTime;
 
-   timeval start, stop;
-   double elapsedTime;
+     gettimeofday(&start, NULL);
 
-   gettimeofday(&start, NULL);
-
-   /*vector<SysTransition> sys_trans;
-     for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
-     {
-         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
-         {
-            for(vector<Transition>::iterator it3 = it2->model->trans.begin(); it3 != it2->model->trans.end(); it3++)
-            {
-                SysTransition t(&(*it3), &(*it2), it->ref_node);
-                cout << t.trans->name << " is triggerable: " << t.is_triggerable() << endl;
-                sys_trans.push_back(t);
-            }
-         }
-     }*/
      vector<Component*> all_components;
-     vector< forward_cursor<DFA_map<Transition,StateData_str> > > fc_S;
+     vector< forward_cursor<DFA_map<SysTransition,StateData_str> > > fc_S;
      vector< forward_cursor<DFA_map<NetTransition,StateData_strList> > > fc_P;
      vector< forward_cursor<DFA_map<strings,StateData_str> > > fc_I;
      vector<Terminal*> input_terminals;
@@ -121,7 +76,7 @@ int main()
                  input_terminals.push_back(*it3);
                  tag_s0.E[index_term++] = (*it3)->value;
              }
-             forward_cursor<DFA_map<Transition,StateData_str> > fc(*it2->automaton,it2->automaton->initial());
+             forward_cursor<DFA_map<SysTransition,StateData_str> > fc(*it2->automaton,it2->automaton->initial());
              fc_S.push_back(fc);
              tag_s0.S[index_comp] = fc.src();
              index_comp++;
@@ -165,23 +120,20 @@ int main()
          m++;
      }
 
-     map<size_t,DFA_map<SysTransition,BehaviorState>::state_type> hash_values;
+     map<int,DFA_map<SysTransition,BehaviorState>::state_type> hash_values;
      boost::hash<std::string> string_hash;
      stringstream ss;
      ss << tag_s0;
-     size_t h = string_hash(ss.str());
+     unsigned int h = string_hash(ss.str());
      //cout << h;
      DFA_map<SysTransition,BehaviorState>::state_type s0 = behavior.new_state();
      behavior.tag(s0) = tag_s0;
      behavior.tag(s0).set_number(s0);
      behavior.initial(s0);
      hash_values[h] = s0;
-     //behavior.set_trans(s0,SysTransition(),s0);
-     //typename bfirst_mark_cursor_type<DFA_map<SysTransition,BehaviorState>, DFA_concept, set_marker
-     //        <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(behavior), bfc_end;
+
+     cout << "Starting cycle..." << endl;
      DFA_map<SysTransition,BehaviorState>::const_iterator it_s;
-
-
      for(it_s = behavior.begin(); it_s != behavior.end(); it_s++)
      {
          s0 = *it_s;
@@ -192,37 +144,25 @@ int main()
 
          for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
          {
+             for(int i=pattern_indexes[index_node][0];i<pattern_indexes[index_node][1];i++)
+                fc_P[i] = behavior.tag(s0).P[i];
+             fc_I[index_node] = behavior.tag(s0).I[index_node];
 
              for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
              {
-                 //for(int i =0; i<problem.concrete_components_count(); i++)
-                     //fc_S[i] = behavior.tag(s0).S[i];
                  fc_S[index_comp] = behavior.tag(s0).S[index_comp];
-                 for(unsigned int i=0; i<input_terminals.size(); i++)
-                     input_terminals[i]->value = behavior.tag(s0).E[i];
-                 //for(int i=0; i<system.pts_count(); i++)
-                     //fc_P[i] = behavior.tag(s0).P[i];
-                 for(int i=pattern_indexes[index_node][0];i<pattern_indexes[index_node][1];i++)
-                    fc_P[i] = behavior.tag(s0).P[i];
-                 //for(unsigned int i =0; i<problem.nodes.size(); i++)
-                     //fc_I[i] = behavior.tag(s0).I[i];
-                 fc_I[index_node] = behavior.tag(s0).I[index_node];
 
                  if(fc_S[index_comp].first())
                  {
                      do
                      {
-                         std::string s = fc_S[index_comp].letter().name;
-                         Transition *simple_t = it2->model->find_trans(s);
-                         SysTransition t(simple_t,&(*it2),it->ref_node);
-                         if(t.is_triggerable())
+                         SysTransition t = fc_S[index_comp].letter();
+                         if(t.is_triggerable(behavior.tag(s0).E))
                          {
-                             BehaviorState tag_s1 = behavior.tag(s0).copy();
-                             tag_s1.S[index_comp] = fc_S[index_comp].aim();
                              std::string label;
                              //transition is observable
                              try
-                             {label = it->viewer.at(make_pair(t.trans->name,t.component->name));}
+                             {label = it->viewer.at(t.t_name_c_name);}
                              //transition is not observable
                              catch (const std::out_of_range&)
                              {label = "";}
@@ -230,14 +170,19 @@ int main()
                              //label is not consistent with observation
                              if(label != "" && !consistent)
                                  continue;
+
+                             BehaviorState tag_s1 = behavior.tag(s0);
+                             tag_s1.S[index_comp] = fc_S[index_comp].aim();
+
                              //label is consistent with observation: updates index space
                              if(label != "" && consistent)
                                  tag_s1.I[index_node] = fc_I[index_node].aim();
                              //else: index space is unchanged (transition is not observable)
 
-                             t.effects();
-                             //tag_s1.set_E(input_terminals);
-                             NetTransition nt(t.trans,t.component);
+                             t.effects(tag_s1.E);
+
+                             NetTransition nt = t.net_trans;
+
                              for(int i=pattern_indexes[index_node][0];i<pattern_indexes[index_node][1];i++)
                              {
                                 if(fc_P[i].find(nt))
@@ -251,10 +196,11 @@ int main()
                                         std::set<std::string>::iterator it_patt;
                                         for(it_patt = patt_events.elements.begin(); it_patt != patt_events.elements.end(); it_patt++)
                                         {
-                                            Pattern *p = Utils::find_from_id(it->ref_node->net_model->patterns,*it_patt);
+                                            /*//Pattern *p = Utils::find_from_id(it->ref_node->net_model->patterns,*it_patt);
                                             //cout << *p;
                                             //retrieves network output terminal relative to pattern
-                                            Terminal *out = Utils::findptr_from_id(it->output_terminals,p->get_terminal_id());
+                                            //Terminal *out = Utils::findptr_from_id(it->output_terminals,p->get_terminal_id());
+                                            Terminal *out = it->patt_map[*it_patt];
                                             //cout << *out << endl;
                                             vector<Terminal*>::iterator it_term;
                                             //searches all network input terminals linked to out terminal
@@ -265,34 +211,47 @@ int main()
                                                 //searches all component input terminals linked to network input terminal
                                                 for(it_term2 = (*it_term)->linked_terminals.begin(); it_term2 != (*it_term)->linked_terminals.end(); it_term2++)
                                                 {
-                                                    if((*it_term2)->value != "<eps>")
+                                                    if(tag_s1.E[term_map[*it_term2]] != "<eps>")
                                                         empty_t = false;
                                                 }
                                                 if(empty_t)
                                                 {
                                                     for(it_term2 = (*it_term)->linked_terminals.begin(); it_term2 != (*it_term)->linked_terminals.end(); it_term2++)
                                                     {
-                                                        (*it_term2)->value = *it_patt;
+                                                        tag_s1.E[term_map[*it_term2]] = *it_patt;
                                                     }
                                                 }
+                                            }*/
+                                            bool empty_t = true;
+                                            vector<int> list = it->patt_indexes_map[*it_patt];
+                                            vector<int>::iterator it_i;
+                                            for(it_i = list.begin(); it_i != list.end(); it_i++)
+                                            {
+                                                if(tag_s1.E[*it_i] != "<eps>")
+                                                {
+                                                    empty_t = false;
+                                                    break;
+                                                }
+                                            }
+                                            if(empty_t)
+                                            {
+                                                for(it_i = list.begin(); it_i != list.end(); it_i++)
+                                                    tag_s1.E[*it_i] = *it_patt;
                                             }
                                         }
                                     }
                                 }
                              }
-
-                             tag_s1.set_E(input_terminals);
                              stringstream s_str;
                              s_str << tag_s1;
-                             size_t h = string_hash(s_str.str());
-                             //cout << h << endl;
+                             unsigned int h = string_hash(s_str.str());
                              DFA_map<SysTransition,BehaviorState>::state_type s1;
                              try{ s1 = hash_values.at(h);}
                              catch (const std::out_of_range&)
                              {
                                 s1 = behavior.new_state();
                                 behavior.tag(s1) = tag_s1;
-                                behavior.tag(s1).set_number(s1);
+                                //behavior.tag(s1).set_number(s1);
                                 hash_values[h] = s1;
 
                                 //checks if the new state is final, so if all current states of index spaces are final and all links are empty
@@ -311,19 +270,6 @@ int main()
                              }
                              behavior.set_trans(s0,t,s1);
                          }
-                         //for(int i =0; i<problem.concrete_components_count(); i++)
-                             //fc_S[i] = behavior.tag(s0).S[i];
-                         fc_S[index_comp] = behavior.tag(s0).S[index_comp];
-                         for(unsigned int i=0; i<input_terminals.size(); i++)
-                             input_terminals[i]->value = behavior.tag(s0).E[i];
-                         //for(int i=0; i<system.pts_count(); i++)
-                             //fc_P[i] = behavior.tag(s0).P[i];
-                         for(int i=pattern_indexes[index_node][0];i<pattern_indexes[index_node][1];i++)
-                            fc_P[i] = behavior.tag(s0).P[i];
-                         //for(unsigned int i =0; i<problem.nodes.size(); i++)
-                             //fc_I[i] = behavior.tag(s0).I[i];
-                         fc_I[index_node] = behavior.tag(s0).I[index_node];
-
                      }
                      while(fc_S[index_comp].next());
                  }
@@ -331,29 +277,24 @@ int main()
              }
              index_node++;
          }
-         behavior.tag(s0).mark_state();
+         //behavior.tag(s0).mark_state();
      }
+     cout << "... Cycle terminated!" << endl;
 
-
-
-     //deletes first fictitious transition needed to start the loop
-     //behavior.del_trans(behavior.initial(),SysTransition());
 
      DFA_map<SysTransition,BehaviorState> bhv;
 
      //removes all spurious states and transitions that are not in a path from the initial state to a final state
      DFA_map<SysTransition,BehaviorState>::state_type init = trim(bhv,dfirst_markc(behavior));
+     cout << "trim terminated" << endl;
 
      if(init == DFA_map<SysTransition,BehaviorState>::null_state)
      {
          cout << "Empty behavior" << endl;
-         exit(0);
+         exit(1);
      }
 
      bhv.initial(init);
-
-     //typename bfirst_mark_cursor_type<DFA_map<SysTransition,BehaviorState>, DFA_concept, set_marker
-       //      <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(bhv), bfc_end;
 
      //candidate diagnosis of the initial state is the empty set
      bhv.tag(bhv.initial()).candidate_diagnosis.insert(set<string>());
@@ -384,6 +325,9 @@ int main()
 
      //stampa
      cout << elapsedTime << " ms.\n";
+     cout << "Number of states(Spurious bhv) : " << behavior.state_count() << endl;
+     cout << "Number of transitions(Spurious bhv) : " << behavior.trans_count() << endl;
+
 
      ofstream file;
      file.open("behavior_spurious.xdot");
@@ -395,96 +339,8 @@ int main()
      full_dot(file2, dfirst_markc(bhv));
      //std::system("dot -Tjpg behavior.xdot > behavior.jpg");
 
-
-     /*DFA_map<SysTransition,BehaviorState> prova;
-     unsigned int beta0 = prova.new_state();
-     unsigned int beta1 = prova.new_state();
-     unsigned int beta2 = prova.new_state();
-     unsigned int beta3 = prova.new_state();
-     unsigned int beta4 = prova.new_state();
-     unsigned int beta5 = prova.new_state();
-     unsigned int beta6 = prova.new_state();
-     unsigned int beta7 = prova.new_state();
-     unsigned int beta8 = prova.new_state();
-     unsigned int beta9 = prova.new_state();
-     unsigned int beta10 = prova.new_state();
-     unsigned int beta11 = prova.new_state();
-     unsigned int beta12 = prova.new_state();
-     unsigned int beta13 = prova.new_state();
-     unsigned int beta14 = prova.new_state();
-     unsigned int beta15 = prova.new_state();
-
-     prova.tag(beta0) = BehaviorState();
-     prova.tag(beta1) = BehaviorState();
-     prova.tag(beta2) = BehaviorState();
-     prova.tag(beta3) = BehaviorState();
-     prova.tag(beta4) = BehaviorState();
-     prova.tag(beta5) = BehaviorState();
-     prova.tag(beta6) = BehaviorState();
-     prova.tag(beta7) = BehaviorState();
-     prova.tag(beta8) = BehaviorState();
-     prova.tag(beta9) = BehaviorState();
-     prova.tag(beta10) = BehaviorState();
-     prova.tag(beta11) = BehaviorState();
-     prova.tag(beta12) = BehaviorState();
-     prova.tag(beta13) = BehaviorState();
-     prova.tag(beta14) = BehaviorState();
-     prova.tag(beta15) = BehaviorState();
-
-     prova.initial(beta0);
-
-     prova.set_trans(beta0,sys_trans[19],beta1);
-
-     prova.set_trans(beta1,sys_trans[7],beta2);
-
-     prova.set_trans(beta2,sys_trans[15],beta3);
-     prova.set_trans(beta2,sys_trans[1],beta4);
-
-     prova.set_trans(beta3,sys_trans[20],beta5);
-     prova.set_trans(beta3,sys_trans[1],beta6);
-
-     prova.set_trans(beta4,sys_trans[15],beta6);
-
-     prova.set_trans(beta5,sys_trans[1],beta7);
-
-     prova.set_trans(beta6,sys_trans[20],beta7);
-     prova.set_trans(beta6,sys_trans[22],beta8);
-
-     prova.set_trans(beta7,sys_trans[10],beta9);
-     prova.set_trans(beta7,sys_trans[17],beta10);
-
-     prova.set_trans(beta8,sys_trans[5],beta11);
-     prova.set_trans(beta8,sys_trans[15],beta12);
-
-     prova.set_trans(beta9,sys_trans[5],beta13);
-
-     prova.set_trans(beta10,sys_trans[10],beta13);
-
-     prova.set_trans(beta11,sys_trans[12],beta15);
-
-     prova.set_trans(beta12,sys_trans[12],beta14);
-     prova.set_trans(beta12,sys_trans[5],beta15);
-
-     prova.set_trans(beta13,sys_trans[17],beta15);
-
-     prova.set_trans(beta14,sys_trans[5],beta15);
-
-     prova.final(beta15) = true;
-
-     //candidate diagnosis of the initial state is the empty set
-     prova.tag(prova.initial()).candidate_diagnosis.insert(set<string>());
-
-     decorate(prova,prova.initial(),  prova.tag(prova.initial()).candidate_diagnosis, problem);
-
-
-     ofstream file3;
-     file3.open("prova.xdot");
-     full_dot(file3, dfirst_markc(prova));*/
-
      for(vector<ComponentModel>::iterator it = comp_models.begin(); it != comp_models.end(); it++)
-     {
          delete it->automaton;
-     }
      for(vector<NetworkModel>::iterator it = net_models.begin(); it != net_models.end(); it++)
      {
          for(vector<astl::DFA_map<NetTransition,StateData_strList> *>::iterator it2 = it->pattern_space.begin(); it2 != it->pattern_space.end(); it2++)
@@ -493,9 +349,10 @@ int main()
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
      {
          delete it->index_space;
-         //for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
-             //delete it2->automaton;
+         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
+             delete it2->automaton;
      }
+
 
      return 0;
 }

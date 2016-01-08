@@ -4,7 +4,7 @@
 #include <map>
 #include <sstream>
 #include "utils.h"
-#include "component.h"
+#include "netcomponent.h"
 #include "nettransition.h"
 #include "pattern.h"
 #include "statedata_strlist.h"
@@ -35,7 +35,7 @@ class NetworkModel
 
 public:
     std::string name;
-    vector<Component> components;
+    vector<NetComponent> components;
     vector<std::string> inputs;
     vector<std::string> outputs;
     vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > > links;
@@ -55,7 +55,7 @@ public:
     NetworkModel(std::string str) { name = str; count = 0;}
 
     std::string not_trans(std::string operand);
-    Component* find_component(std::string id);
+    NetComponent* find_component(std::string id);
 };
 
 #endif // NETWORKMODEL_H

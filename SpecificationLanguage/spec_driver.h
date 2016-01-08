@@ -66,7 +66,7 @@ public:
     //utils
     bool duplicate_component_model_id(std::string id);
     bool duplicate_network_model_id(std::string id);
-    vector<Component> build_components(vector<std::string> ids, std::string name);
+    vector<NetComponent> build_components(vector<std::string> ids, std::string name);
     NetworkModel* find_netmodel(std::string id_model);
     SystemNode* find_node(std::string id);
     void adjust_inherited();

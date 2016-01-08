@@ -33,7 +33,7 @@ void spec_driver::error (const std::string& m)
   std::cerr << m << std::endl;
 }
 
-vector<Component> spec_driver::build_components(vector<string> ids, string id_model)
+vector<NetComponent> spec_driver::build_components(vector<string> ids, string id_model)
 {
     ComponentModel* ref = NULL;
     for (vector<ComponentModel>::iterator it = components.begin(); it != components.end(); ++it)
@@ -46,12 +46,11 @@ vector<Component> spec_driver::build_components(vector<string> ids, string id_mo
     }
     if(ref == NULL)
         error(loc, "ID type component model not defined.");
-    vector<Component> l;
+    vector<NetComponent> l;
     for (vector<string>::iterator it = ids.begin(); it != ids.end(); ++it)
     {
-        Component c(*it);
+        NetComponent c(*it);
         c.model = ref;
-        c.automaton = new DFA_map<Transition,StateData_str>;
         l.push_back(c);
     }
 
@@ -299,7 +298,7 @@ void spec_driver::semantic_checks(NetworkModel nm)
 
     //saves a list of components ids
     vector<string> comp_ids;
-    for(vector<Component>::iterator it = nm.components.begin(); it != nm.components.end(); it++)
+    for(vector<NetComponent>::iterator it = nm.components.begin(); it != nm.components.end(); it++)
         comp_ids.push_back((*it).name);
 
     //Verifies terminal and components existence within link declaration
@@ -440,7 +439,7 @@ void spec_driver::semantic_checks(SystemNode node)
 {
     //saves a list of components ids
     vector<string> comp_ids;
-    for(vector<Component>::iterator it = node.net_model->components.begin(); it != node.net_model->components.end(); it++)
+    for(vector<NetComponent>::iterator it = node.net_model->components.begin(); it != node.net_model->components.end(); it++)
         comp_ids.push_back((*it).name);
 
     //verifies existence of initial states components in initial states declaration
@@ -497,7 +496,7 @@ void spec_driver::semantic_checks(ProblemNode node)
 {
     //saves a list of components ids
     vector<string> comp_ids;
-    for(vector<Component>::iterator it = node.ref_node->net_model->components.begin(); it != node.ref_node->net_model->components.end(); it++)
+    for(vector<NetComponent>::iterator it = node.ref_node->net_model->components.begin(); it != node.ref_node->net_model->components.end(); it++)
         comp_ids.push_back((*it).name);
 
     //verifies existence of initial states components in initial states declaration

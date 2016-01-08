@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     ../SharedClasses/terminal.cpp \
     ../SharedClasses/transition.cpp \
     ../SharedClasses/pattern.cpp \
-    ../SharedClasses/statedata_strlist.cpp
+    ../SharedClasses/statedata_strlist.cpp \
+    ../SharedClasses/netcomponent.cpp
 
 OTHER_FILES += \
     specparser.yy \
@@ -46,7 +47,8 @@ HEADERS += \
     ../SharedClasses/transition.h \
     ../SharedClasses/utils.h \
     ../SharedClasses/pattern.h \
-    ../SharedClasses/statedata_strlist.h
+    ../SharedClasses/statedata_strlist.h \
+    ../SharedClasses/netcomponent.h
 
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
                "./Libraries/boost_1_59_0" \

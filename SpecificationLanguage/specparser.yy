@@ -96,10 +96,10 @@ TILDE "~"
 %type <vector<pair<string,string> > > ref_list
 %type <pair<string,string> > ref
 %type <NetworkModel>  net_model_decl
-%type <vector<Component> > component_section
+%type <vector<NetComponent> > component_section
 %type <vector<pair<pair<string,string>,pair<string,string> > > > link_section
-%type <vector<Component> > decl_list
-%type <vector<Component> > decl
+%type <vector<NetComponent> > decl_list
+%type <vector<NetComponent> > decl
 %type <vector<pair<pair<string,string>,pair<string,string> > > > link_list
 %type <pair<pair<string,string>,pair<string,string> > > link_decl
 %type <vector<Pattern> > pattern_section

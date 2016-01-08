@@ -14,6 +14,7 @@
 
 
 std::ostream& operator<<(std::ostream& out, const ComponentModel& cm);
+std::ostream& operator<<(std::ostream& out, const NetComponent& cm);
 std::ostream& operator<<(std::ostream& out, const Component& cm);
 
 template <class T>

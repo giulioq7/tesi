@@ -3,6 +3,7 @@
 
 
 #include "systemnode.h"
+#include "component.h"
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -25,6 +26,8 @@ class ProblemNode
         ar & observation;
         ar & index_space;
         ar & depends;
+        ar & patt_map;
+        ar & patt_indexes_map;
     }
 
 public:
@@ -45,6 +48,9 @@ public:
     astl::DFA_map<astl::strings,StateData_str> *index_space;
 
     vector<int> depends;
+
+    map<std::string,Terminal*> patt_map;
+    map<std::string,vector<int> > patt_indexes_map;
 
     ProblemNode(){/*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}
     ProblemNode(std::string str){ name = str; /*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}

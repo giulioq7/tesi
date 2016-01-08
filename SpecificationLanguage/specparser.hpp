@@ -343,7 +343,7 @@ namespace yy {
       // component_section
       // decl_list
       // decl
-      char dummy15[sizeof(vector<Component> )];
+      char dummy15[sizeof(vector<NetComponent> )];
 
       // pattern_section
       // pattern_list
@@ -505,7 +505,7 @@ namespace yy {
 
   basic_symbol (typename Base::kind_type t, const string v, const location_type& l);
 
-  basic_symbol (typename Base::kind_type t, const vector<Component>  v, const location_type& l);
+  basic_symbol (typename Base::kind_type t, const vector<NetComponent>  v, const location_type& l);
 
   basic_symbol (typename Base::kind_type t, const vector<Pattern>  v, const location_type& l);
 
@@ -1108,7 +1108,7 @@ namespace yy {
       case 63: // component_section
       case 64: // decl_list
       case 65: // decl
-        value.copy< vector<Component>  > (other.value);
+        value.copy< vector<NetComponent>  > (other.value);
         break;
 
       case 69: // pattern_section
@@ -1233,7 +1233,7 @@ namespace yy {
       case 63: // component_section
       case 64: // decl_list
       case 65: // decl
-        value.copy< vector<Component>  > (v);
+        value.copy< vector<NetComponent>  > (v);
         break;
 
       case 69: // pattern_section
@@ -1390,7 +1390,7 @@ namespace yy {
   {}
 
   template <typename Base>
-  spec_parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const vector<Component>  v, const location_type& l)
+  spec_parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const vector<NetComponent>  v, const location_type& l)
     : Base (t)
     , value (v)
     , location (l)
@@ -1536,7 +1536,7 @@ namespace yy {
       case 63: // component_section
       case 64: // decl_list
       case 65: // decl
-        value.template destroy< vector<Component>  > ();
+        value.template destroy< vector<NetComponent>  > ();
         break;
 
       case 69: // pattern_section
@@ -1667,7 +1667,7 @@ namespace yy {
       case 63: // component_section
       case 64: // decl_list
       case 65: // decl
-        value.move< vector<Component>  > (s.value);
+        value.move< vector<NetComponent>  > (s.value);
         break;
 
       case 69: // pattern_section

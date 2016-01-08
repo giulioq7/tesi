@@ -41,10 +41,10 @@ std::string NetworkModel::not_trans(std::string operand)
 }
 
 
-Component* NetworkModel::find_component(std::string id)
+NetComponent *NetworkModel::find_component(std::string id)
 {
-    Component* ref = NULL;
-    for(vector<Component>::iterator it = components.begin(); it != components.end(); it++)
+    NetComponent* ref = NULL;
+    for(vector<NetComponent>::iterator it = components.begin(); it != components.end(); it++)
     {
         if((*it).name == id)
         {

@@ -24,7 +24,7 @@ DFA_map<Transition,StateData_str>::state_type ProblemNode::find_initial_state(st
     {
         if(it->second == str)
         {
-            Component *c = ref_node->net_model->find_component(str);
+            NetComponent *c = ref_node->net_model->find_component(str);
             DFA_map<Transition,StateData_str>::state_type state = c->model->find_state(it->first);
             return state;
         }

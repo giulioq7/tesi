@@ -324,7 +324,7 @@ namespace yy {
       case 63: // component_section
       case 64: // decl_list
       case 65: // decl
-        value.move< vector<Component>  > (that.value);
+        value.move< vector<NetComponent>  > (that.value);
         break;
 
       case 69: // pattern_section
@@ -447,7 +447,7 @@ namespace yy {
       case 63: // component_section
       case 64: // decl_list
       case 65: // decl
-        value.copy< vector<Component>  > (that.value);
+        value.copy< vector<NetComponent>  > (that.value);
         break;
 
       case 69: // pattern_section
@@ -846,7 +846,7 @@ namespace yy {
       case 63: // component_section
       case 64: // decl_list
       case 65: // decl
-        yylhs.value.build< vector<Component>  > ();
+        yylhs.value.build< vector<NetComponent>  > ();
         break;
 
       case 69: // pattern_section
@@ -1112,7 +1112,7 @@ namespace yy {
 #line 245 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                         driver.current_net_model = NetworkModel();
-                        driver.current_net_model.components = yystack_[0].value.as< vector<Component>  > ();
+                        driver.current_net_model.components = yystack_[0].value.as< vector<NetComponent>  > ();
                     }
 #line 1118 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
@@ -1133,7 +1133,7 @@ namespace yy {
                         driver.error(loc, msg);
                     }
                     yylhs.value.as< NetworkModel > ().name = yystack_[12].value.as< string > ();
-                    yylhs.value.as< NetworkModel > ().components = yystack_[10].value.as< vector<Component>  > ();
+                    yylhs.value.as< NetworkModel > ().components = yystack_[10].value.as< vector<NetComponent>  > ();
                     yylhs.value.as< NetworkModel > ().inputs = yystack_[8].value.as< vector<string>  > ();
                     yylhs.value.as< NetworkModel > ().outputs = yystack_[7].value.as< vector<string>  > ();
                     yylhs.value.as< NetworkModel > ().links = yystack_[6].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ();
@@ -1149,25 +1149,25 @@ namespace yy {
 
   case 32:
 #line 284 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Component>  > () = yystack_[1].value.as< vector<Component>  > (); }
+    { yylhs.value.as< vector<NetComponent>  > () = yystack_[1].value.as< vector<NetComponent>  > (); }
 #line 1154 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 33:
 #line 287 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[2].value.as< vector<Component>  > ()); yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[0].value.as< vector<Component>  > ()); }
+    { yylhs.value.as< vector<NetComponent>  > () = Utils::merge(yylhs.value.as< vector<NetComponent>  > (),yystack_[2].value.as< vector<NetComponent>  > ()); yylhs.value.as< vector<NetComponent>  > () = Utils::merge(yylhs.value.as< vector<NetComponent>  > (),yystack_[0].value.as< vector<NetComponent>  > ()); }
 #line 1160 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 34:
 #line 288 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Component>  > () = Utils::merge(yylhs.value.as< vector<Component>  > (),yystack_[0].value.as< vector<Component>  > ()); }
+    { yylhs.value.as< vector<NetComponent>  > () = Utils::merge(yylhs.value.as< vector<NetComponent>  > (),yystack_[0].value.as< vector<NetComponent>  > ()); }
 #line 1166 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 
   case 35:
 #line 291 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
-    { yylhs.value.as< vector<Component>  > () = driver.build_components(yystack_[2].value.as< vector<string>  > (),yystack_[0].value.as< string > ());  }
+    { yylhs.value.as< vector<NetComponent>  > () = driver.build_components(yystack_[2].value.as< vector<string>  > (),yystack_[0].value.as< string > ());  }
 #line 1172 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
 

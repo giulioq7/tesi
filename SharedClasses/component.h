@@ -3,7 +3,7 @@
 
 #include <string>
 #include "componentmodel.h"
-#include "terminal.h"
+#include "systransition.h"
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -29,7 +29,7 @@ public:
 
     std::string name;
     ComponentModel* model;
-    astl::DFA_map<Transition,StateData_str> *automaton;
+    astl::DFA_map<SysTransition,StateData_str> *automaton;
     vector<Terminal*> input_terminals;
     vector<Terminal*> output_terminals;
 

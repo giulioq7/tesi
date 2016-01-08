@@ -13,6 +13,17 @@ ostream& operator<<(ostream& out, const ComponentModel& cm)
 }
 
 
+ostream& operator<<(ostream& out, const NetComponent& c)
+{
+    out << "NetComponent: " << c.name
+               << ", model ";
+    if(c.model != NULL) out << c.model->name;
+    else out << "<null>";
+    return out;
+}
+
+
+
 ostream& operator<<(ostream& out, const Component& c)
 {
     out << "Component: " << c.name

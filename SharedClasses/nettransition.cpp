@@ -5,7 +5,7 @@ NetTransition::NetTransition()
 }
 
 
-NetTransition::NetTransition(Transition* t, Component* c)
+NetTransition::NetTransition(Transition* t, NetComponent *c)
 {
     trans = t;
     component = c;
