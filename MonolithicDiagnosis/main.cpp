@@ -6,6 +6,7 @@
 #include "astl.h"
 #include "systransition.h"
 #include "behaviorstate.h"
+#include <unordered_map>
 
 using namespace std;
 using namespace astl;
@@ -120,17 +121,15 @@ int main()
          m++;
      }
 
-     map<int,DFA_map<SysTransition,BehaviorState>::state_type> hash_values;
-     boost::hash<std::string> string_hash;
+     unordered_map<string,DFA_map<SysTransition,BehaviorState>::state_type> hash_values;
      stringstream ss;
      ss << tag_s0;
-     unsigned int h = string_hash(ss.str());
-     //cout << h;
      DFA_map<SysTransition,BehaviorState>::state_type s0 = behavior.new_state();
      behavior.tag(s0) = tag_s0;
      behavior.tag(s0).set_number(s0);
      behavior.initial(s0);
-     hash_values[h] = s0;
+     //hash_values[h] = s0;
+     hash_values[ss.str()] = s0;
 
      cout << "Starting cycle..." << endl;
      DFA_map<SysTransition,BehaviorState>::const_iterator it_s;
@@ -179,6 +178,7 @@ int main()
                                  tag_s1.I[index_node] = fc_I[index_node].aim();
                              //else: index space is unchanged (transition is not observable)
 
+                             //updates input terminal values after doing component transition
                              t.effects(tag_s1.E);
 
                              NetTransition nt = t.net_trans;
@@ -193,6 +193,8 @@ int main()
                                         //cout << tag_s1;
                                         StateData_strList patt_events = fc_P[i].aim_tag();
                                         //cout << "Pattern event: " << patt_events;
+                                        if(patt_events.elements.size() > 1)
+                                            cout << "Multiple patterns!" << endl;
                                         std::set<std::string>::iterator it_patt;
                                         for(it_patt = patt_events.elements.begin(); it_patt != patt_events.elements.end(); it_patt++)
                                         {
@@ -244,15 +246,15 @@ int main()
                              }
                              stringstream s_str;
                              s_str << tag_s1;
-                             unsigned int h = string_hash(s_str.str());
+                             string str = s_str.str();
                              DFA_map<SysTransition,BehaviorState>::state_type s1;
-                             try{ s1 = hash_values.at(h);}
+                             try{ s1 = hash_values.at(str);}
                              catch (const std::out_of_range&)
                              {
                                 s1 = behavior.new_state();
                                 behavior.tag(s1) = tag_s1;
                                 //behavior.tag(s1).set_number(s1);
-                                hash_values[h] = s1;
+                                hash_values[str] = s1;
 
                                 //checks if the new state is final, so if all current states of index spaces are final and all links are empty
                                 bool is_final = true;
@@ -324,7 +326,18 @@ int main()
      elapsedTime += (stop.tv_usec - start.tv_usec) / 1000.0;            // us to ms
 
      //stampa
-     cout << elapsedTime << " ms.\n";
+     string udm = "ms";
+     if(elapsedTime > 60000)
+     {
+         elapsedTime /= 60000;
+         udm = "min";
+     }
+     if(elapsedTime > 100)
+     {
+         elapsedTime /= 1000;
+         udm = "sec";
+     }
+     cout << elapsedTime << udm << endl;
      cout << "Number of states(Spurious bhv) : " << behavior.state_count() << endl;
      cout << "Number of transitions(Spurious bhv) : " << behavior.trans_count() << endl;
 
