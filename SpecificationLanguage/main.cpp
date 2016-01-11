@@ -106,8 +106,7 @@ int main(int argc, char** argv)
     full_dot(file, dfirst_markc(*driver.components[0].automaton)); // write tags
     file.close();*/
 
-    vector<NetworkModel>::iterator it;
-    for(it = driver.networks.begin(); it != driver.networks.end(); it++)
+    for(vector<NetworkModel>::iterator it = driver.networks.begin(); it != driver.networks.end(); it++)
     {
         int num_pts = 0;
         vector<Pattern> remaining = it->patterns;
@@ -166,6 +165,17 @@ int main(int argc, char** argv)
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
            it->make_terminals();
 
+    for(vector<std::pair<std::pair<std::string,std::string>,std::pair<std::string,std::string> > >::iterator it = driver.system.emergence.begin(); it != driver.system.emergence.end(); it++)
+    {
+        Terminal *t1, *t2;
+        ProblemNode *n1, *n2;
+        n1 = Utils::find_from_id(driver.problem.nodes, it->first.second);
+        t1 = Utils::findptr_from_id(n1->output_terminals, it->first.first);
+        n2 = Utils::find_from_id(driver.problem.nodes, it->second.second);
+        t2 = Utils::findptr_from_id(n2->input_terminals, it->second.first);
+        t1->linked_terminals.push_back(t2);
+    }
+
     vector<Terminal*> input_terminals;
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
@@ -185,6 +195,19 @@ int main(int argc, char** argv)
 
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
+         vector<Terminal*> lazy_input_terminals;
+         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
+         {
+             for(vector<Terminal*>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
+                 lazy_input_terminals.push_back(*it3);
+         }
+         map<Terminal*,int> lazy_term_map;
+         int m = 0;
+         for(vector<Terminal*>::iterator i = lazy_input_terminals.begin(); i != lazy_input_terminals.end(); i++)
+         {
+             lazy_term_map[*i] = m;
+             m++;
+         }
         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
         {
             it2->automaton = new DFA_map<SysTransition,StateData_str>();
@@ -209,49 +232,46 @@ int main(int argc, char** argv)
                     Transition *simple = nc->model->find_trans(bfc.letter().name);
                     SysTransition t(simple,nc,it->ref_node);
                     t.input_event = make_pair(t.trans->input_event.first, term_map[it2->find_input_terminal(t.trans->input_event.second)]);
+                    t.lazy_input_event = make_pair(t.trans->input_event.first, lazy_term_map[it2->find_input_terminal(t.trans->input_event.second)]);
                     for(vector<std::pair<std::string,std::string> >::iterator i = t.trans->out_events.begin(); i!= t.trans->out_events.end(); i++)
                     {
                         Terminal *out_term = it2->find_output_terminal(i->second);
-                        vector<int> list;
+                        vector<int> list,lazy_list;
                         for(vector<Terminal*>::iterator j = out_term->linked_terminals.begin(); j != out_term->linked_terminals.end(); j++)
+                        {
                             list.push_back(term_map[*j]);
+                            lazy_list.push_back(lazy_term_map[*j]);
+                        }
                         t.output_events.push_back(make_pair(i->first,list));
+                        t.lazy_output_events.push_back(make_pair(i->first,lazy_list));
                     }
                     it2->automaton->set_trans(bfc.src(),t,bfc.aim());
                 }while(bfc.next());
             }
             it2->model->automaton->initial(it2->model->automaton->null_state);
         }
-    }
-
-    for(vector<std::pair<std::pair<std::string,std::string>,std::pair<std::string,std::string> > >::iterator it = driver.system.emergence.begin(); it != driver.system.emergence.end(); it++)
-    {
-        Terminal *t1, *t2;
-        ProblemNode *n1, *n2;
-        n1 = Utils::find_from_id(driver.problem.nodes, it->first.second);
-        t1 = Utils::findptr_from_id(n1->output_terminals, it->first.first);
-        n2 = Utils::find_from_id(driver.problem.nodes, it->second.second);
-        t2 = Utils::findptr_from_id(n2->input_terminals, it->second.first);
-        t1->linked_terminals.push_back(t2);
-    }
-
-    for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
-    {
         for(vector<Pattern>::iterator it2 = it->ref_node->net_model->patterns.begin(); it2 != it->ref_node->net_model->patterns.end(); it2++)
         {
             Terminal *out = Utils::findptr_from_id(it->output_terminals,it2->get_terminal_id());
             it->patt_map[it2->name] = out;
-            vector<int> list;
+            vector<int> list, lazy_list;
             //searches all network input terminals linked to out terminal
             for(vector<Terminal*>::iterator it3 = out->linked_terminals.begin(); it3 != out->linked_terminals.end(); it3++)
             {
                 //searches all component input terminals linked to network input terminal
                 for(vector<Terminal*>::iterator it4 = (*it3)->linked_terminals.begin(); it4 != (*it3)->linked_terminals.end(); it4++)
+                {
                     list.push_back(term_map[*it4]);
+                    lazy_list.push_back(lazy_term_map[*it4]);
+                }
             }
             it->patt_indexes_map[it2->name] = list;
+            it->lazy_patt_indexes_map[it2->name] = lazy_list;
         }
     }
+
+
+
 
     // save data to archive
     {

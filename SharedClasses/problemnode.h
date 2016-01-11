@@ -28,6 +28,7 @@ class ProblemNode
         ar & depends;
         ar & patt_map;
         ar & patt_indexes_map;
+        ar & lazy_patt_indexes_map;
     }
 
 public:
@@ -51,6 +52,7 @@ public:
 
     map<std::string,Terminal*> patt_map;
     map<std::string,vector<int> > patt_indexes_map;
+    map<std::string,vector<int> > lazy_patt_indexes_map;
 
     ProblemNode(){/*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}
     ProblemNode(std::string str){ name = str; /*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}

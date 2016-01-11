@@ -20,6 +20,8 @@ class SysTransition : public CHAR_TRAITS<SysTransition>
         ar & node;
         ar & input_event;
         ar & output_events;
+        ar & lazy_input_event;
+        ar & lazy_output_events;
         ar & net_trans;
         ar & t_name_c_name;
     }
@@ -30,6 +32,8 @@ public:
     SystemNode* node;
     pair<std::string, int> input_event;
     vector<pair<std::string,vector<int> > > output_events;
+    pair<std::string, int> lazy_input_event;
+    vector<pair<std::string,vector<int> > > lazy_output_events;
     NetTransition net_trans;
     pair<string, string> t_name_c_name;
 

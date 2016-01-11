@@ -59,13 +59,12 @@ int main()
 
      gettimeofday(&start, NULL);
 
-     vector<Component*> all_components;
      vector< forward_cursor<DFA_map<SysTransition,StateData_str> > > fc_S;
      vector< forward_cursor<DFA_map<NetTransition,StateData_strList> > > fc_P;
      vector< forward_cursor<DFA_map<strings,StateData_str> > > fc_I;
-     vector<Terminal*> input_terminals;
      DFA_map<SysTransition,BehaviorState> behavior;
      BehaviorState tag_s0(problem.concrete_components_count(),problem.input_terminals_count(),system.pts_count(),problem.nodes.size());
+
      int index_comp = 0;
      int index_term = 0;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
@@ -74,61 +73,52 @@ int main()
          {
              for(vector<Terminal*>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
              {
-                 input_terminals.push_back(*it3);
-                 tag_s0.E[index_term++] = (*it3)->value;
+                 tag_s0.E[index_term] = (*it3)->value;
+                 index_term++;
              }
              forward_cursor<DFA_map<SysTransition,StateData_str> > fc(*it2->automaton,it2->automaton->initial());
              fc_S.push_back(fc);
              tag_s0.S[index_comp] = fc.src();
              index_comp++;
-             all_components.push_back(&(*it2));
          }
      }
      int pattern_indexes[system.node_list.size()][2];
-     int node_index = 0;
-     int patt_index = 0;
+     int index_node = 0;
+     int index_patt = 0;
      for(vector<SystemNode>::iterator it = system.node_list.begin(); it != system.node_list.end(); it++)
      {
          if(it->net_model->pattern_space.empty())
-             pattern_indexes[node_index][0] = pattern_indexes[node_index][1] = -1;
+             pattern_indexes[index_node][0] = pattern_indexes[index_node][1] = -1;
          else
-            pattern_indexes[node_index][0] = patt_index;
+            pattern_indexes[index_node][0] = index_patt;
          for(vector<astl::DFA_map<NetTransition,StateData_strList> *>::iterator it2 = it->net_model->pattern_space.begin(); it2 != it->net_model->pattern_space.end(); it2++)
          {
              forward_cursor<DFA_map<NetTransition,StateData_strList> > fc(**it2,(*it2)->initial());
              fc_P.push_back(fc);
-             tag_s0.P[patt_index] = fc.src();
-             patt_index++;
+             tag_s0.P[index_patt] = fc.src();
+             index_patt++;
          }
          if(!it->net_model->pattern_space.empty())
-             pattern_indexes[node_index][1] = patt_index;
-         node_index++;
+             pattern_indexes[index_node][1] = index_patt;
+         index_node++;
      }
-     index_comp = 0;
+     index_node = 0;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
      {
          forward_cursor<DFA_map<strings,StateData_str> > fc(*it->index_space,it->index_space->initial());
          fc_I.push_back(fc);
-         tag_s0.I[index_comp] = fc.src();
-         index_comp++;
+         tag_s0.I[index_node] = fc.src();
+         index_node++;
      }
 
-     map<Terminal*,int> term_map;
-     int m = 0;
-     for(vector<Terminal*>::iterator it = input_terminals.begin(); it != input_terminals.end(); it++)
-     {
-         term_map[*it] = m;
-         m++;
-     }
 
      unordered_map<string,DFA_map<SysTransition,BehaviorState>::state_type> hash_values;
      stringstream ss;
      ss << tag_s0;
      DFA_map<SysTransition,BehaviorState>::state_type s0 = behavior.new_state();
      behavior.tag(s0) = tag_s0;
-     behavior.tag(s0).set_number(s0);
+     //behavior.tag(s0).set_number(s0);
      behavior.initial(s0);
-     //hash_values[h] = s0;
      hash_values[ss.str()] = s0;
 
      cout << "Starting cycle..." << endl;
@@ -139,7 +129,7 @@ int main()
          //if(behavior.tag(s0).is_marked())
              //continue;
          index_comp = 0;
-         int index_node = 0;
+         index_node = 0;
 
          for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
          {
@@ -198,32 +188,6 @@ int main()
                                         std::set<std::string>::iterator it_patt;
                                         for(it_patt = patt_events.elements.begin(); it_patt != patt_events.elements.end(); it_patt++)
                                         {
-                                            /*//Pattern *p = Utils::find_from_id(it->ref_node->net_model->patterns,*it_patt);
-                                            //cout << *p;
-                                            //retrieves network output terminal relative to pattern
-                                            //Terminal *out = Utils::findptr_from_id(it->output_terminals,p->get_terminal_id());
-                                            Terminal *out = it->patt_map[*it_patt];
-                                            //cout << *out << endl;
-                                            vector<Terminal*>::iterator it_term;
-                                            //searches all network input terminals linked to out terminal
-                                            for(it_term = out->linked_terminals.begin(); it_term != out->linked_terminals.end(); it_term++)
-                                            {
-                                                vector<Terminal*>::iterator it_term2;
-                                                bool empty_t = true;
-                                                //searches all component input terminals linked to network input terminal
-                                                for(it_term2 = (*it_term)->linked_terminals.begin(); it_term2 != (*it_term)->linked_terminals.end(); it_term2++)
-                                                {
-                                                    if(tag_s1.E[term_map[*it_term2]] != "<eps>")
-                                                        empty_t = false;
-                                                }
-                                                if(empty_t)
-                                                {
-                                                    for(it_term2 = (*it_term)->linked_terminals.begin(); it_term2 != (*it_term)->linked_terminals.end(); it_term2++)
-                                                    {
-                                                        tag_s1.E[term_map[*it_term2]] = *it_patt;
-                                                    }
-                                                }
-                                            }*/
                                             bool empty_t = true;
                                             vector<int> list = it->patt_indexes_map[*it_patt];
                                             vector<int>::iterator it_i;
@@ -352,6 +316,8 @@ int main()
      full_dot(file2, dfirst_markc(bhv));
      //std::system("dot -Tjpg behavior.xdot > behavior.jpg");
 
+
+     //delete pointers to free memory
      for(vector<ComponentModel>::iterator it = comp_models.begin(); it != comp_models.end(); it++)
          delete it->automaton;
      for(vector<NetworkModel>::iterator it = net_models.begin(); it != net_models.end(); it++)
