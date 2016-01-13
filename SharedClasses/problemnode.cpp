@@ -60,3 +60,16 @@ void ProblemNode::make_terminals()
         t->linked_terminals.push_back(find_component(it->second.second)->find_input_terminal(it->second.first));
     }
 }
+
+
+int ProblemNode::input_terminals_count()
+{
+    int count = 0;
+    for(vector<Component>::iterator it = concrete_components.begin(); it != concrete_components.end(); it++)
+    {
+        for(vector<Terminal*>::iterator it2 = it->input_terminals.begin(); it2 != it->input_terminals.end(); it2++)
+            count++;
+    }
+
+    return count;
+}

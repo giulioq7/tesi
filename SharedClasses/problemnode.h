@@ -59,6 +59,8 @@ public:
     Component* find_component(std::string id);
     void make_terminals();
 
+    int input_terminals_count();
+
     astl::DFA_map<Transition,StateData_str>::state_type find_initial_state(std::string str);
 };
 

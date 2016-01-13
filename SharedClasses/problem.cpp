@@ -20,7 +20,7 @@ ProblemNode* Problem::find_node(std::string id)
 
 int Problem::find_index(std::string id)
 {
-    for(int i=0; i<nodes.size(); i++)
+    for(unsigned int i=0; i<nodes.size(); i++)
     {
         if(nodes.at(i).name == id)
             return i;

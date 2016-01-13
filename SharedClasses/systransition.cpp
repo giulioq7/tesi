@@ -18,8 +18,13 @@ SysTransition::SysTransition(Transition* t, NetComponent *c, SystemNode *n)
     t_name_c_name = make_pair(trans->name, component->name);
 }
 
-bool SysTransition::is_triggerable(vector<string> &E)
+bool SysTransition::is_triggerable(vector<string> &E, bool lazy)
 {
+    if(lazy)
+    {
+        input_event = lazy_input_event;
+        output_events = lazy_output_events;
+    }
     //verifies that event is available at input terminal of the component
     if(input_event.first != "" && input_event.first != E[input_event.second])
         return false;
@@ -37,8 +42,13 @@ bool SysTransition::is_triggerable(vector<string> &E)
     return true;
 }
 
-void SysTransition::effects(vector<string> &E)
+void SysTransition::effects(vector<string> &E, bool lazy)
 {
+    if(lazy)
+    {
+        input_event = lazy_input_event;
+        output_events = lazy_output_events;
+    }
     if(input_event.first != "")
         E[input_event.second] = "<eps>";
     vector<pair<std::string, vector<int> > >::iterator it;

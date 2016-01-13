@@ -37,11 +37,12 @@ public:
     NetTransition net_trans;
     pair<string, string> t_name_c_name;
 
+
     SysTransition();
     SysTransition(Transition *t, NetComponent* c, SystemNode* n);
 
-    bool is_triggerable(vector<string> &E);
-    void effects(vector<string> &E);
+    bool is_triggerable(vector<string> &E, bool lazy = false);
+    void effects(vector<string> &E, bool lazy = false);
 
     //required definitions to use a SysTransition as automata alphabet for astl lib
     typedef SysTransition char_type;
