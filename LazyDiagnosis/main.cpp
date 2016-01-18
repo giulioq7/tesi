@@ -10,6 +10,8 @@
 #include "interfacestate.h"
 #include "interfacetrans.h"
 
+#define EMPTY_LINK_FINAL false
+
 using namespace std;
 using namespace astl;
 
@@ -55,43 +57,123 @@ int main()
        // archive and stream closed when destructors are called
     }
 
+    timeval start, stop;
+    double elapsedTime;
+    gettimeofday(&start, NULL);
+
     vector<DFA_map<InterfaceTrans,InterfaceState>*> interfaces(problem.nodes.size());
-    int index_node = problem.topological_order[0];
-    DFA_map<InterfaceTrans,BehaviorState> behavior, bhv;
-    vector<int> dependency = problem.nodes[index_node].depends;
-    build_behavior(behavior, bhv, problem, system,index_node, interfaces, dependency);
-    NFA_mmap<InterfaceTrans,BehaviorState> nfa;
-    to_nfa(bhv,nfa);
-    DFA_map<InterfaceTrans,InterfaceState> inter;
-    Determinization::NFAtoDFA(bhv,nfa,problem.nodes[index_node].ruler,inter);
-    interfaces[index_node] = &inter;
+    for(int i=0; i<interfaces.size(); i++)
+        interfaces[i] = new DFA_map<InterfaceTrans,InterfaceState>;
+    vector<DFA_map<InterfaceTrans,BehaviorState>*> bhvs(problem.nodes.size());
+    for(int i=0; i<bhvs.size(); i++)
+        bhvs[i] = new DFA_map<InterfaceTrans,BehaviorState>;
+    vector<DFA_map<InterfaceTrans,BehaviorState>*> spurious_bhvs(problem.nodes.size());
+    for(int i=0; i<spurious_bhvs.size(); i++)
+        spurious_bhvs[i] = new DFA_map<InterfaceTrans,BehaviorState>;
+    int i=0;
 
-    ofstream file;
-    file.open("behavior.xdot");
-    full_dot(file, dfirst_markc(bhv));
+    for(vector<int>::iterator it = problem.topological_order.begin(); it != problem.topological_order.end(); it++)
+    {
+        DFA_map<InterfaceTrans,BehaviorState> behavior;
+        vector<int> dependency = problem.nodes[*it].depends;
+        build_behavior(*spurious_bhvs[*it], *bhvs[*it], problem, system, *it, interfaces, dependency);
 
-    ofstream file2;
-    file2.open("interface.xdot");
-    full_dot(file2, dfirst_markc(inter));
+         if(i == problem.topological_order.size()-1)
+         {
+             DFA_map<InterfaceTrans,BehaviorState>::const_iterator c;
+             for(c = bhvs[*it]->begin(); c != bhvs[*it]->end(); c++)
+             {
+                 if(bhvs[*it]->final(*c))
+                    bhvs[*it]->tag(*c).candidate_diagnosis = set<set<string> >();
+             }
+             bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis.insert(set<string>());
+             Decoration::decorate_lazy_bhv(*bhvs[*it],bhvs[*it]->initial(),bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis, problem.nodes[*it].ruler, interfaces, dependency);
+
+             set<set<string> > diagnosis;
+             for(c = bhvs[*it]->begin(); c != bhvs[*it]->end(); c++)
+             {
+                 //cout << "State " << *c << " : " << bhv.tag(*c).candidate_diagnosis << endl;
+                 if(bhvs[*it]->final(*c))
+                 {
+                     std::set<std::set<std::string> >::iterator it2;
+                     for(it2 = bhvs[*it]->tag(*c).candidate_diagnosis.begin(); it2 != bhvs[*it]->tag(*c).candidate_diagnosis.end(); it2++)
+                        diagnosis.insert(*it2);
+                 }
+             }
+             cout << "Diagnosis: " << diagnosis << endl;
+
+             break;
+         }
+
+         NFA_mmap<InterfaceTrans,BehaviorState> nfa;
+         to_nfa(*bhvs[*it],nfa);
+         Determinization::NFAtoDFA(*bhvs[*it],nfa,problem.nodes[*it].ruler,*interfaces[*it]);
+
+        i++;
+    }
+
+    //qui si riprende il tempo finale per fare la differenze
+     gettimeofday(&stop, NULL);
+
+     //calcolo delle differenze
+     elapsedTime = (stop.tv_sec - start.tv_sec) * 1000.0;               // sec to ms
+     elapsedTime += (stop.tv_usec - start.tv_usec) / 1000.0;            // us to ms
+
+     //stampa
+     string udm = "ms";
+     if(elapsedTime > 60000)
+     {
+         elapsedTime /= 60000;
+         udm = "min";
+     }
+     if(elapsedTime > 100)
+     {
+         elapsedTime /= 1000;
+         udm = "sec";
+     }
+     cout << elapsedTime << udm << endl;
 
 
-    index_node = problem.topological_order[1];
-    DFA_map<InterfaceTrans,BehaviorState> behavior2, bhv2;
-    vector<int> dependency2 = problem.nodes[index_node].depends;
-    build_behavior(behavior2, bhv2, problem, system, index_node, interfaces, dependency2);
-    NFA_mmap<InterfaceTrans,BehaviorState> nfa2;
-    to_nfa(bhv2,nfa2);
-    DFA_map<InterfaceTrans,InterfaceState> inter2;
-    Determinization::NFAtoDFA(bhv2,nfa2,problem.nodes[index_node].ruler,inter2);
-    interfaces[index_node] = &inter2;
+     for(int i=0; i<bhvs.size(); i++)
+     {
+         string name = "behavior_";
+         stringstream ss;
+         ss << i;
+         name.append(ss.str());
+         ofstream file;
+         file.open(name.c_str());
+         full_dot(file, dfirst_markc(*bhvs[i]));
 
-    ofstream file3;
-    file3.open("behavior2.xdot");
-    full_dot(file3, dfirst_markc(bhv2));
+         delete bhvs[i];
+     }
 
-    ofstream file4;
-    file4.open("interface2.xdot");
-    full_dot(file4, dfirst_markc(inter2));
+
+     for(int i=0; i<spurious_bhvs.size(); i++)
+     {
+         string name = "behavior_spurious_";
+         stringstream ss;
+         ss << i;
+         name.append(ss.str());
+         ofstream file;
+         file.open(name.c_str());
+         full_dot(file, dfirst_markc(*spurious_bhvs[i]));
+
+         delete spurious_bhvs[i];
+     }
+
+
+     for(int i=0; i<interfaces.size(); i++)
+     {
+         string name = "interface_";
+         stringstream ss;
+         ss << i;
+         name.append(ss.str());
+         ofstream file;
+         file.open(name.c_str());
+         full_dot(file, dfirst_markc(*interfaces[i]));
+
+         delete interfaces[i];
+     }
 
     return 0;
 }
@@ -233,6 +315,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                                is_final = false;
 
                            int i=0;
+                           set<set<string> > diagn;
                            for(vector<int>::iterator it = dependency.begin(); it != dependency.end(); it++)
                            {
                                if(!interfaces[*it]->final(tag_s1.interfaces[i]))
@@ -240,10 +323,17 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                                    is_final = false;
                                    break;
                                }
+                               set<set<string> > current = interfaces[*it]->tag(tag_s1.interfaces[i]).get_delta();
+                               set_union(diagn.begin(),diagn.end(),current.begin(),current.end(),std::inserter(diagn,diagn.end()));
                                i++;
                            }
-                           if(is_final)
-                               is_final = tag_s1.empty_terminals();
+                           if(EMPTY_LINK_FINAL)
+                           {
+                               if(is_final)
+                                    is_final = tag_s1.empty_terminals();
+                           }
+                           //if(is_final)
+                               //behavior.tag(s1).candidate_diagnosis = diagn;
                            behavior.final(s1) = is_final;
                         }
                         behavior.set_trans(s0,t,s1);
@@ -312,6 +402,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                            is_final = false;
 
                        int i=0;
+                       set<set<string> > diagn;
                        for(vector<int>::iterator it = dependency.begin(); it != dependency.end(); it++)
                        {
                            if(!interfaces[*it]->final(tag_s1.interfaces[i]))
@@ -319,10 +410,17 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                                is_final = false;
                                break;
                            }
+                           set<set<string> > current = interfaces[*it]->tag(tag_s1.interfaces[i]).get_delta();
+                           set_union(diagn.begin(),diagn.end(),current.begin(),current.end(),std::inserter(diagn,diagn.end()));
                            i++;
                        }
-                       if(is_final)
-                           is_final = tag_s1.empty_terminals();
+                       if(EMPTY_LINK_FINAL)
+                       {
+                           if(is_final)
+                                is_final = tag_s1.empty_terminals();
+                       }
+                       //if(is_final)
+                           //behavior.tag(s1).candidate_diagnosis = diagn;
                        behavior.final(s1) = is_final;
                     }
                     behavior.set_trans(s0,t,s1);

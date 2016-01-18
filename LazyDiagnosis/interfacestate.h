@@ -32,6 +32,8 @@ public:
     void set_state_map(map<unsigned int, unsigned int> smap);
     void set_delta(std::set<std::set<std::string> > d);
     void set_pattern_events(std::set<std::string> events);
+
+    void delete_automaton();
 };
 
 

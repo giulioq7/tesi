@@ -177,12 +177,18 @@ int main(int argc, char** argv)
     }
 
     vector<Terminal*> input_terminals;
+    multimap<Terminal*,int> lazy;
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
+        int i=0;
         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
         {
             for(vector<Terminal*>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
+            {
                 input_terminals.push_back(*it3);
+                lazy.insert(make_pair(*it3,i));
+                i++;
+            }
         }
     }
     map<Terminal*,int> term_map;
@@ -262,7 +268,8 @@ int main(int argc, char** argv)
                 for(vector<Terminal*>::iterator it4 = (*it3)->linked_terminals.begin(); it4 != (*it3)->linked_terminals.end(); it4++)
                 {
                     list.push_back(term_map[*it4]);
-                    lazy_list.push_back(lazy_term_map[*it4]);
+                    //lazy_list.push_back(lazy_term_map[*it4]);
+                    lazy_list.push_back(lazy.find(*it4)->second);
                 }
             }
             it->patt_indexes_map[it2->name] = list;

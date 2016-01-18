@@ -175,8 +175,18 @@ vector<unsigned int> Utils::topological_sort(astl::DFA_map<SIGMA,TAG>& dfa)
     vector<unsigned int> sorted;
 
     DFA_map<SIGMA,TAG> graph;
-    clone(graph,dfirst_markc(dfa));
+    typename DFA_map<SIGMA,TAG>::const_iterator it_c;
+    for(it_c = dfa.begin(); it_c != dfa.end(); it_c++)
+        graph.new_state();
     graph.initial(dfa.initial());
+    bfirst_cursor<queue_cursor<forward_cursor<DFA_map<SIGMA,TAG> > > > bfc = bfirstc(dfa), bfc_end;
+    while(bfc != bfc_end)
+    {
+        do
+        {
+            graph.set_trans(bfc.src(),bfc.letter(),bfc.aim());
+        }while(bfc.next());
+    }
 
     while(graph.begin() != graph.end())
     {

@@ -171,6 +171,8 @@ int main()
                              //updates input terminal values after doing component transition
                              t.effects(tag_s1.E);
 
+                             bool triggerable_pattern = true;
+
                              NetTransition nt = t.net_trans;
 
                              for(int i=pattern_indexes[index_node][0];i<pattern_indexes[index_node][1];i++)
@@ -196,6 +198,7 @@ int main()
                                                 if(tag_s1.E[*it_i] != "<eps>")
                                                 {
                                                     empty_t = false;
+                                                    triggerable_pattern = false;
                                                     break;
                                                 }
                                             }
@@ -204,10 +207,16 @@ int main()
                                                 for(it_i = list.begin(); it_i != list.end(); it_i++)
                                                     tag_s1.E[*it_i] = *it_patt;
                                             }
+                                            else
+                                                break;
                                         }
+                                        if(!triggerable_pattern)
+                                            break;
                                     }
                                 }
                              }
+                             if(!triggerable_pattern)
+                                 continue;
                              stringstream s_str;
                              s_str << tag_s1;
                              string str = s_str.str();
@@ -230,8 +239,8 @@ int main()
                                         break;
                                     }
                                 }
-                                if(is_final)
-                                    is_final = tag_s1.empty_terminals();
+                                //if(is_final)
+                                    //is_final = tag_s1.empty_terminals();
                                 behavior.final(s1) = is_final;
                              }
                              behavior.set_trans(s0,t,s1);

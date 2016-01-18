@@ -1,5 +1,7 @@
 #include "interfacetrans.h"
 
+using namespace astl;
+
 InterfaceTrans::InterfaceTrans()
 {
     trans = SysTransition();
@@ -36,24 +38,10 @@ bool InterfaceTrans::operator==(const InterfaceTrans t) const
 
 std::ostream& operator<<(std::ostream& out, const InterfaceTrans& t)
 {
-    stringstream ss;
-    string str;
-    ss << "[" << t.trans.name << ",";
-    set<set<string> > d = t.delta;
-    ss << "(";
-    str = ss.str();
-    for(set<set<string> >::iterator it = d.begin(); it != d.end(); it++)
-    {
-        ss << "(";
-        for(set<string>::iterator it2 = it->begin(); it2 != it->end(); it2++)
-            ss << *it2 << ",";
-        str = ss.str();
-        if(!it->empty())
-            str.resize(str.size()-1);
-        str.append(")");
-    }
-    str.append(")");
-    out << str << "]";
+    if(t.delta.empty())
+        out << t.trans.name;
+    else
+        out << "[" << t.trans.name << "," << t.delta << "]";
 
     return out;
 }

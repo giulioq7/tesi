@@ -1,4 +1,4 @@
-22 serialization::archive 13 0 0 3 0 1 0
+22 serialization::archive 13 0 0 4 0 1 0
 0 2 0 1 2 7 Breaker 3 1 0
 1 0 0 0 0 3 0 -1 6 1 0
 2 0 0 6 closed 0 0 3 0 0 0 1 0
@@ -46,3 +46,15 @@
 44 2 co 3 Cot 2 w5 0 0 4 dis1 3 con
 45 2 nc 3 Cot 2 w6 0 0 4 dis1 4 dis1
 46 2 nc 3 Cot 2 w7 0 0 4 dis2 4 dis2
+47 4 0 1 2 3 4 4 Line 3
+48 5 0 -1 6
+49 6 normal 3 0
+50 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted 2
+51 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated 3
+52 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent 4 6
+53 7 shorted 0 0 6
+54 8 isolated 0 0 6
+55 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 3 Cot 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
+56 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
+57 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
+58 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent

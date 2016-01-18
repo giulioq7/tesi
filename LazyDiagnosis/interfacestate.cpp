@@ -71,37 +71,17 @@ void InterfaceState::set_pattern_events(std::set<std::string> events)
 }
 
 
+void InterfaceState::delete_automaton()
+{
+    delete automaton;
+}
+
+
 std::ostream& operator<<(std::ostream& out, const InterfaceState& s)
 {
-    set<unsigned int> states = s.get_states();
-    stringstream ss;
-    ss << "{";
-    for(set<unsigned int>::iterator it = states.begin(); it != states.end(); it++)
-        ss << *it << ",";
-    string str(ss.str());
-    str.resize(ss.str().size()-1);
-    str.append("}");
+    out << s.get_states();
+    if(!s.get_delta().empty())
+        out << endl << s.get_delta();
 
-    set<set<string> > delta = s.get_delta();
-    if(!delta.empty())
-    {
-        str.append("\n(");
-        for(set<set<string> >::iterator it = delta.begin(); it != delta.end(); it++)
-        {
-            str.append("(");
-            for(set<string>::iterator it2 = it->begin(); it2 != it->end(); it2++)
-            {
-                str.append(*it2);
-                str.append(",");
-            }
-            if(!it->empty())
-                str.resize(str.size()-1);
-            else
-                str.append(" ");
-            str.append(")");
-        }
-        str.append(")");
-    }
-
-    return out << str;
+    return out;
 }

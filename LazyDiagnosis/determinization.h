@@ -108,9 +108,9 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
     set<unsigned int> initials = autom.initial();
     for(set<unsigned int>::iterator it = initials.begin(); it != initials.end(); it++)
     {
-        //autom.tag(*it).candidate_diagnosis = set<set<string> >();
+        autom.tag(*it).candidate_diagnosis = set<set<string> >();
         autom.tag(*it).candidate_diagnosis.insert(set<string>());
-        Decoration::decorate(autom,*it,autom.tag(*it).candidate_diagnosis, ruler);
+        Decoration::decorate_lazy_bhv(autom,*it,autom.tag(*it).candidate_diagnosis, ruler);
     }
     t.set_automaton(&autom);
     dfa.tag(s0) = t;
@@ -122,18 +122,16 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
         NFA_mmap<SIGMA,TAG> *aut = dfa.tag(s0).get_automaton();
         for(typename NFA_mmap<SIGMA,TAG>::const_iterator it = aut->begin(); it != aut->end(); it++)
         {
-            if(dfa.tag(s0).get_automaton()->final(*it))
-                set_union(delta.begin(),delta.end(),dfa.tag(s0).get_automaton()->tag(*it).candidate_diagnosis.begin(),dfa.tag(s0).get_automaton()->tag(*it).candidate_diagnosis.end(),std::inserter(delta,delta.end()));
+            if(aut->final(*it))
+                set_union(delta.begin(),delta.end(),aut->tag(*it).candidate_diagnosis.begin(),aut->tag(*it).candidate_diagnosis.end(),std::inserter(delta,delta.end()));
         }
         dfa.tag(s0).set_delta(delta);
     }
 
-    map<size_t,unsigned int> hash_values;
-    boost::hash<std::string> string_hash;
+    map<string,unsigned int> hash_values;
     stringstream ss;
     ss << t.get_states();
-    size_t h = string_hash(ss.str());
-    hash_values[h] = s0;
+    hash_values[ss.str()] = s0;
 
     vector<triple<unsigned int, SIGMA_DFA,unsigned int> > done_trans;
     for(typename DFA_map<SIGMA_DFA,TAG_DFA>::const_iterator c = dfa.begin(); c != dfa.end(); c++)
@@ -179,10 +177,12 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
                         TAG_DFA t(U);
                         stringstream s_str;
                         s_str << t.get_states();
-                        size_t h = string_hash(s_str.str());
                         unsigned int state;
-                        if(hash_values.find(h) != hash_values.end())
-                            state = hash_values[h];
+                        if(hash_values.find(s_str.str()) != hash_values.end())
+                        {
+                            state = hash_values[s_str.str()];
+                        }
+                        //catch (const std::out_of_range&)
                         else
                         {
                             autom = NFA_mmap<SIGMA,TAG>();
@@ -190,14 +190,14 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
                             set<unsigned int> initials = autom.initial();
                             for(set<unsigned int>::iterator it = initials.begin(); it != initials.end(); it++)
                             {
-                                //autom.tag(*it).candidate_diagnosis = set<set<string> >();
+                                autom.tag(*it).candidate_diagnosis = set<set<string> >();
                                 autom.tag(*it).candidate_diagnosis.insert(set<string>());
-                                Decoration::decorate(autom,*it,autom.tag(*it).candidate_diagnosis, ruler);
+                                Decoration::decorate_lazy_bhv(autom,*it,autom.tag(*it).candidate_diagnosis, ruler);
                             }
                             t.set_automaton(&autom);
                             state = dfa.new_state();
                             dfa.tag(state) = t;
-                            hash_values[h] = state;
+                            hash_values[s_str.str()] = state;
                             dfa.final(state) = is_final(nfa,dfa.tag(state).get_states());
                             if(dfa.final(state))
                             {
@@ -205,8 +205,8 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
                                 NFA_mmap<SIGMA,TAG> *aut = dfa.tag(state).get_automaton();
                                 for(typename NFA_mmap<SIGMA,TAG>::const_iterator it = aut->begin(); it != aut->end(); it++)
                                 {
-                                    if(dfa.tag(state).get_automaton()->final(*it))
-                                        set_union(delta.begin(),delta.end(),dfa.tag(state).get_automaton()->tag(*it).candidate_diagnosis.begin(),dfa.tag(state).get_automaton()->tag(*it).candidate_diagnosis.end(),std::inserter(delta,delta.end()));
+                                    if(aut->final(*it))
+                                        set_union(delta.begin(),delta.end(),aut->tag(*it).candidate_diagnosis.begin(),aut->tag(*it).candidate_diagnosis.end(),std::inserter(delta,delta.end()));
                                 }
                                 dfa.tag(state).set_delta(delta);
                             }
@@ -253,6 +253,7 @@ void Determinization::extract_subNFA(astl::DFA_map<SIGMA_DFA,TAG> &bhv, set<unsi
         if(Utils::contain(starts,current))
             sub_starts.insert(s);
         subnfa.final(s) = bhv.final(current);
+        subnfa.tag(s).candidate_diagnosis = bhv.tag(current).candidate_diagnosis;
     }
     subnfa.initial() = sub_starts;
 

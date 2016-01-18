@@ -1,6 +1,7 @@
 #ifndef INTERFACETRANS_H
 #define INTERFACETRANS_H
 
+#include "astl.h"
 #include "systransition.h"
 
 class InterfaceTrans
