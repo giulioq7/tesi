@@ -10,7 +10,7 @@
 #include "interfacestate.h"
 #include "interfacetrans.h"
 
-#define EMPTY_LINK_FINAL false
+#define EMPTY_LINK_FINAL true
 
 using namespace std;
 using namespace astl;
@@ -74,22 +74,21 @@ int main()
 
     for(vector<int>::iterator it = problem.topological_order.begin(); it != problem.topological_order.end(); it++)
     {
-        DFA_map<InterfaceTrans,BehaviorState> behavior;
         vector<int> dependency = problem.nodes[*it].depends;
         build_behavior(*spurious_bhvs[*it], *bhvs[*it], problem, system, *it, interfaces, dependency);
 
          if(i == problem.topological_order.size()-1)
          {
-             DFA_map<InterfaceTrans,BehaviorState>::const_iterator c;
-             for(c = bhvs[*it]->begin(); c != bhvs[*it]->end(); c++)
-             {
-                 if(bhvs[*it]->final(*c))
-                    bhvs[*it]->tag(*c).candidate_diagnosis = set<set<string> >();
-             }
+
              bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis.insert(set<string>());
              Decoration::decorate_lazy_bhv(*bhvs[*it],bhvs[*it]->initial(),bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis, problem.nodes[*it].ruler, interfaces, dependency);
 
+             if(bhvs[*it]->final(bhvs[*it]->initial()))
+                 bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis = Decoration::join_op(bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis, bhvs[*it]->tag(bhvs[*it]->initial()).interface_delta);
+
+
              set<set<string> > diagnosis;
+             DFA_map<InterfaceTrans,BehaviorState>::const_iterator c;
              for(c = bhvs[*it]->begin(); c != bhvs[*it]->end(); c++)
              {
                  //cout << "State " << *c << " : " << bhv.tag(*c).candidate_diagnosis << endl;
@@ -232,6 +231,36 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
     behavior.initial(s0);
     hash_values[ss.str()] = s0;
 
+    bool is_final = true;
+    if(!prob_node.index_space->final(tag_s0.I))
+        is_final = false;
+    if(is_final)
+    {
+        set<set<string> > diagn;
+        int i = 0;
+        for(vector<int>::iterator it = dependency.begin(); it != dependency.end(); it++)
+        {
+            if(!interfaces[*it]->final(tag_s0.interfaces[i]))
+            {
+                is_final = false;
+                break;
+            }
+            set<set<string> > current = interfaces[*it]->tag(tag_s0.interfaces[i]).get_delta();
+            set_union(diagn.begin(),diagn.end(),current.begin(),current.end(),std::inserter(diagn,diagn.end()));
+            i++;
+        }
+        if(EMPTY_LINK_FINAL)
+        {
+            if(is_final)
+                 is_final = tag_s0.empty_terminals();
+        }
+        if(is_final)
+        {
+            behavior.tag(s0).interface_delta = diagn;
+        }
+        behavior.final(s0) = is_final;
+    }
+
     DFA_map<InterfaceTrans,BehaviorState>::const_iterator it_s;
     for(it_s = behavior.begin(); it_s != behavior.end(); it_s++)
     {
@@ -332,8 +361,8 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                                if(is_final)
                                     is_final = tag_s1.empty_terminals();
                            }
-                           //if(is_final)
-                               //behavior.tag(s1).candidate_diagnosis = diagn;
+                           if(is_final)
+                               behavior.tag(s1).interface_delta = diagn;
                            behavior.final(s1) = is_final;
                         }
                         behavior.set_trans(s0,t,s1);
@@ -419,8 +448,8 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                            if(is_final)
                                 is_final = tag_s1.empty_terminals();
                        }
-                       //if(is_final)
-                           //behavior.tag(s1).candidate_diagnosis = diagn;
+                       if(is_final)
+                           behavior.tag(s1).interface_delta = diagn;
                        behavior.final(s1) = is_final;
                     }
                     behavior.set_trans(s0,t,s1);
@@ -432,8 +461,17 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
         //behavior.tag(s0).mark_state();
     }
 
+    DFA_map<InterfaceTrans,BehaviorState>::state_type init;
     //removes all spurious states and transitions that are not in a path from the initial state to a final state
-    DFA_map<InterfaceTrans,BehaviorState>::state_type init = trim(bhv,dfirst_markc(behavior));
+    if(behavior.state_count()>1)
+         init = trim(bhv,dfirst_markc(behavior));
+    /*else
+    {
+        init = bhv.new_state();
+        bhv.tag(init) = behavior.tag(behavior.initial());
+        bhv.final(init) = behavior.final(behavior.initial());
+    }*/
+
 
     if(init == DFA_map<InterfaceTrans,BehaviorState>::null_state)
     {

@@ -101,6 +101,8 @@ std::ostream& operator<<(std::ostream& out, const BehaviorState& s)
 
     if(!s.candidate_diagnosis.empty())
         out << s.candidate_diagnosis;
+    if(!s.interface_delta.empty())
+        out << "inter_delta: " << s.interface_delta;
 
     return out;
 }

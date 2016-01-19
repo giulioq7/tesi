@@ -609,7 +609,7 @@ void spec_driver::build_dependency_graph()
     }
 
     if(system.dependency_graph.state_count() < system.node_list.size()  //detects single disconnected nodes
-            || Utils::disconnected_graph(system.dependency_graph))      //detects disconnected subgraphs
+            )//|| Utils::disconnected_graph(system.dependency_graph))      //detects disconnected subgraphs
         error(loc, "System nodes graph is not connected");
 
     if(!Utils::cyclic_graph(system.dependency_graph))

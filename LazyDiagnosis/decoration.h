@@ -126,17 +126,18 @@ void Decoration::decorate_lazy_bhv(astl::DFA_map<SIGMA,TAG> &dfa, unsigned int b
             {
                 set<set<M2> > temp;
                 temp = join_op(diagnosis,t.delta);
-                /*if(fc.aim_final())
+                if(fc.aim_final())
                 {
+                    set<set<M2> > total;
                     vector<int>::iterator i,j;
                     TAG tag = fc.aim_tag();
                     for(i = tag.interfaces.begin(), j = dependency.begin(); i != tag.interfaces.end(), j != dependency.end(); i++, j++)
                     {
                         set<set<string> > d = interfaces[*j]->tag(*i).get_delta();
-                        if(!d.empty())
-                            temp = join_op(temp, d);
+                        set_union(total.begin(),total.end(),d.begin(),d.end(),std::inserter(total,total.end()));
                     }
-                }*/
+                    temp = join_op(temp,total);
+                }
 
                 for(it = temp.begin(); it != temp.end(); it++)
                 {
@@ -172,15 +173,17 @@ void Decoration::decorate_lazy_bhv(astl::DFA_map<SIGMA,TAG> &dfa, unsigned int b
 
                 if(fc.aim_final())
                 {
+                    set<set<M2> > total;
                     vector<int>::iterator i,j;
                     TAG tag = fc.aim_tag();
                     for(i = tag.interfaces.begin(), j = dependency.begin(); i != tag.interfaces.end(), j != dependency.end(); i++, j++)
                     {
                         set<set<string> > d = interfaces[*j]->tag(*i).get_delta();
-                        if(!d.empty())
-                            temp = join_op(temp, d);
+                        set_union(total.begin(),total.end(),d.begin(),d.end(),std::inserter(total,total.end()));
                     }
+                    temp = join_op(temp,total);
                 }
+
                 for(it = temp.begin(); it != temp.end(); it++)
                 {
                     set<set<string> > temp2;
@@ -217,11 +220,12 @@ void Decoration::decorate_lazy_bhv(astl::NFA_mmap<SIGMA,TAG> &nfa, unsigned int 
             {
                 set<set<M2> > temp;
                 temp = join_op(diagnosis,t.delta);
-                /*if(fc.aim_final())
+
+                if(fc.aim_final())
                 {
-                    set<set<string> > d =  fc.aim_tag().candidate_diagnosis;
-                    temp = join_op(temp,d);
-                }*/
+                    set<set<string> > fin_d = fc.aim_tag().interface_delta;
+                    temp = join_op(temp,fin_d);
+                }
 
                 for(it = temp.begin(); it != temp.end(); it++)
                 {
@@ -237,6 +241,7 @@ void Decoration::decorate_lazy_bhv(astl::NFA_mmap<SIGMA,TAG> &nfa, unsigned int 
             }
             else
             {
+                set<set<M2> > temp;
                 for(it = diagnosis.begin(); it != diagnosis.end(); it++)
                 {
                     set<string> delta;
@@ -251,13 +256,23 @@ void Decoration::decorate_lazy_bhv(astl::NFA_mmap<SIGMA,TAG> &nfa, unsigned int 
                     }
                     else
                         delta = *it;
-
-                    set<set<M2> > temp;
                     temp.insert(delta);
-                    if(!includes(fc.aim_tag().candidate_diagnosis.begin(),fc.aim_tag().candidate_diagnosis.end(),temp.begin(),temp.end()))
+                }
+
+                if(fc.aim_final())
+                {
+                    set<set<string> > fin_d = fc.aim_tag().interface_delta;
+                    temp = join_op(temp,fin_d);
+                }
+
+                for(it = temp.begin(); it != temp.end(); it++)
+                {
+                    set<set<string> > temp2;
+                    temp2.insert(*it);
+                    if(!includes(fc.aim_tag().candidate_diagnosis.begin(),fc.aim_tag().candidate_diagnosis.end(),temp2.begin(),temp2.end()))
                     {
-                        nfa.tag(fc.aim()).candidate_diagnosis.insert(delta);
-                        diagnosis_plus.insert(delta);
+                        nfa.tag(fc.aim()).candidate_diagnosis.insert(*it);
+                        diagnosis_plus.insert(*it);
                     }
                 }
             }

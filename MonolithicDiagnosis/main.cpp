@@ -239,8 +239,8 @@ int main()
                                         break;
                                     }
                                 }
-                                //if(is_final)
-                                    //is_final = tag_s1.empty_terminals();
+                                if(is_final)
+                                    is_final = tag_s1.empty_terminals();
                                 behavior.final(s1) = is_final;
                              }
                              behavior.set_trans(s0,t,s1);

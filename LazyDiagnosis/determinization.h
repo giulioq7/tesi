@@ -247,13 +247,12 @@ void Determinization::extract_subNFA(astl::DFA_map<SIGMA_DFA,TAG> &bhv, set<unsi
     for(set<unsigned int>::iterator it = states.begin(); it != states.end(); it++)
     {
         unsigned int s = subnfa.new_state();
-        subnfa.tag(s) = TAG();
         unsigned int current = *it;
         state_map[current] = s;
         if(Utils::contain(starts,current))
             sub_starts.insert(s);
         subnfa.final(s) = bhv.final(current);
-        subnfa.tag(s).candidate_diagnosis = bhv.tag(current).candidate_diagnosis;
+        subnfa.tag(s) = bhv.tag(current);
     }
     subnfa.initial() = sub_starts;
 

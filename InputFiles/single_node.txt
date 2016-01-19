@@ -1,0 +1,51 @@
+component model Breaker is
+	event op, cl;
+	input I;
+	state closed, open;
+	transition b1 = op(I), closed -> open, {},
+		   b2 = cl(I), open -> closed, {},
+	 	   b3 = op(I), closed -> closed, {},
+		   b4 = cl(I), open -> open, {},
+		   b5 = cl(I), closed -> closed, {},
+		   b6 = op(I), open -> open, {};
+end Breaker.
+
+
+component model ProtectionDevice is
+	event op, cl;
+	output O;
+	state idle, awaken;
+	transition p1 = (), idle -> awaken, {op(O)},
+		   p2 = (), awaken -> idle, {cl(O)},
+		   p3 = (), idle -> awaken, {cl(O)},
+		   p4 = (), awaken -> idle, {op(O)};
+end ProtectionDevice.
+
+
+network model ProtectionHardwareNet is
+	component l,r: Breaker, p: ProtectionDevice;
+	output O;
+	link O(p) -> I(l), O(p) -> I(r);
+	pattern di(O) == b1(l) | b1(r),
+		co(O) == b2(l) | b2(r),
+		nd(O) == p3(p) | p1(p)((b3(l)b3(r)) | (b3(r)b3(l))),
+		nc(O) == p4(p) | p2(p)(b5(r)?b4(l) | b5(l)?b4(r));
+	initial closed(l), closed(r), idle(p);
+	viewer b1(l) -> opl, b1(r) -> opr, b2(l) -> cll, b2(r) -> clr,
+	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
+	ruler  b3(l) -> nol, b3(r) -> nor, b4(l) -> ncl, b4(r) -> ncr,
+	       p3(p) -> fop, p4(p) -> fcp;
+end ProtectionHardwareNet.
+
+
+system PowerTransmission is
+	node N1: ProtectionHardwareNet is
+	end N1;
+end PowerTransmission.
+
+
+problem Example is
+	node N1 is
+		obs [ awk, opl, ide ];
+	end N1;
+end Example.

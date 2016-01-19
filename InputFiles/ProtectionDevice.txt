@@ -1,0 +1,9 @@
+component model ProtectionDevice is
+	event op, cl;
+	output O;
+	state idle, awaken;
+	transition p1 = (), idle -> awaken, {op(O)},
+		   p2 = (), awaken -> idle, {cl(O)},
+		   p3 = (), idle -> awaken, {cl(O)},
+		   p4 = (), awaken -> idle, {op(O)};
+end ProtectionDevice.

@@ -22,6 +22,8 @@ public:
 
     std::set<std::set<std::string> > candidate_diagnosis;
 
+    std::set<std::set<std::string> > interface_delta;
+
     BehaviorState();
     BehaviorState(int n, int m, int k, int i);
     ~BehaviorState();

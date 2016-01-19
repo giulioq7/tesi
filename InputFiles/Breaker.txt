@@ -1,0 +1,11 @@
+component model Breaker is
+	event op, cl;
+	input I;
+	state closed, open;
+	transition b1 = op(I), closed -> open, {},
+		   b2 = cl(I), open -> closed, {},
+	 	   b3 = op(I), closed -> closed, {},
+		   b4 = cl(I), open -> open, {},
+		   b5 = cl(I), closed -> closed, {},
+		   b6 = op(I), open -> open, {};
+end Breaker.

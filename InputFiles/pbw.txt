@@ -1,0 +1,80 @@
+component model Breaker is
+	event op, cl;
+	input I;
+	state closed, open;
+	transition b1 = op(I), closed -> open, {},
+		   b2 = cl(I), open -> closed, {},
+	 	   b3 = op(I), closed -> closed, {},
+		   b4 = cl(I), open -> open, {},
+		   b5 = cl(I), closed -> closed, {},
+		   b6 = op(I), open -> open, {};
+end Breaker.
+
+
+component model ProtectionDevice is
+	event op, cl;
+	output O;
+	state idle, awaken;
+	transition p1 = (), idle -> awaken, {op(O)},
+		   p2 = (), awaken -> idle, {cl(O)},
+		   p3 = (), idle -> awaken, {cl(O)},
+		   p4 = (), awaken -> idle, {op(O)};
+end ProtectionDevice.
+
+
+component model ProtectionHardware is
+	event nd, di, co, nc;
+	input Cot;
+	state con, dis1, dis2;
+	transition w1 = nd(Cot), con  -> con,  {},
+		   w2 = di(Cot), con  -> dis1, {},
+		   w3 = di(Cot), dis1 -> dis2, {},
+		   w4 = co(Cot), dis2 -> dis1, {},
+		   w5 = co(Cot), dis1 -> con,  {},
+		   w6 = nc(Cot), dis1 -> dis1, {},
+		   w7 = nc(Cot), dis2 -> dis2, {};
+end ProtectionHardware.
+
+
+network model ProtectionHardwareNet is
+	component b: Breaker, p: ProtectionDevice;
+	output O;
+	link O(p) -> I(b);
+	pattern di(O) == b1(b),
+		co(O) == b2(b),
+		nd(O) == p3(p) | p1(p)b3(b),
+		nc(O) == p4(p) | p2(p)b5(b)?b4(b);
+	initial closed(b), idle(p);
+	viewer b1(b) -> opb, b2(b) -> clb,
+	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
+	ruler  b3(b) -> nob, b4(b) -> ncb,
+	       p3(p) -> fop, p4(p) -> fcp;
+end ProtectionHardwareNet.
+
+
+network model AbstractProtectionHWNet is
+	component W: ProtectionHardware;
+	input I;
+	link I(this) -> Cot(W);
+	initial con(W);
+	ruler  w1(W) -> fdw, w6(W) -> fcwa, w7(W) -> fcwb;
+end AbstractProtectionHWNet.
+
+
+system PowerTransmission is
+	node N1: AbstractProtectionHWNet is
+	end N1,
+	node N2: ProtectionHardwareNet is
+	end N2;
+	emergence O(N2)->I(N1);
+end PowerTransmission.
+
+
+problem Example is
+	node N1 is
+		obs [ ];
+	end N1,
+	node N2 is
+		obs [ awk, opb, ide ];
+	end N2;
+end Example.
