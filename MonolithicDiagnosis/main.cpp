@@ -7,6 +7,7 @@
 #include "systransition.h"
 #include "behaviorstate.h"
 #include <unordered_map>
+#include <sys/resource.h>
 
 using namespace std;
 using namespace astl;
@@ -15,6 +16,8 @@ void decorate(DFA_map<SysTransition,BehaviorState> &dfa, DFA_map<SysTransition,B
 
 int main()
 {
+    struct rusage r_usage;
+
     // ... some time later restore the class instance to its orginal state
    vector<ComponentModel> comp_models;
    vector<NetworkModel> net_models;
@@ -311,6 +314,11 @@ int main()
          udm = "sec";
      }
      cout << elapsedTime << udm << endl;
+
+     //print memory usage
+     getrusage(RUSAGE_SELF,&r_usage);
+     cout << "Memory usage = " << r_usage.ru_maxrss/1000.0 << " MB" << endl;
+
      cout << "Number of states(Spurious bhv) : " << behavior.state_count() << endl;
      cout << "Number of transitions(Spurious bhv) : " << behavior.trans_count() << endl;
 

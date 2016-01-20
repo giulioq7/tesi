@@ -283,6 +283,9 @@ void Decoration::decorate_lazy_bhv(astl::NFA_mmap<SIGMA,TAG> &nfa, unsigned int 
         }
         while(fc.next());
     }
+    else if(nfa.final(beta))
+        nfa.tag(beta).candidate_diagnosis = join_op(diagnosis,nfa.tag(beta).interface_delta);
+
 }
 
 

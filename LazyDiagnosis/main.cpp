@@ -9,8 +9,9 @@
 #include "determinization.h"
 #include "interfacestate.h"
 #include "interfacetrans.h"
+#include "sys/resource.h"
 
-#define EMPTY_LINK_FINAL true
+#define EMPTY_LINK_FINAL false
 
 using namespace std;
 using namespace astl;
@@ -20,6 +21,8 @@ void to_nfa(DFA_map<InterfaceTrans, BehaviorState> &dfa, NFA_mmap<InterfaceTrans
 
 int main()
 {
+    struct rusage r_usage;
+
     vector<ComponentModel> comp_models;
     vector<NetworkModel> net_models;
     System system;
@@ -131,6 +134,10 @@ int main()
          udm = "sec";
      }
      cout << elapsedTime << udm << endl;
+
+     //print memory usage
+     getrusage(RUSAGE_SELF,&r_usage);
+     cout << "Memory usage = " << r_usage.ru_maxrss/1000.0 << " MB" << endl;
 
 
      for(int i=0; i<bhvs.size(); i++)
@@ -353,7 +360,8 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                                    break;
                                }
                                set<set<string> > current = interfaces[*it]->tag(tag_s1.interfaces[i]).get_delta();
-                               set_union(diagn.begin(),diagn.end(),current.begin(),current.end(),std::inserter(diagn,diagn.end()));
+                               //set_union(diagn.begin(),diagn.end(),current.begin(),current.end(),std::inserter(diagn,diagn.end()));
+                               diagn = Decoration::join_op(diagn,current);
                                i++;
                            }
                            if(EMPTY_LINK_FINAL)
@@ -440,7 +448,8 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                                break;
                            }
                            set<set<string> > current = interfaces[*it]->tag(tag_s1.interfaces[i]).get_delta();
-                           set_union(diagn.begin(),diagn.end(),current.begin(),current.end(),std::inserter(diagn,diagn.end()));
+                           //set_union(diagn.begin(),diagn.end(),current.begin(),current.end(),std::inserter(diagn,diagn.end()));
+                           diagn = Decoration::join_op(diagn,current);
                            i++;
                        }
                        if(EMPTY_LINK_FINAL)
