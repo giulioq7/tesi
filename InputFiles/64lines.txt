@@ -580,8 +580,6 @@ system PowerTransmission is
 	end  N_30z,
 	node N_31z: ProtectionHardwareNet is
 	end  N_31z,
-	node root: SuSuSuperLineNet is
-	end root,
 	node N1_z: SuSuperLineNet is
 	end  N1_z,
 	node N2_z: SuperLineNet is
@@ -1340,9 +1338,6 @@ problem Example is
 	node N_31z is
 		obs [ awk, opl ];
 	end  N_31z,
-	node root is
-		obs [ ];
-	end root,
 	node N1_z is
 		obs [ ];
 	end  N1_z,

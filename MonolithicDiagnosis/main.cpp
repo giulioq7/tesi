@@ -283,7 +283,7 @@ int main()
      DFA_map<SysTransition,BehaviorState>::const_iterator c;
      for(c = bhv.begin(); c != bhv.end(); c++)
      {
-         cout << "State " << *c << " : " << bhv.tag(*c).candidate_diagnosis << endl;
+         //cout << "State " << *c << " : " << bhv.tag(*c).candidate_diagnosis << endl;
          if(bhv.final(*c))
          {
              std::set<std::set<std::string> >::iterator it2;
