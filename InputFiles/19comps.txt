@@ -47,6 +47,22 @@ end Line.
 
 
 network model ProtectionHardwareNet is
+	component b: Breaker, p: ProtectionDevice;
+	output O;
+	link O(p) -> I(b);
+	pattern di(O) == b1(b),
+		co(O) == b2(b),
+		nd(O) == p3(p) | p1(p)b3(b),
+		nc(O) == p4(p) | p2(p)(b5(b)?b4(b));
+	initial closed(b), idle(p);
+	viewer b1(b) -> opb, b2(b) -> clb,
+	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
+	ruler  b3(b) -> nob, b4(b) -> ncb,
+	       p3(p) -> fop, p4(p) -> fcp;
+end ProtectionHardwareNet.
+
+
+network model ProtectionHardwareNet2 is
 	component l,r: Breaker, p: ProtectionDevice;
 	output O;
 	link O(p) -> I(l), O(p) -> I(r);
@@ -59,31 +75,46 @@ network model ProtectionHardwareNet is
 	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
 	ruler  b3(l) -> nol, b3(r) -> nor, b4(l) -> ncl, b4(r) -> ncr,
 	       p3(p) -> fop, p4(p) -> fcp;
-end ProtectionHardwareNet.
+end ProtectionHardwareNet2.
+
 
 
 network model AbstractProtectionHWNet is
-	component W1, W2, W3, W4: ProtectionHardware;
-	input I1, I2, I3, I4;
+	component W1, W2, W3: ProtectionHardware;
+	input I1, I2, I3;
 	output O;
-	link I1(this) -> Cot(W1), I2(this) -> Cot(W2), I3(this)->Cot(W3), I4(this)->Cot(W4);
-	pattern	ni(O) == w1(W1) | w1(W2) | w1(W3) | w1(W4),
-		nr(O) == w6(W1) | w7(W1) | w6(W2) | w7(W2) | w6(W3) | w7(W3) | w6(W4) | w7(W4),
-		ps(O) == (w5(W1)w1(W1)*w2(W1)(~w5(W1))*)+ | (w5(W2)w1(W2)*w2(W2)(~w5(W2))*)+ | (w5(W3)w1(W3)*w2(W3)(~w5(W3))*)+ | (w5(W4)w1(W4)*w2(W4)(~w5(W4))*)+;
-	initial con(W1), con(W2), con(W3), con(W4);
+	link I1(this) -> Cot(W1), I2(this) -> Cot(W2), I3(this)->Cot(W3);
+	pattern	ni(O) == w1(W1) | w1(W2) | w1(W3),
+		nr(O) == w6(W1) | w7(W1) | w6(W2) | w7(W2) | w6(W3) | w7(W3),
+		ps(O) == (w5(W1)w1(W1)*w2(W1)(~w5(W1))*)+ | (w5(W2)w1(W2)*w2(W2)(~w5(W2))*)+ | (w5(W3)w1(W3)*w2(W3)(~w5(W3))*)+;
+	initial con(W1), con(W2), con(W3);
 	ruler  w1(W1) -> fdw1, w6(W1) -> fcw1a, w7(W1) -> fcw1b,
 	       w1(W2) -> fdw2, w6(W2) -> fcw2a, w7(W2) -> fcw2b,
-	       w1(W3) -> fdw3, w6(W3) -> fcw3a, w7(W3) -> fcw3b,
-	       w1(W4) -> fdw4, w6(W4) -> fcw4a, w7(W4) -> fcw4b;
+	       w1(W3) -> fdw3, w6(W3) -> fcw3a, w7(W3) -> fcw3b;
 end AbstractProtectionHWNet.
 
 
+network model AbstractProtectionHWNet2 is
+	component W1, W2: ProtectionHardware;
+	input I1, I2;
+	output O;
+	link I1(this) -> Cot(W1), I2(this) -> Cot(W2);
+	pattern	ni(O) == w1(W1) | w1(W2),
+		nr(O) == w6(W1) | w7(W1) | w6(W2) | w7(W2),
+		ps(O) == (w5(W1)w1(W1)*w2(W1)(~w5(W1))*)+ | (w5(W2)w1(W2)*w2(W2)(~w5(W2))*)+;
+	initial con(W1), con(W2);
+	ruler  w1(W1) -> fdw1, w6(W1) -> fcw1a, w7(W1) -> fcw1b,
+	       w1(W2) -> fdw2, w6(W2) -> fcw2a, w7(W2) -> fcw2b;
+end AbstractProtectionHWNet2.
+
+
 network model LineNet is
-	component L: Line;
-	input I;
-	link I(this) -> Cot(L);
-	initial normal(L);
-	ruler  l1(L) -> fil, l2(L) -> frl, l3(L) -> psl;
+	component L1, L2: Line;
+	input I1, I2;
+	link I1(this) -> Cot(L1), I2(this) -> Cot(L2);
+	initial normal(L1), normal(L2);
+	ruler  l1(L1) -> fil1, l2(L1) -> frl1, l3(L1) -> psl1,
+	       l1(L2) -> fil2, l2(L2) -> frl2, l3(L2) -> psl2;
 end LineNet.
 
 
@@ -92,15 +123,19 @@ system PowerTransmission is
 	end N1,
 	node N2: AbstractProtectionHWNet is
 	end N2,
-	node N3: ProtectionHardwareNet is
+	node N3: AbstractProtectionHWNet2 is
 	end N3,
 	node N4: ProtectionHardwareNet is
 	end N4,
 	node N5: ProtectionHardwareNet is
 	end N5,
 	node N6: ProtectionHardwareNet is
-	end N6;
-	emergence O(N2)->I(N1), O(N3)->I1(N2), O(N4)->I2(N2), O(N5)->I3(N2), O(N6)->I4(N2);
+	end N6,
+	node N7: ProtectionHardwareNet2 is
+	end N7,
+	node N8: ProtectionHardwareNet2 is
+	end N8;
+	emergence O(N2)->I1(N1), O(N3)->I2(N1), O(N4)->I1(N2), O(N5)->I2(N2), O(N6)->I3(N2), O(N7)->I1(N3), O(N8)->I2(N3);
 end PowerTransmission.
 
 
@@ -112,15 +147,21 @@ problem Example is
 		obs [ ];
 	end N2,
 	node N3 is
-		obs [ awk, opl, ide ];
+		obs [ ];
 	end N3,
 	node N4 is
-		obs [ awk, opl ];
+		obs [ awk, opb, ide ];
 	end N4,
 	node N5 is
-		obs [ awk, opl ];
+		obs [ awk, opb ];
 	end N5,
 	node N6 is
+		obs [ awk, opb ];
+	end N6,
+	node N7 is
+		obs [ awk, opl, ide ];
+	end N7,
+	node N8 is
 		obs [ awk, opl ];
-	end N6;
+	end N8;
 end Example.

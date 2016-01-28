@@ -1,0 +1,196 @@
+component model Breaker is
+	event op, cl;
+	input I;
+	state closed, open;
+	transition b1 = op(I), closed -> open, {},
+		   b2 = cl(I), open -> closed, {},
+	 	   b3 = op(I), closed -> closed, {},
+		   b4 = cl(I), open -> open, {},
+		   b5 = cl(I), closed -> closed, {},
+		   b6 = op(I), open -> open, {};
+end Breaker.
+
+
+component model ProtectionDevice is
+	event op, cl;
+	output O;
+	state idle, awaken;
+	transition p1 = (), idle -> awaken, {op(O)},
+		   p2 = (), awaken -> idle, {cl(O)},
+		   p3 = (), idle -> awaken, {cl(O)},
+		   p4 = (), awaken -> idle, {op(O)};
+end ProtectionDevice.
+
+
+component model ProtectionHardware is
+	event nd, di, co, nc;
+	input Cot;
+	state con, dis1, dis2;
+	transition w1 = nd(Cot), con  -> con,  {},
+		   w2 = di(Cot), con  -> dis1, {},
+		   w3 = di(Cot), dis1 -> dis2, {},
+		   w4 = co(Cot), dis2 -> dis1, {},
+		   w5 = co(Cot), dis1 -> con,  {},
+		   w6 = nc(Cot), dis1 -> dis1, {},
+		   w7 = nc(Cot), dis2 -> dis2, {};
+end ProtectionHardware.
+
+
+component model Line is
+	event ni, nr, ps;
+	input Cot;
+	state normal, shorted, isolated, persistent;
+	transition l1 = ni(Cot), normal -> shorted,    {},
+		   l2 = nr(Cot), normal -> isolated,   {},
+		   l3 = ps(Cot), normal -> persistent, {};
+end Line.
+
+component model SuperLine is
+	event ni, nr, ps;
+	input Cot;
+	state normal, shorted, isolated, persistent;
+	transition l1 = ni(Cot), normal -> shorted,    {},
+		   l2 = nr(Cot), normal -> isolated,   {},
+		   l3 = ps(Cot), normal -> persistent, {};
+end SuperLine.
+
+
+network model ProtectionHardwareNet is
+	component l,r: Breaker, p: ProtectionDevice;
+	output O;
+	link O(p) -> I(l), O(p) -> I(r);
+	pattern di(O) == b1(l) | b1(r),
+		co(O) == b2(l) | b2(r),
+		nd(O) == p3(p) | p1(p)((b3(l)b3(r)) | (b3(r)b3(l))),
+		nc(O) == p4(p) | p2(p)(b5(r)?b4(l) | b5(l)?b4(r));
+	initial closed(l), closed(r), idle(p);
+	viewer b1(l) -> opl, b1(r) -> opr, b2(l) -> cll, b2(r) -> clr,
+	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
+	ruler  b3(l) -> nol, b3(r) -> nor, b4(l) -> ncl, b4(r) -> ncr,
+	       p3(p) -> fop, p4(p) -> fcp;
+end ProtectionHardwareNet.
+
+
+network model AbstractProtectionHWNet is
+	component W1, W2: ProtectionHardware;
+	input I1, I2;
+	output O;
+	link I1(this) -> Cot(W1), I2(this) -> Cot(W2);
+	pattern	ni(O) == w1(W1) | w1(W2),
+		nr(O) == w6(W1) | w7(W1) | w6(W2) | w7(W2),
+		ps(O) == (w5(W1)w1(W1)*w2(W1)(~w5(W1))*)+ | (w5(W2)w1(W2)*w2(W2)(~w5(W2))*)+;
+	initial con(W1), con(W2);
+	ruler  w1(W1) -> fdw1, w6(W1) -> fcw1a, w7(W1) -> fcw1b,
+	       w1(W2) -> fdw2, w6(W2) -> fcw2a, w7(W2) -> fcw2b;
+end AbstractProtectionHWNet.
+
+
+network model LineNet is
+	component L1, L2: Line;
+	input I1, I2;
+	output O;
+	link I1(this) -> Cot(L1), I2(this) -> Cot(L2);
+	pattern ni(O) == l1(L1) & l1(L2),
+		nr(O) == l2(L1) & l2(L2),
+		ps(O) == l3(L1) & l3(L2);
+	initial normal(L1), normal(L2);
+	ruler  l1(L1) -> fil1, l2(L1) -> frl1, l3(L1) -> psl1,
+	       l1(L2) -> fil2, l2(L2) -> frl2, l3(L2) -> psl2;
+end LineNet.
+
+
+network model SuperLineNet is
+	component L1, L2: SuperLine;
+	input I1, I2;
+	link I1(this) -> Cot(L1), I2(this) -> Cot(L2);
+	initial normal(L1), normal(L2);
+	ruler  l1(L1) -> fils1, l2(L1) -> frsl1, l3(L1) -> pssl1,
+	       l1(L2) -> fils2, l2(L2) -> frsl2, l3(L2) -> pssl2;
+end SuperLineNet.
+
+
+system PowerTransmission is
+	node N1: SuperLineNet is
+	end  N1,
+	node N2: LineNet is
+	end  N2,
+	node N3: LineNet is
+	end  N3,
+	node N4: AbstractProtectionHWNet is
+	end  N4,
+	node N5: AbstractProtectionHWNet is
+	end  N5,
+	node N6: AbstractProtectionHWNet is
+	end  N6,
+	node N7: AbstractProtectionHWNet is
+	end  N7,
+	node N8: ProtectionHardwareNet is
+	end  N8,
+	node N9: ProtectionHardwareNet is
+	end  N9,
+	node N10: ProtectionHardwareNet is
+	end  N10,
+	node N11: ProtectionHardwareNet is
+	end  N11,
+	node N12: ProtectionHardwareNet is
+	end  N12,
+	node N13: ProtectionHardwareNet is
+	end  N13,
+	node N14: ProtectionHardwareNet is
+	end  N14,
+	node N15: ProtectionHardwareNet is
+	end  N15;
+	emergence O(N2)->I1(N1), O(N3)->I2(N1), 
+		  O(N4)->I1(N2), O(N5)->I2(N2), O(N6)->I1(N3), O(N7)->I2(N3), 
+		  O(N8)->I1(N4), O(N9)->I2(N4), O(N10)->I1(N5), O(N11) -> I2(N5), 
+		  O(N12)->I1(N6), O(N13)->I2(N6), O(N14)->I1(N7), O(N15)->I2(N7);
+end PowerTransmission.
+
+
+problem Example is
+	node N1 is
+		obs [ ];
+	end  N1,
+	node N2 is
+		obs [ ];
+	end  N2,
+	node N3 is
+		obs [ ];
+	end  N3,
+	node N4 is
+		obs [ ];
+	end  N4,
+	node N5 is
+		obs [ ];
+	end  N5,
+	node N6 is
+		obs [ ];
+	end  N6,
+	node N7 is
+		obs [ ];
+	end  N7,
+	node N8 is
+		obs [ awk, opl, ide ];
+	end  N8,
+	node N9 is
+		obs [ awk, opl ];
+	end  N9,
+	node N10 is
+		obs [ awk, opl, ide ];
+	end  N10,
+	node N11 is
+		obs [ awk, opl ];
+	end  N11,
+	node N12 is
+		obs [ awk, opl, ide ];
+	end  N12,
+	node N13 is
+		obs [ awk, opl ];
+	end  N13,
+	node N14 is
+		obs [ awk, opl, ide ];
+	end  N14,
+	node N15 is
+		obs [ awk, opl ];
+	end  N15;
+end Example.

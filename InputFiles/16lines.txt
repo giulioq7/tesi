@@ -1,0 +1,491 @@
+component model Breaker is
+	event op, cl;
+	input I;
+	state closed, open;
+	transition b1 = op(I), closed -> open, {},
+		   b2 = cl(I), open -> closed, {},
+	 	   b3 = op(I), closed -> closed, {},
+		   b4 = cl(I), open -> open, {},
+		   b5 = cl(I), closed -> closed, {},
+		   b6 = op(I), open -> open, {};
+end Breaker.
+
+
+component model ProtectionDevice is
+	event op, cl;
+	output O;
+	state idle, awaken;
+	transition p1 = (), idle -> awaken, {op(O)},
+		   p2 = (), awaken -> idle, {cl(O)},
+		   p3 = (), idle -> awaken, {cl(O)},
+		   p4 = (), awaken -> idle, {op(O)};
+end ProtectionDevice.
+
+
+component model ProtectionHardware is
+	event nd, di, co, nc;
+	input Cot;
+	state con, dis1, dis2;
+	transition w1 = nd(Cot), con  -> con,  {},
+		   w2 = di(Cot), con  -> dis1, {},
+		   w3 = di(Cot), dis1 -> dis2, {},
+		   w4 = co(Cot), dis2 -> dis1, {},
+		   w5 = co(Cot), dis1 -> con,  {},
+		   w6 = nc(Cot), dis1 -> dis1, {},
+		   w7 = nc(Cot), dis2 -> dis2, {};
+end ProtectionHardware.
+
+
+component model Line is
+	event ni, nr, ps;
+	input Cot;
+	state normal, shorted, isolated, persistent;
+	transition l1 = ni(Cot), normal -> shorted,    {},
+		   l2 = nr(Cot), normal -> isolated,   {},
+		   l3 = ps(Cot), normal -> persistent, {};
+end Line.
+
+component model SuperLine is
+	event ni, nr, ps;
+	input Cot;
+	state normal, shorted, isolated, persistent;
+	transition l1 = ni(Cot), normal -> shorted,    {},
+		   l2 = nr(Cot), normal -> isolated,   {},
+		   l3 = ps(Cot), normal -> persistent, {};
+end SuperLine.
+
+component model SuSuperLine is
+	event ni, nr, ps;
+	input Cot;
+	state normal, shorted, isolated, persistent;
+	transition l1 = ni(Cot), normal -> shorted,    {},
+		   l2 = nr(Cot), normal -> isolated,   {},
+		   l3 = ps(Cot), normal -> persistent, {};
+end SuSuperLine.
+
+
+component model SuSuSuperLine is
+	event ni, nr, ps;
+	input Cot;
+	state normal, shorted, isolated, persistent;
+	transition l1 = ni(Cot), normal -> shorted,    {},
+		   l2 = nr(Cot), normal -> isolated,   {},
+		   l3 = ps(Cot), normal -> persistent, {};
+end SuSuSuperLine.
+
+
+network model ProtectionHardwareNet is
+	component l,r: Breaker, p: ProtectionDevice;
+	output O;
+	link O(p) -> I(l), O(p) -> I(r);
+	pattern di(O) == b1(l) | b1(r),
+		co(O) == b2(l) | b2(r),
+		nd(O) == p3(p) | p1(p)((b3(l)b3(r)) | (b3(r)b3(l))),
+		nc(O) == p4(p) | p2(p)(b5(r)?b4(l) | b5(l)?b4(r));
+	initial closed(l), closed(r), idle(p);
+	viewer b1(l) -> opl, b1(r) -> opr, b2(l) -> cll, b2(r) -> clr,
+	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
+	ruler  b3(l) -> nol, b3(r) -> nor, b4(l) -> ncl, b4(r) -> ncr,
+	       p3(p) -> fop, p4(p) -> fcp;
+end ProtectionHardwareNet.
+
+
+network model AbstractProtectionHWNet is
+	component W1, W2: ProtectionHardware;
+	input I1, I2;
+	output O;
+	link I1(this) -> Cot(W1), I2(this) -> Cot(W2);
+	pattern	ni(O) == w1(W1) | w1(W2),
+		nr(O) == w6(W1) | w7(W1) | w6(W2) | w7(W2),
+		ps(O) == (w5(W1)w1(W1)*w2(W1)(~w5(W1))*)+ | (w5(W2)w1(W2)*w2(W2)(~w5(W2))*)+;
+	initial con(W1), con(W2);
+	ruler  w1(W1) -> fdw1, w6(W1) -> fcw1a, w7(W1) -> fcw1b,
+	       w1(W2) -> fdw2, w6(W2) -> fcw2a, w7(W2) -> fcw2b;
+end AbstractProtectionHWNet.
+
+
+network model LineNet is
+	component L1, L2: Line;
+	input I1, I2;
+	output O;
+	link I1(this) -> Cot(L1), I2(this) -> Cot(L2);
+	pattern ni(O) == l1(L1) & l1(L2),
+		nr(O) == l2(L1) & l2(L2),
+		ps(O) == l3(L1) & l3(L2);
+	initial normal(L1), normal(L2);
+	ruler  l1(L1) -> fil1, l2(L1) -> frl1, l3(L1) -> psl1,
+	       l1(L2) -> fil2, l2(L2) -> frl2, l3(L2) -> psl2;
+end LineNet.
+
+
+network model SuperLineNet is
+	component L1, L2: SuperLine;
+	input I1, I2;
+	output O;
+	link I1(this) -> Cot(L1), I2(this) -> Cot(L2);
+	pattern ni(O) == l1(L1) & l1(L2),
+		nr(O) == l2(L1) & l2(L2),
+		ps(O) == l3(L1) & l3(L2);
+	initial normal(L1), normal(L2);
+	ruler  l1(L1) -> fils1, l2(L1) -> frsl1, l3(L1) -> pssl1,
+	       l1(L2) -> fils2, l2(L2) -> frsl2, l3(L2) -> pssl2;
+end SuperLineNet.
+
+network model SuSuperLineNet is
+	component L1, L2: SuSuperLine;
+	input I1, I2;
+	output O;
+	link I1(this) -> Cot(L1), I2(this) -> Cot(L2);
+	pattern ni(O) == l1(L1) & l1(L2),
+		nr(O) == l2(L1) & l2(L2),
+		ps(O) == l3(L1) & l3(L2);
+	initial normal(L1), normal(L2);
+	ruler  l1(L1) -> filss1, l2(L1) -> frssl1, l3(L1) -> psssl1,
+	       l1(L2) -> filss2, l2(L2) -> frssl2, l3(L2) -> psssl2;
+end SuSuperLineNet.
+
+
+network model SuSuSuperLineNet is
+	component L1, L2: SuSuSuperLine;
+	input I1, I2;
+	link I1(this) -> Cot(L1), I2(this) -> Cot(L2);
+	initial normal(L1), normal(L2);
+	ruler  l1(L1) -> filss1, l2(L1) -> frssl1, l3(L1) -> psssl1,
+	       l1(L2) -> filss2, l2(L2) -> frssl2, l3(L2) -> psssl2;
+end SuSuSuperLineNet.
+
+
+system PowerTransmission is
+	node N1: SuSuperLineNet is
+	end  N1,
+	node N2: SuperLineNet is
+	end  N2,
+	node N3: SuperLineNet is
+	end  N3,
+	node N4: LineNet is
+	end  N4,
+	node N5: LineNet is
+	end  N5,
+	node N6: LineNet is
+	end  N6,
+	node N7: LineNet is
+	end  N7,
+	node N8: AbstractProtectionHWNet is
+	end  N8,
+	node N9: AbstractProtectionHWNet is
+	end  N9,
+	node N10: AbstractProtectionHWNet is
+	end  N10,
+	node N11: AbstractProtectionHWNet is
+	end  N11,
+	node N12: AbstractProtectionHWNet is
+	end  N12,
+	node N13: AbstractProtectionHWNet is
+	end  N13,
+	node N14: AbstractProtectionHWNet is
+	end  N14,
+	node N15: AbstractProtectionHWNet is
+	end  N15,
+	node N16: ProtectionHardwareNet is
+	end  N16,
+	node N17: ProtectionHardwareNet is
+	end  N17,
+	node N18: ProtectionHardwareNet is
+	end  N18,
+	node N19: ProtectionHardwareNet is
+	end  N19,
+	node N20: ProtectionHardwareNet is
+	end  N20,
+	node N21: ProtectionHardwareNet is
+	end  N21,
+	node N22: ProtectionHardwareNet is
+	end  N22,
+	node N23: ProtectionHardwareNet is
+	end  N23,
+	node N24: ProtectionHardwareNet is
+	end  N24,
+	node N25: ProtectionHardwareNet is
+	end  N25,
+	node N26: ProtectionHardwareNet is
+	end  N26,
+	node N27: ProtectionHardwareNet is
+	end  N27,
+	node N28: ProtectionHardwareNet is
+	end  N28,
+	node N29: ProtectionHardwareNet is
+	end  N29,
+	node N30: ProtectionHardwareNet is
+	end  N30,
+	node N31: ProtectionHardwareNet is
+	end  N31,
+	node N_1: SuSuperLineNet is
+	end  N_1,
+	node N_2: SuperLineNet is
+	end  N_2,
+	node N_3: SuperLineNet is
+	end  N_3,
+	node N_4: LineNet is
+	end  N_4,
+	node N_5: LineNet is
+	end  N_5,
+	node N_6: LineNet is
+	end  N_6,
+	node N_7: LineNet is
+	end  N_7,
+	node N_8: AbstractProtectionHWNet is
+	end  N_8,
+	node N_9: AbstractProtectionHWNet is
+	end  N_9,
+	node N_10: AbstractProtectionHWNet is
+	end  N_10,
+	node N_11: AbstractProtectionHWNet is
+	end  N_11,
+	node N_12: AbstractProtectionHWNet is
+	end  N_12,
+	node N_13: AbstractProtectionHWNet is
+	end  N_13,
+	node N_14: AbstractProtectionHWNet is
+	end  N_14,
+	node N_15: AbstractProtectionHWNet is
+	end  N_15,
+	node N_16: ProtectionHardwareNet is
+	end  N_16,
+	node N_17: ProtectionHardwareNet is
+	end  N_17,
+	node N_18: ProtectionHardwareNet is
+	end  N_18,
+	node N_19: ProtectionHardwareNet is
+	end  N_19,
+	node N_20: ProtectionHardwareNet is
+	end  N_20,
+	node N_21: ProtectionHardwareNet is
+	end  N_21,
+	node N_22: ProtectionHardwareNet is
+	end  N_22,
+	node N_23: ProtectionHardwareNet is
+	end  N_23,
+	node N_24: ProtectionHardwareNet is
+	end  N_24,
+	node N_25: ProtectionHardwareNet is
+	end  N_25,
+	node N_26: ProtectionHardwareNet is
+	end  N_26,
+	node N_27: ProtectionHardwareNet is
+	end  N_27,
+	node N_28: ProtectionHardwareNet is
+	end  N_28,
+	node N_29: ProtectionHardwareNet is
+	end  N_29,
+	node N_30: ProtectionHardwareNet is
+	end  N_30,
+	node N_31: ProtectionHardwareNet is
+	end  N_31,
+	node root: SuSuSuperLineNet is
+	end root;
+	emergence O(N1)->I1(root), O(N_1)->I2(root),
+		  O(N2)->I1(N1), O(N3)->I2(N1), 
+		  O(N4)->I1(N2), O(N5)->I2(N2), O(N6)->I1(N3), O(N7)->I2(N3), 
+		  O(N8)->I1(N4), O(N9)->I2(N4), O(N10)->I1(N5), O(N11)->I2(N5), O(N12)->I1(N6), O(N13)->I2(N6), O(N14)->I1(N7), O(N15)->I2(N7), 
+		  O(N16)->I1(N8), O(N17)->I2(N8), O(N18)->I1(N9), O(N19)->I2(N9), O(N20)->I1(N10), O(N21)->I2(N10), O(N22)->I1(N11), O(N23)->I2(N11),
+		  O(N24)->I1(N12), O(N25)->I2(N12), O(N26)->I1(N13), O(N27)->I2(N13), O(N28)->I1(N14), O(N29)->I2(N14), O(N30)->I1(N15), 
+		  O(N31)->I2(N15),
+	   	  O(N_2)->I1(N_1), O(N_3)->I2(N_1), 
+		  O(N_4)->I1(N_2), O(N_5)->I2(N_2), O(N_6)->I1(N_3), O(N_7)->I2(N_3), 
+		  O(N_8)->I1(N_4), O(N_9)->I2(N_4), O(N_10)->I1(N_5), O(N_11)->I2(N_5), O(N_12)->I1(N_6), O(N_13)->I2(N_6), O(N_14)->I1(N_7), O(N_15)->I2(N_7), 
+		  O(N_16)->I1(N_8), O(N_17)->I2(N_8), O(N_18)->I1(N_9), O(N_19)->I2(N_9), O(N_20)->I1(N_10), O(N_21)->I2(N_10), O(N_22)->I1(N_11), O(N_23)->I2(N_11),
+		  O(N_24)->I1(N_12), O(N_25)->I2(N_12), O(N_26)->I1(N_13), O(N_27)->I2(N_13), O(N_28)->I1(N_14), O(N_29)->I2(N_14), O(N_30)->I1(N_15), 
+		  O(N_31)->I2(N_15);
+end PowerTransmission.
+
+
+problem Example is
+	node N1 is
+		obs [ ];
+	end  N1,
+	node N2 is
+		obs [ ];
+	end  N2,
+	node N3 is
+		obs [ ];
+	end  N3,
+	node N4 is
+		obs [ ];
+	end  N4,
+	node N5 is
+		obs [ ];
+	end  N5,
+	node N6 is
+		obs [ ];
+	end  N6,
+	node N7 is
+		obs [ ];
+	end  N7,
+	node N8 is
+		obs [ ];
+	end  N8,
+	node N9 is
+		obs [ ];
+	end  N9,
+	node N10 is
+		obs [ ];
+	end  N10,
+	node N11 is
+		obs [ ];
+	end  N11,
+	node N12 is
+		obs [ ];
+	end  N12,
+	node N13 is
+		obs [ ];
+	end  N13,
+	node N14 is
+		obs [ ];
+	end  N14,
+	node N15 is
+		obs [ ];
+	end  N15,
+	node N16 is
+		obs [ awk, opl, ide ];
+	end  N16,
+	node N17 is
+		obs [ awk, opl ];
+	end  N17,
+	node N18 is
+		obs [ awk, opl, ide ];
+	end  N18,
+	node N19 is
+		obs [ awk, opl ];
+	end  N19,
+	node N20 is
+		obs [ awk, opl, ide ];
+	end  N20,
+	node N21 is
+		obs [ awk, opl ];
+	end  N21,
+	node N22 is
+		obs [ awk, opl, ide ];
+	end  N22,
+	node N23 is
+		obs [ awk, opl ];
+	end  N23,
+	node N24 is
+		obs [ awk, opl, ide ];
+	end  N24,
+	node N25 is
+		obs [ awk, opl ];
+	end  N25,
+	node N26 is
+		obs [ awk, opl, ide ];
+	end  N26,
+	node N27 is
+		obs [ awk, opl ];
+	end  N27,
+	node N28 is
+		obs [ awk, opl, ide ];
+	end  N28,
+	node N29 is
+		obs [ awk, opl ];
+	end  N29,
+	node N30 is
+		obs [ awk, opl, ide ];
+	end  N30,
+	node N31 is
+		obs [ awk, opl ];
+	end  N31,
+	node N_1 is
+		obs [ ];
+	end  N_1,
+	node N_2 is
+		obs [ ];
+	end  N_2,
+	node N_3 is
+		obs [ ];
+	end  N_3,
+	node N_4 is
+		obs [ ];
+	end  N_4,
+	node N_5 is
+		obs [ ];
+	end  N_5,
+	node N_6 is
+		obs [ ];
+	end  N_6,
+	node N_7 is
+		obs [ ];
+	end  N_7,
+	node N_8 is
+		obs [ ];
+	end  N_8,
+	node N_9 is
+		obs [ ];
+	end  N_9,
+	node N_10 is
+		obs [ ];
+	end  N_10,
+	node N_11 is
+		obs [ ];
+	end  N_11,
+	node N_12 is
+		obs [ ];
+	end  N_12,
+	node N_13 is
+		obs [ ];
+	end  N_13,
+	node N_14 is
+		obs [ ];
+	end  N_14,
+	node N_15 is
+		obs [ ];
+	end  N_15,
+	node N_16 is
+		obs [ awk, opl, ide ];
+	end  N_16,
+	node N_17 is
+		obs [ awk, opl ];
+	end  N_17,
+	node N_18 is
+		obs [ awk, opl, ide ];
+	end  N_18,
+	node N_19 is
+		obs [ awk, opl ];
+	end  N_19,
+	node N_20 is
+		obs [ awk, opl, ide ];
+	end  N_20,
+	node N_21 is
+		obs [ awk, opl ];
+	end  N_21,
+	node N_22 is
+		obs [ awk, opl, ide ];
+	end  N_22,
+	node N_23 is
+		obs [ awk, opl ];
+	end  N_23,
+	node N_24 is
+		obs [ awk, opl, ide ];
+	end  N_24,
+	node N_25 is
+		obs [ awk, opl ];
+	end  N_25,
+	node N_26 is
+		obs [ awk, opl, ide ];
+	end  N_26,
+	node N_27 is
+		obs [ awk, opl ];
+	end  N_27,
+	node N_28 is
+		obs [ awk, opl, ide ];
+	end  N_28,
+	node N_29 is
+		obs [ awk, opl ];
+	end  N_29,
+	node N_30 is
+		obs [ awk, opl, ide ];
+	end  N_30,
+	node N_31 is
+		obs [ awk, opl ];
+	end  N_31,
+	node root is
+		obs [ ];
+	end root;
+end Example.

@@ -1,4 +1,4 @@
- component model Breaker is
+component model Breaker is
 	event op, cl;
 	input I;
 	state closed, open;
@@ -63,18 +63,15 @@ end ProtectionHardwareNet.
 
 
 network model AbstractProtectionHWNet is
-	component W1, W2, W3, W4: ProtectionHardware;
-	input I1, I2, I3, I4;
+	component W: ProtectionHardware;
+	input I;
 	output O;
-	link I1(this) -> Cot(W1), I2(this) -> Cot(W2), I3(this)->Cot(W3), I4(this)->Cot(W4);
-	pattern	ni(O) == w1(W1) | w1(W2) | w1(W3) | w1(W4),
-		nr(O) == w6(W1) | w7(W1) | w6(W2) | w7(W2) | w6(W3) | w7(W3) | w6(W4) | w7(W4),
-		ps(O) == (w5(W1)w1(W1)*w2(W1)(~w5(W1))*)+ | (w5(W2)w1(W2)*w2(W2)(~w5(W2))*)+ | (w5(W3)w1(W3)*w2(W3)(~w5(W3))*)+ | (w5(W4)w1(W4)*w2(W4)(~w5(W4))*)+;
-	initial con(W1), con(W2), con(W3), con(W4);
-	ruler  w1(W1) -> fdw1, w6(W1) -> fcw1a, w7(W1) -> fcw1b,
-	       w1(W2) -> fdw2, w6(W2) -> fcw2a, w7(W2) -> fcw2b,
-	       w1(W3) -> fdw3, w6(W3) -> fcw3a, w7(W3) -> fcw3b,
-	       w1(W4) -> fdw4, w6(W4) -> fcw4a, w7(W4) -> fcw4b;
+	link I(this) -> Cot(W);
+	pattern	ni(O) == w1(W),
+		nr(O) == w6(W) | w7(W),
+		ps(O) == (w5(W)w1(W)*w2(W)(~w5(W))*)+;
+	initial con(W);
+	ruler  w1(W) -> fdw, w6(W) -> fcwa, w7(W) -> fcwb;
 end AbstractProtectionHWNet.
 
 
@@ -93,14 +90,8 @@ system PowerTransmission is
 	node N2: AbstractProtectionHWNet is
 	end N2,
 	node N3: ProtectionHardwareNet is
-	end N3,
-	node N4: ProtectionHardwareNet is
-	end N4,
-	node N5: ProtectionHardwareNet is
-	end N5,
-	node N6: ProtectionHardwareNet is
-	end N6;
-	emergence O(N2)->I(N1), O(N3)->I1(N2), O(N4)->I2(N2), O(N5)->I3(N2), O(N6)->I4(N2);
+	end N3;
+	emergence O(N2)->I(N1), O(N3)->I(N2);
 end PowerTransmission.
 
 
@@ -112,15 +103,6 @@ problem Example is
 		obs [ ];
 	end N2,
 	node N3 is
-		obs [ awk, opl, ide ];
-	end N3,
-	node N4 is
-		obs [ awk, opl ];
-	end N4,
-	node N5 is
-		obs [ awk, opl ];
-	end N5,
-	node N6 is
-		obs [ awk, opl ];
-	end N6;
+		obs [ awk, opl, opr, ide ];
+	end N3;
 end Example.

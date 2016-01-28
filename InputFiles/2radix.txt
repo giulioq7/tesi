@@ -38,12 +38,12 @@ end ProtectionHardware.
 
 network model ProtectionHardwareNet is
 	component l,r: Breaker, p: ProtectionDevice;
-	output O;
+	output O1, O2;
 	link O(p) -> I(l), O(p) -> I(r);
-	pattern di(O) == b1(l) | b1(r),
-		co(O) == b2(l) | b2(r),
-		nd(O) == p3(p) | p1(p)((b3(l)b3(r)) | (b3(r)b3(l))),
-		nc(O) == p4(p) | p2(p)(b5(r)?b4(l) | b5(l)?b4(r));
+	pattern di(O1) == b1(l) | b1(r),
+		co(O1) == b2(l) | b2(r),
+		nd(O2) == p3(p) | p1(p)((b3(l)b3(r)) | (b3(r)b3(l))),
+		nc(O2) == p4(p) | p2(p)(b5(r)?b4(l) | b5(l)?b4(r));
 	//pattern fop(O) == p3(p),
 	//	fcp(O) == p4(p),
 	//	fdw(O) == p3(p) | p1(p)(b3(l) & b3(r)),
@@ -73,7 +73,7 @@ system PowerTransmission is
 	end N2,
 	node N3: ProtectionHardwareNet is
 	end N3;
-	emergence O(N3)->I(N1), O(N3)->I(N2);
+	emergence O1(N3)->I(N1), O2(N3)->I(N2);
 end PowerTransmission.
 
 

@@ -1,4 +1,4 @@
- component model Breaker is
+component model Breaker is
 	event op, cl;
 	input I;
 	state closed, open;
@@ -47,34 +47,31 @@ end Line.
 
 
 network model ProtectionHardwareNet is
-	component l,r: Breaker, p: ProtectionDevice;
+	component b: Breaker, p: ProtectionDevice;
 	output O;
-	link O(p) -> I(l), O(p) -> I(r);
-	pattern di(O) == b1(l) | b1(r),
-		co(O) == b2(l) | b2(r),
-		nd(O) == p3(p) | p1(p)((b3(l)b3(r)) | (b3(r)b3(l))),
-		nc(O) == p4(p) | p2(p)(b5(r)?b4(l) | b5(l)?b4(r));
-	initial closed(l), closed(r), idle(p);
-	viewer b1(l) -> opl, b1(r) -> opr, b2(l) -> cll, b2(r) -> clr,
+	link O(p) -> I(b);
+	pattern di(O) == b1(b),
+		co(O) == b2(b),
+		nd(O) == p3(p) | p1(p)b3(b),
+		nc(O) == p4(p) | p2(p)(b5(b)?b4(b));
+	initial closed(b), idle(p);
+	viewer b1(b) -> opb, b2(b) -> clb,
 	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
-	ruler  b3(l) -> nol, b3(r) -> nor, b4(l) -> ncl, b4(r) -> ncr,
+	ruler  b3(b) -> nob, b4(b) -> ncb,
 	       p3(p) -> fop, p4(p) -> fcp;
 end ProtectionHardwareNet.
 
 
 network model AbstractProtectionHWNet is
-	component W1, W2, W3, W4: ProtectionHardware;
-	input I1, I2, I3, I4;
+	component W: ProtectionHardware;
+	input I;
 	output O;
-	link I1(this) -> Cot(W1), I2(this) -> Cot(W2), I3(this)->Cot(W3), I4(this)->Cot(W4);
-	pattern	ni(O) == w1(W1) | w1(W2) | w1(W3) | w1(W4),
-		nr(O) == w6(W1) | w7(W1) | w6(W2) | w7(W2) | w6(W3) | w7(W3) | w6(W4) | w7(W4),
-		ps(O) == (w5(W1)w1(W1)*w2(W1)(~w5(W1))*)+ | (w5(W2)w1(W2)*w2(W2)(~w5(W2))*)+ | (w5(W3)w1(W3)*w2(W3)(~w5(W3))*)+ | (w5(W4)w1(W4)*w2(W4)(~w5(W4))*)+;
-	initial con(W1), con(W2), con(W3), con(W4);
-	ruler  w1(W1) -> fdw1, w6(W1) -> fcw1a, w7(W1) -> fcw1b,
-	       w1(W2) -> fdw2, w6(W2) -> fcw2a, w7(W2) -> fcw2b,
-	       w1(W3) -> fdw3, w6(W3) -> fcw3a, w7(W3) -> fcw3b,
-	       w1(W4) -> fdw4, w6(W4) -> fcw4a, w7(W4) -> fcw4b;
+	link I(this) -> Cot(W);
+	pattern	ni(O) == w1(W),
+		nr(O) == w6(W) | w7(W),
+		ps(O) == (w5(W)w1(W)*w2(W)(~w5(W))*)+;
+	initial con(W);
+	ruler  w1(W) -> fdw, w6(W) -> fcwa, w7(W) -> fcwb;
 end AbstractProtectionHWNet.
 
 
@@ -83,24 +80,23 @@ network model LineNet is
 	input I;
 	link I(this) -> Cot(L);
 	initial normal(L);
-	ruler  l1(L) -> fil, l2(L) -> frl, l3(L) -> psl;
 end LineNet.
 
 
 system PowerTransmission is
 	node N1: LineNet is
+		ruler  l1(L) -> fil1, l2(L) -> frl1, l3(L) -> psl1;
 	end N1,
-	node N2: AbstractProtectionHWNet is
+	node N2: LineNet is
+		ruler  l1(L) -> fil2, l2(L) -> frl2, l3(L) -> psl2;
 	end N2,
-	node N3: ProtectionHardwareNet is
+	node N3: AbstractProtectionHWNet is
 	end N3,
-	node N4: ProtectionHardwareNet is
+	node N4: AbstractProtectionHWNet is
 	end N4,
 	node N5: ProtectionHardwareNet is
-	end N5,
-	node N6: ProtectionHardwareNet is
-	end N6;
-	emergence O(N2)->I(N1), O(N3)->I1(N2), O(N4)->I2(N2), O(N5)->I3(N2), O(N6)->I4(N2);
+	end N5;
+	emergence O(N3)->I(N1), O(N4)->I(N2), O(N5)->I(N3), O(N5)->I(N4);
 end PowerTransmission.
 
 
@@ -112,15 +108,12 @@ problem Example is
 		obs [ ];
 	end N2,
 	node N3 is
-		obs [ awk, opl, ide ];
+		obs [ ];
 	end N3,
 	node N4 is
-		obs [ awk, opl ];
+		obs [ ];
 	end N4,
 	node N5 is
-		obs [ awk, opl ];
-	end N5,
-	node N6 is
-		obs [ awk, opl ];
-	end N6;
+		obs [ awk, opb, ide ];
+	end N5;
 end Example.

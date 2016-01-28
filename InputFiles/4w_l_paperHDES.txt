@@ -36,16 +36,6 @@ component model ProtectionHardware is
 end ProtectionHardware.
 
 
-component model Line is
-	event ni, nr, ps;
-	input Cot;
-	state normal, shorted, isolated, persistent;
-	transition l1 = ni(Cot), normal -> shorted,    {},
-		   l2 = nr(Cot), normal -> isolated,   {},
-		   l3 = ps(Cot), normal -> persistent, {};
-end Line.
-
-
 network model ProtectionHardwareNet is
 	component l,r: Breaker, p: ProtectionDevice;
 	output O;
@@ -67,9 +57,6 @@ network model AbstractProtectionHWNet is
 	input I1, I2, I3, I4;
 	output O;
 	link I1(this) -> Cot(W1), I2(this) -> Cot(W2), I3(this)->Cot(W3), I4(this)->Cot(W4);
-	pattern	ni(O) == w1(W1) | w1(W2) | w1(W3) | w1(W4),
-		nr(O) == w6(W1) | w7(W1) | w6(W2) | w7(W2) | w6(W3) | w7(W3) | w6(W4) | w7(W4),
-		ps(O) == (w5(W1)w1(W1)*w2(W1)(~w5(W1))*)+ | (w5(W2)w1(W2)*w2(W2)(~w5(W2))*)+ | (w5(W3)w1(W3)*w2(W3)(~w5(W3))*)+ | (w5(W4)w1(W4)*w2(W4)(~w5(W4))*)+;
 	initial con(W1), con(W2), con(W3), con(W4);
 	ruler  w1(W1) -> fdw1, w6(W1) -> fcw1a, w7(W1) -> fcw1b,
 	       w1(W2) -> fdw2, w6(W2) -> fcw2a, w7(W2) -> fcw2b,
@@ -78,29 +65,20 @@ network model AbstractProtectionHWNet is
 end AbstractProtectionHWNet.
 
 
-network model LineNet is
-	component L: Line;
-	input I;
-	link I(this) -> Cot(L);
-	initial normal(L);
-	ruler  l1(L) -> fil, l2(L) -> frl, l3(L) -> psl;
-end LineNet.
 
 
 system PowerTransmission is
-	node N1: LineNet is
+	node N1: AbstractProtectionHWNet is
 	end N1,
-	node N2: AbstractProtectionHWNet is
+	node N2: ProtectionHardwareNet is
 	end N2,
 	node N3: ProtectionHardwareNet is
 	end N3,
 	node N4: ProtectionHardwareNet is
 	end N4,
 	node N5: ProtectionHardwareNet is
-	end N5,
-	node N6: ProtectionHardwareNet is
-	end N6;
-	emergence O(N2)->I(N1), O(N3)->I1(N2), O(N4)->I2(N2), O(N5)->I3(N2), O(N6)->I4(N2);
+	end N5;
+	emergence O(N2)->I1(N1), O(N3)->I2(N1), O(N4)->I3(N1), O(N5)->I4(N1);
 end PowerTransmission.
 
 
@@ -109,18 +87,15 @@ problem Example is
 		obs [ ];
 	end N1,
 	node N2 is
-		obs [ ];
+		obs [ awk, opl, ide ];
 	end N2,
 	node N3 is
-		obs [ awk, opl, ide ];
+		obs [ awk, opl ];
 	end N3,
 	node N4 is
 		obs [ awk, opl ];
 	end N4,
 	node N5 is
 		obs [ awk, opl ];
-	end N5,
-	node N6 is
-		obs [ awk, opl ];
-	end N6;
+	end N5;
 end Example.
