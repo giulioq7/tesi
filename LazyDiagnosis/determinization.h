@@ -36,22 +36,32 @@ using namespace astl;
 template<typename SIGMA, typename TAG>
 set<unsigned int> Determinization::eps_closure(NFA_mmap<SIGMA,TAG> &nfa, unsigned int state)
 {
+    stack<unsigned int> s;
+    s.push(state);
     set<unsigned int> result;
     result.insert(state);
-    forward_cursor<NFA_mmap<SIGMA,TAG> > fc(nfa, state);
-    if(fc.first())
+
+    while(!s.empty())
     {
-        do
+        unsigned int current = s.top(); s.pop();
+        forward_cursor<NFA_mmap<SIGMA,TAG> > fc(nfa, current);
+        if(fc.first())
         {
-            if(fc.letter().trans.name == EPS_TRANS)
+            do
             {
-                if(fc.aim() == state)
-                    continue;
-                set<unsigned int> closure = eps_closure(nfa, fc.aim());
-                set_union(result.begin(),result.end(),closure.begin(),closure.end(),std::inserter(result,result.end()));
+                if(fc.letter().trans.name == EPS_TRANS)
+                {
+                    unsigned int aim = fc.aim();
+                    if(!Utils::contain(result,aim))
+                    {
+                        result.insert(aim);
+                        s.push(aim);
+                    }
+                }
             }
+            while(fc.next());
         }
-        while(fc.next());
+
     }
 
     return result;
@@ -61,11 +71,35 @@ set<unsigned int> Determinization::eps_closure(NFA_mmap<SIGMA,TAG> &nfa, unsigne
 template<typename SIGMA, typename TAG>
 set<unsigned int> Determinization::eps_closure(NFA_mmap<SIGMA,TAG> &nfa, set<unsigned int> states)
 {
+    stack<unsigned int> s;
     set<unsigned int> result;
     for(set<unsigned int>::iterator it = states.begin(); it != states.end(); it++)
     {
-        set<unsigned int> closure = eps_closure(nfa,*it);
-        set_union(result.begin(),result.end(),closure.begin(),closure.end(),std::inserter(result,result.end()));
+        s.push(*it);
+        result.insert(*it);
+    }
+
+    while(!s.empty())
+    {
+        unsigned int current = s.top(); s.pop();
+        forward_cursor<NFA_mmap<SIGMA,TAG> > fc(nfa, current);
+        if(fc.first())
+        {
+            do
+            {
+                if(fc.letter().trans.name == EPS_TRANS)
+                {
+                    unsigned int aim = fc.aim();
+                    if(!Utils::contain(result,aim))
+                    {
+                        result.insert(aim);
+                        s.push(aim);
+                    }
+                }
+            }
+            while(fc.next());
+        }
+
     }
 
     return result;
@@ -102,7 +136,7 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
 {
     unsigned int s0 = dfa.new_state();
     TAG_DFA t(eps_closure(nfa,nfa.initial()));
-    cout<<"S0 eps-clos: " << t;
+    //cout<<"S0 eps-clos: " << t;
     NFA_mmap<SIGMA,TAG> autom;
     extract_subNFA(bhv,t.get_states(),nfa.initial(),autom);
     set<unsigned int> initials = autom.initial();
@@ -137,7 +171,7 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
     for(typename DFA_map<SIGMA_DFA,TAG_DFA>::const_iterator c = dfa.begin(); c != dfa.end(); c++)
     {
         set<unsigned int> states = dfa.tag(*c).get_states();
-        cout << states << endl;
+        //cout << states << endl;
         NFA_mmap<SIGMA,TAG> *aut = dfa.tag(*c).get_automaton();
         set<unsigned int>::iterator it;
         typename NFA_mmap<SIGMA,TAG>::const_iterator it2;
@@ -167,10 +201,10 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
                         }
                         else
                             delta2 = delta;
-                        cout << delta2 << endl;
+                        //cout << delta2 << endl;
                         SIGMA_DFA trans(fc.letter().trans,delta);
                         set<unsigned int> aim_set = move(nfa,states,dfa,*c,trans);
-                        cout << "aim set: " << aim_set << endl;
+                        //cout << "aim set: " << aim_set << endl;
                         trans = SIGMA_DFA(fc.letter().trans, delta2);
                         trans.pattern_events = fc.letter().pattern_events;
                         set<unsigned int> U = eps_closure(nfa,aim_set);
@@ -178,12 +212,11 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
                         stringstream s_str;
                         s_str << t.get_states();
                         unsigned int state;
-                        if(hash_values.find(s_str.str()) != hash_values.end())
+                        try
                         {
-                            state = hash_values[s_str.str()];
+                            state = hash_values.at(s_str.str());
                         }
-                        //catch (const std::out_of_range&)
-                        else
+                        catch (const std::out_of_range&)
                         {
                             autom = NFA_mmap<SIGMA,TAG>();
                             extract_subNFA(bhv,t.get_states(),aim_set,autom);

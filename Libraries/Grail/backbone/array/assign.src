@@ -66,7 +66,7 @@ array<Item>::operator=(const array<Item>& s)
 	if (max < s.sz)
 	{
 		max = s.sz;
-		delete [] p;   //seg abort ???
+		//delete [] p;   //seg abort ???
 		p = new Item[max];
 	}
 

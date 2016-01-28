@@ -180,7 +180,7 @@ template<class Item>
     if (pool_sz == max_pool || max > 64)
       {
         // std::cout<<"Array deleted"<<std::endl;
-        delete[] p;
+        //delete[] p;
         return;
       }
 

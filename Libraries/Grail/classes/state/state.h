@@ -84,7 +84,7 @@ private:
 // public functions
 public:
 
-			state():number(NULL_STATE) { }
+                        state():number(NULL_STATE) { }
 			// default constructor:  initializes this state to be
 			//  a null state.
 
@@ -93,10 +93,9 @@ public:
 			//  same type and have the same state number as the
 			//  parameter state.
 
-			state(const int& i):number(i + 2) { /*std::cout<<"get number"<<i<<"stored in"<<(i+2)<<"\n";*/}
+                        state(const int& i):number(i + 2) {  /*std::cout<<"get number"<<i<<"stored in"<<(i+2)<<"\n";*/}
 			// constructor:  initializes this state to be a normal
 			//  state with state number i.
-
 	int		is_null() const
 			// returns 1 if this state is null, 0 otherwise
 			{ return number == NULL_STATE ? 1 : 0; }
@@ -115,7 +114,7 @@ public:
 			//  copy of the parameter state (it will have the
 			//  same type and state number).   Returns a
 			//  reference to this state.
-			{ number = s.number; tag = s.tag; return *this; }
+                        { number = s.number; tag = s.tag; return *this; }
 
 	state&		operator=(const int& i)
 			// assignment operator:  assigns this state to be a
@@ -200,7 +199,7 @@ public:
 	int		value() const
 			// return the value (state number) of this state.
 			{ return number-2; }
-    std::string get_tag()
+    std::string get_tag() const
     {
         return tag;
     }

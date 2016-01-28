@@ -11,7 +11,7 @@
 #include "interfacetrans.h"
 #include "sys/resource.h"
 
-#define EMPTY_LINK_FINAL false
+#define EMPTY_LINK_FINAL true
 
 using namespace std;
 using namespace astl;
@@ -60,6 +60,8 @@ int main()
        // archive and stream closed when destructors are called
     }
 
+    cout << "Nodes: " << problem.nodes.size() << ", Components: " << problem.concrete_components_count() << endl;
+
     timeval start, stop;
     double elapsedTime;
     gettimeofday(&start, NULL);
@@ -82,7 +84,8 @@ int main()
 
          if(i == problem.topological_order.size()-1)
          {
-
+             if(bhvs[*it]->state_count() == 0)
+                 break;
              bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis.insert(set<string>());
              Decoration::decorate_lazy_bhv(*bhvs[*it],bhvs[*it]->initial(),bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis, problem.nodes[*it].ruler, interfaces, dependency);
 
@@ -485,7 +488,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
     if(init == DFA_map<InterfaceTrans,BehaviorState>::null_state)
     {
         cout << "Empty behavior" << endl;
-        exit(1);
+        //exit(1);
     }
 
     bhv.initial(init);
@@ -521,7 +524,7 @@ void to_nfa(DFA_map<InterfaceTrans, BehaviorState> &dfa, NFA_mmap<InterfaceTrans
             else
                 t = bfc.letter();
             nfa.set_trans(state_map[bfc.src()],t,state_map[bfc.aim()]);
-            cout << state_map[bfc.src()] << " - " << t << " -> " << state_map[bfc.aim()] << endl;
+            //cout << state_map[bfc.src()] << " - " << t << " -> " << state_map[bfc.aim()] << endl;
         }while(bfc.next());
     }
 

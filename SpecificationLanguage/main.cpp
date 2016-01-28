@@ -476,7 +476,7 @@ fm<TYPE> start_build(vector<Pattern > patterns)
        delete *it_v;
    //v->erase(v->begin(),v->end());
    delete v;
-   delete merge;
+   //delete merge;
 
    return merge2;
 }
@@ -487,11 +487,13 @@ fm<TYPE> patodfa(std::string regex)
     re<TYPE> r;
     istringstream str(regex);
     str >> r;
-    fm<TYPE> dfa;
-    r.retofm(dfa);
-    dfa.subset();
+    fm<TYPE> *dfa = new fm<TYPE>;
+    r.retofm(*dfa);
+    grail::list<grail::set<grail::state> > sub;
+    mysubset(dfa,sub);
+    //dfa->subset();
 
-    return dfa;
+    return *dfa;
 }
 
 
@@ -511,8 +513,11 @@ fm<TYPE>* merge_dfa(vector<fm<TYPE> *> *vec)
 {
     fm<TYPE>* nfa = new fm<TYPE>;
 
-    for(unsigned int i=0; i<vec->size(); ++i)
-        *nfa += *(vec->at(i));
+    vector<fm<TYPE> *>::iterator it = vec->begin();
+    *nfa = **it;
+    it++;
+    for(; it != vec->end(); it++)
+        *nfa += **it;
 
      return nfa;
 }
@@ -524,8 +529,9 @@ void add_eps_to_init(fm<TYPE>& nfa)
     nfa.states(nodes);
     grail::set<grail::state> initials;
     nfa.starts(initials);
-    grail::set<grail::state> finals;
-    nfa.finals(finals);
+    //grail::set<grail::state> finals;
+    //nfa.finals(finals);
+    //finals = nfa.final_states;
 
     grail::set<grail::state> non_initials(nodes);
     non_initials -= initials;
@@ -550,7 +556,7 @@ void add_eps_to_init(fm<TYPE>& nfa)
                 inst<TYPE> trans;
                 trans.assign(arcs[i].get_source(),label,initials[j]);
                 nfa.add_instruction(trans);
-                if(finals.member(initials[j]) != -1)
+                if(nfa.final_states.member(initials[j]) != -1)
                 {
                     grail::set<grail::state> fin;
                     nfa.finals(fin);
@@ -565,7 +571,6 @@ void add_eps_to_init(fm<TYPE>& nfa)
 
 fm<TYPE> mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
 {
-
     fm<TYPE>		m;
     int			i;
     int			j;
@@ -587,10 +592,10 @@ fm<TYPE> mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
     nfa->arcs.sort();
 
     // remove unreachable states
-    nfa->reachable_fm();
-    nfa->reverse();
-    nfa->reachable_fm();
-    nfa->reverse();
+    //nfa->reachable_fm();
+    //nfa->reverse();
+    //nfa->reachable_fm();
+    //nfa->reverse();
 
     // collect the alphabet
     nfa->labels(alphabet);
@@ -626,7 +631,8 @@ fm<TYPE> mysubset(fm<TYPE>* nfa,grail::list<grail::set<grail::state> >&	sub)
                 for (k=0; k<sub[i].size(); ++k)
                 {
                     nfa->select(alphabet[j], sub[i][k], SOURCE, temp);
-                    target += temp.sinks(temp2);
+                    temp.sinks(temp2);
+                    target += temp2;
                 }
 
                 if (target.size() == 0)

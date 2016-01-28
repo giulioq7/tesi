@@ -1,4 +1,4 @@
-22 serialization::archive 13 0 0 4 0 1 0
+22 serialization::archive 13 0 0 9 0 1 0
 0 2 0 1 2 7 Breaker 3 1 0
 1 0 0 0 0 3 0 -1 6 1 0
 2 0 0 6 closed 0 0 3 0 0 0 1 0
@@ -58,3 +58,63 @@
 56 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
 57 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
 58 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent
+59 4 0 1 2 3 4 9 SuperLine 3
+60 5 0 -1 6
+61 6 normal 3 0
+62 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted 2
+63 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated 3
+64 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent 4 6
+65 7 shorted 0 0 6
+66 8 isolated 0 0 6
+67 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 3 Cot 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
+68 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
+69 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
+70 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent
+71 4 0 1 2 3 4 11 SuSuperLine 3
+72 5 0 -1 6
+73 6 normal 3 0
+74 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted 2
+75 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated 3
+76 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent 4 6
+77 7 shorted 0 0 6
+78 8 isolated 0 0 6
+79 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 3 Cot 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
+80 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
+81 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
+82 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent
+83 4 0 1 2 3 4 13 SuSuSuperLine 3
+84 5 0 -1 6
+85 6 normal 3 0
+86 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted 2
+87 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated 3
+88 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent 4 6
+89 7 shorted 0 0 6
+90 8 isolated 0 0 6
+91 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 3 Cot 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
+92 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
+93 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
+94 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent
+95 4 0 1 2 3 4 12 Su3SuperLine 3
+96 5 0 -1 6
+97 6 normal 3 0
+98 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted 2
+99 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated 3
+100 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent 4 6
+101 7 shorted 0 0 6
+102 8 isolated 0 0 6
+103 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 3 Cot 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
+104 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
+105 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
+106 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent
+107 4 0 1 2 3 4 12 Su4SuperLine 3
+108 5 0 -1 6
+109 6 normal 3 0
+110 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted 2
+111 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated 3
+112 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent 4 6
+113 7 shorted 0 0 6
+114 8 isolated 0 0 6
+115 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 3 Cot 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
+116 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
+117 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
+118 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent
