@@ -570,6 +570,9 @@ void spec_driver::build_dependency_graph()
         system.dependency_graph.tag(single_state) = StateData_str(system.node_list.at(0).name);
         system.dependency_graph.initial(single_state);
     }
+    bool radix[problem.nodes.size()];
+    for(unsigned int i=0; i<problem.nodes.size();i++)
+        radix[i] = true;
     vector<pair<pair<std::string,std::string>,pair<std::string,std::string> > >::iterator it;
     for(it = system.emergence.begin(); it != system.emergence.end(); it++)
     {
@@ -590,8 +593,8 @@ void spec_driver::build_dependency_graph()
             s1 = system.dependency_graph.new_state();
             system.dependency_graph.tag(s1) = StateData_str(it->second.second);
             //initial node (arbitrary) made just for automaton visualitation
-            if(system.dependency_graph.initial() == DFA_map<strings,StateData_str>::null_state)
-                system.dependency_graph.initial(s1);
+            //if(system.dependency_graph.initial() == DFA_map<strings,StateData_str>::null_state)
+                //system.dependency_graph.initial(s1);
         }
         if(s2 == DFA_map<strings,StateData_str>::null_state)
         {
@@ -606,10 +609,22 @@ void spec_driver::build_dependency_graph()
         label.append(it->second.first);
         label.append("("); label.append(it->second.second); label.append(")");
         system.dependency_graph.set_trans(s1,label,s2);
+        radix[s2] = false;
+    }
+
+    set<unsigned int> radixes;
+    for(DFA_map<strings,StateData_str>::const_iterator c = system.dependency_graph.begin(); c != system.dependency_graph.end(); c++)
+    {
+        if(radix[*c])
+            radixes.insert(*c);
+    }
+    for(set<unsigned int>::iterator it = radixes.begin(); it != radixes.end(); it++)
+    {
+        problem.find_node(system.dependency_graph.tag(*it).state_name)->radix = true;
     }
 
     if(system.dependency_graph.state_count() < system.node_list.size()  //detects single disconnected nodes
-            || Utils::disconnected_graph(system.dependency_graph))      //detects disconnected subgraphs
+            || Utils::disconnected_graph(system.dependency_graph, radixes))      //detects disconnected subgraphs
         error(loc, "System nodes graph is not connected");
 
     if(!Utils::cyclic_graph(system.dependency_graph))

@@ -8,6 +8,9 @@
 #include "behaviorstate.h"
 #include <unordered_map>
 #include <sys/resource.h>
+#include <unistd.h>
+
+#define GRAPHS_DIR "./Graphs/"
 
 using namespace std;
 using namespace astl;
@@ -322,6 +325,7 @@ int main()
      cout << "Number of states(Spurious bhv) : " << behavior.state_count() << endl;
      cout << "Number of transitions(Spurious bhv) : " << behavior.trans_count() << endl;
 
+     chdir(GRAPHS_DIR);
 
      ofstream file;
      file.open("behavior_spurious.xdot");

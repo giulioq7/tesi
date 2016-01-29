@@ -22,8 +22,10 @@ public:
     template <typename T> static T findptr_from_id(vector<T> &v,std::string id);
     template <typename SIGMA, typename TAG> static bool cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
     template <typename SIGMA, typename TAG> static std::vector<unsigned int> topological_sort(astl::DFA_map<SIGMA,TAG> &dfa);
-    template <typename SIGMA, typename TAG> static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa);
+    template <typename SIGMA, typename TAG> static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa, set<unsigned int> &radixes);
     template <typename SIGMA, typename TAG> static void minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa);
+
+    template <typename SIGMA, typename TAG> static void my_dot(ostream &ostr, astl::DFA_map<SIGMA,TAG> &dfa);
 };
 
 template <typename T>
@@ -179,13 +181,17 @@ vector<unsigned int> Utils::topological_sort(astl::DFA_map<SIGMA,TAG>& dfa)
     for(it_c = dfa.begin(); it_c != dfa.end(); it_c++)
         graph.new_state();
     graph.initial(dfa.initial());
-    bfirst_cursor<queue_cursor<forward_cursor<DFA_map<SIGMA,TAG> > > > bfc = bfirstc(dfa), bfc_end;
-    while(bfc != bfc_end)
+    for(it_c = dfa.begin(); it_c != dfa.end(); it_c++)
     {
-        do
+        forward_cursor<DFA_map<SIGMA,TAG> > fc(dfa,*it_c);
+        if(fc.first())
         {
-            graph.set_trans(bfc.src(),bfc.letter(),bfc.aim());
-        }while(bfc.next());
+            do
+            {
+                graph.set_trans(fc.src(),fc.letter(),fc.aim());
+            }
+            while(fc.next());
+        }
     }
 
     while(graph.begin() != graph.end())
@@ -239,7 +245,7 @@ vector<unsigned int> Utils::topological_sort(astl::DFA_map<SIGMA,TAG>& dfa)
 
 
 template <typename SIGMA, typename TAG>
-bool Utils::disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa)
+bool Utils::disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa, set<unsigned int> &radixes)
 {
     using namespace astl;
 
@@ -247,22 +253,31 @@ bool Utils::disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa)
         return false;
 
     vector<unsigned int> visited;
-    typename bfirst_mark_cursor_type<DFA_map<SIGMA, TAG>, DFA_concept, set_marker
-            <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(dfa), bfc_end;
 
-    while(bfc != bfc_end)
+    if(radixes.empty())
+        radixes.insert(0);
+
+    for(set<unsigned int>::iterator it = radixes.begin(); it != radixes.end(); it++)
     {
-        do
+        dfa.initial(*it);
+        typename bfirst_mark_cursor_type<DFA_map<SIGMA, TAG>, DFA_concept, set_marker
+                <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(dfa), bfc_end;
+
+        while(bfc != bfc_end)
         {
-            //cout << bfc.src() << bfc.letter() << bfc.aim() << endl;
-            unsigned int s1 = bfc.src();
-            if(!contain(visited, s1))
-                visited.push_back(s1);
-            unsigned int s2 = bfc.aim();
-            if(!contain(visited,s2))
-                visited.push_back(s2);
-        }while(bfc.next());
+            do
+            {
+                //cout << bfc.src() << bfc.letter() << bfc.aim() << endl;
+                unsigned int s1 = bfc.src();
+                if(!contain(visited, s1))
+                    visited.push_back(s1);
+                unsigned int s2 = bfc.aim();
+                if(!contain(visited,s2))
+                    visited.push_back(s2);
+            }while(bfc.next());
+        }
     }
+    dfa.initial(DFA_map<SIGMA,TAG>::null_state);
 
     //cout << "visited: " << visited.size();
     //cout << "total: " << dfa.state_count();
@@ -271,6 +286,41 @@ bool Utils::disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa)
 
     return false;
 }
+
+
+template <typename SIGMA, typename TAG>
+void Utils::my_dot(ostream &ostr, astl::DFA_map<SIGMA,TAG> &dfa)
+{
+    using namespace astl;
+
+    ostr << "digraph G {" << endl;
+
+    typename DFA_map<SIGMA,TAG>::const_iterator c;
+    for(c = dfa.begin(); c != dfa.end(); c++)
+    {
+        string border = "circle";
+        if(dfa.final(*c))
+            border = "doublecircle";
+        ostr << *c << "[shape=" << border << ",label=\"" << *c << "\n" << dfa.tag(*c) << "\"];" << endl;
+        if(dfa.initial() == *c)
+        {
+            ostr << "node [shape = point]; start;" << endl;
+            ostr << "start -> " << *c << ";" << endl;
+        }
+        forward_cursor<DFA_map<SIGMA,TAG> > fc(dfa,*c);
+        if(fc.first())
+        {
+            do
+            {
+                ostr << *c << " -> " << fc.aim() << " [label=\"" << fc.letter() << "\"];\n";
+            }
+            while(fc.next());
+        }
+    }
+
+    ostr << "}";
+}
+
 
 
 template <typename SIGMA, typename TAG>
@@ -444,54 +494,55 @@ void Utils::minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa)
 
     cout << parts << endl;
 
-    typename bfirst_mark_cursor_type<DFA_map<SIGMA, TAG>, DFA_concept, set_marker
-            <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(dfa), bfc_end;
 
-    while(bfc != bfc_end)
+    for(typename DFA_map<SIGMA,TAG>::const_iterator c = dfa.begin(); c != dfa.end(); c++)
     {
-        do
+        forward_cursor<DFA_map<SIGMA,TAG> > fc(dfa,*c);
+        if(fc.first())
         {
-            //cout << bfc.src() << bfc.letter() << bfc.aim() << endl;
-            bool done = false;
-            vector<set<unsigned int> >::iterator it;
-            for(it = parts.begin(); it != parts.end(); it++)
+            do
             {
-                set<unsigned int>::iterator it2 = it->begin();
-                it2++;
-                for(; it2 != it->end(); it2++)
+                //cout << fc.src() << fc.letter() << fc.aim() << endl;
+                bool done = false;
+                vector<set<unsigned int> >::iterator it;
+                for(it = parts.begin(); it != parts.end(); it++)
                 {
-                    if(*it2 == bfc.src())
+                    set<unsigned int>::iterator it2 = it->begin();
+                    it2++;
+                    for(; it2 != it->end(); it2++)
                     {
-                        dfa.del_trans(*it2,bfc.letter());
-                        done = true;
-                        break;
+                        if(*it2 == fc.src())
+                        {
+                            dfa.del_trans(*it2,fc.letter());
+                            done = true;
+                            break;
+                        }
+                        else if(*it2 == fc.aim())
+                        {
+                            dfa.change_trans(fc.src(),fc.letter(),*it->begin());
+                            done = true;
+                            break;
+                        }
                     }
-                    else if(*it2 == bfc.aim())
-                    {
-                        dfa.change_trans(bfc.src(),bfc.letter(),*it->begin());
-                        done = true;
+                    if(done)
                         break;
-                    }
+
                 }
-                if(done)
-                    break;
 
-            }
-
-        }while(bfc.next());
+            }while(fc.next());
+        }
     }
 
-    /*vector<set<unsigned int> >::iterator it;
+    vector<set<unsigned int> >::iterator it;
     for(it = parts.begin(); it != parts.end(); it++)
     {
         set<unsigned int>::iterator it2 = it->begin();
         it2++;
         for(; it2 != it->end(); it2++)
         {
-            if(*it2 != 88 && *it2 != 90)
-                dfa.del_state(*it2);
+            dfa.del_state(*it2);
         }
-    }*/
+    }
 
 
 }

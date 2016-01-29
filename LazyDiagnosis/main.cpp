@@ -10,6 +10,9 @@
 #include "interfacestate.h"
 #include "interfacetrans.h"
 #include "sys/resource.h"
+#include <unistd.h>
+
+#define GRAPHS_DIR "./Graphs/"
 
 #define EMPTY_LINK_FINAL true
 
@@ -82,7 +85,7 @@ int main()
         vector<int> dependency = problem.nodes[*it].depends;
         build_behavior(*spurious_bhvs[*it], *bhvs[*it], problem, system, *it, interfaces, dependency);
 
-         if(i == problem.topological_order.size()-1)
+         if(problem.nodes[*it].radix)
          {
              if(bhvs[*it]->state_count() == 0)
                  break;
@@ -107,7 +110,7 @@ int main()
              }
              cout << "Diagnosis: " << diagnosis << endl;
 
-             break;
+             continue;
          }
 
          NFA_mmap<InterfaceTrans,BehaviorState> nfa;
@@ -142,8 +145,9 @@ int main()
      getrusage(RUSAGE_SELF,&r_usage);
      cout << "Memory usage = " << r_usage.ru_maxrss/1000.0 << " MB" << endl;
 
+     chdir(GRAPHS_DIR);
 
-     for(int i=0; i<bhvs.size(); i++)
+     for(unsigned int i=0; i<bhvs.size(); i++)
      {
          string name = "behavior_";
          stringstream ss;
@@ -151,13 +155,14 @@ int main()
          name.append(ss.str());
          ofstream file;
          file.open(name.c_str());
+         //Utils::my_dot(file,*bhvs[i]);
          full_dot(file, dfirst_markc(*bhvs[i]));
 
          delete bhvs[i];
      }
 
 
-     for(int i=0; i<spurious_bhvs.size(); i++)
+     for(unsigned int i=0; i<spurious_bhvs.size(); i++)
      {
          string name = "behavior_spurious_";
          stringstream ss;
@@ -165,13 +170,14 @@ int main()
          name.append(ss.str());
          ofstream file;
          file.open(name.c_str());
+         //Utils::my_dot(file,*spurious_bhvs[i]);
          full_dot(file, dfirst_markc(*spurious_bhvs[i]));
 
          delete spurious_bhvs[i];
      }
 
 
-     for(int i=0; i<interfaces.size(); i++)
+     for(unsigned int i=0; i<interfaces.size(); i++)
      {
          string name = "interface_";
          stringstream ss;
@@ -179,6 +185,7 @@ int main()
          name.append(ss.str());
          ofstream file;
          file.open(name.c_str());
+         //Utils::my_dot(file, *interfaces[i]);
          full_dot(file, dfirst_markc(*interfaces[i]));
 
          delete interfaces[i];

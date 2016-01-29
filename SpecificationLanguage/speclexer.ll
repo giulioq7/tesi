@@ -5,7 +5,7 @@
 # include "spec_driver.h"
 # include "specparser.hpp"
 
-# define INPUT_FILE_DIR "./InputFiles/"
+# define INPUT_FILE_DIR "../InputFiles/"
 
 using namespace std;
 

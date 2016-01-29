@@ -26,6 +26,7 @@ class ProblemNode
         ar & observation;
         ar & index_space;
         ar & depends;
+        ar & radix;
         ar & patt_map;
         ar & patt_indexes_map;
         ar & lazy_patt_indexes_map;
@@ -49,13 +50,14 @@ public:
     astl::DFA_map<astl::strings,StateData_str> *index_space;
 
     vector<int> depends;
+    bool radix;
 
     map<std::string,Terminal*> patt_map;
     map<std::string,vector<int> > patt_indexes_map;
     map<std::string,vector<int> > lazy_patt_indexes_map;
 
     ProblemNode(){/*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}
-    ProblemNode(std::string str){ name = str; /*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}
+    ProblemNode(std::string str){ name = str; radix = false;/*index_space = new  astl::DFA_map<astl::strings,StateData_str>();*/}
     Component* find_component(std::string id);
     void make_terminals();
 

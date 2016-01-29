@@ -72,7 +72,8 @@ int main(int argc, char** argv)
     {
         ofstream file;
         file.open("dependency_graph");
-        full_dot(file, dfirst_markc(driver.system.dependency_graph));
+        Utils::my_dot(file, driver.system.dependency_graph);
+        //full_dot(file, dfirst_markc(driver.system.dependency_graph));
     }
 
     //build components models automata (initial state missed because it will be certainly defined only in problem node)
@@ -136,6 +137,7 @@ int main(int argc, char** argv)
                stringstream ss;
                ss << "pts_" << it->name << num_pts;
                file.open (ss.str().c_str());
+               //Utils::my_dot(file,*ptspace);
                full_dot(file, dfirst_markc(*ptspace));
                file.close();
                //full_dump(cout, dfirst_markc(*ptspace));
