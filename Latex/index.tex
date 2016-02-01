@@ -17,6 +17,17 @@
 \addto\captionsitalian{%
 \renewcommand{\lstlistlistingname}{Elenco dei codici}}
 
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{cor}[thm]{Corollario}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposizione}
+\theoremstyle{definition}
+\newtheorem{defn}{Definizione}[chapter]
+\theoremstyle{remark}
+\newtheorem{oss}{Osservazione}
+
 
 \usepackage{pdfpages}
 \author{Giulio Quarenghi}

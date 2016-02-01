@@ -1,1 +1,57 @@
 \chapter{Sistemi Attivi}
+In questo capitolo vengono presentate definizioni ed esempi riguardanti i sistemi attivi tradizionali.
+I sistemi attivi rappresentano una classe specifica di sistemi a eventi discreti. Ad un certo livello di astrazione, generalmente, qualsiasi sistema fisico può essere modellato attraverso un comportamento discreto. Un sistema, infatti, non è continuo o discreto di per sé, anche se si può prestare o meno ad una certa scelta nel modello da adottare. I sistemi attivi sono asincroni, diversamente da altri approcci presenti in letteratura riguardanti i sistemi a eventi discreti nei quali il tempo mantiene una dimensione importante.
+Il modello dei sistemi attivi include due tipi fondamentali di elementi: i componenti e i link. Un sistema attivo è una rete di componenti connessi gli uni agli altri per mezzo di link uscenti da terminali di output di alcuni componenti ed entranti nei terminali di input di altri. Il comportamento di ogni componente è descritto da un automa a stati finiti, le cui transizioni tra gli stati sono compiute in base alla consumazione di determinati eventi disponibili nei terminali di input, l'esecuzione delle quali porta alla generazione di eventi trasmessi ai terminali di output del componente. \'E altresì possibile che alcune transizioni non vengano innescate da alcun evento particolare presente nel modello: in tal caso si assume che l'evento scatenante provenga dal mondo esterno al sistema. Il modello comportamentale del componente è assunto essere completo, nel senso che racchiude sia le transizioni normali, sia quelle di guasto.
+Un sistema attivo è quindi caratterizzato da una topologia (collegamenti tra componenti) e dal comportamento dei singoli componenti e dei link, i quali in un modello generale potrebbero avere differenti capacità di immagazzinamento (in termini di numero di eventi) e comportamenti diversi nel caso siano colmi (la cosiddetta politica di saturazione).
+Il modello globale del sistema è quindi implicitamente dato dalla topologia dell'insieme e dai comportamenti dei singoli componenti e dei link. Questo modello può essere rappresentato anch'esso da un automa a stati finiti, dove ogni stato racchiude lo stato di tutti i componenti e di tutti i link, mentre le transizioni sono costituite da transizioni dei componenti.
+
+\section{Componenti} 
+I componenti sono i costituenti base dei sistemi attivi. Ogni componente è caratterizzato da due modelli:
+\begin{enumerate}
+\item modello topologico: un componente è descritto da un insieme di terminali di input, da cui gli eventi vengono consumati, e da un insieme di terminali di output, dai quali gli eventi vengono generati;
+\item modello comportamentale: un automa a stati finiti descrive unitamente il comportamento ordinario e quello di guasto, e una funzione di transizione mappa uno stato e un evento in ingresso in nuovo stato, generando un sottoinsieme (in generale anche vuoto) di eventi nei terminali di uscita.  
+\end{enumerate}
+
+\begin{defn}
+Un modello di componente è un automa:
+\begin{center}
+	$M_c = (S,E_{in},I,E_{out},O,\tau)$
+\end{center}
+dove $S$ è l'insieme degli stati, $E_{in}$ è l'insieme degli eventi in ingresso, $I$ è l'insieme dei terminali di input, $E_{out}$ è l'insieme degli eventi in uscita, $O$ è l'insieme dei terminali di output, e $\tau$ è la funzione di transizione (non deterministica):
+\begin{center}
+	$ \tau : S \times (E_{in} \times I) \times 2^{(E_{out} \times O)} \rightarrow 2^S $.
+\end{center}
+
+Un evento è una coppia $(e,\theta)$, dove $e$ è un ingresso o uscita e $\theta$ un terminale. Un componente particolare può essere visto come un'istanza di un modello di componente. 
+Una transizione $t$ da uno stato $s$ ad uno stato $s^\prime$ è innescata da un evento in ingresso $(e,x)$ disponibile al terminale di input $x$ e genera l'insieme (possibilmente vuoto) di eventi 
+$\{(e_1,y_1), \ldots ,(e_n,y_n)\}$ in corrispondenza dei terminali di output $y_1, \ldots,y_n$, in simboli:
+\begin{center}
+	$t = s \xrightarrow {(e,x) \Rightarrow (e_1,y_1), \ldots ,(e_n,y_n)} s^{\prime}$.
+\end{center}
+\end{defn}
+
+\'E implicitamente definito un terminale di input virtuale, chiamato $In$, attraverso il quale giungono gli eventi esterni al sistema.
+
+\section{Link}
+Nell'ambito dei sistemi attivi, i componenti sono tra loro connessi per mezzo di link. Ogni link esce da un terminale di output $o$ di un componente $c$ e entra in un terminale di input $i$ di un componente $c^\prime$.
+Analogamente a quanto avviene per i componenti, anche i link sono caratterizzati da un modello, che costituisce un'astrazione del link specifico in esame.
+
+\begin{defn}
+Un modello di link è una quadrupla
+\begin{center}
+	$M_l = (x,y,z,w)$
+\end{center}
+dove $x$ è il terminale di input, $y$ il terminale di output, $z$ la dimensione e $w$ la politica di saturazione.
+\end{defn}
+Un particolare link $l$ è un'istanza di un modello siffatto, e consiste quindi in un canale di comunicazione unidirezionale fra due componenti distinti $c$ e $c^\prime$, dove un terminale di output $y$ di $c$ e un terminale di input $x$ di $c^\prime$ coincidono rispettivamente con l'input e l'output del link $l$.
+La dimensione $z$ rappresenta il numero massimo di eventi che possono essere accodati nel link. 
+Indichiamo con $\parallel l \parallel$ la configurazione corrente del link. 
+Se il numero di eventi attualmente memorizzati coincide con la dimensione, il link si dice essere saturo.
+Quando il link è saturo, la semantica legata al compimento delle transizioni è dettata dalla politica di saturazione $w$, la quale può essere:
+\begin{itemize}
+\item lose: l'evento, non potendo essere memorizzato, viene perso;
+\item override: l'evento sovrascrive l'ultimo evento nel link;
+\item wait: la transizione non viene portata a termine fintanto che il link permane nello stato di saturazione, ovvero fino a quando almeno un evento nel link viene consumato.
+\end{itemize}
+Nell'ambito di questa tesi, si considererà il caso particolare di link di dimensione unitaria e politica di saturazione $wait$ , ovvero $z = 1$ e $w = wait$.
+
