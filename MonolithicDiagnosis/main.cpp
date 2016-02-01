@@ -67,6 +67,7 @@ int main()
 
      vector< forward_cursor<DFA_map<SysTransition,StateData_str> > > fc_S;
      vector< forward_cursor<DFA_map<NetTransition,StateData_strList> > > fc_P;
+     vector<unsigned int> initial_P;
      vector< forward_cursor<DFA_map<strings,StateData_str> > > fc_I;
      DFA_map<SysTransition,BehaviorState> behavior;
      BehaviorState tag_s0(problem.concrete_components_count(),problem.input_terminals_count(),system.pts_count(),problem.nodes.size());
@@ -101,6 +102,7 @@ int main()
          {
              forward_cursor<DFA_map<NetTransition,StateData_strList> > fc(**it2,(*it2)->initial());
              fc_P.push_back(fc);
+             initial_P.push_back(fc.src());
              tag_s0.P[index_patt] = fc.src();
              index_patt++;
          }
@@ -220,6 +222,8 @@ int main()
                                             break;
                                     }
                                 }
+                                else
+                                    tag_s1.P[i] = initial_P[i];
                              }
                              if(!triggerable_pattern)
                                  continue;

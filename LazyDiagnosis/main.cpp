@@ -203,6 +203,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
 
     vector< forward_cursor<DFA_map<SysTransition,StateData_str> > > fc_S;
     vector< forward_cursor<DFA_map<NetTransition,StateData_strList> > > fc_P;
+    vector<unsigned int> initial_P;
     forward_cursor<DFA_map<strings,StateData_str> >  fc_I;
     vector< forward_cursor<DFA_map<InterfaceTrans,InterfaceState> > > fc_interfaces;
 
@@ -222,6 +223,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
     {
         forward_cursor<DFA_map<NetTransition,StateData_strList> > fc(**it,(*it)->initial());
         fc_P.push_back(fc);
+        initial_P.push_back(fc.src());
         tag_s0.P[index_patt] = fc.src();
         index_patt++;
     }
@@ -340,6 +342,8 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                                     set_union(t.pattern_events.begin(),t.pattern_events.end(),pe.begin(),pe.end(),std::inserter(t.pattern_events,t.pattern_events.end()));
                                }
                            }
+                           else
+                               tag_s1.P[i] = initial_P[i];
                         }
                         stringstream s_str;
                         s_str << tag_s1;
