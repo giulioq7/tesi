@@ -1,0 +1,130 @@
+component model Breaker is
+	event op, cl;
+	input I;
+	state closed, open;
+	transition b1 = op(I), closed -> open, {},
+		   b2 = cl(I), open -> closed, {},
+	 	   b3 = op(I), closed -> closed, {},
+		   b4 = cl(I), open -> open, {},
+		   b5 = cl(I), closed -> closed, {},
+		   b6 = op(I), open -> open, {};
+end Breaker.
+
+
+component model Sensor is
+	event op, cl;
+	output O;
+	state idle, awaken;
+	transition s1 = (), idle -> awaken, {op(O)},
+		   s2 = (), awaken -> idle, {cl(O)},
+		   s3 = (), idle -> awaken, {cl(O)},
+		   s4 = (), awaken -> idle, {op(O)};
+end Sensor.
+
+
+component model Monitor is
+	event di, co, nd, nc, rc, op;
+	input E, I;	
+	output O, R;
+	state watch, trigger;
+	transition m1  = nd(E), watch -> trigger, {op(R), rc(O)},
+		   m2  = nd(E), watch -> trigger, {op(R)},
+		   m3  = rc(I), watch -> trigger, {op(R)},
+		   m4  = nd(E), trigger -> trigger, {},
+		   m5  = di(E), watch -> watch, {},
+		   m6  = co(E), watch -> watch, {},
+		   m7  = nc(E), watch -> watch, {},
+		   m8  = di(E), trigger -> trigger, {},
+		   m9  = co(E), trigger -> trigger, {},
+		   m10 = nc(E), trigger -> trigger, {};
+end Monitor.
+
+component model Line is
+	event ni, nr, ps;
+	input E;
+	state normal, shorted, isolated, persistent;
+	transition l1 = ni(E), normal -> shorted,    {},
+		   l2 = nr(E), normal -> isolated,   {},
+		   l3 = ps(E), normal -> persistent, {};
+end Line.
+
+
+
+network model ProtectionHardware is
+	component b: Breaker, s: Sensor;
+	output O;
+	link O(s)->I(b);
+	pattern di(O) == b1(b),
+		co(O) == b2(b),
+		nd(O) == s3(s) | s1(s)b3(b),
+		nc(O) == s4(s) | s2(s)b4(b);
+	initial closed(b), idle(s);
+end ProtectionHardware.
+
+
+network model MonitorApparatus is
+	component m, m1: Monitor, r, r1: Breaker;
+	input Im, Im1;
+	output O;
+	link Im(this)->E(m), Im1(this)->E(m1),
+	     O(m)->I(m1), O(m1)->I(m),
+	     R(m)->I(r), R(m1)->I(r1);
+	pattern nr(O) = m7(m)|m10(m)|b1(r)|m7(m1)|m10(m1)|b1(r1),
+		ni(O) = (m1(m)|m2(m)|m4(m))b3(r)|b3(r)m4(m) | (m1(m1)|m2(m1)|m4(m1))b3(r1)|b3(r1)m4(m1),
+		ps(O) = (m6(m)m6(m1)|m6(m1)m6(m))(m5(m)m5(m1)|m5(m1)m5(m));
+	initial closed(r), closed(r1), watch(m), watch(m1);
+	viewer m1(m)->trg, m2(m)->trg, m3(m)->trg,
+	       b1(r)->opr, b2(r)->clr, 
+	       m1(m1)->trg1, m2(m1)->trg1, m3(m1)->trg1,
+	       b1(r1)->opr1, b2(r1)->clr1;
+	ruler  m2(m)->fm, m2(m1)->fm1, 
+	       b3(r)->for, b4(r)->fcr,
+	       b3(r1)->for1, b4(r1)->fcr1;
+end MonitorApparatus.
+
+
+network model LineNet is
+	component l: Line;
+	input I;
+	link I(this)->E(l);
+	initial normal(l);
+	ruler l1(l)->fls, l2(l)->fli, l3(l)->flp;
+end LineNet.
+
+
+system PowerTransmission is
+	node L: LineNet is
+	end L,
+	node M: MonitorApparatus is
+	end M,
+	node W: ProtectionHardware is
+		viewer b1(b)->opb, b2(b)->clb, b5(b)->alr, b6(b)->alr,
+		       s1(s)->awk, s2(s)->ide, s3(s)->awk, s4(s)->ide;
+		ruler  b3(b)->fob, b4(b)->fcb,
+	               s3(s)->fos, s4(s)->fcs;
+	end W,
+	node W1: ProtectionHardware is
+		viewer b1(b)->opb1, b2(b)->clb1, b5(b)->alr1, b6(b)->alr1,
+		       s1(s)->awk1, s2(s)->ide1, s3(s)->awk1, s4(s)->ide1;
+		ruler  b3(b)->fob1, b4(b)->fcb1,
+	               s3(s)->fos1, s4(s)->fcs1;
+
+	end W1;
+	emergence O(W)->Im(M), O(W1)->Im1(M), O(M)->I(L);
+end PowerTransmission.
+
+
+problem Example is
+	node L is
+		obs [ ];
+	end L,
+	node M is
+		obs [ trg, opr ];
+	end M,
+	node W is
+		obs [ awk ];
+	end W,
+	node W1 is
+		obs [ awk1, opb1 ];
+	end W1;
+end Example.

@@ -128,8 +128,19 @@ int main(int argc, char** argv)
             }
             fm<TYPE> gr = start_build(same_language);
             DFA_map<NetTransition,StateData_strList>* ptspace = from_grail_to_astl(&gr,&(*it));
-            Utils::minimize_by_partition(*ptspace);
+            //Utils::minimize_by_partition(*ptspace);
             it->pattern_space.push_back(ptspace);
+
+            vector<int> lang = same_language.at(0).get_language();
+            std::set<std::string> res_lang;
+            for(vector<int>::iterator it_l = lang.begin(); it_l != lang.end(); it_l++)
+            {
+                std::pair<std::string,std::string> conv = it->conv_int_str[*it_l];
+                std::string s = conv.first;
+                s.append("("); s.append(conv.second); s.append(")");
+                res_lang.insert(s);
+            }
+            it->pattern_languages.push_back(res_lang);
 
             if(debug > 0)
             {
@@ -137,8 +148,8 @@ int main(int argc, char** argv)
                stringstream ss;
                ss << "pts_" << it->name << num_pts;
                file.open (ss.str().c_str());
-               //Utils::my_dot(file,*ptspace);
-               full_dot(file, dfirst_markc(*ptspace));
+               Utils::my_dot(file,*ptspace);
+               //full_dot(file, dfirst_markc(*ptspace));
                file.close();
                //full_dump(cout, dfirst_markc(*ptspace));
             }
@@ -515,10 +526,9 @@ fm<TYPE>* merge_dfa(vector<fm<TYPE> *> *vec)
 {
     fm<TYPE>* nfa = new fm<TYPE>;
 
-    vector<fm<TYPE> *>::iterator it = vec->begin();
-    *nfa = **it;
-    it++;
-    for(; it != vec->end(); it++)
+    vector<fm<TYPE> *>::iterator it;
+
+    for(it = vec->begin(); it != vec->end(); it++)
         *nfa += **it;
 
      return nfa;

@@ -533,7 +533,7 @@ void Utils::minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa)
         }
     }
 
-    vector<set<unsigned int> >::iterator it;
+    /*vector<set<unsigned int> >::iterator it;
     for(it = parts.begin(); it != parts.end(); it++)
     {
         set<unsigned int>::iterator it2 = it->begin();
@@ -542,7 +542,7 @@ void Utils::minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa)
         {
             dfa.del_state(*it2);
         }
-    }
+    }*/
 
 
 }

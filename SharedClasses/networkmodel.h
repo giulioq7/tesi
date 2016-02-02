@@ -28,6 +28,7 @@ class NetworkModel
         ar & viewer;
         ar & ruler;
         ar & pattern_space;
+        ar & pattern_languages;
         ar & count;
         ar & conv_int_str;
         ar & conv_str_int;
@@ -46,6 +47,7 @@ public:
     map<pair<string,string>,string>   ruler;
 
     vector<astl::DFA_map<NetTransition,StateData_strList> *> pattern_space;
+    vector<set<string> > pattern_languages;
 
     int count;
     std::map<std::pair<std::string,std::string>,int> conv_str_int;
