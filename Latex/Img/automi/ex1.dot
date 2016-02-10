@@ -1,0 +1,13 @@
+digraph G 
+ { ratio=0.5;
+ rankdir=LR;
+ ranksep=0.4;
+0 [shape=circle,fontsize=40,label="s0"]
+1 [shape=circle,fontsize=40,label="s1"]
+2 [shape=doublecircle,fontsize=40,label="s2"]
+node [shape = point, color=white, fontcolor=white]; start;
+start -> 0;
+0 -> 1 [label="a",fontsize=30];
+1 -> 2 [label="b",fontsize=30];
+0 -> 0 [label="c",fontsize=30];
+}

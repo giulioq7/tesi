@@ -25,6 +25,8 @@
 \newtheorem{prop}[thm]{Proposizione}
 \theoremstyle{definition}
 \newtheorem{defn}{Definizione}[chapter]
+\theoremstyle{definition}
+\newtheorem{ex}{Esempio}[chapter]
 \theoremstyle{remark}
 \newtheorem{oss}{Osservazione}
 
@@ -42,16 +44,14 @@
 \mainmatter
 \include{introduzione}
 \include{automi}
-\include{des}
 \include{sistemi_attivi}
 \include{sistemi_attivi_complessi}
 \include{implementazione}
 \include{sperimentazione}
-\include{sviluppi}
 \include{conclusioni}
 
 \appendix
-\chapter{BNF del linguaggio di specifica di SAC}
+\chapter{BNF del linguaggio di specifica} \label{bnf}
 \includepdf[pages={1-}]{bnf/bnf.pdf}
 
 

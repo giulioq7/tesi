@@ -1,0 +1,26 @@
+digraph G 
+ { 
+ ratio=0.5;
+ rankdir=LR;
+ ranksep=0.4;
+ 0 [shape=circle,fontsize=40,label=""]
+subgraph cluster_1{
+	1 [shape=circle,fontsize=40,label=""]
+	2 [shape=circle,fontsize=40,label=""]
+	1 -> 2 [color=white,label="x",fontsize=20];
+	graph[style=rounded];
+}
+subgraph cluster_2 {
+	3 [shape=circle,fontsize=40,label=""]
+	4 [shape=circle,fontsize=40,label=""]
+	3 -> 4 [color=white,label="y",fontsize=20];
+	graph[style=rounded];
+}
+ 5 [shape=doublecircle,fontsize=40,label=""]
+node [shape = point, color=white, fontcolor=white]; start;
+start -> 0;
+0 -> 1 [label="&epsilon;",fontsize=20];
+0 -> 3 [label="&epsilon;",fontsize=20];
+2 -> 5 [label="&epsilon;",fontsize=20];
+4 -> 5 [label="&epsilon;",fontsize=20];
+}

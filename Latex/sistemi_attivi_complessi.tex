@@ -1,2 +1,57 @@
 \chapter{Sistemi Attivi Complessi}
 In questo capitolo vengono presentate definizioni e modelli che descrivono i sistemi attivi complessi, visti come estensione dei sistemi attivi tradizionali. Un sistema attivo complesso è una rete di nodi, ognuno dei quali rappresenta un sistema attivo. Un nodo è dotato di terminali di input e di terminali di output; la rete del sistema è composta da link che collega terminali di output di un sistema attivo con uno o più terminali di input di altri nodi.
+
+
+\section{Definizioni}
+\subsection{Nodi}
+
+\subsection{Pattern}
+In modo da individuare pattern event, deve essere mantenuto lo stato relativo al matching dei pattern coinvolti. A tal fine, per ogni nodo, è necessario effettuare i seguenti passi:
+\begin{itemize}
+\item per ogni pattern $(p,r)$, viene generato un automa deterministico equivalente all'espressione regolare $r$, nel quale ogni stato finale viene marcato dal nome $p$ del pattern event;
+\item per ogni linguaggio utilizzato nella definizione dei pattern, supponendo che sia condiviso da $k$ definizioni pattern corrispondenti agli automi $[A_1, \ldots , A_k]$ viene generato un pattern space, nel seguente modo:
+	\begin{enumerate}
+	\item un automa non deterministico $N$ è creato generando il suo stato iniziale $S_0$ e una $\epsilon$-			transition da $S_0$ a ogni stato iniziale di $A_i$, con $i \in [1 \ldots k]$;
+	\item in modo da mantenere il matching di stringhe sovrapposte, viene aggiunta una $\epsilon$-transition
+	da ogni stato non iniziale a $S_0$;
+	\item l'automa $N$ viene determinizzato nel risultante pattern space $Pts(L)$, dove ogni stato finale $S$ è marcato dall'unione $p$ dei pattern event associati agli stati in $S$ che sono finali nei corrispondenti automi di pattern generati inizialmente. Ogni stato $S$ dell'automa deterministico $Pts(L)$ è infatti identificato da un sottoinsieme di stati dell'automa non deterministico equivalente $N$.
+	\end{enumerate}
+\end{itemize}
+
+\begin{ex}
+Viene di seguito presentata la costruzione del pattern space relativo a due pattern (caratterizzati ovviamente dallo stesso linguaggio).
+\end{ex}
+
+\subsection{Link della rete}
+
+\subsection{Sistema attivo complesso}
+
+\subsection{Traiettoria}
+
+\subsection{Behavior space}
+
+\section{Problema di diagnosi}
+\subsection{Viewer}
+
+\subsection{Osservazione temporale}
+
+\subsection{Ruler}
+
+\subsection{Problema di diagnosi}
+
+\section{Diagnosi monolitica}
+\subsection{Ricostruzione del behavior}
+
+\subsection{Decorazione}
+
+\subsection{Distillazione delle diagnosi}
+
+
+\section{Diagnosi distribuita}
+\subsection{Costruzione del Behavior non vincolato}
+
+\subsection{Generazione dell'interfaccia}
+
+\subsection{Costruzione del Behavior vincolato}
+
+\subsection{Decorazione del Behavior del nodo radice}

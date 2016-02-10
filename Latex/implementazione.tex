@@ -1,1 +1,21 @@
 \chapter{Implementazione}
+L'architettura software del progetto di questa tesi è composta da tre moduli principali:
+\begin{enumerate}
+\item linguaggio di specifica;
+\item diagnosi monolitica;
+\item diagnosi distribuita.
+\end{enumerate}
+La specifica del particolare sistema attivo complesso di cui si vuole determinare la diagnosi è fornita tramite un linguaggio, la cui grammatica è fornita nell'appendice \ref{bnf}.
+Durante il parsing del file di specifica, vengono generate le classi opportune e vengono effettuati i controlli semantici del caso. Se questa procedura non contiene errori (lessicali, sintattici o semantici), viene effettuato l'intero calcolo off-line del problema, durante il quale si generano le classi, e gli automi relativi ai pattern space. Le informazioni ottenute vengono salvate su dei file binari, in modo che non sia necessario dover effettuare nuovamente la procedura in fase di lavoro on-line, ovvero quando viene avviata la macchina diagnostica, sia essa in modalità di risoluzione monolitica o distribuita. 
+La procedura diagnostica legge i file generati da una precedente compilazione della specifica del sistema e genera le soluzioni candidate. 
+
+\section{Linguaggio di specifica}
+\subsection{Analizzatore lessicale}
+
+\subsection{Analizzatore sintattico}
+
+\subsection{Analizzatore semantico}
+
+\section{Macchina diagnostica monolitica}
+
+\section{Macchina diagnostica distribuita}
