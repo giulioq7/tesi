@@ -1,12 +1,34 @@
-\chapter{Automi a stati finiti}
-Nell'ambito generale della diagnosi di sistemi a eventi discreti asincroni, nei quali la dimensione temporale può essere trascurata, il comportamento del sistema è descritto da successioni di eventi. A questo livello di astrazione, il comportamento del sistema è caratterizzato da sequenze di transizioni che possono essere descritte da un automa a stati finiti. Anche il comportamento dei singoli componenti del sistema, come si vedrà in seguito, può essere descritto da un automa. La semplicità e l'intuitività degli automi rende agevole il loro utilizzo in problemi di questo tipo, nonché nella più ampia branca dell'intelligenza artificiale.
-Un automa a stati finiti è un formalismo matematico che permette di descrivere certi tipi di algoritmi, ad esempio se una stringa appartiene ad un linguaggio regolare.
+\chapter{Linguaggi e automi a stati finiti}
+Nell'ambito generale della diagnosi di sistemi a eventi discreti, il comportamento del sistema è descritto da successioni di eventi. A questo livello di astrazione, il comportamento del sistema è caratterizzato da sequenze di transizioni che possono essere descritte da un automa a stati finiti. Anche il comportamento dei singoli componenti del sistema, come si vedrà in seguito, può essere descritto da un automa. La semplicità e l'intuitività degli automi rende agevole il loro utilizzo in problemi di questo tipo, nonché nella più ampia branca dell'intelligenza artificiale.
+Prima dell'esistenza dei calcolatori, negli anni '30, Turing studiò una macchina astratta in grado di poter computare qualsiasi algoritmo. 
+Negli anni '40 e '50, numerosi ricercatori hanno studiato tipologie di macchine più semplici, quelle che oggi sono chiamate automi a stati finiti.
+Questi automi sono diventati estremamente utili per una grande varietà di scopi, rappresentando modelli per descrivere, ad esempio, molti tipi di hardware e software:
+\begin{itemize}
+\item software per la progettazione e la verifica del comportamento di circuiti digitali,
+\item analizzatori lessicali tipici dei compilatori,
+\item software per la scansione di grandi corpi di testo, al fine di trovare parole frasi o altri pattern,
+\item software per la verifica di sistemi con un numero finiti di stati distinti, come protocolli di comunicazione o protocolli per lo scambio sicuro di informazioni.
+\end{itemize}
 Esistono due principali tipi di automi a stati finiti:
 \begin{itemize}
 \item automi a stati finiti deterministici (DFA);
 \item automi a stati finiti non deterministici (NFA).
 \end{itemize}
-In questo capitolo vengono presentate definizioni, scopi ed esempi riguardanti entrambe le classi di automi.
+In questo capitolo vengono presentati definizioni, algoritmi ed esempi riguardanti entrambe le classi di automi. In particolare, è descritto come convertire espressioni regolari in NFA e come convertire NFA in DFA.
+Da ultimo viene fornito il concetto di automa minimo, cioè un automa caratterizzato dal minor numero di stati possibile, utile per una implementazione efficiente in termini di risorse computazionali.
+
+\section{Linguaggi}
+Qualsiasi DES possiede un insieme di eventi ad esso associato. Questo insieme può essere visto come l'alfabeto di un linguaggio e le sequenze di eventi generati come parole (o stringhe) appartenenti al linguaggio. Una stringa caratterizzata da nessun simbolo dell'alfabeto è detta stringa vuota e si denota con $\epsilon$.
+Data una stringa $s$, la sua lunghezza $|s|$ è il numero di simboli contenuti in essa, tenendo conto di eventuali occorrenze multiple del medesimo simbolo. Per convenzione, la lunghezza della stringa vuota è zero.
+\begin{defn}
+Un linguaggio definito su un insieme alfabeto $\Sigma$ è un insieme di stringhe di lunghezza finita formate da simboli appartenenti a $\Sigma$.
+\end{defn}
+L'operazione fondamentale per la costruzione di linguaggi è quella della concatenazione. Se $x$ e $y$ sono stringhe, la loro concatenazione è la stringa $xy$. La stringa vuota è l'elemento identità di tale operazione, poiché per ogni stringa $s$, $s\epsilon = \epsilon s = s$.\\
+Un'altra operazione che caratterizza i linguaggi è la chiusura di Kleene, denotata $L^*$, che è l'insieme di tutte le stringhe finite che si ottengono concatenando elementi dell'alfabeto, compresa la stringa vuota.\\
+Sui linguaggi è altresì possibile applicare tutte le operazioni insiemistiche quali l'unione, l'intersezione, la differenza e il complemento.
+Un linguaggio può essere visto come un modo formale di descrivere il comportamento di un DES, specificando tutte le possibili sequenze di eventi che il sistema è in grado di generare. 
+Un automa è un formalismo in grado di rappresentare un linguaggio.
+In particolare, nel seguito della trattazione, ci si focalizzerà sui cosiddetti linguaggi regolari, ovvero su quei linguaggi che possono essere rappresentati tramite automi con un numero finito di stati.
 
 \section{DFA}
 Un automa a stati finiti deterministico (DFA: deterministic finite automaton) è una quintupla:

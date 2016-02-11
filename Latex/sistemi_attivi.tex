@@ -14,7 +14,7 @@ I componenti sono i costituenti base dei sistemi attivi. Ogni componente è cara
 \end{enumerate}
 
 \begin{defn}
-Un modello di componente è un automa:
+Un modello di un componente è un automa:
 \begin{center}
 	$M_c = (S,E_{in},I,E_{out},O,\tau)$
 \end{center}
@@ -34,11 +34,11 @@ $\{(e_1,y_1), \ldots ,(e_n,y_n)\}$ in corrispondenza dei terminali di output $y_
 \'E implicitamente definito un terminale di input virtuale, chiamato $In$, attraverso il quale giungono gli eventi esterni al sistema.
 
 \subsection{Link}
-Nell'ambito dei sistemi attivi, i componenti sono tra loro connessi per mezzo di link. Ogni link esce da un terminale di output $o$ di un componente $c$ e entra in un terminale di input $i$ di un componente $c^\prime$.
+Nell'ambito dei sistemi attivi, i componenti sono tra loro connessi per mezzo di link. Ogni link esce da un terminale di output $y$ di un componente $c$ e entra in un terminale di input $x$ di un componente $c^\prime$.
 Analogamente a quanto avviene per i componenti, anche i link sono caratterizzati da un modello, che costituisce un'astrazione del link specifico in esame.
 
 \begin{defn}
-Un modello di link è una quadrupla
+Un modello di un link è una quadrupla
 \begin{center}
 	$M_l = (x,y,z,w)$
 \end{center}
@@ -46,13 +46,14 @@ dove $x$ è il terminale di input, $y$ il terminale di output, $z$ la dimensione
 \end{defn}
 Un particolare link $l$ è un'istanza di un modello siffatto, e consiste quindi in un canale di comunicazione unidirezionale fra due componenti distinti $c$ e $c^\prime$, dove un terminale di output $y$ di $c$ e un terminale di input $x$ di $c^\prime$ coincidono rispettivamente con l'input e l'output del link $l$.
 La dimensione $z$ rappresenta il numero massimo di eventi che possono essere accodati nel link. 
-Indichiamo con $\parallel l \parallel$ la configurazione corrente del link. 
+Indichiamo con $|l|$ la configurazione corrente del link. 
 Se il numero di eventi attualmente memorizzati coincide con la dimensione, il link si dice essere saturo.
 Quando il link è saturo, la semantica legata al compimento delle transizioni è dettata dalla politica di saturazione $w$, la quale può essere:
 \begin{itemize}
 \item lose: l'evento, non potendo essere memorizzato, viene perso;
 \item override: l'evento sovrascrive l'ultimo evento nel link;
-\item wait: la transizione non viene portata a termine fintanto che il link permane nello stato di saturazione, ovvero fino a quando almeno un evento nel link viene consumato.
+\item wait: la transizione non viene portata a termine fintanto che il link permane nello stato di saturazione, ovvero fino a quando almeno un evento nel link non viene consumato.
+\label{saturation}
 \end{itemize}
 Nell'ambito di questa tesi, si considererà il caso particolare di link di dimensione unitaria e politica di saturazione $wait$ , ovvero $z = 1$ e $w = wait$.
 
@@ -98,14 +99,14 @@ Il linguaggio del behavior space $Bsp(A)$ con stato iniziale $a_0$ coincide con 
 \begin{defn}
 Sia $A = (L,C,D)$ un sistema attivo, dove $C$ è l'insieme di $n$ componenti, mentre $L$ è l'insieme di $m$ link. Il behavior space di $A$ è il DFA
 \begin{center}
-	$Bsp(A) = (\Sigma,A,\tau,a_0)$
+	$Bsp(A) = (\Sigma,\alpha,\tau,a_0)$
 \end{center}
 dove:
 \begin{enumerate}
 \item $\Sigma$ è l'alfabeto, dato dall'unione delle transizioni dei componenti in $C$;
-\item $A$  è l'insieme degli stati $(S,Q)$, con $S = (s_1,\ldots,s_n)$ una n-pla di stati dei componenti in $C$, e $Q = (q_1, \ldots,q_m)$ una m-pla di configurazioni dei link in $L$;
+\item $\alpha$  è l'insieme degli stati $(S,Q)$, con $S = (s_1,\ldots,s_n)$ una n-pla di stati dei componenti in $C$, e $Q = (q_1, \ldots,q_m)$ una m-pla di configurazioni dei link in $L$;
 \item $a_0 = (S_0,Q_0)$ è lo stato iniziale;
-\item $\tau$ è la funzione di transizione deterministica, $\tau: A \times \Sigma \rightarrow A$, tale che $(S,Q) \xrightarrow{t(c)} (S^\prime, Q^\prime) \in \tau$, dove $S = (s_1, \ldots,s_n)$, $Q = (q_1, \ldots,q_m)$, $S^\prime = (s^\prime_1, \ldots,s^\prime_n)$, $Q^\prime = (q^\prime_1, \ldots,q^\prime_m)$ e
+\item $\tau$ è la funzione di transizione deterministica, $\tau: \alpha \times \Sigma \rightarrow \alpha$, tale che $(S,Q) \xrightarrow{t(c)} (S^\prime, Q^\prime) \in \tau$, dove $S = (s_1, \ldots,s_n)$, $Q = (q_1, \ldots,q_m)$, $S^\prime = (s^\prime_1, \ldots,s^\prime_n)$, $Q^\prime = (q^\prime_1, \ldots,q^\prime_m)$ e
 \begin{center}
 $t(c) = s \xrightarrow{(e,x) | \{(e_1,y_1), \ldots, (e_p,y_p)\}} s^\prime$
 \end{center}
@@ -114,7 +115,7 @@ se e solo se:
 \item $x = In$, cioè l'evento è disponibile sul terminale di input virtuale sensibile agli eventi esterni al sistema, oppure $x \in D_{on}$, o $e$ è pronto al terminale $x$ all'interno di un link del sistema;
 \item Per ogni $i \in [1 \ldots n]$, abbiamo
 \begin{center}
-$s^\prime_i = \begin{cases} s^\prime, & \mbox{se }c_i = c\\ s_i, & \mbox{altrimenti} \end{cases}$
+$s^\prime_i = \begin{cases} s^\prime & \mbox{se }c_i = c\\ s_i & \mbox{altrimenti} \end{cases}$
 \end{center}
 cioè per ogni transizione del behavior space cambia lo stato relativo al singolo componente coinvolto nella transizione;
 \item in base alla politica di saturazione
@@ -123,14 +124,14 @@ cioè per ogni transizione del behavior space cambia lo stato relativo al singol
 \end{defn}
 
 \section{Problema di diagnosi}
-Un sistema attivo, inizialmente, si trova in uno stato quiescente, ovvero in uno stato in cui i link sono vuoti. Il sistema passa alla fase reattiva nel momento in cui riceve dei particolari eventi esterni. Una volta che l'occorrenza di un tale evento si verifica, la reazione del sistema è composta da una sequenza di transizioni che formano una traiettoria. Dato che ogni componente e modellato dal suo comportamento completo, ovvero sia dai suoi comportamenti normali sia quelli di guasto, sono necessarie delle informazioni aggiuntive, in grado di discriminare se le transizioni facenti parte della traiettoria siano di guasto o normali. Un ulteriore problema consiste nella non completa osservabilità tipica dei sistemi reali: una traiettoria, in generale, non è percepita come è effettivamente, ma quello che è visibile altro non è che una proiezione di un suo sottoinsieme osservabile. Una sequenza di etichette osservabili costituisce una traccia della reale traiettoria. Inoltre, una etichetta associata ad una transizione di un componente potrebbe non identificare univocamente la transizione, poiché più transizioni potrebbero condividere la medesima etichetta di osservazione. Si noti come i modelli comportamentali dei singoli componenti non effettuino una distinzioni di ciò che osservabile e quello che no lo è; per questo motivo è necessaria una specifica esplicita di questa informazione. Una ulteriore componente significativa del problema è l'osservazione, solo a seguito della quale può essere formulata una diagnosi. Un'osservazione consiste in una sequenza di etichette osservabili.
+Un sistema attivo, inizialmente, si trova in uno stato quiescente, ovvero in uno stato in cui i link sono vuoti. Il sistema passa alla fase reattiva nel momento in cui riceve dei particolari eventi esterni. Una volta che l'occorrenza di un tale evento si verifica, la reazione del sistema è composta da una sequenza di transizioni che formano una traiettoria. Dato che ogni componente è modellato dal suo comportamento completo, ovvero sia dai suoi comportamenti normali sia quelli di guasto, sono necessarie delle informazioni aggiuntive, in grado di discriminare se le transizioni facenti parte della traiettoria siano di guasto o normali. Un ulteriore problema consiste nella non completa osservabilità tipica dei sistemi reali: una traiettoria, in generale, non è percepita come effettivamente è, ma quello che è visibile altro non è che una proiezione di un suo sottoinsieme osservabile. Una sequenza di label osservabili costituisce una traccia della reale traiettoria. Inoltre, una label associata ad una transizione di un componente potrebbe non identificare univocamente la transizione, poiché più transizioni potrebbero condividere la medesima label di osservazione. Si noti come i modelli comportamentali dei singoli componenti non effettuino una distinzione tra ciò che osservabile e quello che non lo è: per questo motivo è necessaria una specifica esplicita di questa informazione. Una ulteriore componente significativa del problema è l'osservazione, solo a seguito della quale può essere formulata una diagnosi. Un'osservazione consiste in una sequenza di label osservabili.
 
 \subsection{Viewer}
-Una transizione è osservabile se, in corrispondenza della sua esecuzione, genera una etichetta osservabile, altrimenti la transizione è non osservabile. La specifica dell'osservabilità di un sistema attivo è una corrispondenza tra transizioni (osservabili) e rispettive etichette.
+Una transizione è osservabile se, in corrispondenza della sua esecuzione, genera una label osservabile, altrimenti la transizione è non osservabile. La specifica dell'osservabilità di un sistema attivo è una corrispondenza tra transizioni (osservabili) e rispettive label.
 \begin{defn}
 Sia $A$ un sistema attivo e $\Omega$ un dominio di etichette osservabili. Un viewer $V$ di $A$ è una funzione suriettiva da un sottoinsieme di transizioni di componenti a $\Omega$.
 \end{defn}
-Si noti che, dal momento che la funzione di osservabilità è suriettiva, possono esservi più transizioni che vengono mappate nella stessa etichetta. Questo aspetto è dovuto alla limitata osservabilità di un sistema siffatto.
+Si noti che, dal momento che la funzione di osservabilità è suriettiva, possono esservi più transizioni che vengono mappate nella stessa label. Questo aspetto è dovuto alla limitata osservabilità di un sistema siffatto.
 
 \begin{defn}
 Sia $h$ una traiettoria di un sistema attivo $A$, e $V$ un viewer per $A$. La traccia di $h$ basata su $V$, scritta $h_{[V]}$, è la sequenza di etichette osservabili:
@@ -138,22 +139,22 @@ Sia $h$ una traiettoria di un sistema attivo $A$, e $V$ un viewer per $A$. La tr
 $h_{[V]} = \{l|t \in h, (t,l) \in V\}$
 \end{center}
 \end{defn}
-In altre parole, una traccia di una traiettoria $h$ di un sistema attivo è la proiezione delle transizioni osservabili di $h$ nelle corrispondenti etichette osservabili definite nell'osservatore $V$.
+In altre parole, la traccia di una traiettoria $h$ di un sistema attivo è la proiezione delle transizioni osservabili di $h$ nelle corrispondenti label osservabili definite nel viewer $V$.
 
 \subsection{Osservazione temporale}
-L'osservazione temporale di un sistema attivo è una sequenza di etichette osservabili, dunque la traccia di una traiettoria. 
+L'osservazione temporale di un sistema attivo è una sequenza di label osservabili, dunque la traccia di una traiettoria. 
 
 \subsection{Ruler}
-La distinzione tra comportamento normale e difettoso viene fornita esplicitando quali, tra le transizioni dei componenti, sono corrette e quali di guasto. In questo modo, una transizione $a \xrightarrow{t(c)} a^\prime$ di $A$ è di guasto se e solo se la transizione $t$ del componente $c$ è di guasto.
+La distinzione tra comportamento normale e difettoso viene fornita esplicitando quali, tra le transizioni dei componenti, sono corrette e quali di guasto. In questo modo una transizione $a \xrightarrow{t(c)} a^\prime$ di $A$ è di guasto se e solo se la transizione $t$ del componente $c$ è di guasto.
 L'informazione che permette di individuare i guasti è fornita dal ruler.
 \begin{defn}
 Sia $A$ un sistema attivo e $\Phi$ un dominio di etichette di guasto. Un ruler $R$ per $A$ è una funzione, in generale suriettiva, da un sottoinsieme di transizioni di componenti a $\Phi$.
 \end{defn}
-Si noti che, per convenienza, la funzione di mapping potrebbe essere biettiva; tuttavia alcune transizioni di guasto possono non essere distinte le une dalle altre, in base al livello di precisione che si vuole dare alla diagnosi. Per esempio, due o più transizioni di guasto relative allo stesso componente possono essere mappate nella medesima etichetta di guasto: in questo modo la diagnosi rileverà un generico guasto al componente, che in alcuni casi reali può essere una informazione sufficiente.
-Si noti che la specifica del ruler viene data posteriormente al modello del sistema. Questo perché, in linea generale, differenti problemi di diagnosi, anche legati allo stesso sistema, possono essere caratterizzati da differenti ontologie, ognuna delle quali con un particolare modo di specificare le transizioni di guasto e le relative etichette. Un approccio ibrido, che è quello utilizzato (esteso al caso di sistemi attivi complessi) in questo lavoro di tesi, consiste nel definire un ruler in fase di modellazione, fornendo la possibilità di ridefinirlo nella successiva fase di diagnosi.
+Si noti che, per convenienza, la funzione di mapping potrebbe essere biettiva; tuttavia alcune transizioni di guasto possono non essere distinte le une dalle altre, in base al livello di precisione che si vuole dare alla diagnosi. Per esempio, due o più transizioni di guasto relative allo stesso componente possono essere mappate nella medesima label di guasto: in questo modo la diagnosi rileverà un generico guasto al componente, che in alcuni casi reali può essere una informazione sufficiente.
+Si noti che la specifica del ruler viene data posteriormente al modello del sistema. Questo perché, in linea generale, differenti problemi di diagnosi, anche legati allo stesso sistema, possono essere caratterizzati da ontologie diverse, ognuna delle quali con un particolare modo di specificare le transizioni di guasto e le relative label. Un approccio ibrido, che è quello utilizzato in questo lavoro di tesi (esteso al caso di sistemi attivi complessi), consiste nel definire opzionalmente un ruler in fase di modellazione, fornendo la possibilità di ridefinirlo nella successiva diagnosi.
 
 \begin{defn}
-Sia $h$ una traiettoria di un sistema attivo $A$, e $R$ un ruler per $A$. La diagnosi di $h$ basata su $R$, scritta $h_{[R]}$, è l'insieme delle etichette di guasto:
+Sia $h$ una traiettoria di un sistema attivo $A$, e $R$ un ruler per $A$. La diagnosi di $h$ basata su $R$, scritta $h_{[R]}$, è l'insieme delle label di guasto:
 \begin{center}
 	$h_{[R]} = \{ f | t \in h, (t,f) \in R \}$.
 \end{center}
@@ -161,7 +162,7 @@ Sia $h$ una traiettoria di un sistema attivo $A$, e $R$ un ruler per $A$. La dia
 
 \subsection{Problema di diagnosi}
 \begin{defn}
-Sia $A$ un sistema attivo, $V$ un osservatore di $A$, $O$ una osservazione temporale per $A$ rilevante per una traiettoria che parte dallo stato $a_0$, e $R$ un ruler per $A$. La quadrupla
+Sia $A$ un sistema attivo, $V$ un viewer di $A$, $O$ una osservazione temporale per $A$ relativa ad una traiettoria che parte dallo stato $a_0$, e $R$ un ruler per $A$. La quadrupla
 \begin{center}
 	$P(A) = (a_0,V,O,R)$
 \end{center}
@@ -174,44 +175,44 @@ Sia $P(A) = (a_0,V,O,R)$ un problema di diagnosi per il sistema attivo $A$, e $B
 	$\Delta(P(A)) = \{ \delta | \delta = h_{[R]}, h \in Bsp(A), h_{[V]} = O\}$
 \end{center}
 \end{defn}
-In altre parole, la soluzione di un problema di diagnosi è la diagnosi dell'insieme delle traiettorie la cui traccia è consistente con l'osservazione temporale.
+In altre parole, la soluzione di un problema di diagnosi è l'insieme costituito dagli insiemi di guasti rilevati lungo le traiettorie la cui traccia è consistente con l'osservazione temporale.
 
 \section{Diagnosi monolitica}
-La soluzione di un problema diagnosi, come presentata nella sezione precedente, è definita come l'insieme delle etichette di guasto che vengono generate dalle traiettorie consistenti con l'osservazione temporale. Questa definizione, tuttavia, non presenta una tecnica che permetta di trovare tale insieme nella pratica. Scopo di questo paragrafo è quello di fornire, a fronte della definizione vista in precedenza, un metodo efficace che permetta di ottenere l'insieme delle diagnosi candidate in modo corretto e completo. 
-Come prima osservazione, è essenziale notare che per generare le diagnosi candidate bisogna analizzare le traiettorie del sistema che sono consistenti con l'osservazione temporale. Per fare questo, bisogna poter generare un sottoautoma del behavior space, il quale contiene tutte le possibili traiettorie, con le traiettorie consistenti con l'osservazione temporale. Infatti si assume che il behavior space non venga generato, in quanto la sua dimensione diventa proibitiva già per pochi componenti e link. Il costo in termini di tempo ma soprattutto di memoria sono enormi e non sono utili, poiché grandi parti del behavior space risulteranno essere inconsistenti con l'osservazione.
-La prima fase della diagnosi monolitica consiste nella costruzione del behavior $Bhv$, il cui linguaggio coincide esattamente con il sottoinsieme del linguaggio del behavior space consistente con l'osservazione temporale. Successivamente, è necessario associare ad ogni traiettoria del behavior la corrispondente diagnosi. Questa procedura potrebbe essere infinita, dato che un automa può avere ciclicità e quindi dare luogo ad un insieme infinito di traiettorie. Tuttavia, è bene notare come l'insieme delle diagnosi è sempre finito, poiché limitato superiormente dal numero di etichette di guasto specificate nel ruler: nello specifico, l'insieme delle diagnosi è un sottoinsieme di $2^\Phi$, cioè l'insieme potenza del dominio di etichette di guasto $\Phi$. Nella pratica, l'insieme finito di traiettorie da considerare sono tutte quelle in cui i cicli sono attraversati al massimo una volta. Questo perché percorrere un ciclo più di una volta non cambia le diagnosi, dato che quelle ivi presenti sono già state collezionate durante il cammino precedente.
+La soluzione di un problema diagnosi, presentata nella sezione precedente, è definita come l'insieme delle label di guasto che vengono generate dalle traiettorie consistenti con l'osservazione temporale. Questa definizione, tuttavia, non presenta una tecnica che permetta di trovare tale insieme nella pratica. Scopo di questo paragrafo è quello di fornire, a fronte della definizione vista in precedenza, un metodo efficace che permetta di ottenere l'insieme delle diagnosi candidate in modo corretto e completo. 
+Come prima osservazione, è essenziale notare che per generare le diagnosi candidate bisogna analizzare le traiettorie del sistema che sono consistenti con l'osservazione temporale. Per fare questo, bisogna poter generare un sottoautoma del behavior space, il quale contiene tutte le possibili traiettorie, contenente le traiettorie consistenti con l'osservazione temporale. Infatti si assume che il behavior space non venga generato, in quanto la sua dimensione diventa proibitiva già per pochi componenti e link. Il costo in termini di tempo ma soprattutto di memoria sono enormi e non sono utili, poiché generalmente grandi parti del behavior space risulteranno essere inconsistenti con l'osservazione.
+La prima fase della diagnosi monolitica consiste nella costruzione del behavior $Bhv$, il cui linguaggio coincide esattamente con il sottoinsieme del linguaggio del behavior space consistente con l'osservazione temporale. Successivamente, è necessario associare ad ogni traiettoria del behavior la corrispondente diagnosi. Questa procedura potrebbe essere infinita, dato che un automa può avere ciclicità e quindi dare luogo ad un insieme infinito di traiettorie. Tuttavia, è bene notare come l'insieme delle diagnosi è sempre finito, poiché limitato superiormente dal numero di label di guasto specificate nel ruler: nello specifico, l'insieme delle diagnosi è un sottoinsieme di $2^\Phi$, cioè l'insieme potenza del dominio di label di guasto $\Phi$. Nella pratica, l'insieme finito di traiettorie da considerare sono tutte quelle in cui i cicli sono attraversati al massimo una volta. Questo perché percorrere un ciclo più di una volta non cambia le diagnosi, dato che quelle ivi presenti sono già state collezionate durante l'iterazione precedente del ciclo.
 Il secondo punto della diagnosi monolitica consiste nel generare l'insieme di diagnosi associate ad ogni nodo del behavior, ovvero praticare la cosiddetta decorazione del behavior.
-Una volta che il behavior è stato costruito e decorato, l'ultima fase della diagnosi monolitica prevede la distillazione delle diagnosi, compiuta selezionando unicamente le diagnosi delle traiettorie consistenti con l'osservazione temporale. Per fare questo è importante distinguere, nella costruzione del behavior, tra stati finali e non. Uno stato del behavior è finale se e solo se tutte le traiettorie che giungono in quello stato hanno consumato interamente l'osservazione, cioè hanno percorso delle transizioni le cui etichette osservabili hanno prodotto una sequenza pari a quella dell'osservazione data. 
+Una volta che il behavior è stato costruito e decorato, l'ultima fase della diagnosi monolitica prevede la distillazione delle diagnosi, compiuta selezionando unicamente le diagnosi delle traiettorie consistenti con l'osservazione temporale. Per fare questo è importante distinguere, nella costruzione del behavior, tra stati finali e stati non finali. Uno stato del behavior è finale se e solo se tutte le traiettorie che giungono in quello stato hanno consumato interamente l'osservazione, cioè hanno percorso delle transizioni le cui label osservabili hanno prodotto una sequenza pari a quella dell'osservazione data. 
 
 \begin{defn}
-Sia $P(A) = (a_0,V,O,R)$ un problema di diagnosi per un sistema attivo $A = (C,L,D)$, dove $C$ è un insieme di $n$ componenti, mentre $L$ è un insieme di $m$ link. Sia $I(O)$ la sequenza di etichette osservabili che rappresentano l'osservazione del sistema. Il behavior spurio di $P(A)$ è l'automa deterministico
+Sia $P(A) = (a_0,V,O,R)$ un problema di diagnosi per un sistema attivo $A = (C,L,D)$, dove $C$ è un insieme di $n$ componenti, mentre $L$ è un insieme di $m$ link. Sia $I(O)$ la sequenza di indici $[0 \ldots i_f]$ che rappresentano la consumazione dell'osservazione di lunghezza $i_f$ del sistema, con $0$ che rappresenta l'indice corrispondente all'osservazione iniziale nulla. Il behavior spurio di $P(A)$ è l'automa deterministico
 \begin{center}
 	$Bhv^s(P(A)) = (\Sigma,B^s,\tau^s,\beta_0,\beta_f)$
 \end{center}
 dove:
 \begin{itemize}
 \item $\Sigma$ è l'alfabeto, costituito dall'unione delle transizioni dei componenti in $C$;
-\item $B^S$ è l'insieme di stati $(S,Q,I)$, con $S = (s_1,\ldots,s_n)$ la n-pla di stati di tutti i componenti in $C$, $Q = (q_1,\ldots,q_m)$ la m-pla delle configurazioni di tutti i link in $L$, e $I$ l'indice della sequenza di osservazione, con $0$ che rappresenta l'indice dell'osservazione iniziale nulla;
+\item $B^S$ è l'insieme di stati $(S,Q,i)$, con $S = (s_1,\ldots,s_n)$ la n-pla di stati di tutti i componenti in $C$, $Q = (q_1,\ldots,q_m)$ la m-pla delle configurazioni di tutti i link in $L$, e $i$ l'indice corrente della sequenza di osservazione;
 \item $\beta_0 = (S_0,Q_0,0)$ è lo stato iniziale, dove $a_0 = (S_0,Q_0)$;
-\item $\tau^s$ è la funzione di transizione, $\tau^s: B^s \times \Sigma \rightarrow B^s$, dove $(S,Q,I) \xrightarrow{t(c)} (S^\prime,Q^\prime,I^\prime) \in \tau^s$ e 
+\item $\tau^s$ è la funzione di transizione, $\tau^s: B^s \times \Sigma \rightarrow B^s$, dove $(S,Q,i) \xrightarrow{t(c)} (S^\prime,Q^\prime,i^\prime) \in \tau^s$ e 
 \begin{center}
 	$t(c) = s \xrightarrow{(e,x) | \{(e_1,y_1), \ldots, (e_p,y_p)\}} s^\prime$
 \end{center}
 con $e$ disponibile in corrispondenza del terminale di input $x$, oppure nullo se rappresenta un evento esterno o relativo ad un terminale scollegato in $D_{on}$.
-Per ogni $i \in [1 \ldots n]$:
+Per ogni $j \in [1 \ldots n]$:
 \begin{center}
-$s^\prime_i = \begin{cases} s^\prime, & \mbox{se }c_i = c\\ s_i, & \mbox{altrimenti} \end{cases}$
+$s^\prime_j = \begin{cases} s^\prime & \mbox{se }c_j = c\\ s_j & \mbox{altrimenti} \end{cases}$
 \end{center}
 cioè per ogni transizione del behavior space cambia lo stato relativo al singolo componente coinvolto nella transizione.
 L'inserimento degli eventi in uscita varia in base alla politica di saturazione.
-$t(c)$ è osservabile se è presente nell'osservatore $V$ che vi associa l'etichetta $l$, quest'ultima è una etichetta presente nell'osservazione $I$ in corrispondenza dell'indice; se $t(c)$ non è osservabile, l'indice dell'osservazione rimane immutato;
-\item $\beta_f$ è l'insieme degli stati finali $(S_f,Q_f,I_f)$, dove $I_f$ è l'indice finale della sequenza di osservazione.
+Nel caso $t(c)$ sia osservabile, essa deve essere presente nel viewer $V$ associata alla label $l$ e quest'ultima è una label contenuta nella sequenza di osservazione $O$ in corrispondenza dell'indice successivo $i+1$, il quale viene aggiornato; nel caso invece $t(c)$ non sia osservabile, l'indice dell'osservazione rimane immutato;
+\item $\beta_f$ è l'insieme degli stati finali $(S_f,Q_f,i_f)$, dove $i_f$ è l'indice finale della sequenza di osservazione.
 \end{itemize}
 \end{defn}
-Il behavior $Bhv(P(A)) = (\Sigma,B,\tau,\beta_0,\beta_f)$ è ottenuto rimuovendo dal behavior spurio tutti gli stati e tutte le transizioni che non appartengono a nessun cammino tra lo stato iniziale e uno degli stati finali (operazione trim).
-La definizione di behavior è una estensione della definizione di behavior space, le differenze sono le seguenti:
+Il behavior $Bhv(P(A)) = (\Sigma,B,\tau,\beta_0,\beta_f)$ è ottenuto rimuovendo dal behavior spurio tutti gli stati e tutte le transizioni che non appartengono a nessun cammino tra lo stato iniziale e uno degli stati finali (operazione di trim).
+La definizione di behavior è ottenuta dalla definizione di behavior space, secondo le seguenti variazioni:
 \begin{enumerate}
-\item ogni stato del behavior include un campo aggiuntivo, l'indice $I$ della sequenza di osservazione;
+\item ogni stato del behavior include un campo aggiuntivo, l'indice $i$ della sequenza di osservazione;
 \item la funzione di transizione richiede un requisito aggiuntivo di consistenza con l'osservazione temporale, nel caso la transizione sia osservabile;
 \item il behavior possiede degli stati finali, che indicano il raggiungimento della completa consumazione della sequenza osservata;
 \item nel passaggio dal behavior spurio al behavior, sono mantenuti solo gli stati e le transizioni incluse in un cammino dallo stato iniziale ad uno stato finale.
