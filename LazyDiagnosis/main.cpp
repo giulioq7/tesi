@@ -342,7 +342,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                                     set_union(t.pattern_events.begin(),t.pattern_events.end(),pe.begin(),pe.end(),std::inserter(t.pattern_events,t.pattern_events.end()));
                                }
                            }
-                           else if(system.node_list[index_node].net_model->pattern_languages[i].empty() || Utils::contain(system.node_list[index_node].net_model->pattern_languages[i],nt.name))
+                           else //if(system.node_list[index_node].net_model->pattern_languages[i].empty() || Utils::contain(system.node_list[index_node].net_model->pattern_languages[i],nt.name))
                                tag_s1.P[i] = initial_P[i];
                         }
                         stringstream s_str;

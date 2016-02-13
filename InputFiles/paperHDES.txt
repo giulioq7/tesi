@@ -106,7 +106,7 @@ problem Example is
 		obs [ ];
 	end N2,
 	node N3 is
-		obs [ awk, opl, opr, ide ];
+		obs [ awk, opl, ide ];
 	end N3,
 	node N4 is
 		obs [ awk, opl ];

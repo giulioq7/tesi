@@ -10,6 +10,53 @@ Durante il parsing del file di specifica, vengono generate le classi opportune e
 La procedura diagnostica legge i file generati da una precedente compilazione della specifica del sistema e genera le soluzioni candidate. 
 
 \section{Linguaggio di specifica}
+Il linguaggio di specifica dei SAC studiati in questo lavoro di tesi è fornito, tramite notazione BNF, in appendice \ref{bnf}. 
+Il file di specifica deve essere articolato in quattro parti principali:
+\begin{itemize}
+\item modelli dei componenti;
+\item modelli dei nodi;
+\item sistema;
+\item problema.
+\end{itemize}
+
+
+\begin{figure}[htbp]
+\begin{verbatim}
+component model Breaker is
+	event op, cl;
+	input I;
+	state closed, open;
+	transition b1 = op(I), closed -> open, {},
+				b2 = cl(I), open -> closed, {},
+				b3 = op(I), closed -> closed, {},
+				b4 = cl(I), open -> open, {},
+				b5 = cl(I), closed -> closed, {},
+				b6 = op(I), open -> open, {};
+end Breaker.
+\end{verbatim}
+\caption{Specifica relativa al modello del componente Breaker}
+\label{fig:spec_breaker}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\begin{verbatim}
+component model ProtectionDevice is
+	event op, cl;
+	output O;
+	state idle, awaken;
+	transition p1 = (), idle -> awaken, {op(O)},
+				p2 = (), awaken -> idle, {cl(O)},
+				p3 = (), idle -> awaken, {cl(O)},
+				p4 = (), awaken -> idle, {op(O)};
+end ProtectionDevice.
+\end{verbatim}
+\caption{Specifica relativa al modello del componente Protection Device}
+\label{fig:spec_protection}
+\end{figure}
+
+
+
 \subsection{Analizzatore lessicale}
 
 \subsection{Analizzatore sintattico}

@@ -106,6 +106,9 @@ int main(int argc, char** argv)
     /*ofstream file("comp_model_bhv.xdot");
     full_dot(file, dfirst_markc(*driver.components[0].automaton)); // write tags
     file.close();*/
+    ofstream file("comp_model_bhv.xdot");
+    Utils::my_dot(file,*driver.components[1].automaton);
+    file.close();
 
     for(vector<NetworkModel>::iterator it = driver.networks.begin(); it != driver.networks.end(); it++)
     {

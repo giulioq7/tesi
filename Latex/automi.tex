@@ -17,6 +17,7 @@ Esistono due principali tipi di automi a stati finiti:
 In questo capitolo vengono presentati definizioni, algoritmi ed esempi riguardanti entrambe le classi di automi. In particolare, è descritto come convertire espressioni regolari in NFA e come convertire NFA in DFA.
 Da ultimo viene fornito il concetto di automa minimo, cioè un automa caratterizzato dal minor numero di stati possibile, utile per una implementazione efficiente in termini di risorse computazionali.
 
+\newpage
 \section{Linguaggi}
 Qualsiasi DES possiede un insieme di eventi ad esso associato. Questo insieme può essere visto come l'alfabeto di un linguaggio e le sequenze di eventi generati come parole (o stringhe) appartenenti al linguaggio. Una stringa caratterizzata da nessun simbolo dell'alfabeto è detta stringa vuota e si denota con $\epsilon$.
 Data una stringa $s$, la sua lunghezza $|s|$ è il numero di simboli contenuti in essa, tenendo conto di eventuali occorrenze multiple del medesimo simbolo. Per convenzione, la lunghezza della stringa vuota è zero.
@@ -30,6 +31,7 @@ Un linguaggio può essere visto come un modo formale di descrivere il comportame
 Un automa è un formalismo in grado di rappresentare un linguaggio.
 In particolare, nel seguito della trattazione, ci si focalizzerà sui cosiddetti linguaggi regolari, ovvero su quei linguaggi che possono essere rappresentati tramite automi con un numero finito di stati.
 
+\newpage
 \section{DFA}
 Un automa a stati finiti deterministico (DFA: deterministic finite automaton) è una quintupla:
 \begin{center}
@@ -83,6 +85,7 @@ $*s_2$ & $-$ & $-$ & $-$\\
 
 \end{ex}
 
+\newpage
 \section{NFA}
 Un automa finito non deterministico (NFA: nondeterministic finite automaton) è, similmente ad un DFA, una quintupla:
 \begin{center}
@@ -105,6 +108,7 @@ Le possibili rappresentazioni di NFA sono simili a quelle viste per i DFA, con p
 Viene di seguito riportato un esempio di NFA.
 \end{ex}
 
+\newpage
 \section{Subset construction}
 A causa del loro non determinismo, spesso i NFA necessitano di essere convertiti in DFA per essere utilizzati e simulati in maniera efficiente. La tecnica nota in letteratura per ottenere questa conversione è chiamata subset construction.
 L'idea generale di questo algoritmo è che ad ogni stato del risultante DFA corrisponde un insieme di stati del NFA di partenza.
@@ -112,6 +116,7 @@ L'idea generale di questo algoritmo è che ad ogni stato del risultante DFA corr
 Fortunatamente, questo caso pessimo raramente si presenta e per linguaggi reali spesso il numero di stati dei due automi è simile e il comportamento esponenziale non sussiste.\\
 Il primo problema che bisogna affrontare è quello di gestire le $\epsilon$-transition. Queste particolari transizioni indicano in quali stati l'automa può trovarsi contemporaneamente. L'operazione di $\epsilon$-chiusura permette di trovare, a partire da un particolare stato, tutti gli stati raggiungibili senza la consumazione di simboli in ingresso. Il primo passo della subset construction, quindi, consiste nell'assegnare allo stato iniziale del DFA risultante la $\epsilon$-chiusura dello stato iniziale del NFA in esame. L'algoritmo prosegue calcolando, per ogni possibile input ricevuto in ogni stato del NFA appartenente allo stato iniziale del risultato, l'insieme degli stati raggiungibili, su cui viene effettuata la $\epsilon$-chiusura. Il procedimento procede in questo modo sino a che tutti i nuovi stati generati del DFA non sono stati processati.
 
+\newpage
 \section{Espressioni regolari}
 Le espressioni regolari costituiscono quell'insieme di linguaggi che possono essere rappresentati da automi a stati finiti (grammatica di tipo 3 della gerarchia di Chomsky). Le espressioni regolari descrivono tutti i linguaggi che possono essere costruiti applicando ai simboli appartenenti ad un alfabeto $\Sigma$ gli operatori di unione, concatenazione e chiusura. Le espressioni regolari sono generate ricorsivamente dalle sottoespressioni che le formano, secondo le seguenti regole.
 \begin{enumerate}
@@ -127,6 +132,7 @@ Le espressioni regolari costituiscono quell'insieme di linguaggi che possono ess
 \end{enumerate}
 Altri operatori possono essere definiti opportunamente in base al dominio applicativo, generando espressioni regolari estese.
 
+\newpage
 \subsection{Costruzione di Thompson}
 La costruzione di McNaughton-Yamada-Thompson (o costruzione di Thompson) è in grado di convertire una qualsiasi espressione regolare in un NFA caratterizzato dal medesimo linguaggio. L'algoritmo opera scomponendo l'espressione regolare in un albero sintattico e costruendo un NFA per ogni sottoespressione, in maniera bottom-up, utilizzando le $\epsilon$-transition come "collante" per unire i sottoautomi. L'automa risultante permette di riconoscere se una stringa appartiene o meno al linguaggio relativo all'espressione regolare di partenza.\\
 Le regole viste in precedenza generano dei sottoautomi come schematizzato nelle figure \ref{fig:re_atom}, \ref{fig:re_union}, \ref{fig:re_concat} e \ref{fig:re_closure}. In particolare, il primo diagramma corrisponde alle prime due regole di base della costruzione di espressioni regolari, mentre gli altri tre costituiscono le cosiddette regole induttive, che permettono di generare l'automa completo in maniera incrementale.
@@ -161,6 +167,7 @@ Le regole viste in precedenza generano dei sottoautomi come schematizzato nelle 
 \end{figure}
 
 
+\newpage
 \section{Minimizzazione degli stati}
 Dato un linguaggio, possono esistere più automi deterministici che lo riconoscono. Si cerca sempre di scegliere l'automa che presenta il minor numero di stati, dato che l'implementazione di quest'ultimo consente di risparmiare memoria e tempo nella simulazione. 
 Esiste sempre un unico DFA minimo per ogni linguaggio regolare, a meno di una ridenominazione del nome degli stati. Questo particolare automa può essere costruito raggruppando insieme quegli stati che sono tra loro equivalenti. Per capire come verificare tale equivalenza, si ricorre al concetto di distinguibilità.

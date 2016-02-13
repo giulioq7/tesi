@@ -1,16 +1,18 @@
 \chapter{Sistemi Attivi}
-In questo capitolo vengono presentate definizioni ed esempi riguardanti i sistemi attivi tradizionali.
-I sistemi attivi rappresentano una classe specifica di sistemi a eventi discreti. Ad un certo livello di astrazione, generalmente, qualsiasi sistema fisico può essere modellato attraverso un comportamento discreto. Un sistema, infatti, non è continuo o discreto di per sé, anche se si può prestare o meno ad una certa scelta nel modello da adottare. I sistemi attivi sono asincroni, diversamente da altri approcci presenti in letteratura riguardanti i sistemi a eventi discreti nei quali il tempo mantiene una dimensione importante.
-Il modello dei sistemi attivi include due tipi fondamentali di elementi: i componenti e i link. Un sistema attivo è una rete di componenti connessi gli uni agli altri per mezzo di link uscenti da terminali di output di alcuni componenti ed entranti nei terminali di input di altri. Il comportamento di ogni componente è descritto da un automa a stati finiti, le cui transizioni tra gli stati sono compiute in base alla consumazione di determinati eventi disponibili nei terminali di input, l'esecuzione delle quali porta alla generazione di eventi trasmessi ai terminali di output del componente. \'E altresì possibile che alcune transizioni non vengano innescate da alcun evento particolare presente nel modello: in tal caso si assume che l'evento scatenante provenga dal mondo esterno al sistema. Il modello comportamentale del componente è assunto essere completo, nel senso che racchiude sia le transizioni normali, sia quelle di guasto.
-Un sistema attivo è quindi caratterizzato da una topologia (collegamenti tra componenti) e dal comportamento dei singoli componenti e dei link, i quali in un modello generale potrebbero avere differenti capacità di immagazzinamento (in termini di numero di eventi) e comportamenti diversi nel caso siano colmi (la cosiddetta politica di saturazione).
-Il modello globale del sistema è quindi implicitamente dato dalla topologia dell'insieme e dai comportamenti dei singoli componenti e dei link. Questo modello può essere rappresentato anch'esso da un automa a stati finiti, dove ogni stato racchiude lo stato di tutti i componenti e di tutti i link, mentre le transizioni sono costituite da transizioni dei componenti.
+In questo capitolo vengono presentate definizioni, modelli ed esempi riguardanti i sistemi attivi tradizionali.
+I sistemi attivi rappresentano una classe specifica di sistemi a eventi discreti. Ad un certo livello di astrazione, generalmente, qualsiasi sistema fisico può essere modellato attraverso un comportamento discreto. Un sistema, infatti, non è continuo o discreto di per sé, anche se si può prestare o meno ad una certa scelta nel modello da adottare.
+I sistemi attivi sono asincroni; questo significa che gli eventi generati dai componenti sono immagazzinati nei link prima di essere consumati (in maniera asincrona).
+Il modello dei sistemi attivi include due tipi fondamentali di elementi: i componenti e i link. Un sistema attivo è una rete di componenti connessi gli uni agli altri per mezzo di link uscenti da terminali di output di alcuni componenti ed entranti nei terminali di input di altri componenti. Il comportamento di ogni componente è descritto da un automa a stati finiti, le cui transizioni tra gli stati sono compiute in base alla consumazione di determinati eventi disponibili nei terminali di input. L'esecuzione di una transizione causa la generazione di eventi trasmessi ai terminali di output del componente. \'E altresì possibile che alcune transizioni non vengano innescate da alcun evento particolare presente nel modello: in questo caso si assume che l'evento scatenante provenga dal mondo esterno al sistema. Il modello comportamentale del componente è assunto essere completo, nel senso che racchiude sia le transizioni normali, sia quelle di guasto.
+Un sistema attivo è quindi caratterizzato da una topologia (collegamenti tra componenti) e dal comportamento dei singoli componenti e dei link. Questi ultimi, in un problema generale, potrebbero avere differenti capacità di immagazzinamento (in termini di numero di eventi) e comportamenti diversi nel caso siano colmi (la cosiddetta politica di saturazione).
+Il modello globale del sistema è quindi implicitamente dato dalla topologia dell'insieme e dai comportamenti dei singoli componenti e dei link. 
 
+\newpage
 \section{Definizioni}
 \subsection{Componenti} 
 I componenti sono i costituenti base dei sistemi attivi. Ogni componente è caratterizzato da due modelli:
 \begin{enumerate}
-\item modello topologico: un componente è descritto da un insieme di terminali di input, da cui gli eventi vengono consumati, e da un insieme di terminali di output, dai quali gli eventi vengono generati;
-\item modello comportamentale: un automa a stati finiti descrive unitamente il comportamento ordinario e quello di guasto, e una funzione di transizione mappa uno stato e un evento in ingresso in nuovo stato, generando un sottoinsieme (in generale anche vuoto) di eventi nei terminali di uscita.  
+\item \emph{modello topologico}, secondo il quale un componente è descritto da un insieme di terminali di input, da cui gli eventi in ingresso sono consumati, e da un insieme di terminali di output, dai quali gli eventi in uscita sono generati;
+\item \emph{modello comportamentale}, descritto da un automa a stati finiti che ingloba sia il comportamento normale sia le transizioni di guasto, dotato di una funzione di transizione che mappa uno stato e un evento in ingresso in un nuovo stato, generando un sottoinsieme (eventualmente vuoto) di eventi nei terminali di uscita.  
 \end{enumerate}
 
 \begin{defn}
@@ -23,19 +25,48 @@ dove $S$ è l'insieme degli stati, $E_{in}$ è l'insieme degli eventi in ingress
 	$ \tau : S \times (E_{in} \times I) \times 2^{(E_{out} \times O)} \rightarrow 2^S $.
 \end{center}
 
-Un evento è una coppia $(e,\theta)$, dove $e$ è un ingresso o uscita e $\theta$ un terminale. Un componente particolare può essere visto come un'istanza di un modello di componente. 
+Un evento è una coppia $(e,\theta)$, dove $e$ è un ingresso (uscita) e $\theta$ un terminale di ingresso (uscita). Un componente particolare può essere visto come una istanza di un modello di componente. 
 Una transizione $t$ da uno stato $s$ ad uno stato $s^\prime$ è innescata da un evento in ingresso $(e,x)$ disponibile al terminale di input $x$ e genera l'insieme (possibilmente vuoto) di eventi 
 $\{(e_1,y_1), \ldots ,(e_n,y_n)\}$ in corrispondenza dei terminali di output $y_1, \ldots,y_n$, in simboli:
 \begin{center}
 	$t = s \xrightarrow {(e,x) \Rightarrow (e_1,y_1), \ldots ,(e_n,y_n)} s^{\prime}$.
 \end{center}
 \end{defn}
-
 \'E implicitamente definito un terminale di input virtuale, chiamato $In$, attraverso il quale giungono gli eventi esterni al sistema.
+
+\begin{ex}\label{ex:modelli}
+Si consideri l'esempio di un sistema attivo costituito da un meccanismo di protezione per una linea elettrica. Il componente $p$ rappresenta la protezione (\emph{protection device}), ovvero un sensore che si attiva quando rileva bassa tensione ai capi della linea. Il componente $b$ rappresenta il \emph{breaker}, ovvero il dispositivo che, comandato dalla protezione, si apre isolando la linea elettrica e prevenendo il cortocircuito, oppure si chiude riconnettendo la rete. Nella figure \ref{fig:model_p} e \ref{fig:model_b}  sono rappresentati, rispettivamente, i modelli relativi alla protezione e quelli riferiti al breaker.
+Il componente di protezione non possiede terminali di input e ha un terminale di output $o$, mentre il breaker dispone solamente di un terminale di input $i$.
+La protezione può essere nello stato inattivo \emph{idle} quando non viene rilevato alcun cortocircuito, oppure nello stato \emph{awaken}, nel momento in cui la tensione si abbassa oltre una certa soglia. Quando viene rilevato un cortocircuito, il componente $p$ può compiere le transizioni $p_1$, che genera un evento $op$ per comandare l'apertura del breaker, o $p_3$, che a causa di un malfunzionamento genera invece un evento $cl$ per comandare la chiusura del breaker. Quando il cortocircuito svanisce, il componente torna nello stato $idle$ percorrendo la transizione $p_2$, che genera l'evento $cl$, oppure tramite $p_4$, che genera in maniera difettosa l'evento $op$.
+Il breaker può essere aperto ($open$) o chiuso ($closed$). Quando è chiuso e un evento $op$ è disponibile in corrispondenza del terminale $i$, il breaker $b$ può percorrere la transizione $b_1$ che lo apre o $b_3$ con la quale resta chiuso (guasto). Quando il componente è aperto, le transizioni possibili sono $b_2$ se il breaker si apre, $b_4$ se a causa di un guasto rimane chiuso. Le transizioni $b_5$ e $b_6$ non cambiano lo stato del componente.
+
+\end{ex}
+
+\begin{figure}[htbp]
+\centering
+\subfigure[topologia protezione]
+{\includegraphics[scale=0.4]{./Img/sa/top_protection.png}}
+\hspace{10mm}
+\subfigure[comportamento protezione]
+{\includegraphics[scale=0.5]{./Img/sa/model_protection.png}}
+\caption{Modello del componente $p$}
+\label{fig:model_p}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\subfigure[topologia breaker]
+{\includegraphics[scale=0.4]{./Img/sa/top_breaker.png}}
+\hspace{10mm}
+\subfigure[comportamento breaker]
+{\includegraphics[scale=0.5]{./Img/sa/model_breaker.png}}
+\caption{Modello del componente $b$}
+\label{fig:model_b}
+\end{figure}
 
 \subsection{Link}
 Nell'ambito dei sistemi attivi, i componenti sono tra loro connessi per mezzo di link. Ogni link esce da un terminale di output $y$ di un componente $c$ e entra in un terminale di input $x$ di un componente $c^\prime$.
-Analogamente a quanto avviene per i componenti, anche i link sono caratterizzati da un modello, che costituisce un'astrazione del link specifico in esame.
+Analogamente a quanto avviene per i componenti, anche i link sono caratterizzati da un modello, che costituisce un'astrazione del link specifico appartenente al sistema.
 
 \begin{defn}
 Un modello di un link è una quadrupla
@@ -50,12 +81,24 @@ Indichiamo con $|l|$ la configurazione corrente del link.
 Se il numero di eventi attualmente memorizzati coincide con la dimensione, il link si dice essere saturo.
 Quando il link è saturo, la semantica legata al compimento delle transizioni è dettata dalla politica di saturazione $w$, la quale può essere:
 \begin{itemize}
-\item lose: l'evento, non potendo essere memorizzato, viene perso;
-\item override: l'evento sovrascrive l'ultimo evento nel link;
-\item wait: la transizione non viene portata a termine fintanto che il link permane nello stato di saturazione, ovvero fino a quando almeno un evento nel link non viene consumato.
+\item \emph{lose}: l'evento, non potendo essere memorizzato, viene perso;
+\item \emph{override}: l'evento sovrascrive l'ultimo evento nel link;
+\item \emph{wait}: la transizione non viene portata a termine fintanto che il link permane nello stato di saturazione, ovvero fino a quando almeno un evento nel link non viene consumato.
 \label{saturation}
 \end{itemize}
 Nell'ambito di questa tesi, si considererà il caso particolare di link di dimensione unitaria e politica di saturazione $wait$ , ovvero $z = 1$ e $w = wait$.
+Tale supposizione permette di visualizzare le configurazioni dei link dell'intero sistema come la tupla del contenuto dei terminali di input di ogni componente del sistema. Implicitamente questo significa che ogni evento generato è inserito istantaneamente, se libero, nel terminale (o nei terminali) di input liberi collegati al terminale di output. Se un terminale di destinazione è occupato, la transizione non viene compiuta.
+
+\begin{ex}\label{ex:link}
+Con riferimento all'esempio \ref{ex:modelli}, in figura \ref{fig:model_link} è presentato il link $pb$ che collega il terminale di output $o$ della protezione $p$ al terminale di input $i$ del breaker $b$.
+\end{ex}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.4]{./Img/sa/link.png}
+\caption{Modello del link $pb$}
+\label{fig:model_link}
+\end{figure}
 
 \subsection{Sistema attivo}
 Un sistema attivo è una rete di componenti interconnessi per mezzo di link. Ogni componente ed ogni link del sistema sono caratterizzati da un modello e quindi, in generale, più elementi potrebbero avere il medesimo modello. Si assume che più link possano uscire da un terminale di output di un componente, mentre al massimo un link possa entrare in un terminale di input.
@@ -75,8 +118,12 @@ dove $D_{on}$ è l'insieme dei terminali on scollegati, mentre $D_{off}$ è l'in
 Se $D_{on} \neq \emptyset $, il sistema $A$ è detto aperto, altrimenti è detto chiuso. Nel caso $A$ sia chiuso ($D_{on} = \emptyset$), nessun evento è disponibile nei terminali di input di $D_{off}$, mentre gli eventi generati nei terminali di output di $D_{off}$ sono persi.
 D'altro canto, se $A$ è aperto, si assume che i terminali scollegati in $D_{on}$ siano connessi attraverso link all'esterno del sistema $A$; quest'ultimo, in altre parole, è come se fosse incorporato in un altro sistema più grande (sconosciuto). Quindi gli eventi generati in terminali di output in $D_{on}$ sono immagazzinati all'interno dei link (sconosciuti) esterni al sistema $A$. Analogamente, il componente in corrispondenza del quale si trova un terminale di input in $D_{on}$ è sensibile a eventi disponibili in quel terminale.
 
+\begin{ex}
+Con riferimento agli esempi \ref{ex:modelli} e \ref{ex:link}, il sistema rappresentato in figura \ref{fig:model_link} è un sistema attivo $\overline A = (\{p,b\},\{pb\},\emptyset)$ nel quale non è presente alcun terminale scollegato.
+\end{ex}
+
 \subsection{Traiettoria}
-Un sistema attivo può essere pensato come una macchina che può essere in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento, sia esso proveniente dal mondo esterno, sia da un terminale di input scollegato appartenente a $D_{on}$, il sistema evolve nella sua fase reattiva. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta traiettoria (o storia), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
+Un sistema attivo può essere pensato come una macchina che può essere in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento, sia esso proveniente dal mondo esterno, sia da un terminale di input scollegato appartenente a $D_{on}$, il sistema evolve nella sua fase reattiva. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta \emph{traiettoria} (o \emph{storia}), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
 Ogni transizione di un componente porta il sistema in un nuovo stato, dove uno stato è identificato dallo stato corrente di ogni componente e dalle configurazioni attuali dei link. In altre parole, uno stato del sistema attivo è una coppia $(S,Q)$, dove $S$ è la n-pla degli stati dei componenti, mentre $Q$ è la m-pla delle configurazioni dei link.
 Quindi una transizione del sistema può essere scritta come:
 \begin{center}
@@ -123,6 +170,7 @@ cioè per ogni transizione del behavior space cambia lo stato relativo al singol
 \end{enumerate}
 \end{defn}
 
+\newpage
 \section{Problema di diagnosi}
 Un sistema attivo, inizialmente, si trova in uno stato quiescente, ovvero in uno stato in cui i link sono vuoti. Il sistema passa alla fase reattiva nel momento in cui riceve dei particolari eventi esterni. Una volta che l'occorrenza di un tale evento si verifica, la reazione del sistema è composta da una sequenza di transizioni che formano una traiettoria. Dato che ogni componente è modellato dal suo comportamento completo, ovvero sia dai suoi comportamenti normali sia quelli di guasto, sono necessarie delle informazioni aggiuntive, in grado di discriminare se le transizioni facenti parte della traiettoria siano di guasto o normali. Un ulteriore problema consiste nella non completa osservabilità tipica dei sistemi reali: una traiettoria, in generale, non è percepita come effettivamente è, ma quello che è visibile altro non è che una proiezione di un suo sottoinsieme osservabile. Una sequenza di label osservabili costituisce una traccia della reale traiettoria. Inoltre, una label associata ad una transizione di un componente potrebbe non identificare univocamente la transizione, poiché più transizioni potrebbero condividere la medesima label di osservazione. Si noti come i modelli comportamentali dei singoli componenti non effettuino una distinzione tra ciò che osservabile e quello che non lo è: per questo motivo è necessaria una specifica esplicita di questa informazione. Una ulteriore componente significativa del problema è l'osservazione, solo a seguito della quale può essere formulata una diagnosi. Un'osservazione consiste in una sequenza di label osservabili.
 
@@ -177,6 +225,8 @@ Sia $P(A) = (a_0,V,O,R)$ un problema di diagnosi per il sistema attivo $A$, e $B
 \end{defn}
 In altre parole, la soluzione di un problema di diagnosi è l'insieme costituito dagli insiemi di guasti rilevati lungo le traiettorie la cui traccia è consistente con l'osservazione temporale.
 
+
+\newpage
 \section{Diagnosi monolitica}
 La soluzione di un problema diagnosi, presentata nella sezione precedente, è definita come l'insieme delle label di guasto che vengono generate dalle traiettorie consistenti con l'osservazione temporale. Questa definizione, tuttavia, non presenta una tecnica che permetta di trovare tale insieme nella pratica. Scopo di questo paragrafo è quello di fornire, a fronte della definizione vista in precedenza, un metodo efficace che permetta di ottenere l'insieme delle diagnosi candidate in modo corretto e completo. 
 Come prima osservazione, è essenziale notare che per generare le diagnosi candidate bisogna analizzare le traiettorie del sistema che sono consistenti con l'osservazione temporale. Per fare questo, bisogna poter generare un sottoautoma del behavior space, il quale contiene tutte le possibili traiettorie, contenente le traiettorie consistenti con l'osservazione temporale. Infatti si assume che il behavior space non venga generato, in quanto la sua dimensione diventa proibitiva già per pochi componenti e link. Il costo in termini di tempo ma soprattutto di memoria sono enormi e non sono utili, poiché generalmente grandi parti del behavior space risulteranno essere inconsistenti con l'osservazione.

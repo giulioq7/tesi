@@ -1,0 +1,11 @@
+digraph G {
+rankdir=LR;
+1[shape=ellipse,label="1
+ idle "];
+1 -> 2 [fontsize=10, label="p1"];
+1 -> 2 [fontsize=10, label="p3"];
+2[shape=ellipse,label="2
+awaken"];
+2 -> 1 [fontsize=10, label="p2"];
+2 -> 1 [fontsize=10, label="p4"];
+}

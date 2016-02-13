@@ -36,10 +36,10 @@ ostream& operator<<(ostream& out, const Component& c)
 
 std::ostream& operator<<(std::ostream& out, const Transition& t)
 {
-    return out /*<< "Transition: "*/ << t.name << endl
+    return out /*<< "Transition: "*/ << t.name;/* << endl
                << "In event: " << t.input_event << endl
                << "From - To: " << t.s1_s2 << endl
-               << "Out events: " << t.out_events << endl;
+               << "Out events: " << t.out_events << endl;*/
 }
 
 
