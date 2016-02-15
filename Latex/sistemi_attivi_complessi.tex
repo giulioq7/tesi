@@ -1,7 +1,7 @@
 \chapter{Sistemi Attivi Complessi}
 In questo capitolo vengono presentate definizioni e modelli che descrivono i sistemi attivi complessi, visti come estensione dei sistemi attivi tradizionali descritti precedentemente. Un sistema attivo complesso è una gerarchia di sistemi attivi tra loro comunicanti. Questo modello si ispira a molti sistemi naturali, fisici, economici e sociali, dei quali è possibile fornire un modello stratificato, in base a diversi livelli di astrazione. Nei sistemi biologici, ad esempio, il comportamento può essere descritto a basso livello dalle interazioni fra le cellule, oppure ad un livello più alto tra i tessuti, o ancora in maniera più astratta studiando il funzionamento degli organi. Nell'ambito dei linguaggi di programmazione a oggetti, ad esempio, a basso livello vi sono le singole istruzioni, a livello più alto i metodi, ad un più alto livello ancora le classi e le interfacce. 
 L'attributo ``complesso'' si riferisce, più che alla quantità di componenti presenti nel sistema (che comunque possono essere molti), all'organizzazione gerarchica e alla conseguente stratificazione del comportamento globale del sistema.
-Ogni livello della gerarchia di sistemi siffatti ha una evoluzione indipendente dagli altri, eccetto alcune informazioni che giungono dai livelli sottostanti. Ogni livello, in altre parole, ha un comportamento emergente che è impredicibile dalla semplice conoscenza del comportamento dei singoli componenti. Queste informazioni che giungono ai livelli superiori sono resi nel modello dei sistemi attivi complessi attraverso pattern event, che si verificano quando determinate configurazioni delle transizioni dei componenti sottostanti si verificano, soddisfacendo particolari espressioni regolari.
+Ogni livello della gerarchia di sistemi siffatti ha una evoluzione indipendente dagli altri, eccetto alcune informazioni che giungono dai livelli sottostanti. Ogni livello, in altre parole, ha un comportamento emergente che è impredicibile dalla semplice conoscenza del comportamento dei singoli componenti. Queste informazioni che giungono ai livelli superiori sono rese nel modello dei sistemi attivi complessi attraverso pattern event, che si verificano quando determinate configurazioni delle transizioni dei componenti sottostanti si verificano, soddisfacendo particolari espressioni regolari.
 
 \newpage
 \section{Definizioni}
@@ -29,13 +29,13 @@ Una dichiarazione di pattern è una quadrupla $(p,l,r,o)$ dove:
 \item $r$ è una espressione regolare;
 \item $o \in O$ è un terminale di output in corrispondenza del quale il pattern event viene generato.
 \end{itemize}
-Il linguaggio $l$ del pattern può variare dal linguaggio minimo, cioè costituito dalle sole transizioni facenti parte dell'espressione regolare $r$, al linguaggio massimo, ovvero corrispondente all'insieme di tutte le transizioni di componenti del nodo. L'appartenenza a diversi linguaggi conferisce una semantica differente a quei pattern le cui espressioni regolari utilizzano operatori insiemistici, come ad esempio il not. Si nota facilmente che, il complemento di una transizione rispetto a linguaggi differenti, ha come risultato una unione di transizioni differente, dato che il l'operazione di complemento è applicata su insiemi diversi.
+Il linguaggio $l$ del pattern può variare dal linguaggio minimo, cioè costituito dalle sole transizioni facenti parte dell'espressione regolare $r$, al linguaggio massimo, ovvero corrispondente all'insieme di tutte le transizioni di componenti del nodo. L'appartenenza a diversi linguaggi conferisce una semantica differente a quei pattern le cui espressioni regolari utilizzano operatori insiemistici, come ad esempio il $not$. Si nota facilmente che il complemento di una transizione rispetto a linguaggi differenti ha come risultato una unione di transizioni che, data l'operazione di complemento applicata su insiemi diversi, varia.
 
 \subsection{Pattern space}
-In modo da individuare pattern event, deve essere mantenuto lo stato relativo al matching dei pattern coinvolti. A tal fine, per ogni nodo, è necessario effettuare generare dei pattern space, secondo i seguenti passi:
+In modo da individuare pattern event, deve essere mantenuto lo stato relativo al matching dei pattern coinvolti. A tal fine, per ogni nodo, è necessario generare degli automi, chiamati \emph{pattern space}, secondo i seguenti passi:
 \begin{itemize}
 \item per ogni pattern $(p,l,r,o)$, viene generato un automa deterministico equivalente all'espressione regolare $r$, nel quale ogni stato finale viene marcato dal nome $p$ del pattern event;
-\item per ogni linguaggio utilizzato nella definizione dei pattern, vengono identificate le definizioni di pattern che utilizzano tale linguaggio, corrispondenti agli automi $[A_1, \ldots , A_k]$, viene generato un pattern space nel seguente modo:
+\item per ogni linguaggio utilizzato nella definizione dei pattern, vengono identificati i pattern che utilizzano tale linguaggio, corrispondenti agli automi $[A_1, \ldots , A_k]$, e viene generato un pattern space nel seguente modo:
 	\begin{enumerate}
 	\item un automa non deterministico $N$ è creato generando il suo stato iniziale $s_0$ e una $\epsilon$-			transizione da $s_0$ a ogni stato iniziale di $A_i$, con $i \in [1 \ldots k]$;
 	\item in modo da mantenere il matching di stringhe sovrapposte, viene aggiunta una $\epsilon$-transizione	da ogni stato non iniziale a $s_0$;
@@ -100,11 +100,11 @@ $h = [t_1(c_1(n_1)),t_2(c_2(n_2)), \ldots , t_k(c_k(n_k))]$.
 
 
 \subsection{Behavior space}
-Dato un SAC $C$ ed il suo stato iniziale, possono esservi infinite traiettorie, che possono essere descritte da un automa. 
+Dato un SAC $C$ ed il suo stato iniziale, possono esservi infinite traiettorie, descritte da un automa. 
 Quest'ultimo è detto behavior space e ha come alfabeto l'intero insieme delle transizioni dei singoli componenti di ogni nodo.
 Il linguaggio del behavior space $Bsp(C)$ con stato iniziale $a_0$ coincide con l'insieme di tutte le possibili traiettorie del sistema $C$ partendo dallo stato $a_0$. 
 \begin{defn}
-Sia $C = (N,L)$ un sistema attivo complesso, dove $N$ è l'insieme di nodi, mentre $L$ è l'insieme di link. Il behavior space di $C$ è il DFA
+Sia $C = (N,L)$ un sistema attivo complesso, dove $N$ è l'insieme di nodi, mentre $L$ è l'insieme di link tra i nodi. Il behavior space di $C$ è il DFA
 \begin{center}
 	$Bsp(C) = (\Sigma,\alpha,\tau,a_0)$
 \end{center}
@@ -129,7 +129,16 @@ se e solo se:
 $s^\prime_i = \begin{cases} s^\prime & \mbox{se }c_i = c\\ s_i & \mbox{altrimenti} \end{cases}$
 \end{center}
 cioè per ogni transizione del behavior space cambia lo stato relativo al singolo componente coinvolto nella transizione;
-\item in base alla politica di saturazione
+\item $Pts^\prime$ differisce d $Pts$ solo negli elementi $w \in [j, \ldots, k]$ corrispondenti a pattern space del nodo $n$ coinvolto nella transizione, secondo il seguente comportamento:
+\begin{center}
+$Pts^\prime(P_w) = \begin{cases} \overline{Pts} & \mbox{se esite}Pts(P_w) \xrightarrow{t(c(n))} \overline{Pts}\\ P_{w,0} & \mbox{altrimenti} \end{cases}$;
+\end{center}
+\item $Q^\prime$ differisce da $Q$ per le seguenti condizioni:
+\begin{itemize}
+\item $Q(x) = e \rightarrow Q^\prime(x) = \epsilon$, cioè l'evento in input è consumato;
+\item $\forall(e_j,y_j), j \in [1 \ldots p], Q(y_j) = \epsilon \rightarrow Q^\prime(y_j) = e_j$, cioè gli eventi di uscita sono inseriti nei terminali di input connessi ai terminali di output coinvolti nella transizione;
+\item se $Pts^\prime(P_w) \neq Pts(P_w), w \in [j, \ldots, k], Pts^\prime(P_w)$ è finale e marcato dall'insieme di eventi \textbf{p}, allora ogni $p_i \in \textbf{p}$  ha un terminale destinazione $o_i \in O$ del nodo $n$. Ogni terminale di output di $n$ è collegato ad uno o più terminali di input di un nodo superiore $n^\prime$, che a sua volta è collegato ad uno o più terminali di input $i_z$ che gestiscono il patter event. Per ogni terminale $i_z$, il relativo contenuto passa da $\epsilon$ al pattern event $p_i$.
+\end{itemize}
 \end{itemize}
 \end{enumerate}
 \end{defn}

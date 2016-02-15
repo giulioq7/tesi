@@ -26,10 +26,10 @@ network model ProtectionHardwareNet is
 	component b: Breaker, p: ProtectionDevice;
 	output O;
 	link O(p) -> I(b);
-	pattern di(O) == b1(b),
-		co(O) == b2(b),
-		nd(O) == p3(p) | p1(p)b3(b),
-		nc(O) == p4(p) | p2(p)b5(b)?b4(b);
+	//pattern di(O) == b1(b),
+	//	co(O) == b2(b),
+	//	nd(O) == p3(p) | p1(p)b3(b),
+	//	nc(O) == p4(p) | p2(p)b5(b)?b4(b);
 	initial closed(b), idle(p);
 	viewer b1(b) -> opb, b2(b) -> clb,
 	       p1(p) -> awk, p2(p) -> ide, p3(p) -> awk, p4(p) -> ide;
