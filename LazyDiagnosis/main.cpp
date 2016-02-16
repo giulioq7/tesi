@@ -432,10 +432,6 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                     }
                     if(!empty_t)
                         break;
-                    for(int i=0; i<fc_P.size(); i++)
-                    {
-                        tag_s1.P[i] = initial_P[i];
-                    }
                     InterfaceTrans t = fc_interfaces[interface_index].letter();
                     stringstream s_str;
                     s_str << tag_s1;

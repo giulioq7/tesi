@@ -1,0 +1,17 @@
+digraph G {
+0[shape=circle,label="s0"];
+0 -> 1 [label="&epsilon;"];
+0 -> 3 [label="&epsilon;"];
+1[shape=circle,label=""];
+2 -> 0 [label="&epsilon;"];
+4 -> 0 [label="&epsilon;"];
+
+1 -> 2 [label="t1"];
+2[shape=doublecircle,label="p1"];
+
+3[shape=circle,label=""];
+3 -> 4 [label="t2"];
+4[shape=doublecircle,label="p2"];
+node [shape = point, color=white, fontcolor=white]; start;
+start -> 0;
+}

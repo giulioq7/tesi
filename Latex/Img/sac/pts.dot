@@ -1,0 +1,15 @@
+digraph G {
+0[shape=circle,label="0"];
+1[shape=doublecircle,label="1
+p1"];
+2[shape=doublecircle,label="2
+p2"];
+0 -> 1 [label="t1"];
+0 -> 2 [label="t2"];
+1 -> 1 [label="t1"];
+2 -> 2 [label="t2"];
+1 -> 2 [label="t2"];
+2 -> 1 [label="t1"];
+node [shape = point, color=white, fontcolor=white]; start;
+start -> 0;
+}
