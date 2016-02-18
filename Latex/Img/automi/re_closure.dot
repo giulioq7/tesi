@@ -7,7 +7,7 @@ digraph G
 subgraph cluster_1{
 	1 [shape=circle,fontsize=40,label=""]
 	2 [shape=circle,fontsize=40,label=""]
-	1 -> 2 [color=white,label="x",fontsize=20];
+	1 -> 2 [color=white,label="N(s)",fontsize=20];
 	graph[style=rounded];
 }
 

@@ -7,13 +7,13 @@ digraph G
 subgraph cluster_1{
 	1 [shape=circle,fontsize=40,label=""]
 	2 [shape=circle,fontsize=40,label=""]
-	1 -> 2 [color=white,label="x",fontsize=20];
+	1 -> 2 [color=white,label="N(s)",fontsize=20];
 	graph[style=rounded];
 }
 subgraph cluster_2 {
 	3 [shape=circle,fontsize=40,label=""]
 	4 [shape=circle,fontsize=40,label=""]
-	3 -> 4 [color=white,label="y",fontsize=20];
+	3 -> 4 [color=white,label="N(t)",fontsize=20];
 	graph[style=rounded];
 }
  5 [shape=doublecircle,fontsize=40,label=""]

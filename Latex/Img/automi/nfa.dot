@@ -1,0 +1,22 @@
+digraph G {
+rankdir="LR"
+imagescale=true
+margin="0,0"
+ratio=compress
+node[fontsize=16,fixedsize=true,width=0.7,shape=circle,rank=min]
+edge[fontsize=16]
+maxiter=500
+	start -> s0
+	s0 -> s1 [label="&epsilon;"]
+	s0 -> s2 [label="&epsilon;"]
+	s0 -> s4 [label="b"]
+	s1 -> s3 [label="&epsilon;"]
+	s1 -> s4 [label="a"]
+	s2 -> s3 [label="b"]
+	s3 -> s4 [label="b"]
+	s4 -> s3 [label="a"]
+
+	
+	start [shape=point,style="invis",width=0]
+	s0; s1; s2;	s3; s4 [shape=doublecircle];
+}

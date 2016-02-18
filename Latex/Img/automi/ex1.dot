@@ -1,13 +1,20 @@
-digraph G 
- { ratio=0.5;
- rankdir=LR;
- ranksep=0.4;
-0 [shape=circle,fontsize=40,label="s0"]
-1 [shape=circle,fontsize=40,label="s1"]
-2 [shape=doublecircle,fontsize=40,label="s2"]
-node [shape = point, color=white, fontcolor=white]; start;
-start -> 0;
-0 -> 1 [label="a",fontsize=30];
-1 -> 2 [label="b",fontsize=30];
-0 -> 0 [label="c",fontsize=30];
+digraph G {
+rankdir="LR"
+imagescale=true
+margin="0,0"
+ratio=compress
+node[fontsize=16,fixedsize=true,width=0.7,shape=circle,rank=min]
+edge[fontsize=16]
+maxiter=500
+	start -> s0
+	s0 -> s1 [label="a"]
+	s1 -> s2 [label="b"]
+	s0 -> s0 [label="b"]
+	s1 -> s1 [label="a"]
+	s2 -> s2 [label="a"]
+	s2 -> s2 [label="b"]
+
+	
+	start [shape=point,style="invis",width=0]
+	s0; s1;	s2 [shape=doublecircle];
 }
