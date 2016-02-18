@@ -236,7 +236,7 @@ Il \emph{behavior space} del sistema attivo $\overline{A}$ dell'esempio \ref{ex:
 \end{figure}
 
 \newpage
-\section{Problema di diagnosi}
+\section{Problema diagnostico}
 Un sistema attivo, inizialmente, si trova in uno stato quiescente, ovvero in uno stato in cui i link sono vuoti. Il sistema passa alla fase reattiva nel momento in cui riceve dei particolari eventi esterni. Una volta che l'occorrenza di un tale evento si verifica, la reazione del sistema è composta da una sequenza di transizioni che formano una traiettoria. Dato che ogni componente è modellato dal suo comportamento completo, ovvero sia dai suoi comportamenti normali sia quelli di guasto, sono necessarie delle informazioni aggiuntive, in grado di determinare se le transizioni facenti parte della traiettoria siano di guasto o normali. Un ulteriore problema consiste nella non completa osservabilità tipica dei sistemi reali: una traiettoria, in generale, non è percepita come effettivamente è, ma quello che è visibile consiste in una proiezione di un suo sottoinsieme osservabile. Una sequenza di label osservabili costituisce una traccia della reale traiettoria. Inoltre, una label associata ad una transizione di un componente potrebbe non identificare univocamente la transizione, poiché più transizioni possono condividere la medesima label di osservazione. Si noti come i modelli comportamentali dei singoli componenti non effettuino una distinzione tra ciò che osservabile e quello che non lo è: per questo motivo è necessaria una specifica esplicita di questa informazione. Una ulteriore componente significativa del problema è l'osservazione, solo a seguito della quale può essere formulata una diagnosi. Un'osservazione consiste in una sequenza di label osservabili.
 
 \subsection{Viewer}
@@ -323,7 +323,7 @@ $h = [p_1,b_1,p_4,b_6]$
 In base al \emph{ruler} $\overline{R}$ definito nella tabella \ref{tab:ruler}, la diagnosi della traiettoria $h$ è l'insieme $h_{[\overline{R}]} = \{fcp\}$, ottenuto dal guasto in corrispondenza della transizione $p_4$.
 \end{ex}
 
-\subsection{Problema di diagnosi}
+\subsection{Problema diagnostico}
 \begin{defn}
 Sia $A$ un sistema attivo, $V$ un viewer di $A$, $O$ una osservazione temporale per $A$ relativa ad una traiettoria che parte dallo stato $a_0$, e $R$ un ruler per $A$. La quadrupla
 \begin{center}
@@ -331,14 +331,14 @@ Sia $A$ un sistema attivo, $V$ un viewer di $A$, $O$ una osservazione temporale 
 \end{center}
 è un problema di diagnosi per $A$.
 \end{defn}
-Concettualmente, è possibile definire la soluzione di un problema di diagnosi nel seguente modo.
+Concettualmente, è possibile definire la soluzione di un problema diagnostico nel seguente modo.
 \begin{defn}
 Sia $P(A) = (a_0,V,O,R)$ un problema di diagnosi per il sistema attivo $A$, e $Bsp(A)$ il behavior space con stato iniziale $a_0$. La soluzione del problema di diagnosi $\Delta(P(A))$, è l'insieme di diagnosi:
 \begin{center}
 	$\Delta(P(A)) = \{ \delta | \delta = h_{[R]}, h \in Bsp(A), h_{[V]} = O\}$
 \end{center}
 \end{defn}
-In altre parole, la soluzione di un problema di diagnosi è l'insieme costituito dagli insiemi di guasti rilevati lungo le traiettorie la cui traccia è consistente con l'osservazione temporale.
+In altre parole, la soluzione di un problema diagnostico è l'insieme costituito dagli insiemi di guasti rilevati lungo le traiettorie la cui traccia è consistente con l'osservazione temporale.
 
 \begin{ex} \label{ex:problem}
 Si consideri il \emph{behavior space} del sistema attivo $\overline{A}$ in figura \ref{fig:bsp}, l'osservazione dell'esempio \ref{ex:oss} $\overline{O} = [awk, opb, ide]$, il viewer $\overline{V}$ e il ruler $\overline{R}$ riportati rispettivamente nelle tabelle \ref{tab:viewer} e \ref{tab:ruler}.
@@ -347,7 +347,7 @@ Le possibili traiettorie consistenti con l'osservazione sono:
 \item $h_1 = [p_1,b_1,p_2,b_4]$, a cui corrisponde la diagnosi $h_{1,[\overline{R}]} = \{ncb\}$;
 \item $h_2 = [p_1,b_1,p_4,b_6]$, a cui corrisponde la diagnosi $h_{2,[\overline{R}]} = \{fcp\}$.
 \end{itemize}
-La soluzione del problema di diagnosi $P(\overline{A}) = (a_0,\overline{V},\overline{O},\overline{R})$ è data dalla composizione delle diagnosi di queste traiettorie:
+La soluzione del problema diagnostico $P(\overline{A}) = (a_0,\overline{V},\overline{O},\overline{R})$ è data dalla composizione delle diagnosi di queste traiettorie:
 \begin{center}
 $\Delta(P(\overline{A}) = \{\{ncb\},\{fcp\}\}$.
 \end{center}
@@ -360,13 +360,13 @@ Il significato delle due soluzioni trovate è il seguente: o il breaker $b$ non 
 La soluzione di un problema di  diagnosi, presentata nella sezione precedente, è definita come l'insieme delle label di guasto che vengono generate dalle traiettorie consistenti con l'osservazione temporale. Questa definizione, tuttavia, non presenta una tecnica che permetta di trovare tale insieme nella pratica, anche perché si suppone che il \emph{behavior space} non sia disponibile per la diagnosi. Scopo di questo paragrafo è quello di fornire, a fronte della definizione vista in precedenza, un metodo efficace che permetta di ottenere l'insieme delle diagnosi candidate in modo corretto e completo. 
 Come prima osservazione, è essenziale notare che per generare le diagnosi candidate bisogna analizzare le traiettorie del sistema che sono consistenti con l'osservazione temporale. Per fare questo, bisogna poter generare un sotto-automa del behavior space contenente le sole traiettorie consistenti con l'osservazione temporale. 
 La prima fase della diagnosi monolitica consiste nella costruzione del behavior $Bhv$, il cui linguaggio coincide esattamente con il sottoinsieme del linguaggio del behavior space consistente con l'osservazione temporale. Successivamente è necessario associare ad ogni traiettoria del behavior la corrispondente diagnosi. Questa procedura potrebbe essere infinita, dato che un automa può avere ciclicità e quindi dare luogo ad un insieme infinito di traiettorie. Tuttavia, è bene notare come l'insieme delle diagnosi è sempre finito, poiché limitato superiormente dal numero di label di guasto specificate nel ruler: nello specifico, l'insieme delle diagnosi è un sottoinsieme di $2^\Phi$, cioè l'insieme potenza del dominio di label di guasto $\Phi$. Nella pratica, l'insieme finito di traiettorie da considerare sono tutte quelle in cui i cicli sono attraversati al massimo una volta. Questo perché percorrere un ciclo più di una volta non cambia le diagnosi, dato che quelle ivi presenti sono già state collezionate durante l'iterazione precedente del ciclo.
-Il secondo punto della diagnosi monolitica consiste nel generare l'insieme di diagnosi associate ad ogni nodo del behavior, ovvero praticare la cosiddetta decorazione del behavior.
+Il secondo punto della diagnosi monolitica consiste nel generare l'insieme diagnostico associate ad ogni nodo del behavior, ovvero praticare la cosiddetta decorazione del behavior.
 Una volta che il behavior è stato costruito e decorato, l'ultima fase della diagnosi monolitica prevede la distillazione delle diagnosi, compiuta selezionando unicamente le diagnosi delle traiettorie consistenti con l'osservazione temporale. Per fare questo è importante distinguere, nella costruzione del behavior, tra stati finali e stati non finali. Uno stato del behavior è finale se e solo se tutte le traiettorie che giungono in quello stato hanno consumato interamente l'osservazione, cioè hanno percorso delle transizioni le cui label osservabili hanno prodotto una sequenza pari a quella dell'osservazione data. 
 
 \subsection{Ricostruzione del behavior}
 Il primo passo della diagnosi monolitica consiste nella ricostruzione del behavior. 
 \begin{defn}
-Sia $P(A) = (a_0,V,O,R)$ un problema di diagnosi per un sistema attivo $A = (C,L,D)$, dove $C$ è un insieme di $n$ componenti, mentre $L$ è un insieme di $m$ link. Sia $I(O)$ la sequenza di indici $[0 \ldots i_f]$ che rappresentano la consumazione dell'osservazione di lunghezza $i_f$ del sistema, con $0$ che rappresenta l'indice corrispondente all'osservazione iniziale nulla. Il behavior spurio di $P(A)$ è l'automa deterministico
+Sia $P(A) = (a_0,V,O,R)$ un problema diagnostico per un sistema attivo $A = (C,L,D)$, dove $C$ è un insieme di $n$ componenti, mentre $L$ è un insieme di $m$ link. Sia $I(O)$ la sequenza di indici $[0 \ldots i_f]$ che rappresentano la consumazione dell'osservazione di lunghezza $i_f$ del sistema, con $0$ che rappresenta l'indice corrispondente all'osservazione iniziale nulla. Il behavior spurio di $P(A)$ è l'automa deterministico
 \begin{center}
 	$Bhv^s(P(A)) = (\Sigma,B^s,\tau^s,\beta_0,\beta_f)$
 \end{center}
@@ -442,7 +442,7 @@ Di seguito è riportato lo pseudocodice dell'algoritmo di ricostruzione del beha
 \end{algorithm}
 
 \begin{ex}
-Con riferimento al problema di diagnosi nell'esempio \ref{ex:problem} in figura \ref{fig:bhv} è riportato  il behavior del problema di diagnosi $P(\overline{A})$. Le transizioni e gli stati tratteggiati costituiscono la parte spuria dell'automa, in quanto non appartengono a nessun cammino dallo stato iniziale a uno stato finale. Uno stato è finale se, oltre ad avere i link vuoti, ha un indice di osservazione pari a $3$, che costituisce l'indice finale della sequenza di osservazione $\overline{O} = [awk,opb,ide]$ di lunghezza $3$.
+Con riferimento al problema diagnostico nell'esempio \ref{ex:problem} in figura \ref{fig:bhv} è riportato  il behavior del problema diagnostico $P(\overline{A})$. Le transizioni e gli stati tratteggiati costituiscono la parte spuria dell'automa, in quanto non appartengono a nessun cammino dallo stato iniziale a uno stato finale. Uno stato è finale se, oltre ad avere i link vuoti, ha un indice di osservazione pari a $3$, che costituisce l'indice finale della sequenza di osservazione $\overline{O} = [awk,opb,ide]$ di lunghezza $3$.
 Si noti la differenza di questo automa con il behavior space della figura \ref{fig:bsp}. 
 La diversa grandezza degli automi può essere evidenziata meglio in sistemi attivi con un numero maggiore di componenti e link, a causa della crescita esponenziale degli automi.
 \end{ex}
@@ -450,17 +450,17 @@ La diversa grandezza degli automi può essere evidenziata meglio in sistemi atti
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.15]{./Img/sa/bhv_s.png}
-\caption{Behavior del problema di diagnosi $P(\overline{A})$. Le transizioni e gli stati tratteggiati indicano la parte spuria dell'automa}
+\caption{Behavior del problema diagnostico $P(\overline{A})$. Le transizioni e gli stati tratteggiati indicano la parte spuria dell'automa}
 \label{fig:bhv}
 \end{figure}
 
 \subsection{Decorazione del behavior}
-Il secondo passo della ricostruzione monolitica consiste nella decorazione del behavior. Il linguaggio dell'automa ottenuto nel passo precedente è composto da stringhe, ognuna delle quali rappresenta una traiettoria consistente con l'osservazione temporale. Dato che il behavior racchiude tutte e sole le traiettorie la cui traccia rispetto al viewer è una traccia candidata dell'osservazione, la soluzione del problema di diagnosi è l'insieme delle diagnosi relative a tali traiettorie. Dato che le traiettorie potrebbero avere dei cicli, dando luogo ad un numero infinito di percorrenze, l'idea è quella di marcare ogni stato del behavior con l'insieme di diagnosi relative a tutte le traiettorie che terminano in quello stato. Il fatto di avere ciclicità non è un problema, poiché la percorrenza di più cicli non accresce la diagnosi già collezionata in precedenza. Il processo di marcare ogni stato con le relative diagnosi è detto decorazione.
+Il secondo passo della ricostruzione monolitica consiste nella decorazione del behavior. Il linguaggio dell'automa ottenuto nel passo precedente è composto da stringhe, ognuna delle quali rappresenta una traiettoria consistente con l'osservazione temporale. Dato che il behavior racchiude tutte e sole le traiettorie la cui traccia rispetto al viewer è una traccia candidata dell'osservazione, la soluzione del problema diagnostico è l'insieme delle diagnosi relative a tali traiettorie. Dato che le traiettorie potrebbero avere dei cicli, dando luogo ad un numero infinito di percorrenze, l'idea è quella di marcare ogni stato del behavior con l'insieme diagnostico relative a tutte le traiettorie che terminano in quello stato. Il fatto di avere ciclicità non è un problema, poiché la percorrenza di più cicli non accresce la diagnosi già collezionata in precedenza. Il processo di marcare ogni stato con le relative diagnosi è detto decorazione.
 
 \begin{defn}
-Sia $Bhv(P(A))$ il behavior di un problema di diagnosi $P(A)$. Il behavior decorato $Bhv^\star(P(A))$ è il DFA ottenuto dal behavior marcando ogni stato $\beta$ con un insieme di diagnosi $\Delta(\beta)$ basato sull'applicazione delle seguenti regole:
+Sia $Bhv(P(A))$ il behavior di un problema diagnostico $P(A)$. Il behavior decorato $Bhv^\star(P(A))$ è il DFA ottenuto dal behavior marcando ogni stato $\beta$ con un insieme diagnostico $\Delta(\beta)$ basato sull'applicazione delle seguenti regole:
 \begin{enumerate}
-\item lo stato iniziale è decorato con l'insieme di diagnosi vuoto $\delta(\beta_0) = \{\emptyset\}$
+\item lo stato iniziale è decorato con l'insieme diagnostico vuoto $\delta(\beta_0) = \{\emptyset\}$
 \item per ogni transizione $\beta \xrightarrow{t(c)} \beta^\prime$, per ogni $\delta \in \Delta(\beta)$, se $(t(c),f) \in R$ allora $\delta \cup \{f\} \in \Delta(\beta^\prime)$, altrimenti $\delta \in \Delta(\beta^\prime)$.
 \end{enumerate}
 \end{defn}
@@ -499,14 +499,14 @@ L'algoritmo di decorazione, in forma ricorsiva, è fornito di seguito (\ref{alg:
 \end{algorithm}
 
 \begin{ex}
-Con riferimento al problema di diagnosi dell'esempio \ref{ex:problem}, in figura \ref{fig:bhv_star} è rappresentato il relativo behavior decorato.
+Con riferimento al problema diagnostico dell'esempio \ref{ex:problem}, in figura \ref{fig:bhv_star} è rappresentato il relativo behavior decorato.
 Nella tabella \ref{tab:decoration} sono riportate le chiamate effettuate dall'algoritmo alla procedura ricorsiva $Dec$. L'ordine di considerazione delle transizioni è, rispetto all'automa del behavior decorato, da sinistra a destra.
 \end{ex}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.13]{./Img/sa/bhv_star.png}
-\caption{Behavior decorato del problema di diagnosi $P(\overline{A})$}
+\caption{Behavior decorato del problema diagnostico $P(\overline{A})$}
 \label{fig:bhv_star}
 \end{figure}
 
@@ -528,7 +528,7 @@ N & Chiamata & $\Delta(1)$ & $\Delta(2)$ & $\Delta(3)$ & $\Delta(4)$ & $\Delta(5
 \end{table}
 
 \subsection{Distillazione delle diagnosi}
-Una volta che il behavior è stato costruito e decorato, la soluzione del problema di diagnosi $P(A)$ può essere determinata calcolando l'unione delle diagnosi associate a stati finali del behavior decorato:
+Una volta che il behavior è stato costruito e decorato, la soluzione del problema diagnostico $P(A)$ può essere determinata calcolando l'unione delle diagnosi associate a stati finali del behavior decorato:
 \begin{center}
 $\Delta(P(A))) = \{\delta | \delta \in \Delta(\beta_f), \beta_f$ finale in $Bhv^\star(P(A))\}$.
 \end{center}

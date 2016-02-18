@@ -29,7 +29,7 @@ Una dichiarazione di pattern è una quadrupla $(p,l,r,o)$ dove:
 \item $r$ è una espressione regolare;
 \item $o \in O$ è un terminale di output in corrispondenza del quale il pattern event viene generato.
 \end{itemize}
-Il linguaggio $l$ del pattern può variare dal linguaggio minimo, cioè costituito dalle sole transizioni facenti parte dell'espressione regolare $r$, al linguaggio massimo, ovvero corrispondente all'insieme di tutte le transizioni di componenti del nodo. L'appartenenza a diversi linguaggi conferisce una semantica differente a quei pattern le cui espressioni regolari utilizzano operatori insiemistici, come ad esempio il $not$. Si nota facilmente che il complemento di una transizione rispetto a linguaggi differenti ha come risultato una unione di transizioni che, data l'operazione di complemento applicata su insiemi diversi, varia.
+Il linguaggio $l$ del pattern può variare dal linguaggio minimo, cioè costituito dalle sole transizioni coinvolte nell'espressione regolare $r$, al linguaggio massimo corrispondente all'insieme di tutte le transizioni dei componenti appartenenti al nodo. L'appartenenza a diversi linguaggi conferisce una semantica differente a quei pattern le cui espressioni regolari utilizzano operatori insiemistici, come ad esempio il $not$. Si nota facilmente che il complemento di un elemento rispetto a linguaggi differenti ha come risultato un insieme di transizioni che varia in base all'insieme a cui appartiene.
 
 \subsection{Link tra nodi}
 Un sistema attivo complesso, oltre che da un insieme di nodi, è caratterizzato dalla topologia con cui i nodi sono collegati tra loro. Si assume che tale topologia generi un albero.
@@ -65,11 +65,11 @@ I componenti di protezione condividono il modello in figura \ref{fig:model_p}, m
 Le transizioni relative alle protezioni e ai breaker sono fornite rispettivamente nelle tabelle \ref{tab:p_trans} e \ref{tab:b_trans}, mentre le transizioni dei monitor e della linea sono nelle tabelle \ref{tab:m_trans} e \ref{tab:l_trans}. Si noti che i pattern event sono indicati in grassetto.
 Nella tabella \ref{tab:pattern_w} sono riportate le dichiarazioni di pattern condivise dai nodi $W_1$ e $W_2$. 
 Nella tabella \ref{tab:pattern_m} vi sono i pattern relativi all'apparato monitor $M$.
-Si noti che non è specificato il terminale di output in corrispondenza del quale il pattern event viene generato, in quanto si assume che ogni nodo abbia un unico terminale di uscita. Il nodo $M$ possiede inoltre due terminale di input, sui quali riceve i pattern event dei nodi $W_1$ e $W_2$ rispettivamente.
+Si noti che non è specificato il terminale di output in corrispondenza del quale il pattern event viene generato, in quanto in questo esempio specifico si assume che ogni nodo abbia un unico terminale di uscita. Il nodo $M$ possiede inoltre due terminale di input, sui quali riceve i pattern event dei nodi $W_1$ e $W_2$ rispettivamente.
 I linguaggi dei pattern sono così definiti:
 \begin{itemize}
-\item per $W_1$ e $W_2$ il linguaggio è massimo e l'alfabeto coincide con l'intero insieme di transizioni dei componenti del nodo;
-\item per $M$ il linguaggio è minimo e l'alfabeto di ogni pattern coincide con le uniche transizioni coinvolte nella relativa espressione regolare (i tre pattern specificati hanno dunque tre linguaggi diversi).
+\item per $W_1$ e $W_2$ il linguaggio dei pattern è massimo e l'alfabeto coincide con l'intero insieme di transizioni dei componenti del nodo;
+\item per $M$ il linguaggio dei pattern è minimo e l'alfabeto di ogni pattern coincide con le uniche transizioni coinvolte nella relativa espressione regolare (i tre pattern specificati hanno dunque tre linguaggi diversi).
 \end{itemize}
 \end{ex}
 
@@ -177,8 +177,8 @@ In modo da individuare pattern event, deve essere mantenuto lo stato relativo al
 	\begin{enumerate}
 	\item un automa non deterministico $N$ è creato generando il suo stato iniziale $s_0$ e una $\epsilon$-			transizione da $s_0$ a ogni stato iniziale di $A_i$, con $i \in [1 \ldots k]$;
 	\item in modo da mantenere il matching di stringhe sovrapposte, viene aggiunta una $\epsilon$-transizione	da ogni stato non iniziale a $s_0$;
-	\item l'automa $N$ viene determinizzato nel risultante pattern space $Pts$, dove ogni stato finale $s_f$ è marcato dall'unione \textbf{p} dei pattern event associati agli stati in $s_f$ che sono finali nei corrispondenti automi di pattern generati inizialmente. Ogni stato $s$ dell'automa deterministico $Pts$ è infatti identificato da un sottoinsieme di stati dell'automa non deterministico equivalente $N$;
-	\item l'automa $Pts$ viene minimizzato, raggruppando tra loro gli stati equivalenti che sono provvisti dello stesso tag (altrimenti l'informazione relativa ai pattern event generati potrebbe andare persa) \footnote{La minimizzazione del pattern space richiede una lieve modifica nella partizione iniziale: oltre a distinguere tra stati finali e stati non finali, si effettua una partizione in base al contenuto del tag degli stati finali}.
+	\item l'automa $N$ viene determinizzato nel risultante pattern space $P$, dove ogni stato finale $s_f$ è marcato dall'unione \textbf{p} dei pattern event associati agli stati in $s_f$ che sono finali nei corrispondenti automi di pattern generati inizialmente. Ogni stato $s$ dell'automa deterministico $Pts$ è infatti identificato da un sottoinsieme di stati dell'automa non deterministico equivalente $N$;
+	\item l'automa $P$ viene minimizzato, raggruppando tra loro gli stati equivalenti che sono provvisti dello stesso tag (altrimenti l'informazione relativa ai pattern event generati potrebbe andare persa) \footnote{La minimizzazione del pattern space richiede una lieve modifica all'algoritmo di minimizzazione. Nella partizione iniziale, oltre a distinguere tra stati finali e stati non finali, si effettua una partizione in base al contenuto del tag degli stati finali.}.
 	\end{enumerate}
 \end{itemize}
 
@@ -189,7 +189,7 @@ Siano
 \item $p_1 = t_1$
 \item $p_2 = t_2$
 \end{itemize}
-due dichiarazioni di pattern, alle quali corrispondono gli automi $A_1$ e $A_2$, costruiti attraverso la costruzione di Thompson. L'automa NFA $N$ è ottenuto inserendo uno stato iniziale fittizio $s_0$, collegando quest'ultimo agli stati iniziali dei due DFA per mezzo di $\epsilon$-transizioni e collegando ogni stato non iniziale dei due DFA allo stato $s_0$ tramite $\epsilon$-transizioni. La determinizzazione di tale automa risultante è il pattern space $Pts$ per i pattern $p_1$ e $p_2$. Si noti che non è necessaria la minimizzazione.
+due dichiarazioni di pattern, alle quali corrispondono gli automi $A_1$ e $A_2$, ottenuto operando la costruzione di Thompson. L'automa non deterministico $N$ è ottenuto inserendo uno stato iniziale fittizio $s_0$, collegando quest'ultimo agli stati iniziali dei due DFA per mezzo di $\epsilon$-transizioni e collegando ogni stato non iniziale dei due DFA allo stato $s_0$ tramite $\epsilon$-transizioni. La determinizzazione di tale automa risultante è il pattern space $P$ per i pattern $p_1$ e $p_2$. Si noti che non è necessaria la minimizzazione.
 \end{ex}
 
 \begin{figure}[htbp]
@@ -242,15 +242,15 @@ dove $N$ è l'insieme di nodi, mentre $L_c$ è l'insieme dei link tra terminali 
 
 
 \subsection{Traiettoria}
-Un SAC può essere pensato come una macchina che può essere in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento proveniente dal mondo esterno, il sistema evolve nella sua fase reattiva. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta traiettoria (o storia), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
+Un SAC può essere pensato come una macchina che può essere in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento proveniente dal mondo esterno, il sistema evolve nella sua fase reattiva, fino a quando non raggiunge nuovamente uno stato di quiete. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta traiettoria (o storia), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
 Ogni transizione di un componente porta il sistema in un nuovo stato, dove uno stato è identificato dallo stato corrente di ogni componente di ogni nodo,dalle configurazioni attuali dei link dei nodi e dallo stato attuale dei pattern space di tutti i nodi. Quando un pattern space raggiunge uno stato finale, il relativo pattern event viene inviato al terminale corrispondente.
-In altre parole, uno stato del sistema attivo complesso è una tripla $(S,Q,Pts)$, dove $S$ è la n-pla degli stati dei componenti dei nodi, $Q$ è la m-pla delle configurazioni dei link tra nodi, mentre $Pts$ è la p-pla di pattern space di tutti i nodi.
+In altre parole, uno stato del sistema attivo complesso è una tripla $(S,Q,P)$, dove $S$ è la n-pla degli stati dei componenti dei nodi, $Q$ è la m-pla dei contenuti dei link tra nodi, mentre $P$ è la p-pla di pattern space di tutti i nodi.
 Quindi una transizione del sistema può essere scritta come:
 \begin{center}
-	$T = (S,Q,Pts) \xrightarrow {t(c(n))} (S^\prime,Q^\prime,Pts^\prime)$,
+	$T = (S,Q,P) \xrightarrow {t(c(n))} (S^\prime,Q^\prime,P^\prime)$,
 \end{center}
 dove $t(c(n))$ identifica univocamente la transizione $t$ appartenente al modello del componente $c$ nel nodo $n$.
-Assumendo che $a_0 = (S_0,Q_0,Pts_0)$ sia lo stato iniziale del sistema, la traiettoria ottenuta partendo da $a_0$ è la sequenza di stati del sistema determinata dall'occorrenza di transizioni $t_1, \ldots , t_k$ attuabili da parte dei singoli componenti dei nodi:
+Assumendo che $a_0 = (S_0,Q_0,P_0)$ sia lo stato iniziale del sistema, la traiettoria ottenuta partendo da $a_0$ è la sequenza di stati del sistema determinata dall'occorrenza di transizioni $t_1, \ldots , t_k$ attuabili da parte dei singoli componenti dei nodi:
 \begin{center}
 $h = a_0 \xrightarrow{t_1(c_1(n_1))} a1 \xrightarrow{t_2(c_2(n_2))} a2 \ldots \xrightarrow{t_k(c_k(n_k))} a_k$.
 \end{center}
@@ -266,40 +266,41 @@ Dato un SAC $C$ ed il suo stato iniziale, possono esservi infinite traiettorie, 
 Quest'ultimo è detto behavior space e ha come alfabeto l'intero insieme delle transizioni dei singoli componenti di ogni nodo.
 Il linguaggio del behavior space $Bsp(C)$ con stato iniziale $a_0$ coincide con l'insieme di tutte le possibili traiettorie del sistema $C$ partendo dallo stato $a_0$. 
 \begin{defn}
-Sia $C = (N,L)$ un sistema attivo complesso, dove $N$ è l'insieme di nodi, mentre $L$ è l'insieme di link tra i nodi. Il behavior space di $C$ è il DFA
+Sia $C = (N,L_c)$ un sistema attivo complesso, dove $N$ è l'insieme di nodi, mentre $L_c$ è l'insieme di link tra i nodi. Il behavior space di $C$ è il DFA
 \begin{center}
-	$Bsp(C) = (\Sigma,\alpha,\tau,a_0)$
+	$Bsp(C) = (\Sigma,\alpha,\tau,a_0,\alpha_f)$
 \end{center}
 dove:
 \begin{enumerate}
 \item $\Sigma$ è l'alfabeto, dato dall'unione delle transizioni dei componenti di tutti i nodi in $N$;
-\item $\alpha$  è l'insieme degli stati $(S,Q,Pts)$, con $S = (s_1,\ldots,s_n)$ una n-pla di stati dei componenti in ogni nodo in $N$, $Q = (q_1, \ldots,q_m)$ una m-pla di configurazioni dei link interni ai nodi in $N$, e $Pts = (pts_1, \ldots, pts_p)$ una p-pla di stati dei pattern space di tutti i nodi in $N$;
-\item $a_0 = (S_0,Q_0,Pts_0)$ è lo stato iniziale;
+\item $\alpha$  è l'insieme degli stati $(S,Q,P)$, con $S = (s_1,\ldots,s_w)$ una w-pla di stati dei componenti in ogni nodo in $N$, $Q = (q_1, \ldots,q_m)$ una m-pla contenente gli eventi nei terminali di input di tutti i componenti dei nodi in $N$, e $P = (P_1, \ldots, P_p)$ una p-pla di stati dei pattern space di tutti i nodi in $N$;
+\item $a_0 = (S_0,Q_0,P_0)$ è lo stato iniziale, con $Q_0 = (\epsilon, \ldots, \epsilon)$ e $P_0 = (P_{10}, \ldots, P_{p0})$ la p-pla degli stati iniziali dei pattern space;
+\item $\alpha_f$ è l'insieme degli stati finali quiescenti, ovvero stati in cui $Q = (\epsilon \ldots \epsilon)$;
 \item $\tau$ è la funzione di transizione deterministica, $\tau: \alpha \times \Sigma \rightarrow \alpha$, tale che 
 \begin{center}
-$(S,Q,Pts) \xrightarrow{t(c(n))} (S^\prime, Q^\prime, Pts^\prime) \in \tau$,
+$(S,Q,P) \xrightarrow{t(c(n))} (S^\prime, Q^\prime, P^\prime) \in \tau$,
 \end{center}
-dove $S = (s_1, \ldots,s_n)$, $Q = (q_1, \ldots,q_m)$, $Pts = (pts_1, \ldots, pts_p)$, $S^\prime = (s^\prime_1, \ldots,s^\prime_n)$, $Q^\prime = (q^\prime_1, \ldots,q^\prime_m)$, $Pts^\prime = (pts_1^\prime, \ldots, pts_p^\prime)$ e
+dove $S = (s_1, \ldots,s_w)$, $Q = (q_1, \ldots,q_m)$, $P = (P_1, \ldots, P_p)$, $S^\prime = (s^\prime_1, \ldots,s^\prime_w)$, $Q^\prime = (q^\prime_1, \ldots,q^\prime_m)$, $P^\prime = (P_1^\prime, \ldots, P_p^\prime)$ e
 \begin{center}
 $t(c(n)) = s \xrightarrow{(e,x) | \{(e_1,y_1), \ldots, (e_p,y_p)\}} s^\prime$
 \end{center}
 se e solo se:
 \begin{itemize}
-\item $x = In$, cioè l'evento è disponibile sul terminale di input virtuale sensibile agli eventi esterni al sistema;
-\item Per ogni $i \in [1 \ldots n]$, abbiamo
+\item $x = In$, cioè l'evento è disponibile sul terminale di input virtuale sensibile agli eventi esterni al sistema di un componente, oppure $e$ è contenuto nel terminale di input $x$ di un componente;
+\item Per ogni $i \in [1 \ldots w]$, abbiamo
 \begin{center}
 $s^\prime_i = \begin{cases} s^\prime & \mbox{se }c_i = c\\ s_i & \mbox{altrimenti} \end{cases}$
 \end{center}
 cioè per ogni transizione del behavior space cambia lo stato relativo al singolo componente coinvolto nella transizione;
-\item $Pts^\prime$ differisce d $Pts$ solo negli elementi $w \in [j, \ldots, k]$ corrispondenti a pattern space del nodo $n$ coinvolto nella transizione, secondo il seguente comportamento:
+\item $P^\prime$ differisce da $P$ solo negli elementi $v \in [j, \ldots, k]$ corrispondenti a pattern space del nodo $n$ coinvolto nella transizione, secondo il seguente comportamento:
 \begin{center}
-$Pts^\prime(pts_w) = \begin{cases} \overline{P} & \mbox{se esite}Pts(pts_w) \xrightarrow{t(c(n))} \overline{P}\\ P_{w,0} & \mbox{altrimenti} \end{cases}$;
+$P^\prime(P_v) = \begin{cases} \overline{P} & \mbox{se esite } P(P_v) \xrightarrow{t(c(n))} \overline{P}\\ P_{v0} & \mbox{altrimenti} \end{cases}$;
 \end{center}
 \item $Q^\prime$ differisce da $Q$ per le seguenti condizioni:
 \begin{itemize}
 \item $Q(x) = e \rightarrow Q^\prime(x) = \epsilon$, cioè l'evento in input è consumato;
 \item $\forall(e_j,y_j), j \in [1 \ldots p], Q(y_j) = \epsilon \rightarrow Q^\prime(y_j) = e_j$, cioè gli eventi di uscita sono inseriti nei terminali di input connessi ai terminali di output coinvolti nella transizione;
-\item se $Pts^\prime(pts_w) \neq Pts(pts_w), w \in [j, \ldots, k]$ di pattern space relativi al nodo $n$, $Pts^\prime(P_w)$ è finale e marcato dall'insieme di eventi \textbf{p}, allora ogni $p_i \in \textbf{p}$  ha un terminale destinazione $o_i \in O$ del nodo $n$. Ogni terminale di output di $n$ è collegato ad uno o più terminali di input di un nodo superiore $n^\prime$, che a sua volta è collegato ad uno o più terminali di input $i_z$ che gestiscono il patter event. Per ogni terminale $i_z$, il relativo contenuto passa da $\epsilon$ al pattern event $p_i$.
+\item se $P^\prime(P_v) \neq P(P_v), \forall v \in [j, \ldots, k]$ pattern space relativi al nodo corrente $n$ e $P^\prime(P_v)$ è finale e marcato dall'insieme di eventi \textbf{p}, allora ogni $p_i \in \textbf{p}$  ha un terminale destinazione $o_i \in O$ del nodo $n$. Ogni terminale di output di $n$ è collegato ad uno o più terminali di input di un nodo superiore $n^\prime$, che a sua volta è collegato ad uno o più terminali di input $i_z$ di componenti che gestiscono il patter event. Per ogni terminale $i_z$, il relativo contenuto passa da $\epsilon$ al pattern event $p_i$.
 \end{itemize}
 \end{itemize}
 \end{enumerate}
@@ -311,7 +312,7 @@ Si consideri l'esempio di riferimento \ref{ex:ref}. Si può facilmente notare co
 
 
 \newpage
-\section{Problema di diagnosi}
+\section{Problema diagnostico}
 Analogamente al caso di sistemi attivi tradizionali, il problema di diagnosi dei sistemi attivi complessi necessita di informazioni riguardanti l'osservabilità e i guasti delle transizioni dei componenti di ogni nodo. Si suppone sia disponibile, terminata la reazione, l'osservazione riferita ad ogni singolo sistema attivo che compone il sistema. Si ricorda che nell'ambito di questo lavoro ci si focalizza sulla cosiddetta diagnosi a posteriori, ovvero a seguito di una traiettoria completa del sistema, che parte da uno stato iniziale noto quiescente e termina in uno stato finale (sconosciuto a priori) anch'esso quiescente. 
 
 \subsection{Viewer}
@@ -332,7 +333,7 @@ Il viewer del nodo $M$ è riportato di seguito.
 \item $b_1(r_2) \rightarrow opr2, b_2(r_2) \rightarrow clr2$.
 \end{itemize}
 Le transizioni non appartenenti ai viewer locali non sono osservabili. Si noti che il viewer $V_L$, non essendo specificato, esprime il fatto che tutte le transizioni al suo interno non sono osservabili.
-Il viewer globale del sistema è dato da $V = (V_{W_1},V_{W_2},V_M)$.
+Il viewer globale del sistema è dato da $\overline{V} = (V_{W_1},V_{W_2},V_M)$.
 \end{ex}
 
 \subsection{Osservazione temporale}
@@ -343,7 +344,7 @@ Si consideri l'esempio di riferimento \ref{ex:ref} e il viewer specificato nell'
 \begin{center}
 $O_{W_1} = [awk1]$, $O_{W_2} = [awk2,opb2]$, $O_M = [trg1,opr1]$. 
 \end{center}
-L'osservazione globale è data da $O = \{O_{W_1}, O_{W_2}, O_M\}$, l'osservazione locale del nodo $L$ è nulla (non essendovi transizioni osservabili).
+L'osservazione globale è data da $\overline{O} = \{O_{W_1}, O_{W_2}, O_M\}$, l'osservazione locale del nodo $L$ è nulla (non essendovi transizioni osservabili).
 \end{ex}
 
 \subsection{Ruler}
@@ -367,13 +368,13 @@ Il ruler $R_L$ del nodo $L$ è invece:
 \begin{itemize}
 \item $l_1(l) \rightarrow fls$, $l_2(l) \rightarrow fli$, $l_3(l) \rightarrow flp$.
 \end{itemize}
-Il ruler globale del sistema è dato da $R = (R_{W_1},R_{W_2},R_M,R_L)$.
+Il ruler globale del sistema è dato da $\overline{R} = (R_{W_1},R_{W_2},R_M,R_L)$.
 \end{ex}
 
-\subsection{Problema di diagnosi}
-Diagnosticare il comportamento di un SAC equivale a trovare i guasti nella sua traiettoria. Quest'ultima, a causa della ridotta osservabilità del sistema, è percepita solo attraverso una traccia, a cui potrebbero però essere associate più traiettorie, anche infinite. Per questo motivo il risultato della diagnosi è un insieme di diagnosi candidate, con ogni candidato che corrisponde ad un sottoinsieme di possibili traiettorie. 
+\subsection{Problema diagnostico}
+Diagnosticare il comportamento di un SAC equivale a trovare i guasti nella sua traiettoria. Quest'ultima, a causa della ridotta osservabilità del sistema, è percepita solo attraverso una traccia, a cui potrebbero però essere associate più traiettorie, anche infinite. Per questo motivo il risultato della diagnosi è un insieme diagnostico candidate, con ogni candidato che corrisponde ad un sottoinsieme di possibili traiettorie. 
 \begin{defn}
-Un problema di diagnosi per un SAC $C$ è una quadrupla
+Un problema diagnostico per un SAC $C$ è una quadrupla
 \begin{center}
 $P(C) = (a_0,V,O,R)$,
 \end{center}
@@ -388,28 +389,28 @@ dove:
 
 \begin{ex} \label{ex:prob_diagn}
 Con riferimento all'esempio \ref{ex:ref}, al viewer $\overline{V}$ \ref{ex:view}, all'osservazione $\overline{O}$ \ref{ex_osserv} e al ruler $\overline{R}$ \ref{ex:ruler}, si consideri lo stato iniziale $a_0$ in cui tutti i breaker sono chiusi, i monitor sono nello stato $watch$ è la linea in quello $normal$. Inoltre i terminali di input dello stato iniziale sono tutti vuoti (stato quiescente).
-Il problema di diagnosi specifico degli esempi forniti è dato da $P(\overline{C}) = (a_0,\overline{V},\overline{O},\overline{R})$.
+Il problema diagnostico specifico degli esempi forniti è dato da $P(\overline{C}) = (a_0,\overline{V},\overline{O},\overline{R})$.
 \end{ex}
 
-Concettualmente, è possibile definire la soluzione di un problema di diagnosi nel seguente modo.
+Concettualmente, è possibile definire la soluzione di un problema diagnostico nel seguente modo.
 \begin{defn}
-Sia $P(C) = (a_0,V,O,R)$ un problema di diagnosi per il SAC $C$, e sia $Bsp(C)$ il behavior space con stato iniziale $a_0$. La soluzione del problema di diagnosi $\Delta(P(C))$, è l'insieme di diagnosi:
+Sia $P(C) = (a_0,V,O,R)$ un problema diagnostico per il SAC $C$, e sia $Bsp(C)$ il behavior space con stato iniziale $a_0$. La soluzione del problema diagnostico $\Delta(P(C))$, è l'insieme diagnostico:
 \begin{center}
 	$\Delta(P(C)) = \{ \delta | \delta = h_{[R]}, h \in Bsp(C), h_{[V]} = O\}$
 \end{center}
 \end{defn}
-In altre parole, la soluzione di un problema di diagnosi è l'insieme costituito dagli insiemi di guasti rilevati lungo le traiettorie la cui traccia è consistente con l'osservazione temporale.
+In altre parole, la soluzione di un problema diagnostico è l'insieme costituito dagli insiemi di guasti rilevati lungo le traiettorie la cui traccia è consistente con l'osservazione temporale.
 
 
 \newpage
 \section{Diagnosi monolitica}
-Analogamente al metodo di diagnosi monolitico visto per i sistemi attivi tradizionali, anche per i SAC è possibile adottare un procedimento analogo. Il behavior dato dalla ricostruzione monolitica racchiude tutte le possibili traiettorie del sistema che sono consistenti con le sequenze di osservazioni temporali locali dei vari nodi.
-Il behavior di un SAC differisce da quello visto nel capitolo precedente per il fatto di avere alcune informazioni aggiuntive contenute negli stati: lo stato corrente dei pattern space e l'osservazione che non è più un solo indice ma una n-pla di indici, ognuno relativo alla consumazione dell'osservazione locale di un nodo.
+Analogamente al metodo diagnostico monolitico visto per i sistemi attivi tradizionali, anche per i SAC è possibile adottare un procedimento analogo. Il behavior dato dalla ricostruzione monolitica racchiude tutte le possibili traiettorie del sistema che sono consistenti con le sequenze di osservazioni temporali locali dei vari nodi.
+Il behavior di un SAC differisce da quello visto nel capitolo precedente per il fatto di avere come informazione aggiuntiva la sequenza degli stati correnti dei pattern space. La consumazione dell'osservazione, inoltre, è espressa non più tramite un solo indice ma per mezzo di una n-pla di indici, ognuno relativo alla sequenza di osservazione locale di un nodo del sistema.
 
 \subsection{Ricostruzione del behavior}
 Il primo passo della diagnosi monolitica consiste nella ricostruzione del behavior, ovvero del DFA contenente tutte le traiettorie del sistema consistenti con le osservazioni temporali.
 \begin{defn}
-Sia $P(C) = (a_0,V,O,R)$ un problema di diagnosi per un sistema attivo complesso $C = (N,L)$, dove $N$ è un insieme di nodi, mentre $L$ è un insieme di link tra i nodi. Sia $I(O)$ l'insieme delle sequenze di indici $[0 \ldots i_{n_f}]$ che rappresentano le consumazioni delle osservazioni di lunghezza $i_{n_f}$ di ogni nodo $n$ del sistema, con $0$ corrispondente all'indice relativo all'osservazione iniziale nulla. 
+Sia $P(C) = (a_0,V,O,R)$ un problema diagnostico per un sistema attivo complesso $C = (N,L_c)$, dove $N$ è un insieme di nodi, mentre $L_c$ è un insieme di link tra i nodi. Sia $I$ l'insieme delle sequenze di indici $[0 \ldots i_{n_f}]$ che rappresentano le consumazioni delle osservazioni di lunghezza $i_{n_f}$ di ogni nodo $n$ del sistema, con $0$ corrispondente all'indice relativo all'osservazione iniziale nulla. 
 Il behavior spurio di $P(C)$ è l'automa deterministico
 \begin{center}
 	$Bhv^s(P(C)) = (\Sigma,B^s,\tau^s,\beta_0,\beta_f)$
@@ -417,10 +418,10 @@ Il behavior spurio di $P(C)$ è l'automa deterministico
 dove:
 \begin{itemize}
 \item $\Sigma$ è l'alfabeto, costituito dall'unione delle transizioni dei componenti di ogni nodo in $N$;
-\item $B^S$ è l'insieme di stati $(S,Q,Pts,i_n)$, con $S = (s_1,\ldots,s_n)$ la n-pla di stati di tutti i componenti di tutti i nodi in $N$, $Q = (q_1,\ldots,q_m)$ la m-pla delle configurazioni di tutti i link di ogni nodo, $Pts = (Pts_1,\ldots,Pts_p)$ gli stati relativi ai pattern space di tutti i nodi, e $i_n$ gli indici correnti delle osservazioni locali dei nodi;
-\item $\beta_0 = (S_0,Q_0,Pts_0,I_0)$ è lo stato iniziale, dove $a_0 = (S_0,Q_0)$, $Pts_0 = (Pts_{10},\ldots,Pts_{p_0})$ cioè la p-pla degli stati iniziali di tutti i pattern space, $I_0 = (0,\ldots,0)$ gli indici iniziali nulli degli stati delle osservazioni locali;
-\item $\beta_f$ è l'insieme degli stati finali $(S_f,Q_f,Pts_f,I_f)$, dove $I_f$ è la n-pla di indici finali delle sequenze di osservazione locali;
-\item $\tau^s$ è la funzione di transizione, $\tau^s: B^s \times \Sigma \rightarrow B^s$, dove $(S,Q,Pts,I) \xrightarrow{t(c(n))} (S^\prime,Q^\prime,Pts^\prime,I^\prime) \in \tau^s$ e 
+\item $B^S$ è l'insieme di stati $(S,Q,P,I)$, con $S = (s_1,\ldots,s_n)$ la n-pla di stati di tutti i componenti di tutti i nodi in $N$, $Q = (q_1,\ldots,q_m)$ la m-pla del contenuto di tutti i terminali di input, $P = (P_1,\ldots,P_p)$ gli stati relativi ai pattern space di tutti i nodi, e $I = (i_1, \ldots, i_n)$ gli indici correnti relativi alle osservazioni locali dei nodi;
+\item $\beta_0 = (S_0,Q_0,P_0,I_0)$ è lo stato iniziale, dove $a_0 = (S_0,Q_0)$, $P_0 = (P_{10},\ldots,P_{p0})$ cioè la p-pla degli stati iniziali di tutti i pattern space, $I_0 = (0,\ldots,0)$ gli indici iniziali nulli degli stati delle osservazioni locali;
+\item $\beta_f$ è l'insieme degli stati finali $(S,Q,P,I_f)$, dove $I_f$ è la n-pla di indici finali delle sequenze di osservazione locali;
+\item $\tau^s$ è la funzione di transizione, $\tau^s: B^s \times \Sigma \rightarrow B^s$, dove $(S,Q,P,I) \xrightarrow{t(c(n))} (S^\prime,Q^\prime,P^\prime,I^\prime) \in \tau^s$ e 
 \begin{center}
 	$t(c(n)) = s \xrightarrow{(e,x) | \{(e_1,y_1), \ldots, (e_p,y_p)\}} s^\prime$
 \end{center}
@@ -431,7 +432,7 @@ $s^\prime_j = \begin{cases} s^\prime & \mbox{se }c_j = c\\ s_j & \mbox{altriment
 \end{center}
 cioè per ogni transizione del behavior cambia lo stato relativo al singolo componente coinvolto nella transizione.
 L'inserimento degli eventi in uscita è identico a quanto avviene per il behavior space.
-nel caso $t(c)$ sia osservabile, essa è presente nel viewer $V$ associata alla label $l$ e quest'ultima è una label contenuta nella sequenza di osservazione $O$ in corrispondenza dell'indice $i+1$, successivo a quello corrente. In questo caso l'indice dell'osservazione deve essere aggiornato ($i^\prime = i+1$). Nel caso invece $t(c)$ non sia osservabile, l'indice dell'osservazione rimane immutato ($i^\prime = i$).
+Nel caso $t(c)$ sia osservabile, essa è presente nel viewer $V$ associata alla label $l$ e quest'ultima è una label contenuta nella sequenza di osservazione del nodo corrente $I_n$ in corrispondenza dell'indice $i+1$, successivo a quello corrente. In questo caso l'indice dell'osservazione deve essere aggiornato ($i^\prime = i+1$). Nel caso invece $t(c)$ non sia osservabile, l'indice dell'osservazione rimane immutato ($i^\prime = i$).
 \end{itemize}
 \end{defn}
 
@@ -447,7 +448,7 @@ Secondo le definizioni viste in precedenza, quindi, il linguaggio del behavior c
 
 
 \begin{ex}
-Si consideri il problema di diagnosi visto nell'esempio \ref{ex:prob_diagn}. Il behavior spurio è composto da  168 stati e 274 transizioni. Rimuovendo gli stati e le transizioni spurie, l'automa risultante è rappresentato in figura \ref{fig:bhv_c}.
+Si consideri il problema diagnostico visto nell'esempio \ref{ex:prob_diagn}. Il behavior spurio è composto da  168 stati e 274 transizioni. Rimuovendo gli stati e le transizioni spurie, l'automa risultante è rappresentato in figura \ref{fig:bhv_c}.
 \end{ex}
 
 \subsection{Decorazione}
@@ -464,7 +465,7 @@ L'algoritmo di decorazione è esattamente quello visto nel capitolo precedente (
 Una volta decorato il behavior, è possibile generare l'insieme delle soluzioni candidate esattamente come analizzato nel capitolo precedente.
 
 \begin{ex}
-Si consideri il behavior decorato in figura \ref{fig:bhv_c}. La soluzione del problema di diagnosi è data dall'unione delle diagnosi degli stati finali $9$ e $17$:
+Si consideri il behavior decorato in figura \ref{fig:bhv_c}. La soluzione del problema diagnostico è data dall'unione delle diagnosi degli stati finali $9$ e $17$:
 \begin{center}
 $\Delta(P(\overline{C})) = \{\{fli,fm1,fob1\}\}$.
 \end{center}
@@ -478,7 +479,7 @@ L'interpretazione di questo risultato è dovuto alla seguente dinamica:
 
 \newpage
 \section{Diagnosi distribuita}
-Il metodo di ricostruzione monolitica, analizzato nei paragrafi precedenti, è inefficiente in quanto la complessità della generazione del behavior dell'intero SAC è in generale esponenziale nel numero di componenti totali, nel numero di link, nel numero dei pattern space e nel numero dei nodi (ad ognuno dei quali corrisponde una sequenza di osservazione). Sebbene la ricostruzione permetta di non ricostruire il comportamento completo del sistema (behavior space), la ricostruzione del behavior è comunque costosa, sia in termini di tempo di esecuzione sia soprattutto di memoria.
+Il metodo di ricostruzione monolitica, analizzato nei paragrafi precedenti, è inefficiente in quanto la complessità della generazione del behavior dell'intero SAC è in generale esponenziale nel numero di componenti totali, nel numero di link, nel numero dei pattern space e nel numero dei nodi (ad ognuno dei quali corrisponde una sequenza di osservazione). Sebbene la ricostruzione permetta di non generare il comportamento completo del sistema (behavior space), la ricostruzione del behavior del SAC è comunque costosa, sia in termini di tempo di esecuzione sia soprattutto di memoria.
 Per questo motivo, nel corso di questo lavoro di tesi, è stato sviluppato un algoritmo distribuito che ricostruisce il comportamento del singolo nodo, unitamente alle informazioni necessarie scaturite dai pattern event, in modo da non dover generare il behavior del sistema nella sua interezza. Per fare questo si è seguita la topologia del sistema: trattandosi di una gerarchia, l'algoritmo opera in maniera bottom-up partendo dai nodi foglia. Il comportamento di questi ultimi, infatti, non è vincolato dal comportamento di nessun altro nodo, quindi la ricostruzione del loro comportamento è esattamente quella vista nel paragrafo precedente, eccetto il fatto che si considera il singolo nodo e non l'intero sistema. Per poter ricostruire i comportamenti dei nodi nel livello superiore della gerarchia, invece, è necessario considerare i pattern event che vengono inviati dal livello base. Per fare questo viene creata, per ogni nodo foglia, una interfaccia ottenuta togliendo dal linguaggio del behavior locale tutte quelle transizioni che non portano alla generazione di un pattern event in un terminale di uscita del nodo. I comportamenti del livello superiore, quindi, sono ricostruiti tenendo conto delle interfacce dei nodi sottostanti da cui essi dipendono. Ogni passaggio di stato dell'interfaccia sottostante corrisponde alla generazione di un pattern event che può essere consumato dai componenti a livello superiore. Il procedimento viene reiterato per ogni strato della gerarchia del sistema.
 Una volta raggiunta la radice dell'albero, non è più necessario generare l'interfaccia di tale nodo (dato che nessun pattern event viene gestito da un livello superiore), quindi l'unico behavior corrispondente racchiude in sé tutte le diagnosi dell'intero sistema in forma sintetica. La sua decorazione permette di ricavare l'insieme di diagnosi candidate del SAC.
 
@@ -486,8 +487,8 @@ Una volta raggiunta la radice dell'albero, non è più necessario generare l'int
 La ricostruzione dei behavior dei nodi foglia del SAC è un caso particolare della ricostruzione monolitica. Le variazioni consistono nel considerare solo i pattern space relativi al nodo locale e unicamente l'osservazione locale, la cui consumazione viene monitorata per mezzo di un unico indice di sequenza. Analogamente il viewer può essere ristretto al viewer locale del nodo corrente, in quanto si considerano solo transizioni di componenti appartenenti al nodo in esame.
 
 \begin{ex}
-In figura \ref{fig:bhv_leaves} sono riportati i behavior dei nodi foglia del problema di diagnosi di riferimento. Le transizioni e gli stati tratteggiati, al solito, costituiscono la parte spuria degli automi che non è in un cammino dallo stato iniziale ad uno stato finale.
-Lo stato è descritto, in ordine, dagli stati della protezione e del breaker, dal contenuto del terminale di input del breaker, dallo stato corrente del pattern space (unico) del nodo e dall'indice della sequenza osservata del nodo. Si noti che le transizioni potrebbero essere identificate anche tralasciando il nodo di appartenenza. Tuttavia, per semplicità e conformità di notazione con i behavior vincolati, viene mantenuta anche questa informazione.
+In figura \ref{fig:bhv_leaves} sono riportati i behavior dei nodi foglia del problema diagnostico di riferimento. Le transizioni e gli stati tratteggiati, al solito, costituiscono la parte spuria degli automi che non è in un cammino dallo stato iniziale ad uno stato finale.
+Lo stato è descritto, in ordine, dagli stati della protezione e del breaker, dal contenuto del terminale di input del breaker, dallo stato corrente del pattern space (unico) del nodo e dall'indice della sequenza osservata del nodo. 
 \end{ex}
 
 \begin{figure}[htbp]
@@ -505,12 +506,15 @@ Lo stato è descritto, in ordine, dagli stati della protezione e del breaker, da
 L'interfaccia di un nodo è un automa ottenuto eliminando dal linguaggio del behavior locale tutte le transizioni che non generano un pattern event.
 La costruzione avviene come di seguito.
 \begin{enumerate}
-\item L'identificatore di una transizione di un componente $t(c)$ che provoca la generazione di un pattern event $(p,r,o)$ viene sostituito dal nome $p$ del pattern event generato, unitamente alla diagnosi relativa alla singola transizione che può essere:
+\item L'identificatore di una transizione $t(c)$ di un componente che provoca la generazione di un pattern event $(p,l,r,o)$ viene arricchito dalla diagnosi $\Delta_t$ relativa alla singola transizione che può essere:
 \begin{itemize}
 \item l'insieme singleton $\{\emptyset\}$ se la transizione è normale;
 \item l'insieme singleton $\{\{f\}\}$, se la transizione è di guasto e $f$ è la corrispondente label associata nel ruler.
 \end{itemize}
-\item Le transizioni non associate ad alcun evento di pattern vengono interpretate come $\epsilon$-transizioni, ottenendo in questo modo un automa non deterministico (NFA). Quest'ultimo viene determinizzato attraverso un algoritmo simile alla subset construction: differisce da quest'ultima poichè la determinizzazione non si basa esclusivamente sui singoli stati del NFA, ma su tutta la sua struttura (pattern event e diagnosi relativa).
+La transizione dell'interfaccia è quindi una coppia $(t(c),\Delta_t)$. Deve inoltre essere mantenuta l'informazione relativa al pattern event $p$ associato.
+\item Le transizioni non associate ad alcun evento di pattern vengono interpretate come $\epsilon$-transizioni, ottenendo in questo modo un automa non deterministico (NFA). Quest'ultimo viene determinizzato attraverso un algoritmo simile alla subset construction: differisce da quest'ultima poiché lo stato del DFA risultante contiene una $\epsilon$-chiusura che include non solo il semplice sottoinsieme di stati del NFA di partenza, ma anche la struttura del sottoautoma relativo agli stati.
+\item All'interno di ogni stato $d$ del DFA, ogni stato $n$ del NFA è marcato applicando l'algoritmo di decorazione, partendo dallo stato radice.
+\item Ogni transizione del DFA ha come diagnosi $\Delta_t$ la combinazione della diagnosi attuale con la diagnosi $\Delta$ associata allo stato del NFA da cui la transizione parte, cioè $\Delta_t = \Delta_t \Join \Delta$.
 \end{enumerate}
 
 \subsection{Costruzione del Behavior vincolato}
@@ -519,7 +523,7 @@ La costruzione del behavior vincolato riguarda tutti i nodi che non sono dei nod
 \item una transizione $t(c)$ relativa ad un componente del nodo;
 \item una transizione $t(Int)$ relativa ad una delle interfacce.
 \end{itemize} 
-Si noti che l'ultima è effettuabile se i link dove vengono generati i pattern event sono liberi (secondo la politica di saturazione wait adottata in questo lavoro).
+Si noti che l'ultima è effettuabile se i link dove vengono generati i pattern event sono liberi (secondo la politica di saturazione $wait$ adottata in questo lavoro).
 Uno stato finale del behavior vincolato è tale se, oltre ad aver consumato completamente l'osservazione del nodo locale, ha raggiunto gli stati finali di tutte le interfacce da cui esso dipende. Quest'ultimo vincolo è necessario in quanto, proseguendo bottom-up nella ricostruzione, è necessario che ogni nodo abbia consumato la propria osservazione, affinché uno stato finale possa essere considerato il culmine di una traiettoria completa.
 
 \subsection{Decorazione del Behavior del nodo radice}
@@ -528,4 +532,15 @@ Una volta che il metodo di ricostruzione distribuito raggiunge il nodo radice ed
 \item attraversando una transizione relativa a una interfaccia, è necessario combinare la diagnosi dello stato di partenza con la diagnosi associata alla transizione di interfaccia, mentre per le transizioni relative a componenti del nodo locale si mantiene il solito approccio, ricercando nel ruler se la transizione è presente e con quale label;
 \item quando la decorazione raggiunge uno stato finale, bisogna combinare la diagnosi ottenute con la diagnosi relativa agli stati finali dell'interfaccia.
 \end{itemize}
-La seconda modifica è necessaria al fine di avere una diagnosi completa poiché, mentre negli stati non finali dell'interfaccia poi vi è una transizione che include le relative diagnosi contenute nello stato di partenza, in corrispondenza dello stato finale mancano le diagnosi di quello stato, che è finale e non necessita di dover percorrere ulteriori transizioni per raccoglierne le diagnosi.
+Quest'ultima modifica è necessaria al fine di avere una diagnosi completa poiché, mentre negli stati non finali dell'interfaccia la presenza di una transizione uscente ne include le relative diagnosi, in corrispondenza dello stato finale mancano le diagnosi appartenenti a quello stato. La decorazione, in corrispondenza dello stato finale, deve combinare le diagnosi raccolte con le diagnosi relative a quello stato.
+
+\begin{ex}
+La decorazione del nodo radice $L$ del sistema di riferimento è presentata in figura. Si noti che, in corrispondenza dello stato finale, la diagnosi relativa allo stato finale dell'unica interfaccia da cui il comportamento dipende è $\{\emptyset\}$. La combinazione di quest'ultima con la diagnosi dello stato finale del behavior, quindi, non produce cambiamenti nel risultato. 
+\end{ex}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.2]{./Img/sac/bhv_l.png}
+\caption{Behavior decorato del nodo radice $L$}
+\label{fig:bhv_l}
+\end{figure}

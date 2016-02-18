@@ -1,0 +1,18 @@
+digraph G {
+ratio=0.5;
+rankdir=TB;
+ranksep=0.4;
+1 [shape=ellipse,fontsize=30,label="1
+normal,&epsilon;,0,1
+(( ))"];
+2 [shape=ellipse,fontsize=30,label="2
+normal,nr,0,2
+((fob1,fm1))"];
+1 -> 2 [label="nr,((fob1,fm1))",fontsize=20];
+3 [shape=ellipse,fontsize=30,peripheries=2,label="3
+isolated,&epsilon;,0,2
+((fob1,fm1,fli))"];
+2 -> 3 [label="l2(l)",fontsize=20];
+node [shape = point, color=white, fontcolor=white]; start;
+start -> 1;
+}
