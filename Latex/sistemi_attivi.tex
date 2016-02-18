@@ -38,7 +38,7 @@ $\{(e_1,y_1), \ldots ,(e_n,y_n)\}$ in corrispondenza dei terminali di output $y_
 Si consideri l'esempio di un sistema attivo costituito da un meccanismo di protezione per una linea elettrica. Il componente $p$ rappresenta la protezione (\emph{protection device}), ovvero un sensore che si attiva quando rileva bassa tensione ai capi della linea. Il componente $b$ rappresenta il \emph{breaker}, ovvero il dispositivo che, comandato dalla protezione, si apre isolando la linea elettrica e prevenendo il cortocircuito, oppure si chiude riconnettendo la rete. Nella figure \ref{fig:model_p} e \ref{fig:model_b}  sono rappresentati, rispettivamente, i modelli relativi alla protezione e quelli riferiti al breaker.
 Il componente di protezione non possiede terminali di input e ha un terminale di output $o$, mentre il breaker dispone solamente di un terminale di input $i$.
 La protezione può essere nello stato inattivo \emph{idle} quando non viene rilevato alcun cortocircuito, oppure nello stato \emph{awaken}, nel momento in cui la tensione si abbassa oltre una certa soglia. Quando viene rilevato un cortocircuito, il componente $p$ può compiere le transizioni $p_1$, che genera un evento $op$ per comandare l'apertura del breaker, o $p_3$, che a causa di un malfunzionamento genera invece un evento $cl$ per comandare la chiusura del breaker. Quando il cortocircuito svanisce, il componente torna nello stato $idle$ percorrendo la transizione $p_2$, che genera l'evento $cl$, oppure tramite $p_4$, che genera in maniera difettosa l'evento $op$.
-Il breaker può essere aperto ($open$) o chiuso ($closed$). Quando è chiuso e un evento $op$ è disponibile in corrispondenza del terminale $i$, il breaker $b$ può percorrere la transizione $b_1$ che lo apre o $b_3$ con la quale resta chiuso (guasto). Quando il componente è aperto, le transizioni possibili sono $b_2$ se il breaker si apre, $b_4$ se a causa di un guasto rimane chiuso. Le transizioni $b_5$ e $b_6$ non cambiano lo stato del componente.
+Il breaker può essere aperto ($open$) o chiuso ($closed$). Quando è chiuso e un evento $op$ è disponibile in corrispondenza del terminale $i$, il breaker $b$ può percorrere la transizione $b_1$ che lo apre o $b_3$ con la quale resta chiuso (guasto). Quando il componente è aperto, le transizioni possibili sono $b_2$ se il breaker si chiude, $b_4$ se a causa di un guasto rimane aperto. Le transizioni $b_5$ e $b_6$ non cambiano lo stato del componente.
 Un sunto delle transizioni relative ai due componenti è fornito nelle tabelle \ref{tab:p_trans} e \ref{tab:b_trans}.
 \end{ex}
 
@@ -155,8 +155,8 @@ Con riferimento agli esempi \ref{ex:modelli} e \ref{ex:link}, il sistema rappres
 \end{ex}
 
 \subsection{Traiettoria}
-Un sistema attivo può essere pensato come una macchina che può essere in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento, sia esso proveniente dal mondo esterno, sia da un terminale di input scollegato appartenente a $D_{on}$, il sistema evolve nella sua fase reattiva. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta \emph{traiettoria} (o \emph{storia}), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
-Ogni transizione di un componente porta il sistema in un nuovo stato, dove uno stato è identificato dallo stato corrente di ogni componente e dallo stato attuali di ogni link. In altre parole, uno stato del sistema attivo è una coppia $(S,Q)$, dove $S$ è la n-pla degli stati dei componenti, mentre $Q$ è la m-pla delle configurazioni dei link, ovvero la m-pla del contenuto dei terminali di input di tutti i componenti.
+Un sistema attivo può essere pensato come una macchina che si trova in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento, sia esso proveniente dal mondo esterno, sia da un terminale di input scollegato appartenente a $D_{on}$, il sistema evolve nella sua fase reattiva. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta \emph{traiettoria} (o \emph{storia}), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
+Ogni transizione di un componente porta il sistema in un nuovo stato, dove uno stato è identificato dallo stato corrente di ogni componente e dallo stato attuale di ogni link. In altre parole, uno stato del sistema attivo è una coppia $(S,Q)$, dove $S$ è la n-pla degli stati dei componenti, mentre $Q$ è la m-pla delle configurazioni dei link, ovvero la m-pla del contenuto dei terminali di input di tutti i componenti.
 In questo lavoro di tesi, il focus è sulla cosiddetta diagnosi a posteriori, che avviene quando il sistema ha percorso una traiettoria partendo da uno stato quiescente e tornando in uno stato di quiete, nel quale cioè tutti i terminali di input dei componenti sono vuoti. In questo contesto, una traiettoria completa può essere vista come una sequenza di transizioni che, partendo dallo stato iniziale (quiescente), termina in uno stato finale (anch'esso quiescente).
 Una transizione del sistema può essere scritta come:
 \begin{center}
@@ -192,7 +192,7 @@ Da osservare, inoltre, come una siffatta dinamica sia esente da guasti: nelle se
 Dato un sistema attivo ed il suo stato iniziale, possono esservi molte traiettorie percorribili, persino infinite. Analogamente a quanto avviene per il comportamento del singolo componente, che può essere descritto nel suo modello come un automa a stati finiti, anche per quanto riguarda le traiettorie dell'intero sistema si può seguire un procedimento analogo. Un automa a stati finiti rappresenta infatti, attraverso un numero di stati e di transizioni finiti, un numero di traiettorie che può essere infinito. Questo è dovuto alla possibile presenza di ciclicità all'interno dell'automa. Tale automa è chiamato \emph{behavior space} e ha come alfabeto l'intero insieme delle transizioni dei singoli componenti del sistema.
 Il linguaggio del \emph{behavior space} $Bsp(A)$ con stato iniziale $a_0$ coincide con l'insieme di tutte le possibili traiettorie del sistema $A$ partendo dallo stato $a_0$. 
 \begin{defn}
-Sia $A = (L,C,D)$ un sistema attivo, dove $C$ è l'insieme di $n$ componenti, mentre $L$ è l'insieme di $m$ link. Il behavior space di $A$ è il DFA
+Sia $A = (C,L,D)$ un sistema attivo, dove $C$ è l'insieme di $n$ componenti, mentre $L$ è l'insieme di $m$ link. Il behavior space di $A$ è il DFA
 \begin{center}
 	$Bsp(A) = (\Sigma,\alpha,\tau,a_0,\alpha_f)$
 \end{center}
@@ -200,7 +200,7 @@ dove:
 \begin{enumerate}
 \item $\Sigma$ è l'alfabeto, dato dall'unione delle transizioni dei componenti in $C$;
 \item $\alpha$  è l'insieme degli stati $(S,Q)$, con $S = (s_1,\ldots,s_n)$ una n-pla di stati dei componenti in $C$, e $Q = (q_1, \ldots,q_m)$ una m-pla del contenuto dei terminali di input di tutti i componenti;
-\item $a_0 = (S_0,Q_0)$ è lo stato iniziale;
+\item $a_0 = (S_0,Q_0)$ è uno stato iniziale quiescente, nel quale tutti i terminali di input sono vuoti, cioè $Q_0 = (\epsilon, \ldots, \epsilon)$;
 \item $\alpha_f$ è l'insieme degli stati finali, ovvero stati in cui $Q = (\epsilon \ldots \epsilon)$;
 \item $\tau$ è la funzione di transizione deterministica, $\tau: \alpha \times \Sigma \rightarrow \alpha$, tale che $(S,Q) \xrightarrow{t(c)} (S^\prime, Q^\prime) \in \tau$, dove $S = (s_1, \ldots,s_n)$, $Q = (q_1, \ldots,q_m)$, $S^\prime = (s^\prime_1, \ldots,s^\prime_n)$, $Q^\prime = (q^\prime_1, \ldots,q^\prime_m)$ e
 \begin{center}
@@ -216,8 +216,8 @@ $s^\prime_i = \begin{cases} s^\prime & \mbox{se }c_i = c\\ s_i & \mbox{altriment
 cioè per ogni transizione del \emph{behavior space} cambia lo stato relativo al singolo componente coinvolto nella transizione;
 \item $Q^\prime$ differisce da $Q$ per le seguenti condizioni:
 \begin{itemize}
-\item $Q(x) = e \rightarrow Q^\prime(x) = \epsilon$, cioè l'evento in input è consumato;
-\item $\forall(e_j,y_j), j \in [1 \ldots p], Q(y_j) = \epsilon \rightarrow Q^\prime(y_j) = e_j$, cioè gli eventi di uscita sono inseriti nei terminali di input connessi ai terminali di output coinvolti nella transizione. 
+\item $Q(x) = e$, $Q^\prime(x) = \epsilon$, cioè l'evento in input è consumato;
+\item $\forall(e_j,y_j), j \in [1 \ldots p], Q(y_j) = \epsilon$, $Q^\prime(y_j) = e_j$, cioè gli eventi di uscita sono inseriti nei terminali di input connessi ai terminali di output coinvolti nella transizione. 
 \end{itemize}
 \end{itemize}
 \end{enumerate}
@@ -272,7 +272,7 @@ In tabella \ref{tab:viewer} è rappresentato un possibile \emph{viewer} per il s
 
 \subsection{Osservazione temporale}
 L'osservazione temporale di un sistema attivo è una sequenza di label osservabili, dunque una traccia.
-Si noti che ad una stessa traccia possono corrispondere più traiettorie, a causa della presenza di transizioni non osservabili.
+Si noti che ad una stessa traccia possono corrispondere più traiettorie, a causa della presenza di transizioni non osservabili o di transizioni indistinguibili poiché mappate nella medesima label.
 
 \begin{ex} \label{ex:oss}
 Con riferimento all'esempio \ref{ex:sa} e al \emph{viewer} definito nella tabella \ref{tab:viewer}, una possibile osservazione del sistema attivo $\overline{A}$ è la seguente:
@@ -283,13 +283,13 @@ $\overline{O} = [ awk, opb, ide] $
 
 
 \subsection{Ruler}
-La distinzione tra comportamento normale e difettoso viene fornita esplicitando quali, tra le transizioni dei componenti, sono corrette e quali di guasto. In questo modo una transizione $a \xrightarrow{t(c)} a^\prime$ di $A$ è di guasto se e solo se la transizione $t$ del componente $c$ è di guasto.
+La distinzione tra comportamento normale e difettoso viene fornita esplicitando quali tra le transizioni dei componenti sono corrette e quali di guasto. In questo modo una transizione $a \xrightarrow{t(c)} a^\prime$ di $A$ è di guasto se e solo se la transizione $t$ del componente $c$ è di guasto.
 L'informazione che permette di individuare i guasti è fornita dal ruler.
 \begin{defn}
 Sia $A$ un sistema attivo e $\Phi$ un dominio di etichette di guasto. Un ruler $R$ per $A$ è una funzione, in generale suriettiva, da un sottoinsieme di transizioni di componenti a $\Phi$.
 \end{defn}
 Si noti che, per convenienza, la funzione di mapping potrebbe essere biettiva; tuttavia alcune transizioni di guasto possono non essere distinte le une dalle altre, in base al livello di precisione che si vuole dare alla diagnosi. Per esempio, due o più transizioni di guasto relative allo stesso componente possono essere mappate nella medesima label di guasto: in questo modo la diagnosi rileverà un generico guasto al componente, che in alcuni casi reali può essere una informazione sufficiente.
-Si noti che la specifica del ruler viene data posteriormente al modello del sistema. Questo perché, in linea generale, differenti problemi di diagnosi, anche legati allo stesso sistema, possono essere caratterizzati da ontologie diverse, ognuna delle quali con un particolare modo di specificare le transizioni di guasto e le relative label. Un approccio ibrido, che è quello utilizzato in questo lavoro di tesi (esteso al caso di sistemi attivi complessi), consiste nel definire opzionalmente un ruler in fase di modellazione, fornendo la possibilità di ridefinirlo nella successiva diagnosi.
+Si noti che la specifica del viewer, del ruler e dello stato iniziale viene data posteriormente al modello del sistema. Questo perché, in linea generale, differenti problemi di diagnosi, anche legati allo stesso sistema, possono essere caratterizzati da ontologie diverse, ognuna delle quali con un particolare modo di specificare le transizioni osservabili e di guasto. Un approccio ibrido, che è quello utilizzato in questo lavoro di tesi (esteso al caso di sistemi attivi complessi), consiste nel definire opzionalmente viewer, ruler e stato iniziale in fase di modellazione, fornendo la possibilità di ridefinirli nella successiva fase  diagnostica.
 
 \begin{ex}
 In tabella \ref{tab:ruler} è rappresentato un possibile \emph{ruler} per il sistema attivo $\overline{A}$ dell'esempio \ref{ex:sa}. La protezione ha come etichette di guasto $fop$, che si verifica quando la transizione $p_3$ fallisce nel comandare l'apertura del breaker, e $fcp$, che si verifica quando la transizione $p_4$ fallisce nel comandare la chiusura del breaker. 
@@ -360,7 +360,7 @@ Il significato delle due soluzioni trovate è il seguente: o il breaker $b$ non 
 La soluzione di un problema di  diagnosi, presentata nella sezione precedente, è definita come l'insieme delle label di guasto che vengono generate dalle traiettorie consistenti con l'osservazione temporale. Questa definizione, tuttavia, non presenta una tecnica che permetta di trovare tale insieme nella pratica, anche perché si suppone che il \emph{behavior space} non sia disponibile per la diagnosi. Scopo di questo paragrafo è quello di fornire, a fronte della definizione vista in precedenza, un metodo efficace che permetta di ottenere l'insieme delle diagnosi candidate in modo corretto e completo. 
 Come prima osservazione, è essenziale notare che per generare le diagnosi candidate bisogna analizzare le traiettorie del sistema che sono consistenti con l'osservazione temporale. Per fare questo, bisogna poter generare un sotto-automa del behavior space contenente le sole traiettorie consistenti con l'osservazione temporale. 
 La prima fase della diagnosi monolitica consiste nella costruzione del behavior $Bhv$, il cui linguaggio coincide esattamente con il sottoinsieme del linguaggio del behavior space consistente con l'osservazione temporale. Successivamente è necessario associare ad ogni traiettoria del behavior la corrispondente diagnosi. Questa procedura potrebbe essere infinita, dato che un automa può avere ciclicità e quindi dare luogo ad un insieme infinito di traiettorie. Tuttavia, è bene notare come l'insieme delle diagnosi è sempre finito, poiché limitato superiormente dal numero di label di guasto specificate nel ruler: nello specifico, l'insieme delle diagnosi è un sottoinsieme di $2^\Phi$, cioè l'insieme potenza del dominio di label di guasto $\Phi$. Nella pratica, l'insieme finito di traiettorie da considerare sono tutte quelle in cui i cicli sono attraversati al massimo una volta. Questo perché percorrere un ciclo più di una volta non cambia le diagnosi, dato che quelle ivi presenti sono già state collezionate durante l'iterazione precedente del ciclo.
-Il secondo punto della diagnosi monolitica consiste nel generare l'insieme diagnostico associate ad ogni nodo del behavior, ovvero praticare la cosiddetta decorazione del behavior.
+Il secondo punto della diagnosi monolitica consiste nel generare l'insieme di diagnosi associate ad ogni nodo del behavior, ovvero praticare la cosiddetta decorazione del behavior.
 Una volta che il behavior è stato costruito e decorato, l'ultima fase della diagnosi monolitica prevede la distillazione delle diagnosi, compiuta selezionando unicamente le diagnosi delle traiettorie consistenti con l'osservazione temporale. Per fare questo è importante distinguere, nella costruzione del behavior, tra stati finali e stati non finali. Uno stato del behavior è finale se e solo se tutte le traiettorie che giungono in quello stato hanno consumato interamente l'osservazione, cioè hanno percorso delle transizioni le cui label osservabili hanno prodotto una sequenza pari a quella dell'osservazione data. 
 
 \subsection{Ricostruzione del behavior}
@@ -389,8 +389,8 @@ $s^\prime_j = \begin{cases} s^\prime & \mbox{se }c_j = c\\ s_j & \mbox{altriment
 cioè per ogni transizione del behavior space cambia lo stato relativo al singolo componente coinvolto nella transizione;
 \item $Q^\prime$ differisce da $Q$ per le seguenti condizioni:
 \begin{itemize}
-\item $Q(x) = e \rightarrow Q^\prime(x) = \epsilon$, cioè l'evento in input è consumato;
-\item $\forall(e_j,y_j), j \in [1 \ldots p], Q(y_j) = \epsilon \rightarrow Q^\prime(y_j) = e_j$, cioè gli eventi di uscita sono inseriti nei terminali di input connessi ai terminali di output coinvolti nella transizione; 
+\item $Q(x) = e$, $Q^\prime(x) = \epsilon$, cioè l'evento in input è consumato;
+\item $\forall(e_j,y_j), j \in [1 \ldots p], Q(y_j) = \epsilon$, $Q^\prime(y_j) = e_j$, cioè gli eventi di uscita sono inseriti nei terminali di input connessi ai terminali di output coinvolti nella transizione; 
 \end{itemize}
 \item nel caso $t(c)$ sia osservabile, essa è presente nel viewer $V$ associata alla label $l$ e quest'ultima è una label contenuta nella sequenza di osservazione $O$ in corrispondenza dell'indice $i+1$, successivo a quello corrente. In questo caso l'indice dell'osservazione deve essere aggiornato ($i^\prime = i+1$). Nel caso invece $t(c)$ non sia osservabile, l'indice dell'osservazione rimane immutato ($i^\prime = i$).
 \end{itemize}
@@ -406,7 +406,7 @@ La definizione di behavior è ottenuta dalla definizione di behavior space, seco
 \item nel passaggio dal behavior spurio al behavior, sono mantenuti solo gli stati e le transizioni incluse in un cammino dallo stato iniziale ad uno stato finale.
 \end{enumerate}
 Secondo le definizioni viste in precedenza, quindi, il linguaggio del behavior costituisce un sottoinsieme del linguaggio del behavior space, in quanto costituito unicamente da quelle traiettorie che sono consistenti con l'osservazione temporale.
-Di seguito è riportato lo pseudocodice dell'algoritmo di ricostruzione del behavior (\ref{alg:bhv}), in accordo con la definizione.
+L'algoritmo \ref{alg:bhv} riporta lo pseudocodice della procedura di ricostruzione del behavior, in accordo con la definizione data.
 
 \begin{algorithm}
 \textbf{BuildBhv($P(A) = (a_0,V,O,R)$)}
@@ -449,13 +449,13 @@ La diversa grandezza degli automi può essere evidenziata meglio in sistemi atti
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.15]{./Img/sa/bhv_s.png}
+\includegraphics[scale=0.2]{./Img/sa/bhv_s.png}
 \caption{Behavior del problema diagnostico $P(\overline{A})$. Le transizioni e gli stati tratteggiati indicano la parte spuria dell'automa}
 \label{fig:bhv}
 \end{figure}
 
 \subsection{Decorazione del behavior}
-Il secondo passo della ricostruzione monolitica consiste nella decorazione del behavior. Il linguaggio dell'automa ottenuto nel passo precedente è composto da stringhe, ognuna delle quali rappresenta una traiettoria consistente con l'osservazione temporale. Dato che il behavior racchiude tutte e sole le traiettorie la cui traccia rispetto al viewer è una traccia candidata dell'osservazione, la soluzione del problema diagnostico è l'insieme delle diagnosi relative a tali traiettorie. Dato che le traiettorie potrebbero avere dei cicli, dando luogo ad un numero infinito di percorrenze, l'idea è quella di marcare ogni stato del behavior con l'insieme diagnostico relative a tutte le traiettorie che terminano in quello stato. Il fatto di avere ciclicità non è un problema, poiché la percorrenza di più cicli non accresce la diagnosi già collezionata in precedenza. Il processo di marcare ogni stato con le relative diagnosi è detto decorazione.
+Il secondo passo della ricostruzione monolitica consiste nella decorazione del behavior. Il linguaggio dell'automa ottenuto nel passo precedente è composto da stringhe, ognuna delle quali rappresenta una traiettoria consistente con l'osservazione temporale. Dato che il behavior racchiude tutte e sole le traiettorie la cui traccia rispetto al viewer è una traccia candidata dell'osservazione, la soluzione del problema diagnostico è l'insieme delle diagnosi relative a tali traiettorie. Dato che le traiettorie potrebbero avere dei cicli, dando luogo ad un numero infinito di percorrenze, l'idea è quella di marcare ogni stato del behavior con l'insieme di diagnosi relative a tutte le traiettorie che terminano in quello stato. Il fatto di avere ciclicità non è un problema, poiché la percorrenza di più cicli non accresce la diagnosi già collezionata in precedenza. Il processo di marcare ogni stato con le relative diagnosi è detto decorazione.
 
 \begin{defn}
 Sia $Bhv(P(A))$ il behavior di un problema diagnostico $P(A)$. Il behavior decorato $Bhv^\star(P(A))$ è il DFA ottenuto dal behavior marcando ogni stato $\beta$ con un insieme diagnostico $\Delta(\beta)$ basato sull'applicazione delle seguenti regole:
@@ -465,7 +465,7 @@ Sia $Bhv(P(A))$ il behavior di un problema diagnostico $P(A)$. Il behavior decor
 \end{enumerate}
 \end{defn}
 La prima regola è quella base, in cui si associa alla traiettoria nulla la diagnosi vuota.
-Se la decorazione di uno stato $\beta$ include una diagnosi $\delta$ allora esiste almeno una traiettoria $h$, che termina in $\beta$, la cui diagnosi è $\delta$. Conseguentemente, esiste una traiettoria $h \cup [t(c)]$ terminante in $\beta^\prime$ la cui diagnosi è $\delta$ se $(t(c),f) \notin R$, oppure è l'estensione di $\delta$ tramite la label di guasto $f$, associata alla transizione $t(c)$ nel ruler $R$. 
+Se la decorazione di uno stato $\beta$ include una diagnosi $\delta$ allora esiste almeno una traiettoria $h$, che termina in $\beta$, la cui diagnosi è $\delta$. Conseguentemente, esiste una traiettoria $h \cup [t(c)]$ terminante in $\beta^\prime$ la cui diagnosi è $\delta$ se $(t(c),f) \notin R$, oppure la diagnosi è l'estensione di $\delta$ tramite la label di guasto $f$, associata alla transizione $t(c)$ nel ruler $R$. 
 Quest'ultima regola è induttiva e deve essere applicata continuamente allo stato successivo della transizione fino a che la decorazione non aggiunge nuove diagnosi, raggiungendo una condizione di stabilità.
 L'algoritmo di decorazione, in forma ricorsiva, è fornito di seguito (\ref{alg:decoration}).
 
@@ -505,7 +505,7 @@ Nella tabella \ref{tab:decoration} sono riportate le chiamate effettuate dall'al
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.13]{./Img/sa/bhv_star.png}
+\includegraphics[scale=0.16]{./Img/sa/bhv_star.png}
 \caption{Behavior decorato del problema diagnostico $P(\overline{A})$}
 \label{fig:bhv_star}
 \end{figure}

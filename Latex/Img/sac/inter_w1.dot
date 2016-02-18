@@ -15,10 +15,9 @@ style=rounded;
 
 3 [shape=circle,fontsize=30,peripheries=2,label="3
 (( ))"];
-
+2->3[style=invis];
 node [shape = point, color=white, fontcolor=white]; start0;
 start0 -> 1;
-node [shape = point, color=white, fontcolor=white]; start1;
-start1 -> 3;
+
 
 }

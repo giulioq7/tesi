@@ -6,13 +6,13 @@ ranksep=0.4;
 idle,closed,&epsilon;,0,0"];
 2 [shape=ellipse,fontsize=30,label="2
 awaken,closed,op,3,1"];
-1 -> 2 [label="p1(p(W1))",fontsize=30];
+1 -> 2 [label="p1(p)",fontsize=30];
 3 [shape=ellipse,fontsize=30,peripheries=2,label="3
 awaken,closed,&epsilon;,5,1"];
-2 -> 3 [label="b3(b(W1))",fontsize=30];
+2 -> 3 [label="b3(b)",fontsize=30];
 4 [shape=ellipse,fontsize=30,style=dotted,label="4
 awaken,closed,cl,5,1"];
-1 -> 4 [label="p3(p(W1))",fontsize=30,style=dotted];
+1 -> 4 [label="p3(p)",fontsize=30,style=dotted];
 node [shape = point, color=white, fontcolor=white]; start;
 start -> 1;
 }

@@ -8,16 +8,16 @@ Ogni livello della gerarchia di sistemi siffatti ha una evoluzione indipendente 
 Un sistema attivo complesso (SAC) è una gerarchia di sistemi attivi. In un SAC, vi sono due tipi di comunicazione: tra componenti dello stesso sistema attivo e tra differenti sistemi attivi. 
 I componenti di un sistema attivo interagiscono tra loro in base a determinati eventi che giungono o da componenti adiacenti (eventi interni), o da altri sistemi attivi collegati (pattern event) o dal mondo esterno al sistema (eventi esterni). Questi eventi innescano delle transizioni nei componenti, le quali a loro volta generano nuovi eventi, formando una sequenza di transizioni detta traiettoria del SAC.
 Analogamente ai sistemi attivi tradizionali, un sistema attivo complesso può essere in uno stato quiescente, nel quale nessun evento si verifica e conseguentemente non vengono innescate transizioni dei componenti.
-Il SAC diviene reattivo nel momento in cui si verifica un evento esterno che può essere consumato da un componente. In tale circostanza la transizione di un componente modifica lo stato del sistema, dove lo stato è caratterizzato dalla composizione di tutti gli stati dei componenti, dagli eventi non ancora consumati presenti nei terminali di input, e dagli stati relativi agli automi (pattern space) responsabili del matching delle espressioni regolari generanti i pattern event. 
+Il SAC diviene reattivo nel momento in cui si verifica un evento esterno che è consumato da un componente. In tale circostanza la transizione di un componente modifica lo stato del sistema, dove lo stato è caratterizzato dalla composizione di tutti gli stati dei componenti, dagli eventi non ancora consumati presenti nei terminali di input, e dagli stati relativi agli automi (pattern space) responsabili del matching delle espressioni regolari generanti i pattern event. 
 
 \subsection{Nodi}
-Un sistema attivo complesso è composto da un insieme di sistemi attivi che interagiscono tra loro. Ogni singolo sistema attivo è detto nodo, in quanto costituisce un nodo nella gerarchia che costituisce la topologia del sistema.
+Un sistema attivo complesso è composto da un insieme di sistemi attivi che interagiscono tra loro. Ogni singolo sistema attivo è detto nodo, in quanto costituisce un nodo nella gerarchia che descrive la topologia del sistema.
 Il modello di un nodo, a cui più istanze di nodi possono fare riferimento, possiede tutti gli attributi di un sistema attivo, con l'aggiunta di alcuni elementi:
 \begin{itemize}
 \item un insieme $I$ di terminali di input, nei quali giungono pattern event generati da nodi del livello inferiore;
 \item un insieme $O$ di terminali di output, nei quali vengono generati i pattern event del nodo corrente, che vengono inviati a uno o più nodi del livello superiore;
 \item un insieme $P$ di dichiarazioni di pattern;
-\item un insieme $L_{patt}$ di link uscenti da terminali di input del nodo ed entranti in terminali di input dei componenti.
+\item un insieme $L_{patt}$ di link uscenti da terminali di input del nodo ed entranti in terminali di input dei componenti interni al nodo stesso.
 \end{itemize}
 Quest'ultima caratteristica aggiuntiva consente l'invio dei pattern event in ingresso al nodo ai componenti particolari predisposti a gestire tali eventi.
 
@@ -52,19 +52,19 @@ Quando il link è saturo, la semantica legata al compimento delle transizioni è
 Come per i link tra componenti, anche per quanto riguarda i link tra nodi, nel seguito della trattazione, si farà riferimento al caso in cui la dimensione sia unitaria e la politica di saturazione sia $wait$.
 
 \begin{ex} \label{ex:ref}
-Si consideri l'esempio di sistema attivo complesso riportato in figura \ref{fig:sac}. Esso consiste in una linea elettrica. Ogni capo della linea è protetto dai cortocircuiti per mezzo di due breaker, $b_1$ e $r_1$ da un lato, e $b_2$ e $r_2$ dall'altro. Sia $b_1$ che $b_2$ sono connessi ad una protezione che rileva bassa tensione. Se uno dei due sensori rileva un imminente cortocircuito, comanda l'apertura del breaker collegato. Se tutti e due i breaker si aprono, il cortocircuito si estingue e successivamente la chiusura dei breaker permette di ripristinare la linea. Tuttavia possono verificarsi dei guasti: o la protezione invia il comando sbagliato, oppure il breaker non si apre. Questi malfunzionamenti sono rilevati da un monitor (uno per ogni capo della linea), che in caso di non apertura del breaker ne comanda uno di emergenza, $r_1$ e $r_2$ rispettivamente per il monitor $m_1$ e $m_2$. Nel compiere questa azione, inoltre, il monitor informa l'altro monitor di effettuare la medesima operazione. Si assume che i breaker di emergenza, per ragioni di sicurezza, non vengano chiusi nuovamente. Il SAC dell'esempio possiede quattro nodi:
+Si consideri l'esempio di sistema attivo complesso riportato in figura \ref{fig:sac}. Esso consiste in una linea elettrica. Ogni capo della linea è protetto dai cortocircuiti per mezzo di due breaker. I componenti $b$ sono connessi ognuno ad una protezione che rileva bassa tensione. Se uno dei due sensori rileva un imminente cortocircuito, viene comandata l'apertura del breaker ivi collegato. Se tutti e due i breaker si aprono, il cortocircuito si estingue e successivamente la chiusura dei breaker permette di ripristinare la linea. Tuttavia possono verificarsi dei guasti: o la protezione invia il comando sbagliato, oppure il breaker non si apre. Questi malfunzionamenti sono rilevati da un monitor (uno per ogni capo della linea), che in caso di non apertura del breaker ne comanda uno di emergenza, $r_1$ e $r_2$ rispettivamente per i monitor $m_1$ e $m_2$. Nel compiere questa azione, inoltre, un monitor informa l'altro in modo da effettuare la medesima operazione sull'altro breaker. Si assume che i breaker di emergenza, per ragioni di sicurezza, non vengano chiusi nuovamente. Il SAC dell'esempio possiede quattro nodi:
 \begin{itemize}
-\item l'organo di protezione $W_1$, che include la protezione $p_1$ e il breaker $b_1$;
-\item l'organo di protezione $W_2$, che include la protezione $p_2$ e il breaker $b_2$;
+\item l'organo di protezione $W_1$, che include la protezione $p$ e il breaker $b$;
+\item l'organo di protezione $W_2$, che include la protezione $p$ e il breaker $b$;
 \item l'apparato monitor $M$, che include i monitor $m_1$ e $m_2$, oltre ai breaker di emergenza $r_1$ e $r_2$;
 \item il nodo radice $L$, che contiene il componente $l$, il quale rappresenta l'intera linea elettrica.
 \end{itemize}
 I nodi $W_1$ e $W_2$ condividono lo stesso modello di nodo, hanno cioè gli stessi terminali, gli stessi componenti e le medesime dichiarazioni di pattern.
-Le frecce in figura all'interno del singolo nodo rappresentano link tra componenti o link tra terminali di input del nodo e terminali di input di componenti (per la gestione dei pattern event). I link tra i nodi rappresentano le interazioni tra sistemi attivi, che avvengono tramite la generazione di pattern event da nodi inferiori verso i nodi superiori della gerarchia.
+Le frecce in figura all'interno del singolo nodo rappresentano link tra componenti o link tra terminali di input del nodo e terminali di input di componenti interni (per la gestione dei pattern event). I link tra nodi diversi rappresentano le interazioni fra sistemi attivi, che avvengono tramite la generazione di pattern event dai nodi inferiori verso i nodi superiori della gerarchia.
 I componenti di protezione condividono il modello in figura \ref{fig:model_p}, mentre i breaker hanno il medesimo modello in figura \ref{fig:model_b}. I monitor $m_1$ e $m_2$ hanno un comportamento descritto in figura \ref{fig:model_m}, mentre la linea $l$ è rappresentata in figura \ref{fig:model_l}.
 Le transizioni relative alle protezioni e ai breaker sono fornite rispettivamente nelle tabelle \ref{tab:p_trans} e \ref{tab:b_trans}, mentre le transizioni dei monitor e della linea sono nelle tabelle \ref{tab:m_trans} e \ref{tab:l_trans}. Si noti che i pattern event sono indicati in grassetto.
 Nella tabella \ref{tab:pattern_w} sono riportate le dichiarazioni di pattern condivise dai nodi $W_1$ e $W_2$. 
-Nella tabella \ref{tab:pattern_m} vi sono i pattern relativi all'apparato monitor $M$.
+Nella tabella \ref{tab:pattern_m} vi sono i pattern relativi all'apparato di monitor $M$.
 Si noti che non è specificato il terminale di output in corrispondenza del quale il pattern event viene generato, in quanto in questo esempio specifico si assume che ogni nodo abbia un unico terminale di uscita. Il nodo $M$ possiede inoltre due terminale di input, sui quali riceve i pattern event dei nodi $W_1$ e $W_2$ rispettivamente.
 I linguaggi dei pattern sono così definiti:
 \begin{itemize}
@@ -177,7 +177,7 @@ In modo da individuare pattern event, deve essere mantenuto lo stato relativo al
 	\begin{enumerate}
 	\item un automa non deterministico $N$ è creato generando il suo stato iniziale $s_0$ e una $\epsilon$-			transizione da $s_0$ a ogni stato iniziale di $A_i$, con $i \in [1 \ldots k]$;
 	\item in modo da mantenere il matching di stringhe sovrapposte, viene aggiunta una $\epsilon$-transizione	da ogni stato non iniziale a $s_0$;
-	\item l'automa $N$ viene determinizzato nel risultante pattern space $P$, dove ogni stato finale $s_f$ è marcato dall'unione \textbf{p} dei pattern event associati agli stati in $s_f$ che sono finali nei corrispondenti automi di pattern generati inizialmente. Ogni stato $s$ dell'automa deterministico $Pts$ è infatti identificato da un sottoinsieme di stati dell'automa non deterministico equivalente $N$;
+	\item l'automa $N$ viene determinizzato nel risultante pattern space $P$, dove ogni stato finale $s_f$ è marcato dall'unione \textbf{p} dei pattern event associati agli stati in $s_f$ che sono finali nei corrispondenti automi di pattern generati inizialmente. Ogni stato $s$ dell'automa deterministico $P$ è infatti identificato da un sottoinsieme di stati dell'automa non deterministico equivalente $N$;
 	\item l'automa $P$ viene minimizzato, raggruppando tra loro gli stati equivalenti che sono provvisti dello stesso tag (altrimenti l'informazione relativa ai pattern event generati potrebbe andare persa) \footnote{La minimizzazione del pattern space richiede una lieve modifica all'algoritmo di minimizzazione. Nella partizione iniziale, oltre a distinguere tra stati finali e stati non finali, si effettua una partizione in base al contenuto del tag degli stati finali.}.
 	\end{enumerate}
 \end{itemize}
@@ -189,7 +189,7 @@ Siano
 \item $p_1 = t_1$
 \item $p_2 = t_2$
 \end{itemize}
-due dichiarazioni di pattern, alle quali corrispondono gli automi $A_1$ e $A_2$, ottenuto operando la costruzione di Thompson. L'automa non deterministico $N$ è ottenuto inserendo uno stato iniziale fittizio $s_0$, collegando quest'ultimo agli stati iniziali dei due DFA per mezzo di $\epsilon$-transizioni e collegando ogni stato non iniziale dei due DFA allo stato $s_0$ tramite $\epsilon$-transizioni. La determinizzazione di tale automa risultante è il pattern space $P$ per i pattern $p_1$ e $p_2$. Si noti che non è necessaria la minimizzazione.
+due dichiarazioni di pattern, alle quali corrispondono gli automi $A_1$ e $A_2$. L'automa non deterministico $N$ è ottenuto inserendo uno stato iniziale fittizio $s_0$, collegando quest'ultimo agli stati iniziali dei due DFA per mezzo di $\epsilon$-transizioni e collegando ogni stato non iniziale dei due DFA allo stato $s_0$ tramite $\epsilon$-transizioni. La determinizzazione di tale automa risultante è il pattern space $P$ per i pattern $p_1$ e $p_2$. Si noti che non è necessaria la minimizzazione.
 \end{ex}
 
 \begin{figure}[htbp]
@@ -242,7 +242,7 @@ dove $N$ è l'insieme di nodi, mentre $L_c$ è l'insieme dei link tra terminali 
 
 
 \subsection{Traiettoria}
-Un SAC può essere pensato come una macchina che può essere in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento proveniente dal mondo esterno, il sistema evolve nella sua fase reattiva, fino a quando non raggiunge nuovamente uno stato di quiete. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta traiettoria (o storia), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
+Un SAC è una macchina che si trova in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento proveniente dal mondo esterno, il sistema evolve nella sua fase reattiva, fino a quando non raggiunge nuovamente uno stato di quiete. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta traiettoria (o storia), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
 Ogni transizione di un componente porta il sistema in un nuovo stato, dove uno stato è identificato dallo stato corrente di ogni componente di ogni nodo,dalle configurazioni attuali dei link dei nodi e dallo stato attuale dei pattern space di tutti i nodi. Quando un pattern space raggiunge uno stato finale, il relativo pattern event viene inviato al terminale corrispondente.
 In altre parole, uno stato del sistema attivo complesso è una tripla $(S,Q,P)$, dove $S$ è la n-pla degli stati dei componenti dei nodi, $Q$ è la m-pla dei contenuti dei link tra nodi, mentre $P$ è la p-pla di pattern space di tutti i nodi.
 Quindi una transizione del sistema può essere scritta come:
@@ -298,8 +298,8 @@ $P^\prime(P_v) = \begin{cases} \overline{P} & \mbox{se esite } P(P_v) \xrightarr
 \end{center}
 \item $Q^\prime$ differisce da $Q$ per le seguenti condizioni:
 \begin{itemize}
-\item $Q(x) = e \rightarrow Q^\prime(x) = \epsilon$, cioè l'evento in input è consumato;
-\item $\forall(e_j,y_j), j \in [1 \ldots p], Q(y_j) = \epsilon \rightarrow Q^\prime(y_j) = e_j$, cioè gli eventi di uscita sono inseriti nei terminali di input connessi ai terminali di output coinvolti nella transizione;
+\item $Q(x) = e$, $Q^\prime(x) = \epsilon$, cioè l'evento in input è consumato;
+\item $\forall(e_j,y_j), j \in [1 \ldots p], Q(y_j) = \epsilon$, $Q^\prime(y_j) = e_j$, cioè gli eventi di uscita sono inseriti nei terminali di input connessi ai terminali di output coinvolti nella transizione;
 \item se $P^\prime(P_v) \neq P(P_v), \forall v \in [j, \ldots, k]$ pattern space relativi al nodo corrente $n$ e $P^\prime(P_v)$ è finale e marcato dall'insieme di eventi \textbf{p}, allora ogni $p_i \in \textbf{p}$  ha un terminale destinazione $o_i \in O$ del nodo $n$. Ogni terminale di output di $n$ è collegato ad uno o più terminali di input di un nodo superiore $n^\prime$, che a sua volta è collegato ad uno o più terminali di input $i_z$ di componenti che gestiscono il patter event. Per ogni terminale $i_z$, il relativo contenuto passa da $\epsilon$ al pattern event $p_i$.
 \end{itemize}
 \end{itemize}
@@ -313,7 +313,7 @@ Si consideri l'esempio di riferimento \ref{ex:ref}. Si può facilmente notare co
 
 \newpage
 \section{Problema diagnostico}
-Analogamente al caso di sistemi attivi tradizionali, il problema di diagnosi dei sistemi attivi complessi necessita di informazioni riguardanti l'osservabilità e i guasti delle transizioni dei componenti di ogni nodo. Si suppone sia disponibile, terminata la reazione, l'osservazione riferita ad ogni singolo sistema attivo che compone il sistema. Si ricorda che nell'ambito di questo lavoro ci si focalizza sulla cosiddetta diagnosi a posteriori, ovvero a seguito di una traiettoria completa del sistema, che parte da uno stato iniziale noto quiescente e termina in uno stato finale (sconosciuto a priori) anch'esso quiescente. 
+Analogamente al caso di sistemi attivi tradizionali, il problema diagnostico dei sistemi attivi complessi necessita di informazioni riguardanti l'osservabilità e i guasti delle transizioni dei componenti di ogni nodo. Si suppone sia disponibile, terminata la reazione, l'osservazione riferita ad ogni singolo sistema attivo che compone il sistema. Si ricorda che nell'ambito di questo lavoro ci si focalizza sulla cosiddetta diagnosi a posteriori, ovvero a seguito di una traiettoria completa del sistema, che parte da uno stato iniziale noto quiescente e termina in uno stato finale (sconosciuto a priori) anch'esso quiescente. 
 
 \subsection{Viewer}
 Per ogni nodo un viewer locale specifica quali transizioni sono osservabili, associando ad esse una label. Il viewer globale del sistema $C$ è la composizione dei viewer locali dei sistemi attivi appartenenti ad $N$, $V = (V_1, \ldots, V_n)$. Ogni viewer locale è definito come una coppia $(t,l)$ che associa alla transizione $t$ la label $l$.
@@ -372,7 +372,7 @@ Il ruler globale del sistema è dato da $\overline{R} = (R_{W_1},R_{W_2},R_M,R_L
 \end{ex}
 
 \subsection{Problema diagnostico}
-Diagnosticare il comportamento di un SAC equivale a trovare i guasti nella sua traiettoria. Quest'ultima, a causa della ridotta osservabilità del sistema, è percepita solo attraverso una traccia, a cui potrebbero però essere associate più traiettorie, anche infinite. Per questo motivo il risultato della diagnosi è un insieme diagnostico candidate, con ogni candidato che corrisponde ad un sottoinsieme di possibili traiettorie. 
+Diagnosticare il comportamento di un SAC equivale a trovare i guasti nella sua traiettoria. Quest'ultima, a causa della ridotta osservabilità del sistema, è percepita solo attraverso una traccia, a cui potrebbero però essere associate più traiettorie, anche infinite. Per questo motivo il risultato della diagnosi è un insieme diagnosi candidate, con ogni candidato che corrisponde ad un sottoinsieme di possibili traiettorie. 
 \begin{defn}
 Un problema diagnostico per un SAC $C$ è una quadrupla
 \begin{center}
@@ -405,7 +405,7 @@ In altre parole, la soluzione di un problema diagnostico è l'insieme costituito
 \newpage
 \section{Diagnosi monolitica}
 Analogamente al metodo diagnostico monolitico visto per i sistemi attivi tradizionali, anche per i SAC è possibile adottare un procedimento analogo. Il behavior dato dalla ricostruzione monolitica racchiude tutte le possibili traiettorie del sistema che sono consistenti con le sequenze di osservazioni temporali locali dei vari nodi.
-Il behavior di un SAC differisce da quello visto nel capitolo precedente per il fatto di avere come informazione aggiuntiva la sequenza degli stati correnti dei pattern space. La consumazione dell'osservazione, inoltre, è espressa non più tramite un solo indice ma per mezzo di una n-pla di indici, ognuno relativo alla sequenza di osservazione locale di un nodo del sistema.
+Lo stato del behavior di un SAC differisce da quello visto nel capitolo precedente per il fatto di avere come informazione aggiuntiva la sequenza degli stati correnti dei pattern space. La consumazione dell'osservazione, inoltre, è espressa non più tramite un solo indice ma per mezzo di una n-pla di indici, ognuno relativo alla sequenza di osservazione locale di un nodo del sistema.
 
 \subsection{Ricostruzione del behavior}
 Il primo passo della diagnosi monolitica consiste nella ricostruzione del behavior, ovvero del DFA contenente tutte le traiettorie del sistema consistenti con le osservazioni temporali.
@@ -464,7 +464,7 @@ L'algoritmo di decorazione è esattamente quello visto nel capitolo precedente (
 \subsection{Distillazione delle diagnosi}
 Una volta decorato il behavior, è possibile generare l'insieme delle soluzioni candidate esattamente come analizzato nel capitolo precedente.
 
-\begin{ex}
+\begin{ex} \label{ex:soluz}
 Si consideri il behavior decorato in figura \ref{fig:bhv_c}. La soluzione del problema diagnostico è data dall'unione delle diagnosi degli stati finali $9$ e $17$:
 \begin{center}
 $\Delta(P(\overline{C})) = \{\{fli,fm1,fob1\}\}$.
@@ -480,7 +480,7 @@ L'interpretazione di questo risultato è dovuto alla seguente dinamica:
 \newpage
 \section{Diagnosi distribuita}
 Il metodo di ricostruzione monolitica, analizzato nei paragrafi precedenti, è inefficiente in quanto la complessità della generazione del behavior dell'intero SAC è in generale esponenziale nel numero di componenti totali, nel numero di link, nel numero dei pattern space e nel numero dei nodi (ad ognuno dei quali corrisponde una sequenza di osservazione). Sebbene la ricostruzione permetta di non generare il comportamento completo del sistema (behavior space), la ricostruzione del behavior del SAC è comunque costosa, sia in termini di tempo di esecuzione sia soprattutto di memoria.
-Per questo motivo, nel corso di questo lavoro di tesi, è stato sviluppato un algoritmo distribuito che ricostruisce il comportamento del singolo nodo, unitamente alle informazioni necessarie scaturite dai pattern event, in modo da non dover generare il behavior del sistema nella sua interezza. Per fare questo si è seguita la topologia del sistema: trattandosi di una gerarchia, l'algoritmo opera in maniera bottom-up partendo dai nodi foglia. Il comportamento di questi ultimi, infatti, non è vincolato dal comportamento di nessun altro nodo, quindi la ricostruzione del loro comportamento è esattamente quella vista nel paragrafo precedente, eccetto il fatto che si considera il singolo nodo e non l'intero sistema. Per poter ricostruire i comportamenti dei nodi nel livello superiore della gerarchia, invece, è necessario considerare i pattern event che vengono inviati dal livello base. Per fare questo viene creata, per ogni nodo foglia, una interfaccia ottenuta togliendo dal linguaggio del behavior locale tutte quelle transizioni che non portano alla generazione di un pattern event in un terminale di uscita del nodo. I comportamenti del livello superiore, quindi, sono ricostruiti tenendo conto delle interfacce dei nodi sottostanti da cui essi dipendono. Ogni passaggio di stato dell'interfaccia sottostante corrisponde alla generazione di un pattern event che può essere consumato dai componenti a livello superiore. Il procedimento viene reiterato per ogni strato della gerarchia del sistema.
+Per questo motivo, nel corso di questo lavoro di tesi, è stato sviluppato un algoritmo distribuito che ricostruisce il comportamento del singolo nodo, unitamente alle informazioni necessarie scaturite dai pattern event, in modo da non dover generare il behavior del sistema nella sua interezza. Per fare questo si è seguita la topologia del sistema: trattandosi di una gerarchia, l'algoritmo opera in maniera bottom-up partendo dai nodi foglia. Il comportamento di questi ultimi, infatti, non è vincolato dal comportamento di nessun altro nodo, quindi la ricostruzione del loro behavior è esattamente quella vista nel paragrafo precedente, eccetto il fatto che si considera il singolo nodo e non l'intero sistema. Per poter ricostruire i comportamenti dei nodi nel livello superiore della gerarchia, invece, è necessario considerare i pattern event che vengono inviati dal livello base. Per fare questo viene creata, per ogni nodo foglia, una interfaccia ottenuta togliendo dal linguaggio del behavior locale tutte quelle transizioni che non portano alla generazione di un pattern event in un terminale di uscita del nodo. I comportamenti del livello superiore, quindi, sono ricostruiti tenendo conto delle interfacce dei nodi sottostanti da cui essi dipendono. Ogni passaggio di stato dell'interfaccia sottostante corrisponde alla generazione di un pattern event che può essere consumato dai componenti a livello superiore. Il procedimento viene reiterato per ogni strato della gerarchia del sistema.
 Una volta raggiunta la radice dell'albero, non è più necessario generare l'interfaccia di tale nodo (dato che nessun pattern event viene gestito da un livello superiore), quindi l'unico behavior corrispondente racchiude in sé tutte le diagnosi dell'intero sistema in forma sintetica. La sua decorazione permette di ricavare l'insieme di diagnosi candidate del SAC.
 
 \subsection{Costruzione del Behavior non vincolato}
@@ -503,39 +503,81 @@ Lo stato è descritto, in ordine, dagli stati della protezione e del breaker, da
 \end{figure}
 
 \subsection{Generazione dell'interfaccia}
-L'interfaccia di un nodo è un automa ottenuto eliminando dal linguaggio del behavior locale tutte le transizioni che non generano un pattern event.
+L'interfaccia $Int(N)$ di un nodo $N$ è un automa deterministico ottenuto eliminando dal linguaggio del behavior locale tutte le transizioni che non generano un pattern event.
 La costruzione avviene come di seguito.
 \begin{enumerate}
-\item L'identificatore di una transizione $t(c)$ di un componente che provoca la generazione di un pattern event $(p,l,r,o)$ viene arricchito dalla diagnosi $\Delta_t$ relativa alla singola transizione che può essere:
+\item L'identificatore di una transizione $t(c)$ di un componente che provoca la generazione di un pattern event $(p,l,r,o)$ viene sostituito dalla coppia $(p,\Delta_p)$, dove $p$ è il pattern event e $\Delta_p$ la diagnosi relativa alla singola transizione che può essere:
 \begin{itemize}
 \item l'insieme singleton $\{\emptyset\}$ se la transizione è normale;
-\item l'insieme singleton $\{\{f\}\}$, se la transizione è di guasto e $f$ è la corrispondente label associata nel ruler.
+\item l'insieme singleton $\{\{f\}\}$, se la transizione è di guasto e $f$ è la corrispondente label del ruler.
 \end{itemize}
-La transizione dell'interfaccia è quindi una coppia $(t(c),\Delta_t)$. Deve inoltre essere mantenuta l'informazione relativa al pattern event $p$ associato.
-\item Le transizioni non associate ad alcun evento di pattern vengono interpretate come $\epsilon$-transizioni, ottenendo in questo modo un automa non deterministico (NFA). Quest'ultimo viene determinizzato attraverso un algoritmo simile alla subset construction: differisce da quest'ultima poiché lo stato del DFA risultante contiene una $\epsilon$-chiusura che include non solo il semplice sottoinsieme di stati del NFA di partenza, ma anche la struttura del sottoautoma relativo agli stati.
+\item Le transizioni non associate ad alcun evento di pattern vengono interpretate come $\epsilon$-transizioni, ottenendo in questo modo un automa non deterministico (NFA). Quest'ultimo viene determinizzato attraverso un algoritmo simile alla subset construction: differisce da quest'ultima poiché lo stato del DFA risultante contiene una $\epsilon$-chiusura che include non solo il semplice sottoinsieme di stati del NFA di partenza, ma anche la struttura del sottoautoma relativo agli stati coinvolti.
 \item All'interno di ogni stato $d$ del DFA, ogni stato $n$ del NFA è marcato applicando l'algoritmo di decorazione, partendo dallo stato radice.
-\item Ogni transizione del DFA ha come diagnosi $\Delta_t$ la combinazione della diagnosi attuale con la diagnosi $\Delta$ associata allo stato del NFA da cui la transizione parte, cioè $\Delta_t = \Delta_t \Join \Delta$.
+\item Ogni transizione del DFA ha come diagnosi $\Delta_p$ la combinazione della diagnosi attuale con la diagnosi $\Delta$ associata allo stato del NFA da cui la transizione parte, cioè $\Delta_p = \Delta \Join \Delta_p$.
+\item Secondo la subset construction, uno stato del DFA è finale se e solo se esso contiene almeno uno stato del corrispondente NFA che è finale. Ad ogni stato finale $s_f$ dell'interfaccia viene associata una diagnosi  $\Delta(S_f)$, corrispondente all'unione delle diagnosi degli stati interni finali per il NFA di partenza.
 \end{enumerate}
 
+\begin{ex}
+In figura \ref{fig:inter_leaves} sono riportate le interfacce dei nodi $W1$ e $W2$, derivate dai corrispondenti behavior. 
+\end{ex}
+
+\begin{figure}[htbp]
+\centering
+\subfigure[$Int(W1)$]
+{\includegraphics[scale=0.44]{./Img/sac/interfaccia_w1.png}}
+\hspace{5mm}
+\subfigure[$Int(W2)$]
+{\includegraphics[scale=0.44]{./Img/sac/interfaccia_w2.png}}
+\caption{Interfacce dei nodi $W1$ e $W2$}
+\label{fig:inter_leaves}
+\end{figure}
+
 \subsection{Costruzione del Behavior vincolato}
-La costruzione del behavior vincolato riguarda tutti i nodi che non sono dei nodi foglia nella topologia del sistema. Per questo tipi di nodi, la ricostruzione del comportamento deve tenere conto delle informazioni aggiuntive riguardanti i pattern event che giungono dal livello inferiore. Questa informazione è racchiusa nelle interfacce dei nodi inferiori da cui il nodo corrente dipende. Un nodo dipende da un nodo di un livello inferiore se esiste un link che unisce un terminale di output da quel nodo inferiore al terminale di input del nodo in esame. Lo stato del behavior corrente, quindi, possiede l'informazione aggiuntava che riguarda la tupla di stati relativi alle interfacce da cui il nodo corrente dipende. Una transizione del comportamento può quindi essere di due tipi:
+La costruzione del behavior vincolato riguarda tutti i nodi che non sono dei nodi foglia nella topologia del sistema. Per questo tipi di nodi, la ricostruzione del comportamento deve tenere conto delle informazioni aggiuntive riguardanti i pattern event che giungono dal livello inferiore. Questa informazione è racchiusa nelle interfacce dei nodi inferiori da cui il nodo corrente dipende. Un nodo dipende da un nodo di un livello inferiore se esiste un link che unisce un terminale di output da quel nodo inferiore ad un terminale di input del nodo in esame. Lo stato del behavior corrente, quindi, possiede l'informazione aggiuntava che riguarda la tupla di stati relativi alle interfacce da cui il nodo corrente dipende. Una transizione del comportamento può quindi essere di due tipi:
 \begin{itemize}
 \item una transizione $t(c)$ relativa ad un componente del nodo;
 \item una transizione $t(Int)$ relativa ad una delle interfacce.
 \end{itemize} 
-Si noti che l'ultima è effettuabile se i link dove vengono generati i pattern event sono liberi (secondo la politica di saturazione $wait$ adottata in questo lavoro).
-Uno stato finale del behavior vincolato è tale se, oltre ad aver consumato completamente l'osservazione del nodo locale, ha raggiunto gli stati finali di tutte le interfacce da cui esso dipende. Quest'ultimo vincolo è necessario in quanto, proseguendo bottom-up nella ricostruzione, è necessario che ogni nodo abbia consumato la propria osservazione, affinché uno stato finale possa essere considerato il culmine di una traiettoria completa.
+Si noti che anche per quest'ultima vale la condizione che i link dove vengono generati i pattern event siano liberi (secondo la politica di saturazione $wait$ adottata in questo lavoro).
+Uno stato finale del behavior vincolato è tale se, oltre ad aver consumato completamente l'osservazione del nodo locale, ha raggiunto gli stati finali di tutte le interfacce da cui esso dipende. Quest'ultimo vincolo è necessario in quanto, proseguendo bottom-up nella ricostruzione, è indispensabile che ogni nodo abbia consumato la propria osservazione, affinché uno stato finale possa essere considerato il culmine di una traiettoria completa.
+
+\begin{ex}
+In figura \ref{fig:bhv_m} è riportato il behavior vincolato per il nodo $M$. Ogni stato ha una coppia indicante lo stato, rispettivamente, delle interfacce $W1$ e $W2$ che ne vincolano il comportamento. Gli stati finali del behavior, oltre ad aver consumato l'osservazione definita in \ref{ex_osserv}, sono caratterizzati dal fatto di aver raggiunto uno stato finale di entrambe le interfacce contemporaneamente.
+In figura \ref{fig:inter_m}, per completezza, viene generata l'interfaccia del nodo $M$, la quale vincola la ricostruzione del behavior del nodo radice $L$.
+\end{ex}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.16]{./Img/sac/bhv_vincolato.png}
+\caption{Behavior del nodo $M$ (vincolato)}
+\label{fig:bhv_m}
+\end{figure}
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{./Img/sac/interfaccia_m.png}
+\caption{Interfaccia del nodo $M$}
+\label{fig:inter_m}
+\end{figure}
+
 
 \subsection{Decorazione del Behavior del nodo radice}
 Una volta che il metodo di ricostruzione distribuito raggiunge il nodo radice ed è stata effettuata la ricostruzione del behavior di quest'ultimo, è necessario effettuarne la decorazione, in maniera simile a quanto visto per il caso monolitico, con due variazioni:
 \begin{itemize}
-\item attraversando una transizione relativa a una interfaccia, è necessario combinare la diagnosi dello stato di partenza con la diagnosi associata alla transizione di interfaccia, mentre per le transizioni relative a componenti del nodo locale si mantiene il solito approccio, ricercando nel ruler se la transizione è presente e con quale label;
+\item attraversando una transizione relativa ad una interfaccia, è necessario combinare la diagnosi dello stato di partenza con la diagnosi associata alla transizione di interfaccia, mentre per le transizioni relative a componenti del nodo locale si mantiene il solito approccio, ricercando nel ruler se la transizione è presente e con quale label;
 \item quando la decorazione raggiunge uno stato finale, bisogna combinare la diagnosi ottenute con la diagnosi relativa agli stati finali dell'interfaccia.
 \end{itemize}
 Quest'ultima modifica è necessaria al fine di avere una diagnosi completa poiché, mentre negli stati non finali dell'interfaccia la presenza di una transizione uscente ne include le relative diagnosi, in corrispondenza dello stato finale mancano le diagnosi appartenenti a quello stato. La decorazione, in corrispondenza dello stato finale, deve combinare le diagnosi raccolte con le diagnosi relative a quello stato.
 
 \begin{ex}
-La decorazione del nodo radice $L$ del sistema di riferimento è presentata in figura. Si noti che, in corrispondenza dello stato finale, la diagnosi relativa allo stato finale dell'unica interfaccia da cui il comportamento dipende è $\{\emptyset\}$. La combinazione di quest'ultima con la diagnosi dello stato finale del behavior, quindi, non produce cambiamenti nel risultato. 
+La decorazione del nodo radice $L$ del sistema di riferimento è presentata in figura. Si noti che, in corrispondenza dello stato finale, la diagnosi relativa allo stato finale dell'unica interfaccia da cui il comportamento dipende è $\Delta(2) = \{\emptyset\}$. La combinazione di quest'ultima con la diagnosi dello stato finale del behavior, quindi, non produce cambiamenti nel risultato. 
+La soluzione, ottenuta distillando le diagnosi dello stato finale (unico) è:
+\begin{center}
+ $\{\{fli,fm1,fob1\}\}$.
+\end{center}
+Tale soluzione è, come voluto, identica a quella dell'esempio \ref{ex:soluz}, ottenuta mediante la ricostruzione monolitica.
 \end{ex}
 
 \begin{figure}[htbp]
