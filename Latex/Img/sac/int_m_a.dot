@@ -10,22 +10,9 @@ ranksep=0.4;
 3 [shape=ellipse,fontsize=30,label="3
 ((fm1,fob1))"];
 2 -> 3 [label="m2(m1)",fontsize=30];
-4 [shape=ellipse,fontsize=30,label="4
-(( ))"];
-5 [shape=ellipse,fontsize=30,label="5
-(( ))"];
-6 [shape=ellipse,fontsize=30,peripheries=2,label="6
-(( ))"];
 7 [shape=ellipse,fontsize=30,label="7
 ((fm1,fob1))"];
-8 [shape=ellipse,fontsize=30,label="8
-(( ))"];
-9 [shape=ellipse,fontsize=30,peripheries=2,label="9
-(( ))"];
 3 -> 7 [label="di,(( ))",fontsize=30];
-4 -> 5 [label="di,(( ))",fontsize=30];
-5 -> 6 [label="m5(m2)",fontsize=30];
-8 -> 9 [label="m5(m2)",fontsize=30];
 
 
 node [shape = point, color=white, fontcolor=white]; start;

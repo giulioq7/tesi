@@ -2,50 +2,50 @@ digraph G {
 ratio=0.5;
 rankdir=TB;
 ranksep=0.4;
-1 [shape=ellipse,fontsize=30,peripheries=2,label="1
+1 [shape=ellipse,fontsize=60,peripheries=2,label="1
 idle,closed,&epsilon;"];
-2 [shape=ellipse,fontsize=30,label="2
+2 [shape=ellipse,fontsize=60,label="2
 awaken,closed,op"];
-1 -> 2 [label="p1(p)",fontsize=30,penwidth=3];
-3 [shape=ellipse,fontsize=30,peripheries=2,label="3
+1 -> 2 [label="p1(p)",fontsize=60,penwidth=3];
+3 [shape=ellipse,fontsize=60,peripheries=2,label="3
 awaken,open,&epsilon;"];
-2 -> 3 [label="b1(b)",fontsize=30,penwidth=3];
-4 [shape=ellipse,fontsize=30,label="4
+2 -> 3 [label="b1(b)",fontsize=60,penwidth=3];
+4 [shape=ellipse,fontsize=60,label="4
 idle,open,cl"];
-3 -> 4 [label="p2(p)",fontsize=30,penwidth=3];
-4 -> 1 [label="b2(b)",fontsize=30,penwidth=3];
-5 [shape=ellipse,fontsize=30,peripheries=2,label="5
+3 -> 4 [label="p2(p)",fontsize=60,penwidth=3];
+4 -> 1 [label="b2(b)",fontsize=60,penwidth=3];
+5 [shape=ellipse,fontsize=60,peripheries=2,label="5
 idle,open,&epsilon;"];
-4 -> 5 [label="b4(b)",fontsize=30];
-6 [shape=ellipse,fontsize=30,label="6
+4 -> 5 [label="b4(b)",fontsize=60];
+6 [shape=ellipse,fontsize=60,label="6
 awaken,open,op"];
-5 -> 6 [label="p1(p)",fontsize=30];
-6 -> 3 [label="b6(b)",fontsize=30];
-7 [shape=ellipse,fontsize=30,label="7
+5 -> 6 [label="p1(p)",fontsize=60];
+6 -> 3 [label="b6(b)",fontsize=60];
+7 [shape=ellipse,fontsize=60,label="7
 awaken,open,cl"];
-5 -> 7 [label="p3(p)",fontsize=30];
-8 [shape=ellipse,fontsize=30,peripheries=2,label="8
+5 -> 7 [label="p3(p)",fontsize=60];
+8 [shape=ellipse,fontsize=60,peripheries=2,label="8
 awaken,closed,&epsilon;"];
-7 -> 8 [label="b2(b)",fontsize=30];
-9 [shape=ellipse,fontsize=30,label="9
+7 -> 8 [label="b2(b)",fontsize=60];
+9 [shape=ellipse,fontsize=60,label="9
 idle,closed,cl"];
-8 -> 9 [label="p2(p)",fontsize=30];
-9 -> 1 [label="b5(b)",fontsize=30];
-10 [shape=ellipse,fontsize=30,label="10
+8 -> 9 [label="p2(p)",fontsize=60];
+9 -> 1 [label="b5(b)",fontsize=60];
+10 [shape=ellipse,fontsize=60,label="10
 idle,closed,op"];
-8 -> 10 [label="p4(p)",fontsize=30];
-10 -> 5 [label="b1(b)",fontsize=30];
-10 -> 1 [label="b3(b)",fontsize=30];
-7 -> 3 [label="b4(b)",fontsize=30];
-11 [shape=ellipse,fontsize=30,label="11
+8 -> 10 [label="p4(p)",fontsize=60];
+10 -> 5 [label="b1(b)",fontsize=60];
+10 -> 1 [label="b3(b)",fontsize=60];
+7 -> 3 [label="b4(b)",fontsize=60];
+11 [shape=ellipse,fontsize=60,label="11
 idle,open,op"];
-3 -> 11 [label="p4(p)",fontsize=30];
-11 -> 5 [label="b6(b)",fontsize=30];
-2 -> 8 [label="b3(b)",fontsize=30];
-12 [shape=ellipse,fontsize=30,label="12
+3 -> 11 [label="p4(p)",fontsize=60];
+11 -> 5 [label="b6(b)",fontsize=60];
+2 -> 8 [label="b3(b)",fontsize=60];
+12 [shape=ellipse,fontsize=60,label="12
 awaken,closed,cl"];
-1 -> 12 [label="p3(p)",fontsize=30];
-12 -> 8 [label="b5(b)",fontsize=30];
+1 -> 12 [label="p3(p)",fontsize=60];
+12 -> 8 [label="b5(b)",fontsize=60];
 node [shape = point, color=white, fontcolor=white]; start;
 start -> 1;
 }

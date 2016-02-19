@@ -1,0 +1,14 @@
+digraph G {
+ratio=0.5;
+rankdir=TB;
+ranksep=0.4;
+8 [shape=ellipse,fontsize=30,label="8
+(( ))"];
+9 [shape=ellipse,fontsize=30,peripheries=2,label="9
+(( ))"];
+8 -> 9 [label="m5(m2)",fontsize=30];
+
+
+node [shape = point, color=white, fontcolor=white]; start;
+start -> 8;
+}

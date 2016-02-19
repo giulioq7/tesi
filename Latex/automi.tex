@@ -161,15 +161,16 @@ $$
 \newpage
 \section{Subset construction}
 A causa del loro non determinismo, spesso i NFA necessitano di essere convertiti in DFA per essere utilizzati e simulati in modo più intuitivo. La tecnica nota in letteratura per ottenere questa conversione è chiamata \emph{subset construction}.
-L'idea generale di questo algoritmo è che ad ogni stato del risultante DFA corrisponde un insieme di stati del NFA di partenza.
-Il primo problema che bisogna affrontare è quello di gestire le $\epsilon$-transizioni. Queste particolari transizioni indicano in quali stati l'automa può trovarsi contemporaneamente. L'operazione di $\epsilon$-closure permette di trovare, a partire da un particolare stato, tutti gli stati raggiungibili senza la consumazione di simboli in ingresso. Il primo passo della subset construction, quindi, consiste nell'assegnare allo stato iniziale del DFA risultante la $\epsilon$-closure dello stato iniziale del NFA in esame. L'algoritmo prosegue calcolando, per ogni possibile input ricevuto a partire da ogni stato del NFA contenuto nello  stato attuale del DFA, l'insieme degli stati raggiungibili, su cui viene effettuata la $\epsilon$-closure. Il procedimento procede in questo modo sino a che tutti i nuovi stati generati nel DFA non sono stati processati. Lo pseudocodice è fornito nell'algoritmo \ref{alg:subset}.
+L'idea generale di questo algoritmo è che ad ogni stato del risultante DFA corrisponda un insieme di stati del NFA di partenza.
+Il primo problema che bisogna affrontare è quello di gestire le $\epsilon$-transizioni. Queste particolari transizioni indicano in quali stati l'automa può trovarsi contemporaneamente. L'operazione di $\epsilon$-closure permette di trovare, a partire da un particolare stato, tutti gli stati raggiungibili senza la consumazione di simboli in ingresso. Il primo passo della subset construction, quindi, consiste nell'assegnare allo stato iniziale del DFA risultante la $\epsilon$-closure dello stato iniziale del NFA in esame. L'algoritmo prosegue calcolando, per ogni possibile input ricevuto a partire da ogni stato del NFA contenuto nello  stato attuale del DFA, l'insieme degli stati raggiungibili, su cui viene effettuata la $\epsilon$-closure. Il procedimento procede in questo modo sino a che tutti i nuovi stati generati nel DFA non sono stati processati. Lo pseudocodice è fornito nell'algoritmo \ref{alg:subset}; la funzione $move(T,a)$ calcola l'insieme di tutti gli stati del NFA per i quali vi è una transizione, mediante il simbolo $a$, per qualche stato $s \in T$.
 \'E possibile, teoricamente, che il numero di stati del DFA sia esponenziale nel numero di stati del NFA: tale numero è limitato superiormente dalla cardinalità dell'insieme potenza degli stati dell'automa non deterministico, cioè dal numero di tutti i possibili sottoinsiemi degli stati.
 Fortunatamente questo caso pessimo raramente si presenta e per linguaggi reali spesso il numero di stati dei due automi è simile e il comportamento esponenziale non sussiste.
 
 \begin{algorithm}
 \textbf{SubsetConstruction($N$)}
 \begin{algorithmic}
-\STATE Sia $s_0$ lo stato iniziale del NFA, $Dstates$ gli stati del DFA risultante, $t$ la funzione di transizione del DFA
+\STATE Sia $s_0$ lo stato iniziale del NFA, $Dstates$ gli stati del DFA risultante
+\STATE Sia $Dtran$ la funzione di transizione del DFA
 \WHILE{$\exists s \in Dstates$ non marcato}
 	\STATE marcare $s$
 	\FORALL{simbolo di input $a$}
@@ -177,7 +178,7 @@ Fortunatamente questo caso pessimo raramente si presenta e per linguaggi reali s
 		\IF{$U \notin Dstates$}
 			\STATE aggiungi $U$ come stato non marcato in $Dstates$
 		\ENDIF
-		\STATE $t(T,a) = U$
+		\STATE $Dtran(T,a) = U$
 	\ENDFOR
 \ENDWHILE
 \end{algorithmic}

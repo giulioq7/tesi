@@ -456,7 +456,7 @@ L'algoritmo di decorazione è esattamente quello visto nel capitolo precedente (
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.1]{./Img/sac/behavior.png}
+\includegraphics[scale=0.12]{./Img/sac/behavior.png}
 \caption{Behavior del problema di riferimento}
 \label{fig:bhv_c}
 \end{figure}
@@ -511,7 +511,7 @@ La costruzione avviene come di seguito.
 \item l'insieme singleton $\{\emptyset\}$ se la transizione è normale;
 \item l'insieme singleton $\{\{f\}\}$, se la transizione è di guasto e $f$ è la corrispondente label del ruler.
 \end{itemize}
-\item Le transizioni non associate ad alcun evento di pattern vengono interpretate come $\epsilon$-transizioni, ottenendo in questo modo un automa non deterministico (NFA). Quest'ultimo viene determinizzato attraverso un algoritmo simile alla subset construction: differisce da quest'ultima poiché lo stato del DFA risultante contiene una $\epsilon$-chiusura che include non solo il semplice sottoinsieme di stati del NFA di partenza, ma anche la struttura del sottoautoma relativo agli stati coinvolti.
+\item Le transizioni non associate ad alcun evento di pattern vengono interpretate come $\epsilon$-transizioni, ottenendo in questo modo un automa non deterministico (NFA). Quest'ultimo viene determinizzato attraverso un algoritmo simile alla subset construction \ref{alg:subset}: differisce da quest'ultima poiché lo stato del DFA risultante contiene una $\epsilon$-closure che include non solo il semplice sottoinsieme di stati del NFA di partenza, ma anche la struttura del sottoautoma relativo agli stati coinvolti. Inoltre le transizioni da fattorizzare hanno come label la coppia $(p,\Delta_p)$.
 \item All'interno di ogni stato $d$ del DFA, ogni stato $n$ del NFA è marcato applicando l'algoritmo di decorazione, partendo dallo stato radice.
 \item Ogni transizione del DFA ha come diagnosi $\Delta_p$ la combinazione della diagnosi attuale con la diagnosi $\Delta$ associata allo stato del NFA da cui la transizione parte, cioè $\Delta_p = \Delta \Join \Delta_p$.
 \item Secondo la subset construction, uno stato del DFA è finale se e solo se esso contiene almeno uno stato del corrispondente NFA che è finale. Ad ogni stato finale $s_f$ dell'interfaccia viene associata una diagnosi  $\Delta(S_f)$, corrispondente all'unione delle diagnosi degli stati interni finali per il NFA di partenza.
@@ -577,7 +577,7 @@ La soluzione, ottenuta distillando le diagnosi dello stato finale (unico) è:
 \begin{center}
  $\{\{fli,fm1,fob1\}\}$.
 \end{center}
-Tale soluzione è, come voluto, identica a quella dell'esempio \ref{ex:soluz}, ottenuta mediante la ricostruzione monolitica.
+Tale soluzione è, come voluto, identica a quella dell'esempio \ref{ex:soluz} ottenuta mediante la ricostruzione monolitica.
 \end{ex}
 
 \begin{figure}[htbp]
