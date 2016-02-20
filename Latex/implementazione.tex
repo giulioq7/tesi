@@ -181,7 +181,7 @@ La minimizzazione finale del pattern space è implementata nel metodo \verb|Util
 \subsection{Classi}
 
 
-\subsection{Salvataggio dei dati precompilati}
+\subsection{Salvataggio dei dati compilati}
 Una volta che il file di specifica è stato processato, le classi opportune sono state create e i controlli semantici sono andati a buon fine, la procedura di elaborazione offline termina creando dei file binari contenenti tutte le informazioni utili alla successiva fase diagnostica, ovvero tutti gli oggetti istanziati per il problema specificato. La scrittura di questi dati, chiamata serializzazione, è una procedura piuttosto complessa se implementata manualmente in C++, in quanto deve gestire puntatori ed evitare ridondanza. Per questo è stata adottata la libreria \emph{Serialization}, fornita dalla collezione \emph{Boost}\cite{web:boost}. Essa permette di salvare un oggetto con semplici modifiche della classe a cui esso appartiene.
 Ad esempio, la definizione della classe \verb|ComponentModel| è stata modificata aggiungendo le istruzioni riportate in figura \ref{code:serialize}. Per ogni attributo della classe, viene specificata la lettura e la scrittura in un oggetto di tipo \verb|Archive|, appartenente alla libreria. \'E necessario esplicitare l'operazione per ogni attributo della classe, in modo da poter salvare lo stato dell'oggetto corrente; eventuali attributi non salvati avranno un valore impredicibile. Quando l'oggetto corrisponde ad un archivio di output, l'operatore \verb|&| indica la scrittura, mentre nel caso di un archivio di input esso indica l'operazione di lettura. Le modifiche attuate permettono quindi sia la scrittura su file che la lettura operata durante la successiva fase diagnostica.
 
@@ -237,6 +237,26 @@ Si noti che la libreria \emph{Serialization} permette di salvare, senza il bisog
 
 \section{Macchina diagnostica}
 
+\subsection{Lettura dei dati precompilati}
+La fase diagnostica necessita degli oggetti generati dal precedente passo di compilazione dei file di specifica. La lettura delle informazioni salvate avviene in modo simile a quanto fatto per la scrittura, come si può vedere in figura \ref{code:read_files}.
+
+
+\begin{figure}[htbp]
+\begin{verbatim}
+vector<ComponentModel> components;
+{
+    // create and open an archive for input
+    std::ifstream ifs("../../CompiledData/component_models.dat");
+    boost::archive::text_iarchive ia(ifs);
+    // read class state from archive
+    ia >> components;;
+    // archive and stream closed when destructors are called
+}
+\end{verbatim}
+\caption{Lettura dai file binari e memorizzazione degli oggetti salvati.}
+\label{code:read_files}
+\end{figure}
+
 \subsection{Modalità greedy}
 
-\subsection{modalità lazy}
+\subsection{Modalità lazy}
