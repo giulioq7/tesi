@@ -169,7 +169,7 @@ $\textbf{ps}$ & $(m_6(m_1)m_6(m_2) | m_6(m_2)m_6(m_1))$\\
 \end{table}
 
 \newpage
-\subsection{Pattern space}
+\subsection{Pattern space} \label{pts_construction}
 In modo da individuare pattern event, deve essere mantenuto lo stato relativo al matching dei pattern coinvolti. A tal fine, per ogni nodo, è necessario generare degli automi, chiamati \emph{pattern space}, secondo i seguenti passi:
 \begin{itemize}
 \item per ogni pattern $(p,l,r,o)$, viene generato un automa deterministico equivalente all'espressione regolare $r$, nel quale ogni stato finale viene marcato dal nome $p$ del pattern event;

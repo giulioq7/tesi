@@ -159,7 +159,7 @@ $$
 
 
 \newpage
-\section{Subset construction}
+\section{Subset construction} \label{subset}
 A causa del loro non determinismo, spesso i NFA necessitano di essere convertiti in DFA per essere utilizzati e simulati in modo più intuitivo. La tecnica nota in letteratura per ottenere questa conversione è chiamata \emph{subset construction}.
 L'idea generale di questo algoritmo è che ad ogni stato del risultante DFA corrisponda un insieme di stati del NFA di partenza.
 Il primo problema che bisogna affrontare è quello di gestire le $\epsilon$-transizioni. Queste particolari transizioni indicano in quali stati l'automa può trovarsi contemporaneamente. L'operazione di $\epsilon$-closure permette di trovare, a partire da un particolare stato, tutti gli stati raggiungibili senza la consumazione di simboli in ingresso. Il primo passo della subset construction, quindi, consiste nell'assegnare allo stato iniziale del DFA risultante la $\epsilon$-closure dello stato iniziale del NFA in esame. L'algoritmo prosegue calcolando, per ogni possibile input ricevuto a partire da ogni stato del NFA contenuto nello  stato attuale del DFA, l'insieme degli stati raggiungibili, su cui viene effettuata la $\epsilon$-closure. Il procedimento procede in questo modo sino a che tutti i nuovi stati generati nel DFA non sono stati processati. Lo pseudocodice è fornito nell'algoritmo \ref{alg:subset}; la funzione $move(T,a)$ calcola l'insieme di tutti gli stati del NFA per i quali vi è una transizione, mediante il simbolo $a$, per qualche stato $s \in T$.
@@ -215,7 +215,7 @@ Le espressioni regolari costituiscono quell'insieme di linguaggi che possono ess
 \end{enumerate}
 Altri operatori possono essere definiti opportunamente in base al dominio applicativo, generando espressioni regolari estese.
 
-\subsection{Costruzione di Thompson}
+\subsection{Costruzione di Thompson} \label{thompson}
 La costruzione di \emph{McNaughton- Yamada- Thompson}(o semplicemente costruzione di Thompson) è in grado di convertire una espressione regolare in un NFA caratterizzato dal medesimo linguaggio. L'algoritmo opera scomponendo l'espressione regolare in un albero sintattico e costruendo un NFA per ogni sottoespressione, in maniera bottom-up, utilizzando le $\epsilon$-transizioni come "collante" per unire i sottoautomi. L'automa risultante permette di riconoscere se una stringa appartiene o meno al linguaggio relativo all'espressione regolare di partenza.\\
 La regola base del metodo, rappresentata in figura \ref{fig:re_atom}, genera un NFA da una sottoespressione atomica, composta da un solo simbolo $a$ o dal simbolo nullo $\epsilon$. L'automa generato è composto da due stati, uno iniziale e l'altro finale, e una transizione in corrispondenza del simbolo atomico dallo stato iniziale allo stato finale.
 Le regole induttive permettono di ricavare ricorsivamente l'intero automa.
