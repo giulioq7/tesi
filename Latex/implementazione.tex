@@ -10,18 +10,6 @@ Durante la lettura del file di specifica, vengono generate le classi opportune e
 La procedura diagnostica legge i file generati da una precedente compilazione della specifica del sistema e genera le soluzioni candidate. 
 Il linguaggio di programmazione adottato è il C++, che è stato scelto in quanto buon compromesso tra le esigenze di efficienza richieste dal problema e il livello di astrazione della programmazione ad oggetti.
 
-\section{Librerie esterne}
-\subsection{Grail+}
-
-\subsection{ASTL}
-La libreria ASTL(\emph{Automata Standard Template Library})\cite{web:astl} è stata utilizzata in questo lavoro di tesi principalmente per avere delle strutture dati idonee a contenere automi con diversi stati e transizioni differenti. 
-
-\subsection{Graphviz}
-
-\subsection{Boost Serialization}
-
-
-
 
 \section{Linguaggio di specifica}
 Il linguaggio di specifica dei SAC studiati in questo lavoro di tesi è fornito, tramite notazione BNF, in appendice \ref{bnf}. 
@@ -58,8 +46,9 @@ L'analizzatore lessicale (o scanner) è implementato mediante lo strumento \emph
 \end{enumerate}
 Sebbene Flex abbia un'opzione per creare direttamente uno scanner C++, il codice generato spesso non funziona e contiene errori\cite{book:bison} .
 La procedura adottata per risolvere questo problema è quella di compilare un programma Flex scritto in linguaggio C per mezzo di un compilatore C++, facendo richiamare poi ad un analizzatore sintattico C++ lo scanner C definito.
-La sezione dichiarativa del linguaggio è riportata di seguito. Essa definisce spazi, delimitatori, commenti di linea in stile C e l'espressione regolare che definisce gli identificatori \verb|id|, formata da una lettera a cui seguono altre lettere, numeri o  il carattere underscore.
+La sezione dichiarativa del linguaggio è riportata in figura \ref{code:lex_decl}. In essa si definiscono spazi, delimitatori, commenti di linea (in stile C) e l'espressione regolare che definisce gli identificatori \verb|id|, formata da una lettera a cui seguono altre lettere, numeri oppure il carattere \verb|_|.
 
+\begin{figure}[htbp]
 \begin{verbatim}
 // The location of the current token.
 yy::location loc;
@@ -82,32 +71,43 @@ comment		\/\/.*
   # define YY_USER_ACTION  loc.columns (yyleng);
 %}
 \end{verbatim}
+\caption{Dichiarazioni.}
+\label{code:lex_decl}
+\end{figure}
 
 Le regole di traduzione utilizzate sono principalmente volte a generare i token relativi a parole chiave del linguaggio e gli identificatori.
-In corrispondenza di direttive \verb|#include|, il passaggio di lettura al file incluso è operato, come mostrato di seguito, creando una pila di buffer. 
+In corrispondenza di direttive \verb|#include|, il passaggio di lettura al file incluso è operato, come mostrato in figura \ref{code:lex_rules}, creando una pila di buffer. 
+
+\begin{figure}[htbp]
 \begin{verbatim}
 #include          BEGIN(incl);
 <incl>[ \t]*      /* eat the whitespace */
-<incl>[^ \t\n]+   { /* got the include file name */
-                 chdir(INPUT_FILE_DIR);
-                 FILE *file = fopen( yytext, "r" );
+<incl>[^ \t\n]+   
+{   /* got the include file name */
+    chdir(INPUT_FILE_DIR);
+    FILE *file = fopen( yytext, "r" );
 
-                 if (file == NULL)
-                 {
-                     cout << "Input file error: included file does not exist" << endl;
-                     exit(1);
-                 }
-                 yyin = file;
+    if (file == NULL)
+    {
+       cout << "Input file error: included file does not exist" << endl;
+       exit(1);
+    }
+    yyin = file;
 
-                 yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
-                 BEGIN(INITIAL);
-                 }
+    yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
+    BEGIN(INITIAL);
+}
 \end{verbatim}
+\caption{Gestione delle direttive di inclusione.}
+\label{code:lex_rules}
+\end{figure}
 
-Gli spazi e i commenti non invocano alcuna azione, mentre la fine del file corrente toglie dalla pila il buffer corrente, riportando il controllo alla scansione del file precedente da cui la direttiva di inclusione è stata chiamata. Se il buffer corrente è l'unico elemento della pila, il processo di scanning termina ed è generato il token relativo alla fine del file.
+Gli spazi e i commenti non invocano alcuna azione, mentre la fine del file attuale toglie dalla pila il buffer corrente, riportando il controllo alla scansione del file precedente da cui la direttiva di inclusione è stata chiamata (figura \ref{code:lex_buff}). Se il buffer corrente è l'unico elemento della pila, il processo di scanning termina ed è generato il token relativo alla fine del file.
+
+\begin{figure}[htbp]
 \begin{verbatim}
 {spacing}	;
-{comment}       ;
+{comment}   ;
 
 {eol}		{loc.lines (yyleng);loc.step();}
 
@@ -119,8 +119,14 @@ Gli spazi e i commenti non invocano alcuna azione, mentre la fine del file corre
   
 }
 \end{verbatim}
+\caption{Azioni compiute alla fine del file.}
+\label{code:lex_buff}
+\end{figure}
+
 Quando viene trovata una parola chiave (come ad esempio \verb|component| e \verb|model|), viene creato il corrispondente token che verrà utilizzato nell'analisi sintattica.
-Per quanto riguarda gli identificatori (\verb|id|), il loro token è composto oltre che dalla posizione, dalla stringa che ne rappresenta il nome, memorizzato durante lo scanning nella variabile \verb|yytext|.
+Per quanto riguarda gli identificatori (\verb|id|), il loro token è composto oltre che dalla posizione, dalla stringa che ne rappresenta il nome, memorizzato durante lo scanning nella variabile \verb|yytext| (figura \ref{code:lex_id}).
+
+\begin{figure}[htbp]
 \begin{verbatim}
 component   return yy::spec_parser::make_COMPONENT(loc);
 model       return yy::spec_parser::make_MODEL(loc);
@@ -128,9 +134,11 @@ is          return yy::spec_parser::make_IS(loc);
 
 
 {id}        return yy::spec_parser::make_ID(yytext,loc);
-.		{cout << "Lexical error: token \"" << yytext << "\" at " << loc << endl; exit(1);}
+.		    {cout << "Lexical error"; exit(1);}
 \end{verbatim}
-
+\caption{Regole di traduzione per parole chiave e identificatori.}
+\label{code:lex_id}
+\end{figure}
 
 \subsection{Analizzatore sintattico}
 L'analizzatore sintattico (parser) è implementato tramite lo strumento \emph{Bison}, che ha permesso di utilizzare direttamente il linguaggio C++. L'utilizzo del linguaggio C++ è possibile inserendo all'inizio del file il comando \verb|%skeleton "lalr1.cc"|, il quale invoca il parser skeleton deterministico predisposto.
@@ -145,7 +153,9 @@ L'analizzatore sintattico (parser) è implementato tramite lo strumento \emph{Bi
 La principale azione compiuta in fase offline, ovvero in un momento antecedente la diagnosi, è la generazione dei pattern space dei modelli di nodi definiti, come descritto nel paragrafo \ref{pts_construction}. 
 Il primo passo di questo algoritmo consiste nella costruzione di un automa equivalente all'espressione regolare definita nella dichiarazione di pattern. Un metodo noto consiste nella costruzione di Thompson descritta nel paragrafo \ref{thompson}. 
 Per questo scopo, è stata utilizzata la libreria \emph{Grail+}\cite{web:grail}, una libreria C++ che permette di definire espressioni regolari e convertirle in automi con un linguaggio equivalente.
-La conversione avviene utilizzando la seguente sintassi:
+La conversione avviene utilizzando la sintassi presentata in figura \ref{code:patodfa}.
+
+\begin{figure}[htbp]
 \begin{verbatim}
 fm<int> patodfa(std::string regex)
 {
@@ -159,6 +169,10 @@ fm<int> patodfa(std::string regex)
     return dfa;
 }
 \end{verbatim}
+\caption{Modifiche apportate alla classe ComponentModel per la serializzazione.}
+\label{code:patodfa}
+\end{figure}
+
 Data una stringa in ingresso, la funzione implementata inserisce tale stringa in un oggetto della classe \verb|re|(\emph{regular expression}), parametrizzato per mezzo di un template che indica l'alfabeto di appartenenza dei simboli dell'espressione. 
 Dato che gli alfabeti possibili per questa libreria erano esclusivamente di tipo \verb|char| o \verb|int|, è stato scelto quest'ultimo (poiché 256 simboli possibili potevano non essere sufficienti in applicazioni di dimensioni ragguardevoli), mantenendo una corrispondenza biunivoca tra ogni intero e una transizione, coinvolta nella dichiarazione del pattern, relativa ad un componente del nodo. La conversione da espressione regolare ad automa a stati finiti avviene applicando all'oggetto che rappresenta l'espressione regolare il metodo \verb|retofm|, che crea l'automa nell'oggetto della classe \verb|fm|(\emph{finite machine}) passato come parametro. A seguito della conversione, l'automa è determinizzato applicando il metodo \verb|subset|, il quale esegue la subset construction descritta nel paragrafo\ref{subset}.
 Successive manipolazioni dei diversi automi ottenuti dai pattern dichiarati permettono di unirli, aggiungere le $\epsilon$-transizioni opportune e determinizzare il risultato. L'automa finale viene poi convertito in un automa equivalente, utilizzando le strutture dati della libreria ASTL. Infatti, la libreria Grail+, sebbene utile poiché implementa la costruzione di Thompson, non sembrava indicata ad un utilizzo negli algoritmi di diagnosi, in quanto non permette estensioni per quanto riguarda i dati satellite associati a transizioni e stati dell'automa.
@@ -167,10 +181,62 @@ La minimizzazione finale del pattern space è implementata nel metodo \verb|Util
 \subsection{Classi}
 
 
-\section{Macchina diagnostica greedy}
+\subsection{Salvataggio dei dati precompilati}
+Una volta che il file di specifica è stato processato, le classi opportune sono state create e i controlli semantici sono andati a buon fine, la procedura di elaborazione offline termina creando dei file binari contenenti tutte le informazioni utili alla successiva fase diagnostica, ovvero tutti gli oggetti istanziati per il problema specificato. La scrittura di questi dati, chiamata serializzazione, è una procedura piuttosto complessa se implementata manualmente in C++, in quanto deve gestire puntatori ed evitare ridondanza. Per questo è stata adottata la libreria \emph{Serialization}, fornita dalla collezione \emph{Boost}\cite{web:boost}. Essa permette di salvare un oggetto con semplici modifiche della classe a cui esso appartiene.
+Ad esempio, la definizione della classe \verb|ComponentModel| è stata modificata aggiungendo le istruzioni riportate in figura \ref{code:serialize}. Per ogni attributo della classe, viene specificata la lettura e la scrittura in un oggetto di tipo \verb|Archive|, appartenente alla libreria. \'E necessario esplicitare l'operazione per ogni attributo della classe, in modo da poter salvare lo stato dell'oggetto corrente; eventuali attributi non salvati avranno un valore impredicibile. Quando l'oggetto corrisponde ad un archivio di output, l'operatore \verb|&| indica la scrittura, mentre nel caso di un archivio di input esso indica l'operazione di lettura. Le modifiche attuate permettono quindi sia la scrittura su file che la lettura operata durante la successiva fase diagnostica.
 
-\subsection{Classi}
+\begin{figure}[htbp]
+\begin{verbatim}
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
-\section{Macchina diagnostica lazy}
+class ComponentModel{
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & autom_states;
+        ar & name;
+        ar & automaton;
+        ar & events;
+        ar & inputs;
+        ar & outputs;
+        ar & states;
+        ar & trans;
+    }
+\end{verbatim}
+\caption{Modifiche apportate alla classe ComponentModel per la serializzazione.}
+\label{code:serialize}
+\end{figure}
 
-\subsection{Classi}
+Il programma sviluppato salva le informazioni precompilate in quattro file distinti:
+\begin{itemize}
+\item un file contenente tutti i modelli dei componenti (\verb|component_models.dat|);
+\item un file che comprende tutti i modelli dei nodi (\verb|network_models.dat|);
+\item un file che racchiude la specifica del sistema (\verb|system.dat|);
+\item un file contenente le informazioni del problema diagnostico con le osservazioni temporali (\verb|problem.dat|).
+\end{itemize}
+Per eseguire la scrittura di un oggetto è sufficiente dare istruzioni simili a quelle riportate in figura \ref{code:serialize_main}, nella quale è salvato su file il \verb|vector| dei modelli dei componenti utilizzati nel sistema.
+
+\begin{figure}[htbp]
+\begin{verbatim}
+{
+    std::ofstream ofs("../../CompiledData/component_models.dat");
+    boost::archive::text_oarchive oa(ofs);
+    // write class instance to archive
+    oa << driver.components;
+    // archive and stream closed when destructors are called
+}
+\end{verbatim}
+\caption{Serializzazione.}
+\label{code:serialize_main}
+\end{figure}
+
+Si noti che la libreria \emph{Serialization} permette di salvare, senza il bisogno di istruzioni aggiuntive, oggetti appartenenti alla Standard Template Library, quali ad esempio \verb|vector, map, list, set|. Per quanto riguarda il salvataggio di puntatori, al fine di evitare ridondanza, la libreria salva l'oggetto puntato un'unica volta, mantenendone i riferimenti.
+
+
+\section{Macchina diagnostica}
+
+\subsection{Modalità greedy}
+
+\subsection{modalità lazy}
