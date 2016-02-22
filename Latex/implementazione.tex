@@ -110,8 +110,10 @@ class Transition : public CHAR_TRAITS<Transition>
     typedef Transition char_type;
     typedef long        int_type;
     static const size_t size;
-    static bool eq(const char_type &x, const char_type &y) { return x == y; }
-    static bool lt(const char_type &x, const char_type &y) { return x < y; }
+    static bool eq(const char_type &x, const char_type &y) 
+    { return x == y; }
+    static bool lt(const char_type &x, const char_type &y) 
+    { return x < y; }
     bool operator<(const Transition t) const {return name<t.name;}
     bool operator==(const Transition t) const {return name == t.name;}
 };
@@ -120,9 +122,9 @@ class Transition : public CHAR_TRAITS<Transition>
 \label{class_trans}
 \end{figure}
 
-In figura \ref{fig:comp} è riportato il diagramma UML delle classi \verb|ComponentModel|, \verb|NetComponent| e \verb|Component|.
-In figura \ref{fig:trans} è riportati il diagramma UML delle classi \verb|Transition|, \verb|NetTransition| e \verb|Systransition|.
-In figura \ref{fig:nodes} è riportato il diagramma UML delle classi \verb|NetworkModel|, \verb|SystemNode| e \verb|ProblemNode|.
+In figura \ref{fig:comp} è riportato il diagramma UML delle classi relative ai componenti del sistema.\\
+In figura \ref{fig:trans} è riportati il diagramma UML delle classi relative alle transizioni.\\
+In figura \ref{fig:nodes} è riportato il diagramma UML delle classi che rappresentano, a diversi livelli di astrazione, i nodi del sistema.
 
 \begin{figure}[htbp]
 \centering
@@ -140,7 +142,7 @@ In figura \ref{fig:nodes} è riportato il diagramma UML delle classi \verb|Netwo
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.5]{./Img/implementazione/nodes.png}
+\includegraphics[scale=0.45]{./Img/implementazione/nodes.png}
 \caption{Classi dei nodi}
 \label{fig:nodes}
 \end{figure}
@@ -482,6 +484,15 @@ La modalità greedy implementa l'algoritmo di ricostruzione del behavior dell'in
 \item una tupla di interi indicanti gli stati iniziali di tutti i pattern space di ogni nodo;
 \item una tupla di interi indicanti gli stati iniziali degli index space di ogni nodo (osservazione locale, inizialmente nulla).
 \end{itemize} 
+La classe che rappresenta uno stato del behavior è riportata in figura \ref{fig:bhv_state}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{./Img/implementazione/bhv_state.png}
+\caption{Classe BehaviorState}
+\label{fig:bhv_state}
+\end{figure}
+
 L'algoritmo tiene traccia delle configurazioni di ogni stato attraverso una tabella hash: in questo modo la verifica dell'esistenza di uno stato generato da una transizione avviene in tempo costante. La tabella mappa la stringa relativa al contenuto dello stato nel valore intero associato allo stato del behavior, come mostrato di seguito per lo stato iniziale.
 
 \begin{verbatim}
@@ -495,7 +506,7 @@ behavior.initial(s0);
 hash_values[ss.str()] = s0;
 \end{verbatim}
 
-La creazione del behavior avviene come descritto nella sezione \ref{setion_greedy}.
+La creazione del behavior avviene come descritto nella sezione \ref{section_greedy}.
 La verifica dell'esistenza di uno stato raggiunto da una transizione avviene nel seguente modo (\verb|tag_s1| è un'istanza della classe \verb|BehaviorState|).
 
 \begin{verbatim}
@@ -530,6 +541,29 @@ Viene letto l'ordinamento topologico del sistema e viene applicata in succession
 
 
 \subsubsection{Determinizzazione dell'interfaccia}
+La classe \verb|Determinization| fornisce dei metodi statici che permettono di ottenere l'interfaccia associata al behavior locale di un nodo. 
+\'E composta dai metodi seguenti:
+\begin{itemize}
+\item \verb|NFAtoDFA| guida il processo di determinizzazione, ricevendo il behavior del nodo;
+\item \verb|eps_closure| calcola la $\epsilon$-chiusura di uno stato o di un insieme di stati del behavior, nel quale le transizioni che non producono pattern event sono sostituite da $\epsilon$-transizioni;
+\item \verb|extract_subNFA| estrae dall'automa del behavior la parte contenente gli stati appartenenti alla $\epsilon$-chiusura, in modo che tale sottoautoma possa essere memorizzato nello stato dell'interfaccia;
+\item \verb|move| calcola gli stati raggiungibili attraverso transizioni, applicate a stati interni allo stato dell'interfaccia, che generano pattern event.
+\end{itemize}
+La decorazione del sottoautoma contenuto negli stati dell'interfaccia avviene richiamando un metodo della classe \verb|Decoration| che implementa la classica decorazione come nell'algoritmo \ref{alg:decoration}.
+In corrispondenza degli stati finali dell'interfaccia, ovvero quelli che contengono stati finali del corrispondente behavior, viene calcolata la diagnosi data dall'unione delle diagnosi degli stati finali interni allo stato dell'interfaccia.
+La classe che rappresenta lo stato dell'interfaccia è visualizzata in figura \ref{fig:int_state}.
 
-\subsection{Decorazione nella generazione dell'interfaccia}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{./Img/implementazione/int_state.png}
+\caption{Classe InterfaceState}
+\label{fig:int_state}
+\end{figure}
+
+\subsubsection{Decorazione del behavior del nodo radice}
+La decorazione del behavior del nodo radice avviene attraverso il metodo \verb|decorate_lazy_bhv| della classe \verb|Decoration|. La procedura consiste in alcune variazioni dell'algoritmo di decorazione della diagnosi greedy:
+\begin{itemize}
+\item una transizione del behavior, se relativa ad una interfaccia, contiene una diagnosi che deve essere propagata agli stati successivi;
+\item in corrispondenza di uno stato finale del behavior, la decorazione deve tenere conto delle diagnosi relative agli stati finali delle interfacce da cui il nodo corrente dipende.
+\end{itemize}
