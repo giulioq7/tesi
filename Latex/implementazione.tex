@@ -12,7 +12,7 @@ La procedura diagnostica legge i file generati da una precedente compilazione de
 Il linguaggio di programmazione adottato è il C++, che è stato scelto in quanto buon compromesso tra le esigenze di efficienza richieste dal problema e il livello di astrazione tipico della programmazione ad oggetti.
 
 \section{Rappresentazione degli automi}
-Per la rappresentazione degli automi è stata scelta una libreria esterna che fornisse da un lato delle strutture dati e dei metodi efficienti, dall'altro che fosse quanto più generica e personalizzabile, dal momento che gli automi necessari alle tecniche risolutive possiedono vari tipi di informazioni negli stati e nelle transizioni. La libreria ASTL(\emph{Automata Standard Template Library})\cite{web:astl} soddisfa entrambe le esigenze. Le due classi principali di questa libreria utilizzate nell'implementazione sono:
+Per la rappresentazione degli automi è stata scelta una libreria esterna che fornisse da un lato delle strutture dati e dei metodi efficienti, dall'altro che fosse quanto più generica e personalizzabile, dal momento che gli automi necessari alle tecniche risolutive possiedono vari tipi di informazione negli stati e nelle transizioni. La libreria ASTL(\emph{Automata Standard Template Library})\cite{web:astl} soddisfa entrambe le esigenze. Le due classi principali di questa libreria utilizzate nell'implementazione sono:
 \begin{itemize}
 \item \verb|DFA_map<SIGMA,TAG>| rappresenta automi deterministici ed è implementata memorizzando le transizioni di uno stato in uno standard \verb|map|, associando i relativi simboli dell'alfabeto agli stati raggiunti. Dato che la struttura \verb|map| costituisce un albero binario, le operazioni di accesso, inserimento e cancellazione sono effettuate in un tempo logaritmico $\mathcal{O}(\log n)$ rispetto al numero di elementi contenuti.  Si tratta di un buon compromesso tra tempi richiesti dalle operazioni e memoria occupata.
 \item \verb|NFA_mmap<SIGMA,TAG>|, rappresenta automi non deterministici. Le transizioni sono memorizzate per mezzo di \verb|multimap|, le cui principali operazioni hanno complessità logaritmica.
@@ -57,7 +57,7 @@ rappresenta un terminale di un componente o di un nodo. \'E caratterizzato da un
 Rappresenta la transizione di un modello di componente. Ha come attributi la stringa relativa al suo nome identificativo, una coppia di stringhe indicanti il nome dell'evento in ingresso e il terminale di input, un vettore di coppie di stringhe indicanti il nome dell'evento di uscita e il terminale di output, e la coppia del nome di stati sorgente-destinazione coinvolti nella transizione. 
 Possiede attributi e metodi (l'operatore di confronto e di uguaglianza) in modo da permetterne l'utilizzo come alfabeto di un automa della libreria ASTL, come mostrato in figura \ref{class_trans}.
 \item \verb|NetTransition|\\
-Rappresenta la transizione di un componente del modello di un nodo. Ha come attributi il riferimento alla transizione del modello di componente del particolare componente del nodo, e un riferimento a quest'ultimo. Il nome è ottenuto, per mezzo de costruttore dell'oggetto, concatenando il nome della transizione associata e, tra parentesi, il nome del componente del nodo associato.
+Rappresenta la transizione di un componente del modello di un nodo. Ha come attributi il riferimento alla transizione del modello di componente del particolare componente del nodo, e un riferimento a quest'ultimo. Il nome è ottenuto, per mezzo del costruttore dell'oggetto, concatenando il nome della transizione associata e, tra parentesi, il nome del componente del nodo associato.
 \item \verb|SysTransition|\\
 Rappresenta la transizione di un componente concreto di un nodo del problema diagnostico. \'E una classe derivata da \verb|NetTransition| e presenta i seguenti attributi aggiuntivi:
 \begin{itemize}
@@ -77,9 +77,25 @@ Rappresenta la specifica del sistema. Possiede i seguenti attributi:
 \item \verb|acyclic|: attributo booleano di valore \verb|true| se la topologia del sistema è aciclica e permette quindi la diagnosi lazy.
 \end{itemize}
 \item \verb|SystemNode|\\
-Rappresenta un nodo del sistema;
-\item \verb|Problem|, rappresenta il problema diagnostico;
-\item \verb|ProblemNode|, rappresenta un nodo del problema diagnostico;
+Rappresenta un nodo del sistema ed è caratterizzato da un nome identificativo e un riferimento all'oggetto di tipo \verb|NetworkModel| che ne costituisce il modello; possiede inoltre gli attributi relativi agli stati iniziali dei suoi componenti, al viewer e al ruler locali, i quali possono essere ereditati dal modello o sovrascritti nella specifica del problema diagnostico.
+\item \verb|Problem|\\
+Rappresenta il problema diagnostico e possiede un nome, una lista di nodi del problema e un vettore di indici  che indica l'ordinamento topologico dei nodi, al fine di poter effettuare la diagnosi lazy.
+\item \verb|ProblemNode|\\
+Rappresenta un nodo del problema diagnostico. Possiede i seguenti attributi:
+\begin{itemize}
+\item \verb|name|: nome del nodo, ottenuto dal nodo del sistema associato;
+\item \verb|ref_node|: riferimento al nodo del sistema;
+\item \verb|concrete_components|: vettore di componenti concreti;
+\item \verb|input_terminals|: vettore di terminali di ingresso fisici del nodo;
+\item \verb|output_terminals|: vettore di terminali di uscita fisici del nodo;
+\item \verb|observation|: sequenza di label relative all'osservazione locale;
+\item \verb|index_space|: automa lineare ottenuto dall'osservazione, utile per eventuali sviluppi futuri nei quali l'osservazione è incerta.
+\item \verb|depends|: lista di indici dei nodi dai quali il nodo corrente dipende topologicamente;
+\item \verb|patt_map|: mappa un pattern event nel terminale di uscita fisico del nodo;
+\item \verb|patt_indexes_map|: mappa un pattern event nell'indice della tupla dei terminali di input di tutto il problema (utile per la diagnosi greedy);
+\item \verb|lazy_patt_indexes_map|: mappa un pattern event nell'indice della tupla dei terminali di input del nodo (utile per la diagnosi lazy);
+\end{itemize}
+La classe contiene inoltre le informazioni definitive riguardanti gli stati iniziali dei componenti, il viewer e il ruler locali, che possono essere ereditati dalla specifica del nodo del sistema.
 \item \verb|Utils|, contiene metodi statici di utilità.
 \end{itemize}
 
@@ -130,12 +146,9 @@ public:
 \label{class_trans}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.5]{./Img/implementazione/nodes.png}
-\caption{Classi dei nodi}
-\label{fig:nodes}
-\end{figure}
+In figura \ref{fig:comp} è riportato il diagramma UML delle classi \verb|ComponentModel|, \verb|NetComponent| e \verb|Component|.
+In figura \ref{fig:trans} è riportati il diagramma UML delle classi \verb|Transition|, \verb|NetTransition| e \verb|Systransition|.
+In figura \ref{fig:nodes} è riportato il diagramma UML delle classi \verb|NetworkModel|, \verb|SystemNode| e \verb|ProblemNode|.
 
 \begin{figure}[htbp]
 \centering
@@ -151,7 +164,14 @@ public:
 \label{fig:trans}
 \end{figure}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{./Img/implementazione/nodes.png}
+\caption{Classi dei nodi}
+\label{fig:nodes}
+\end{figure}
 
+\newpage
 \section{Linguaggio di specifica}
 Il linguaggio di specifica dei sistemi attivi complessi è fornito, tramite notazione BNF, in appendice \ref{bnf}. 
 Il file di specifica è articolato in quattro parti principali:
@@ -282,12 +302,94 @@ is          return yy::spec_parser::make_IS(loc);
 \end{figure}
 
 \subsection{Analizzatore sintattico}
-L'analizzatore sintattico (parser) è implementato tramite lo strumento \emph{Bison}, che ha permesso di utilizzare direttamente il linguaggio C++. L'utilizzo del linguaggio C++ è possibile inserendo all'inizio del file il comando \verb|%skeleton "lalr1.cc"|, il quale invoca il parser skeleton deterministico predisposto.
+L'analizzatore sintattico (parser) è implementato tramite lo strumento \emph{Bison}.
+Il file della grammatica \verb|specparser.yy| inizia richiedendo lo skeleton parser deterministico per poter utilizzare direttamente il linguaggio C++, creando il file header della grammatica e specificando il nome della classe del parser.
 
+\begin{verbatim}
+%skeleton "lalr1.cc"
+%defines
+%define parser_class_name {spec_parser}
+\end{verbatim}
 
+Per poter utilizzare oggetti C++ come valori semantici della grammatica, deve essere richiesta l'interfaccia \verb|variant|.
 
+\begin{verbatim}
+%define api.value.type variant
+%define api.token.constructor
+%define parse.assert
+\end{verbatim}
+ 
+Successivamente sono specificate le dichiarazioni necessarie ai valori semantici. Poiché il parser utilizza la classe driver e viceversa, questa mutua dipendenza è risolta fornendo una \emph{forward declaration}. 
+
+\begin{verbatim}
+%code requires
+{
+...
+class spec_driver;
+}
+\end{verbatim}
+
+L'oggetto driver viene passato al parser e allo scanner tramite referenza.
+
+\begin{verbatim}
+%param { spec_driver& driver}
+\end{verbatim}
+
+Quindi viene richiesto di tenere traccia della locazione (riga e colonna del file di specifica), passando il nome del file dell'oggetto \verb|driver|.
+
+\begin{verbatim}
+%locations
+%initial-action
+{
+  // Initialize the initial location.
+  @$.begin.filename = @$.end.filename = &driver.file;
+};
+\end{verbatim}
+
+La definizione dei token avviene come di seguito.
+
+\begin{verbatim}
+%token
+COMPONENT
+MODEL
+IS
+...
+END_OF_FILE  0  "end of file"
+COMMA ","
+...
+\end{verbatim}
+
+Per ogni terminale e non terminale della grammatica, deve essere specificato un tipo dell'oggetto.
+
+\begin{verbatim}
+%token <string> ID "id"
+%type <ComponentModel>  comp_model_decl
+%type <vector<string> > event_decl
+..
+\end{verbatim}
+
+Successivamente viene implementata la grammatica del linguaggio, assegnando i valori semantici definiti.
 
 \subsection{Analizzatore semantico}
+L'analisi semantica, a differenza di quella lessicale e sintattica, non prevede l'utilizzo di strumenti standard per la sua attuazione, ma è compito del programmatore definirne le regole, in base al significato del linguaggio specificato Nell'ambito di questo progetto, i controlli semantici sono affidati alla classe \verb|spec_driver| (figura \ref{fig:driver}), la quale verifica la consistenza semantica durante il parsing del file, interrompendone l'esecuzione in caso di errori. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{./Img/implementazione/driver.png}
+\caption{Classe specdriver}
+\label{fig:driver}
+\end{figure}
+
+La classe possiede, tra gli altri, i metodi \verb|semantic_checks|, implementati in \emph{overloading} per i seguenti tipi di parametro d'ingresso:
+\begin{enumerate}
+\item \verb|ComponentModel|: verifica che non vi siano identificatori multipli per le liste di eventi, terminali di input e di output e stati; nelle dichiarazioni delle transizioni, verifica che il nome degli eventi, dei terminali e degli stati siano stati precedentemente definiti. 
+\item \verb|NetworkModel|: verifica l'unicità del nome dei componenti, dei terminali e dei nomi dei pattern;
+verifica che i terminali e i componenti dei link siano definiti. Verifica che non vi siano più link entranti nello stesso terminale di input. Verifica l'esistenza delle transizioni utilizzate nei pattern, nel viewer e nel ruler (se presenti), oltre all'esistenza degli stati iniziali dei componenti dichiarati.
+\item \verb|System|
+\item \verb|SystemNode|
+\item \verb|Problem|
+\item \verb|ProblemNode|
+\end{enumerate}
 
 
 \subsection{Generazione dei pattern space}
@@ -310,7 +412,7 @@ fm<int> patodfa(std::string regex)
     return dfa;
 }
 \end{verbatim}
-\caption{Modifiche apportate alla classe ComponentModel per la serializzazione.}
+\caption{Passaggio da espressione regolare ad automa}
 \label{code:patodfa}
 \end{figure}
 
@@ -318,9 +420,6 @@ Data una stringa in ingresso, la funzione implementata inserisce tale stringa in
 Dato che gli alfabeti possibili per questa libreria erano esclusivamente di tipo \verb|char| o \verb|int|, è stato scelto quest'ultimo (poiché 256 simboli possibili potevano non essere sufficienti in applicazioni di dimensioni ragguardevoli), mantenendo una corrispondenza biunivoca tra ogni intero e una transizione, coinvolta nella dichiarazione del pattern, relativa ad un componente del nodo. La conversione da espressione regolare ad automa a stati finiti avviene applicando all'oggetto che rappresenta l'espressione regolare il metodo \verb|retofm|, che crea l'automa nell'oggetto della classe \verb|fm|(\emph{finite machine}) passato come parametro. A seguito della conversione, l'automa è determinizzato applicando il metodo \verb|subset|, il quale esegue la subset construction descritta nel paragrafo\ref{subset}.
 Successive manipolazioni dei diversi automi ottenuti dai pattern dichiarati permettono di unirli, aggiungere le $\epsilon$-transizioni opportune e determinizzare il risultato. L'automa finale viene poi convertito in un automa equivalente, utilizzando le strutture dati della libreria ASTL. Infatti, la libreria Grail+, sebbene utile poiché implementa la costruzione di Thompson, non sembrava indicata ad un utilizzo negli algoritmi di diagnosi, in quanto non permette estensioni per quanto riguarda i dati satellite associati a transizioni e stati dell'automa.
 La minimizzazione finale del pattern space è implementata nel metodo \verb|Utils::minimize_by_partition|, che esegue una minimizzazione tenendo conto dei tag associati ai nodi finali dell'automa.
-
-\subsection{Classi}
-
 
 \subsection{Salvataggio dei dati compilati}
 Una volta che il file di specifica è stato processato, le classi opportune sono state create e i controlli semantici sono andati a buon fine, la procedura di elaborazione offline termina creando dei file binari contenenti tutte le informazioni utili alla successiva fase diagnostica, ovvero tutti gli oggetti istanziati per il problema specificato. La scrittura di questi dati, chiamata serializzazione, è una procedura piuttosto complessa se implementata manualmente in C++, in quanto deve gestire puntatori ed evitare ridondanza. Per questo è stata adottata la libreria \emph{Serialization}, fornita dalla collezione \emph{Boost}\cite{web:boost}. Essa permette di salvare un oggetto con semplici modifiche della classe a cui esso appartiene.
