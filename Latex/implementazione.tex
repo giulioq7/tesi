@@ -101,38 +101,12 @@ La classe contiene inoltre le informazioni definitive riguardanti gli stati iniz
 
 
 \begin{figure}[htbp]
-\centering
 \begin{verbatim}
 class Transition : public CHAR_TRAITS<Transition>
 {
-    std::string name;
-    std::pair<std::string,std::string> input_event;
-    std::pair<std::string,std::string> s1_s2;
-    std::vector<std::pair<std::string,std::string> > out_events;
-
-    friend class boost::serialization::access;
-    template<class Archive>
-    void serialize(Archive & ar, const unsigned int version)
-    {
-        ar & input_event;
-        ar & name;
-        ar & out_events;
-        ar & s1_s2;
-    }
-public:
-    Transition();
-    Transition(std::string n);
-    ~Transition();
-
-    std::string get_name() const;
-    std::pair<std::string,std::string> get_input_event() const;
-    std::pair<std::string,std::string> get_s1_s2() const;
-    std::vector<std::pair<std::string,std::string> > get_out_events() const;
-    void set_input_event(std::string e,std::string t);
-    void set_s1_s2(std::string s1,std::string s2);
-    void add_out_event(std::string e,std::string t);
-
-    //required definitions to use a Transition as automata alphabet for astl lib
+    ...
+    //required definitions to use a Transition 
+    //as automata alphabet for ASTL lib
     typedef Transition char_type;
     typedef long        int_type;
     static const size_t size;
@@ -181,7 +155,7 @@ Il file di specifica è articolato in quattro parti principali:
 \item sistema, che istanzia i nodi e definisce i link responsabili dell'invio di pattern event tra di essi;
 \item problema, che fornisce informazioni necessarie per il problema diagnostico, come le osservazioni locali dei nodi.
 \end{itemize}
-I viewer locali, i ruler locali e gli stati iniziali dei singoli nodi possono essere definiti, con eventuale riscrittura, a tre diversi livelli:
+I viewer locali, i ruler locali e gli stati iniziali dei componenti dei singoli nodi possono essere definiti, con eventuale riscrittura, a tre diversi livelli:
 \begin{itemize}
 \item nella definizione del modello del nodo;
 \item nella dichiarazione di un nodo del sistema;
@@ -201,12 +175,12 @@ Questo permette il riutilizzo di specifiche già dichiarate precedentemente, aum
 \subsection{Analizzatore lessicale}
 L'analizzatore lessicale (o scanner) è implementato mediante lo strumento \emph{Flex}, il quale permette di dichiarare espressioni regolari che descrivono i pattern per i token, ovvero coppie nome-attributo, ad esempio \verb|<id,breaker>|. La struttura di un programma Flex  è composta da tre parti principali:
 \begin{enumerate}
-\item dichiarazioni, che include variabili, costanti e definizioni regolari;
-\item regole di traduzione, che specificano per ogni pattern dichiarato per mezzo di una espressione regolare le azioni da compiere, ovvero frammenti di codice;
+\item dichiarazioni, che includono variabili, costanti e definizioni regolari;
+\item regole di traduzione, che specificano per ogni pattern dichiarato per mezzo di una espressione regolare le azioni da compiere, attraverso frammenti di codice;
 \item funzioni ausiliarie, che possono essere richiamate nelle azioni dei pattern.
 \end{enumerate}
 Sebbene Flex abbia un'opzione per creare direttamente uno scanner C++, il codice generato spesso non funziona e contiene errori\cite{book:bison} .
-La procedura adottata per risolvere questo problema è quella di compilare un programma Flex scritto in linguaggio C per mezzo di un compilatore C++, facendo richiamare poi ad un analizzatore sintattico C++ lo scanner C definito.
+La procedura adottata per risolvere questo problema è quella di compilare il programma Flex scritto in linguaggio C per mezzo di un compilatore C++.
 La sezione dichiarativa del linguaggio è riportata in figura \ref{code:lex_decl}. In essa si definiscono spazi, delimitatori, commenti di linea (in stile C) e l'espressione regolare che definisce gli identificatori \verb|id|, formata da una lettera a cui seguono altre lettere, numeri oppure il carattere \verb|_|.
 
 \begin{figure}[htbp]
@@ -286,6 +260,7 @@ Gli spazi e i commenti non invocano alcuna azione, mentre la fine del file attua
 
 Quando viene trovata una parola chiave (come ad esempio \verb|component| e \verb|model|), viene creato il corrispondente token che verrà utilizzato nell'analisi sintattica.
 Per quanto riguarda gli identificatori (\verb|id|), il loro token è composto oltre che dalla posizione, dalla stringa che ne rappresenta il nome, memorizzato durante lo scanning nella variabile \verb|yytext| (figura \ref{code:lex_id}).
+La lettura di un carattere non appartenente a nessuna delle configurazioni definite genera un errore lessicale.
 
 \begin{figure}[htbp]
 \begin{verbatim}
@@ -385,12 +360,14 @@ La classe possiede, tra gli altri, i metodi \verb|semantic_checks|, implementati
 \item \verb|ComponentModel|: verifica che non vi siano identificatori multipli per le liste di eventi, terminali di input e di output e stati; nelle dichiarazioni delle transizioni, verifica che il nome degli eventi, dei terminali e degli stati siano stati precedentemente definiti. 
 \item \verb|NetworkModel|: verifica l'unicità del nome dei componenti, dei terminali e dei nomi dei pattern;
 verifica che i terminali e i componenti dei link siano definiti. Verifica che non vi siano più link entranti nello stesso terminale di input. Verifica l'esistenza delle transizioni utilizzate nei pattern, nel viewer e nel ruler (se presenti), oltre all'esistenza degli stati iniziali dei componenti dichiarati.
-\item \verb|System|
-\item \verb|SystemNode|
-\item \verb|Problem|
-\item \verb|ProblemNode|
+\item \verb|System|: verifica che nelle dichiarazioni di \emph{emergence} i nomi dei nodi e dei relativi terminali siano stati definiti.
+\item \verb|SystemNode|: verifica i controlli sulle eventuali dichiarazioni di stati iniziali, viewer e ruler locali.
+\item \verb|Problem|: verifica che siano ivi dichiarati tutti i nodi definiti nel sistema.
+\item \verb|ProblemNode|: verifica i controlli sulle eventuali dichiarazioni di stati iniziali, viewer e ruler locali. Se esse non sono presenti, vengono ereditate dal nodo di sistema corrispondente. Viene inoltre verificata l'esistenza delle label dell'osservazione locale nel viewer corrente.
 \end{enumerate}
-
+L'analisi semantica viene ultimata, attraverso il metodo \verb|build_dependency_graph|, costruendo il grafo che rappresenta la topologia del sistema, verificando che sia connesso. La connessione è verificata nel metodo \verb|Utils::disconnected_graph|, il quale compie un'intera traversata in ampiezza del grafo; se il numero di nodi visitati è inferiore al numero di nodi dichiarati, alcuni di essi non sono connessi. 
+Viene inoltre verificata l'aciclicità del grafo, eliminando uno dopo l'altro i nodi foglia dal grafo, fino a quando esso non risulta essere vuoto. Se ad un certo punto della procedura non vi sono nodi foglia e il grafo non è vuoto, significa che sono presenti ciclicità e non sarà possibile avviare la diagnosi lazy.
+Nel caso il grafo sia aciclico, viene calcolato l'ordinamento topologico, attraverso un algoritmo simile al precedente. 
 
 \subsection{Generazione dei pattern space}
 La principale azione compiuta in fase offline, ovvero in un momento antecedente la diagnosi, è la generazione dei pattern space dei modelli di nodi definiti, come descritto nel paragrafo \ref{pts_construction}. 
@@ -498,118 +475,61 @@ vector<ComponentModel> components;
 \end{figure}
 
 \subsection{Modalità greedy}
+La modalità greedy implementa l'algoritmo di ricostruzione del behavior dell'intero sistema. Dopo aver acquisito gli oggetti memorizzati nei file precompilati, viene generato lo stato iniziale con i seguenti campi:
+\begin{itemize}
+\item una tupla di interi indicanti gli stati iniziali di tutti i componenti del problema;
+\item una tupla di stringhe recanti il valore, inizialmente vuoto, del contenuto dei terminali di input di tutti i componenti del sistema;
+\item una tupla di interi indicanti gli stati iniziali di tutti i pattern space di ogni nodo;
+\item una tupla di interi indicanti gli stati iniziali degli index space di ogni nodo (osservazione locale, inizialmente nulla).
+\end{itemize} 
+L'algoritmo tiene traccia delle configurazioni di ogni stato attraverso una tabella hash: in questo modo la verifica dell'esistenza di uno stato generato da una transizione avviene in tempo costante. La tabella mappa la stringa relativa al contenuto dello stato nel valore intero associato allo stato del behavior, come mostrato di seguito per lo stato iniziale.
 
-\subsubsection{Classi}
-
-\begin{figure}[htbp]
 \begin{verbatim}
-class BehaviorState
-{
-    int number;
-    bool marked;
-public:
-    int n_comps, n_inputs, n_pts, n_isp;
-
-    vector<int>  S;
-    vector<std::string> E;
-    vector<int>  P;
-    vector<int>  I;
-
-    std::set<std::set<std::string> > candidate_diagnosis;
-
-    BehaviorState();
-    BehaviorState(int n, int m, int k, int i);
-    ~BehaviorState();
-
-    BehaviorState copy();
-    void set_E(vector<Terminal*> terms);
-    bool empty_terminals();
-    bool is_marked() const;
-    int get_number() const{return number;}
-    void mark_state() { marked = true; }
-    void set_number(int n) { number = n; }
-};
-
-std::ostream& operator<<(std::ostream& out, const BehaviorState& s);
+DFA_map<SysTransition,BehaviorState> behavior;
+unordered_map<string,unsigned int> hash_values;
+stringstream ss;
+ss << tag_s0;
+unsigned int s0 = behavior.new_state();
+behavior.tag(s0) = tag_s0;
+behavior.initial(s0);
+hash_values[ss.str()] = s0;
 \end{verbatim}
-\caption{Classe BehaviorState.}
-\label{code:greedy_bhvstate}
-\end{figure}
 
+La creazione del behavior avviene come descritto nella sezione \ref{setion_greedy}.
+La verifica dell'esistenza di uno stato raggiunto da una transizione avviene nel seguente modo (\verb|tag_s1| è un'istanza della classe \verb|BehaviorState|).
+
+\begin{verbatim}
+stringstream s_str;
+s_str << tag_s1;
+string str = s_str.str();
+unsigned int s1;
+try{ s1 = hash_values.at(str);}
+catch (const std::out_of_range&)
+{
+    s1 = behavior.new_state();
+    behavior.tag(s1) = tag_s1;
+    hash_values[str] = s1;
+...
+\end{verbatim}
+
+Per ogni stato creato viene contestualmente verificato se si tratta di uno stato finale, ovvero caratterizzato da terminali di input vuoti e che ha consumato tutte le osservazioni locali dei vari nodi.
+Una volta terminato il ciclo principale della generazione del behavior, ed ottenuto quindi il behavior spurio, esso viene potato di tutte le transizioni e gli stati che non sono in un cammino tra lo stato iniziale ed uno stato finale. L'operazione avviene invocando la funzione predisposta \verb|trim| presente nella libreria ASTL.
+
+\begin{verbatim}
+DFA_map<SysTransition,BehaviorState> bhv;
+unsigned int init = trim(bhv,dfirst_markc(behavior));
+\end{verbatim}
+
+Se dopo questa operazione il behavior risulta vuoto, significa che le osservazioni date non sono possibili e l'esecuzione viene terminata con errore. Questo può avvenire in fase di sperimentazione, a causa dell'assenza di un reale sistema fisico che dia un'osservazione vera del comportamento.
+Altrimenti, l'algoritmo procede decorando l'automa ottenuto e distillandone le diagnosi.
+L'algoritmo di decorazione consiste nella semplice implementazione dello pseudocodice \ref{alg:decoration}. La distillazione consiste nell'unione delle diagnosi contenute negli stati finali del behavior.
 
 \subsection{Modalità lazy}
-
-\subsubsection{Classi}
-
-\begin{figure}[htbp]
-\begin{verbatim}
-class BehaviorState
-{
-    int number;
-    bool marked;
-public:
-    int n_comps, n_inputs, n_pts, n_intfcs;
-
-    vector<int>  S;
-    vector<std::string> E;
-    vector<int>  P;
-    int I;
-    vector<int>  interfaces;
-
-    std::set<std::set<std::string> > candidate_diagnosis;
-
-    std::set<std::set<std::string> > interface_delta;
-
-    BehaviorState();
-    BehaviorState(int n, int m, int k, int i);
-    ~BehaviorState();
-
-    bool empty_terminals();
-    bool is_marked() const;
-    int get_number() const{return number;}
-    void mark_state() { marked = true; }
-    void set_number(int n) { number = n; }
-};
-
-std::ostream& operator<<(std::ostream& out, const BehaviorState& s);
-\end{verbatim}
-\caption{Classe BehaviorState.}
-\label{code:lazy_bhvstate}
-\end{figure}
+La diagnosi lazy avviene in maniera simile alla ricostruzione greedy, con alcune variazioni. 
+Viene letto l'ordinamento topologico del sistema e viene applicata in successione la ricostruzione del comportamento del singolo nodo. Ogni nodo che non è l'ultimo dell'ordinamento topologico, ovvero che non costituisce un nodo radice, necessita della generazione della sua interfaccia. Durante la generazione dei behavior, si tiene conto anche delle dipendenze dalle interfacce dei nodi inferiori collegati al nodo corrente.
 
 
-\begin{figure}[htbp]
-\begin{verbatim}
-class InterfaceState
-{
+\subsubsection{Determinizzazione dell'interfaccia}
 
-    std::set<unsigned int> states;
-    astl::NFA_mmap<InterfaceTrans,BehaviorState> *automaton;
-    std::map<unsigned int, unsigned int> state_map;
-    std::set<std::set<std::string> > delta;
-    std::set<std::string> pattern_events;
-public:
-    InterfaceState();
-    InterfaceState(std::set<unsigned int> s);
-    ~InterfaceState();
+\subsection{Decorazione nella generazione dell'interfaccia}
 
-    std::set<unsigned int> get_states() const;
-    astl::NFA_mmap<InterfaceTrans,BehaviorState>* get_automaton() const;
-    std::map<unsigned int, unsigned int> get_state_map() const;
-    std::set<std::set<std::string> > get_delta() const;
-    std::set<std::string> get_pattern_events() const;
-
-    void set_automaton(astl::NFA_mmap<InterfaceTrans,BehaviorState> *a);
-    void set_state_map(map<unsigned int, unsigned int> smap);
-    void set_delta(std::set<std::set<std::string> > d);
-    void set_pattern_events(std::set<std::string> events);
-
-    void delete_automaton();
-};
-
-
-std::ostream& operator<<(std::ostream& out, const InterfaceState& s);
-\end{verbatim}
-\caption{Classe InterfaceState.}
-\label{code:lazy_interstate}
-\end{figure}
