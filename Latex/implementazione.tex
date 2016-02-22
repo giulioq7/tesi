@@ -1,18 +1,159 @@
 \chapter{Implementazione}
 L'architettura software del progetto di questa tesi è composta da tre moduli principali:
 \begin{enumerate}
-\item compilatore del linguaggio di specifica;
-\item macchina diagnostica greedy;
-\item macchina diagnostica lazy.
+\item \verb|SpecificationLanguage|, che comprende un compilatore per il linguaggio di specifica e il preprocessing dei pattern space;
+\item \verb|GreedyDiagnosis|, che rappresenta il motore diagnostico greedy;
+\item \verb|LazyDiagnosis|, che attua la tecnica di ricostruzione lazy.
 \end{enumerate}
-La specifica dell'istanza di un sistema attivo complesso di cui si vuole determinare le diagnosi è espressa tramite un linguaggio creato ad hoc, la cui grammatica è fornita nell'appendice \ref{bnf}.
-Durante la lettura del file di specifica, vengono generate le classi opportune e vengono effettuati i controlli del caso. Se questa procedura di compilazione non contiene errori (lessicali, sintattici o semantici), viene effettuato il preprocessing offline del problema, durante il quale si creano gli automi relativi ai pattern space. Tutte le informazioni ottenute vengono salvate su appositi file binari, in modo che non sia necessario dover effettuare nuovamente la procedura in fase di lavoro online, ovvero quando viene avviata la macchina diagnostica, sia essa in modalità di risoluzione greedy o lazy. 
-La procedura diagnostica legge i file generati da una precedente compilazione della specifica del sistema e genera le soluzioni candidate. 
-Il linguaggio di programmazione adottato è il C++, che è stato scelto in quanto buon compromesso tra le esigenze di efficienza richieste dal problema e il livello di astrazione della programmazione ad oggetti.
+
+La specifica dell'istanza di un sistema attivo complesso di cui si vuole determinare le diagnosi è espressa tramite un linguaggio creato ad hoc, la cui grammatica è fornita nell'appendice \ref{bnf}. Un esempio di specifica, relativo al problema diagnostico \ref{ex:prob_diagn}, è riportato nell'appendice \ref{spec_ex}.
+Durante la lettura del file di specifica, sono generate le classi opportune e sono effettuati i controlli del caso. Se questa procedura di compilazione non contiene errori (lessicali, sintattici o semantici), viene effettuato il preprocessing offline del problema, durante il quale si creano gli automi relativi ai pattern space. Tutte le informazioni ottenute vengono salvate su appositi file, in modo che non sia necessario dover effettuare nuovamente la procedura in fase di lavoro online, ovvero quando viene avviata la macchina diagnostica, sia essa in modalità greedy o lazy. 
+La procedura diagnostica legge i file generati da una precedente compilazione della specifica  e genera le soluzioni candidate. 
+Il linguaggio di programmazione adottato è il C++, che è stato scelto in quanto buon compromesso tra le esigenze di efficienza richieste dal problema e il livello di astrazione tipico della programmazione ad oggetti.
+
+\section{Rappresentazione degli automi}
+Per la rappresentazione degli automi è stata scelta una libreria esterna che fornisse da un lato delle strutture dati e dei metodi efficienti, dall'altro che fosse quanto più generica e personalizzabile, dal momento che gli automi necessari alle tecniche risolutive possiedono vari tipi di informazioni negli stati e nelle transizioni. La libreria ASTL(\emph{Automata Standard Template Library})\cite{web:astl} soddisfa entrambe le esigenze. Le due classi principali di questa libreria utilizzate nell'implementazione sono:
+\begin{itemize}
+\item \verb|DFA_map<SIGMA,TAG>| rappresenta automi deterministici ed è implementata memorizzando le transizioni di uno stato in uno standard \verb|map|, associando i relativi simboli dell'alfabeto agli stati raggiunti. Dato che la struttura \verb|map| costituisce un albero binario, le operazioni di accesso, inserimento e cancellazione sono effettuate in un tempo logaritmico $\mathcal{O}(\log n)$ rispetto al numero di elementi contenuti.  Si tratta di un buon compromesso tra tempi richiesti dalle operazioni e memoria occupata.
+\item \verb|NFA_mmap<SIGMA,TAG>|, rappresenta automi non deterministici. Le transizioni sono memorizzate per mezzo di \verb|multimap|, le cui principali operazioni hanno complessità logaritmica.
+\end{itemize}
+Il template \verb|SIGMA| permette di specificare l'alfabeto cui i simboli di transizione appartengono, mentre il template \verb|TAG| consente di associare ad uno stato delle informazioni satelliti generiche. 
+Per la visualizzazione degli automi, in fase di debug nonché per le illustrazioni di questa trattazione, sono stati utilizzati metodi che generano file scritti nel linguaggio \verb|dot|, interpretati dal programma \emph{Graphviz}\cite{web:graphviz} che ne genera la rappresentazione.
+
+\section{Classi condivise}
+I tre moduli che compongono l'architettura software ideata hanno delle classi tra loro condivise, in modo da operare sulle stesse strutture dati. Si tratta di quegli oggetti che sono creati in fase di compilazione del file di specifica e che successivamente sono utilizzati al fine di avere le informazioni necessarie nella fase diagnostica.
+Nel seguito vengono descritte tali classi.
+\begin{itemize}
+
+\item \verb|ComponentModel|\\ 
+Rappresenta il modello di un componente. Ha come attributi la stringa del nome che lo identifica e vettori di stringhe contenenti i nomi di eventi, terminali di input, terminali di output e stati. Possiede un vettore di oggetti \verb|Transition| che contengono le informazioni relative ad ogni transizione del modello. L'attributo \verb|automaton| indica l'automa risultante dal modello comportamentale descritto dalle transizioni. Si noti che l'automa non è provvisto di stato iniziale, in quanto questa informazione è definitiva solo nella specifica del problema diagnostico.
+
+\item \verb|NetComponent|\\
+Rappresenta un componente generico nel modello di un nodo. Ha come attributi il nome, che lo identifica nel particolare modello di nodo nel quale è contenuto, e un riferimento ad un oggetto \verb|ComponentModel| che ne rappresenta il modello topologico e comportamentale.
+
+\item \verb|Component|\\
+Rappresenta un componente concreto del problema diagnostico. \'E una classe derivata da \verb|NetComponent| e possiede gli attributi aggiuntivi relativi all'automa ottenuto dal modello di componente associato, con l'informazione addizionale dello stato iniziale, e gli oggetti \verb|Terminal| riferiti ai terminali di input e output della sua topologia.
+
+\item \verb|NetworkModel|\\
+Rappresenta il modello di un nodo. Possiede gli attributi seguenti:
+\begin{itemize}
+\item \verb|name|: nome che identifica il modello del nodo;
+\item \verb|components|: vettore di oggetti \verb|NetComponents| contenuti nel modello;
+\item \verb|inputs| e \verb|outputs|: specificano i nomi dei terminali di input e dei terminali di output del modello del nodo;
+\item \verb|links|: contiene l'elenco dei link che connettono tra loro i componenti e i terminali di input del nodo ai terminali di input dei componenti che gestiscono i pattern event in ingresso;
+\item \verb|patterns|: vettore di oggetti di tipo \verb|Pattern|, ognuno dei quali rappresenta una dichiarazione di un pattern event che è generato in corrispondenza di un terminale di output del nodo;
+\item \verb|initials|: nomi degli stati iniziali per ogni componente del nodo;
+\item \verb|viewer|: \verb|map| tra nomi di transizioni di componenti e corrispondenti label osservabili;
+\item \verb|ruler|: \verb|map| tra nomi di transizioni di componenti e corrispondenti label di guasto;
+\item \verb|pattern_space|: vettore di automi che costituiscono i pattern space del nodo;
+\item \verb|languages|: vettore di linguaggi, ognuno dei quali costituito da un insieme di stringhe recanti i nomi delle transizioni appartenenti al linguaggio di una o più dichiarazioni di pattern.
+\end{itemize}
+Si noti che le informazioni relative agli stati iniziali, al viewer e al ruler possono non essere presenti oppure venire sovrascritte nelle successive dichiarazioni del sistema o del problema diagnostico.
+\item \verb|Pattern|\\
+Rappresenta una dichiarazione di pattern e contiene gli attributi relativi al nome del pattern event, al nome del terminale di destinazione del pattern event, un attributo booleano che indica se il linguaggio associato al pattern è massimo, ovvero costituito dall'insieme di tutte le transizioni di tutti i componenti del nodo, e un vettore di elementi del linguaggio.
+\item \verb|Terminal|\\
+rappresenta un terminale di un componente o di un nodo. \'E caratterizzato da una stringa del nome, una relativa al valore contenuto (evento), e un vettore di riferimenti a terminali ad esso connessi.
+\item \verb|Transition|\\ 
+Rappresenta la transizione di un modello di componente. Ha come attributi la stringa relativa al suo nome identificativo, una coppia di stringhe indicanti il nome dell'evento in ingresso e il terminale di input, un vettore di coppie di stringhe indicanti il nome dell'evento di uscita e il terminale di output, e la coppia del nome di stati sorgente-destinazione coinvolti nella transizione. 
+Possiede attributi e metodi (l'operatore di confronto e di uguaglianza) in modo da permetterne l'utilizzo come alfabeto di un automa della libreria ASTL, come mostrato in figura \ref{class_trans}.
+\item \verb|NetTransition|\\
+Rappresenta la transizione di un componente del modello di un nodo. Ha come attributi il riferimento alla transizione del modello di componente del particolare componente del nodo, e un riferimento a quest'ultimo. Il nome è ottenuto, per mezzo de costruttore dell'oggetto, concatenando il nome della transizione associata e, tra parentesi, il nome del componente del nodo associato.
+\item \verb|SysTransition|\\
+Rappresenta la transizione di un componente concreto di un nodo del problema diagnostico. \'E una classe derivata da \verb|NetTransition| e presenta i seguenti attributi aggiuntivi:
+\begin{itemize}
+\item \verb|node|: il riferimento nodo del sistema relativo alla transizione;
+\item \verb|input_event|: una coppia formata dal nome di un evento e dall'indice della tupla di terminali di input dei componenti del sistema (utile per la diagnosi greedy);
+\item \verb|output_events|: un vettore di coppie formate dal nome di un evento e dall'indice della tupla di terminali di input dei componenti del sistema (utile per la diagnosi greedy);
+\item \verb|lazy_input_event|: una coppia formata dal nome di un evento e dall'indice della tupla di terminali di input dei componenti del nodo coinvolto (utile per la diagnosi lazy);
+\item \verb|lazy_output_events|: un vettore di coppie formate dal nome di un evento e dall'indice della tupla di terminali di input dei componenti del nodo coinvolto (utile per la diagnosi lazy).
+\end{itemize}
+\item \verb|System|\\
+Rappresenta la specifica del sistema. Possiede i seguenti attributi:
+\begin{itemize}
+\item \verb|name|: nome del sistema;
+\item \verb|node_list|: vettore dei nodi del sistema;
+\item \verb|emergence|: lista delle dichiarazioni di link tra nodi del sistema;
+\item \verb|dependency_graph|: grafo che rappresenta la topologia del sistema;
+\item \verb|acyclic|: attributo booleano di valore \verb|true| se la topologia del sistema è aciclica e permette quindi la diagnosi lazy.
+\end{itemize}
+\item \verb|SystemNode|\\
+Rappresenta un nodo del sistema;
+\item \verb|Problem|, rappresenta il problema diagnostico;
+\item \verb|ProblemNode|, rappresenta un nodo del problema diagnostico;
+\item \verb|Utils|, contiene metodi statici di utilità.
+\end{itemize}
+
+
+\begin{figure}[htbp]
+\centering
+\begin{verbatim}
+class Transition : public CHAR_TRAITS<Transition>
+{
+    std::string name;
+    std::pair<std::string,std::string> input_event;
+    std::pair<std::string,std::string> s1_s2;
+    std::vector<std::pair<std::string,std::string> > out_events;
+
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & input_event;
+        ar & name;
+        ar & out_events;
+        ar & s1_s2;
+    }
+public:
+    Transition();
+    Transition(std::string n);
+    ~Transition();
+
+    std::string get_name() const;
+    std::pair<std::string,std::string> get_input_event() const;
+    std::pair<std::string,std::string> get_s1_s2() const;
+    std::vector<std::pair<std::string,std::string> > get_out_events() const;
+    void set_input_event(std::string e,std::string t);
+    void set_s1_s2(std::string s1,std::string s2);
+    void add_out_event(std::string e,std::string t);
+
+    //required definitions to use a Transition as automata alphabet for astl lib
+    typedef Transition char_type;
+    typedef long        int_type;
+    static const size_t size;
+    static bool eq(const char_type &x, const char_type &y) { return x == y; }
+    static bool lt(const char_type &x, const char_type &y) { return x < y; }
+    bool operator<(const Transition t) const {return name<t.name;}
+    bool operator==(const Transition t) const {return name == t.name;}
+};
+\end{verbatim}
+\caption{Classe Transition}
+\label{class_trans}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{./Img/implementazione/nodes.png}
+\caption{Classi dei nodi}
+\label{fig:nodes}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{./Img/implementazione/comp.png}
+\caption{Classi dei componenti}
+\label{fig:comp}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{./Img/implementazione/trans.png}
+\caption{Classi delle transizioni}
+\label{fig:trans}
+\end{figure}
 
 
 \section{Linguaggio di specifica}
-Il linguaggio di specifica dei SAC studiati in questo lavoro di tesi è fornito, tramite notazione BNF, in appendice \ref{bnf}. 
+Il linguaggio di specifica dei sistemi attivi complessi è fornito, tramite notazione BNF, in appendice \ref{bnf}. 
 Il file di specifica è articolato in quattro parti principali:
 \begin{itemize}
 \item modelli dei componenti, a cui i componenti concreti del sistema si riferiscono;
@@ -26,8 +167,8 @@ I viewer locali, i ruler locali e gli stati iniziali dei singoli nodi possono es
 \item nella dichiarazione di un nodo del sistema;
 \item nella specifica di un nodo del problema.
 \end{itemize}
-Questo permette una certa facilità nell'includere modelli di componenti e nodi senza ogni volta essere costretti a dichiarare nuovamente informazioni di questo tipo, quando sono ridondanti.
-Il file di specifica viene compilato seguendo le tradizionali fasi ideate per i compilatori di linguaggi di programmazione:
+Questo permette una certa facilità di scrittura, non essendo costretti a dichiarare informazioni di questo tipo, quando esse sono ridondanti.
+Il file di specifica viene compilato seguendo le tradizionali fasi ideate per i compilatori dei linguaggi di programmazione:
 \begin{enumerate}
 \item analisi lessicale, che legge il flusso di caratteri che costituiscono il codice di specifica e raggruppa i caratteri in sequenze significative dette lessemi, quali le parole chiave del linguaggio e gli identificatori;
 \item analisi sintattica, che riceve i lessemi dall'analizzatore lessicale per creare una rappresentazione ad albero del codice di specifica, detto albero sintattico;
@@ -259,4 +400,117 @@ vector<ComponentModel> components;
 
 \subsection{Modalità greedy}
 
+\subsubsection{Classi}
+
+\begin{figure}[htbp]
+\begin{verbatim}
+class BehaviorState
+{
+    int number;
+    bool marked;
+public:
+    int n_comps, n_inputs, n_pts, n_isp;
+
+    vector<int>  S;
+    vector<std::string> E;
+    vector<int>  P;
+    vector<int>  I;
+
+    std::set<std::set<std::string> > candidate_diagnosis;
+
+    BehaviorState();
+    BehaviorState(int n, int m, int k, int i);
+    ~BehaviorState();
+
+    BehaviorState copy();
+    void set_E(vector<Terminal*> terms);
+    bool empty_terminals();
+    bool is_marked() const;
+    int get_number() const{return number;}
+    void mark_state() { marked = true; }
+    void set_number(int n) { number = n; }
+};
+
+std::ostream& operator<<(std::ostream& out, const BehaviorState& s);
+\end{verbatim}
+\caption{Classe BehaviorState.}
+\label{code:greedy_bhvstate}
+\end{figure}
+
+
 \subsection{Modalità lazy}
+
+\subsubsection{Classi}
+
+\begin{figure}[htbp]
+\begin{verbatim}
+class BehaviorState
+{
+    int number;
+    bool marked;
+public:
+    int n_comps, n_inputs, n_pts, n_intfcs;
+
+    vector<int>  S;
+    vector<std::string> E;
+    vector<int>  P;
+    int I;
+    vector<int>  interfaces;
+
+    std::set<std::set<std::string> > candidate_diagnosis;
+
+    std::set<std::set<std::string> > interface_delta;
+
+    BehaviorState();
+    BehaviorState(int n, int m, int k, int i);
+    ~BehaviorState();
+
+    bool empty_terminals();
+    bool is_marked() const;
+    int get_number() const{return number;}
+    void mark_state() { marked = true; }
+    void set_number(int n) { number = n; }
+};
+
+std::ostream& operator<<(std::ostream& out, const BehaviorState& s);
+\end{verbatim}
+\caption{Classe BehaviorState.}
+\label{code:lazy_bhvstate}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\begin{verbatim}
+class InterfaceState
+{
+
+    std::set<unsigned int> states;
+    astl::NFA_mmap<InterfaceTrans,BehaviorState> *automaton;
+    std::map<unsigned int, unsigned int> state_map;
+    std::set<std::set<std::string> > delta;
+    std::set<std::string> pattern_events;
+public:
+    InterfaceState();
+    InterfaceState(std::set<unsigned int> s);
+    ~InterfaceState();
+
+    std::set<unsigned int> get_states() const;
+    astl::NFA_mmap<InterfaceTrans,BehaviorState>* get_automaton() const;
+    std::map<unsigned int, unsigned int> get_state_map() const;
+    std::set<std::set<std::string> > get_delta() const;
+    std::set<std::string> get_pattern_events() const;
+
+    void set_automaton(astl::NFA_mmap<InterfaceTrans,BehaviorState> *a);
+    void set_state_map(map<unsigned int, unsigned int> smap);
+    void set_delta(std::set<std::set<std::string> > d);
+    void set_pattern_events(std::set<std::string> events);
+
+    void delete_automaton();
+};
+
+
+std::ostream& operator<<(std::ostream& out, const InterfaceState& s);
+\end{verbatim}
+\caption{Classe InterfaceState.}
+\label{code:lazy_interstate}
+\end{figure}
