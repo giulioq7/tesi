@@ -27,8 +27,8 @@ dove:
 Un automa di questo tipo è detto deterministico poiché la sua funzione di transizione non permette l'esistenza, a partire da un medesimo stato, di due transizioni caratterizzate dallo stesso simbolo: l'automa, istantaneamente, si trova in un singolo stato.\\
 Esistono due principali rappresentazioni per gli automi:
 \begin{itemize}
-\item tabella delle transizioni, rappresentazione tabellare della funzione di transizione dove nelle righe si trovano gli stati di partenza, mentre nelle colonne i simboli (o viceversa). L'elemento in una cella della tabella rappresenta lo stato destinazione della transizione, a partire dallo stato della riga corrispondente e in base al simbolo di input nella relativa colonna; particolari notazioni grafiche possono essere utilizzate per contraddistinguere lo stato iniziale e gli stati finali.
-\item diagramma delle transizioni, un grafo nel quale:
+\item Tabella delle transizioni, rappresentazione tabellare della funzione di transizione dove nelle righe si trovano gli stati di partenza, mentre nelle colonne i simboli (o viceversa). L'elemento in una cella della tabella rappresenta lo stato destinazione della transizione, a partire dallo stato della riga corrispondente e in base al simbolo di input nella relativa colonna; particolari notazioni grafiche possono essere utilizzate per contraddistinguere lo stato iniziale e gli stati finali.
+\item Diagramma delle transizioni, un grafo nel quale:
 	\begin{itemize}
 	\item ogni stato è rappresentato da un vertice;
 	\item ogni transizione è un arco orientato che connette due vertici e possiede una label indicante il simbolo della transizione;
@@ -100,7 +100,7 @@ L'utilizzo di automi non deterministici è dettato dalla maggior facilità di mo
 Le possibili rappresentazioni di NFA sono simili a quelle viste per i DFA, con piccole variazioni: nella rappresentazione tabellare ogni cella, invece che contenere un singolo stato, racchiude un insieme di stati, e come simboli si aggiunge una colonna che esplicita le transizioni scatenate dal simbolo vuoto; nella rappresentazione grafica, si ricorre a frecce con la label $\epsilon$ per indicare le $\epsilon$-transizioni.
 
 \begin{ex}
-Viene di seguito riportato un esempio di NFA.
+Un esempio di NFA è rappresentato in figura \ref{fig:nfa}. Esso è caratterizzato da $\Sigma = \{ a,b\}$, $S = \{ s_0,s_1,s_2,s_3,s_4\}$, stato iniziale $s_0$, insieme di stati finali $F = \{s_4\}$. La relativa funzione di transizione è specificata in tabella \ref{tab:nfa}.
 
 \begin{table}[htbp]
 \begin{center}
@@ -126,27 +126,27 @@ $*s_4$ & $\{s_3\}$ & $\emptyset$ & $\emptyset$\\
 
 \end{ex}
 
-\subsection{\texorpdfstring{$\epsilon$}-closure}
+\subsection{$\mathcal{\epsilon}$-closure}
 La $\epsilon$-closure di uno stato $s$ è l'insieme degli stati raggiunti a partire da $s$ tramite transizioni di stato senza simboli di input, ovvero mediante $\epsilon$-transizioni.
-Formalmente $\epsilon\textit{-closure} : S \mapsto 2^S$ tale che:
+Formalmente:
 $$
 \epsilon\textit{-closure}(s) = \begin{cases}
-\{s\} & t(s, \varepsilon) = \emptyset \\
-\{s\} \cup \displaystyle \bigcup_{s_i \in A} \epsilon\textit{-closure}(s_i) & A = t(s, \varepsilon) \ne \emptyset
+\{s\} & t(s, \epsilon) = \emptyset \\
+\{s\} \cup \displaystyle \bigcup_{s_i \in A} \epsilon\textit{-closure}(s_i) & A = t(s, \epsilon) \ne \emptyset
 \end{cases}
 $$
-\'E inoltre possibile introdurre la nozione di $\epsilon$-closure per insiemi di stati, $\epsilon\textit{-closure}^*: 2^S \mapsto 2^S$:
+\'E inoltre possibile introdurre la nozione di $\epsilon$-closure per insiemi di stati, $\epsilon\textit{-closure}^*$:
 $$
 \epsilon\textit{-closure}^*(\mathbb{T} \subseteq S) = \displaystyle\bigcup_{s_i \in \mathbb{T}} \epsilon\textit{-closure}(s_i)
 $$
 
 \subsection{Linguaggio di un NFA}
-Attraverso il concetto di $\epsilon$-closure è possibile definire in modo conciso la \emph{funzione di transizione estesa} per stringhe non contenenti il simbolo $\varepsilon$. 
+Attraverso il concetto di $\epsilon$-closure è possibile definire in modo conciso la \emph{funzione di transizione estesa} per stringhe non contenenti il simbolo $\epsilon$. 
 Si definisce $\hat t:  S \times \Sigma^* \mapsto 2^S$:
 $$
 \hat t(s, \underline \omega) = \begin{cases}
-\mathcal{E}\textit{-closure}(s) & \omega = \epsilon \\
-\mathcal{E}\textit{-closure}^*(A) & \omega = \underline x \, a \,,\, A=\displaystyle\bigcup_{s_i \in B} t(s_i, a)\,,\,B=\hat t(s, \underline x)
+\mathcal{\epsilon}\textit{-closure}(s) & \omega = \epsilon \\
+\mathcal{\epsilon}\textit{-closure}^*(A) & \omega = \underline x \, a \,,\, A=\displaystyle\bigcup_{s_i \in B} t(s_i, a)\,,\,B=\hat t(s, \underline x)
 \end{cases}
 $$
 
@@ -154,7 +154,7 @@ Dunque una stringa $\underline \omega = a_1\, a_2\,\dots\,a_n$ appartiene al lin
 
 Di conseguenza si definisce linguaggio del NFA $N = (S,\Sigma, t, s_0, F)$:
 $$
-L(N_\varepsilon) = \{\,\underline \omega\,\,|\,\,\hat t(s_0, \underline \omega) \cap F \ne \emptyset\,\}.
+L(N_\epsilon) = \{\,\underline \omega\,\,|\,\,\hat t(s_0, \underline \omega) \cap F \ne \emptyset\,\}.
 $$
 
 
@@ -172,7 +172,7 @@ Fortunatamente questo caso pessimo raramente si presenta e per linguaggi reali s
 \STATE Sia $s_0$ lo stato iniziale del NFA, $Dstates$ gli stati del DFA risultante
 \STATE Sia $Dtran$ la funzione di transizione del DFA
 \WHILE{$\exists s \in Dstates$ non marcato}
-	\STATE marcare $s$
+	\STATE marca $s$
 	\FORALL{simbolo di input $a$}
 		\STATE $U = \epsilon-closure(move(T,a))$
 		\IF{$U \notin Dstates$}
@@ -204,7 +204,7 @@ In particolare, nel seguito della trattazione, ci si focalizzerà sui cosiddetti
 Le espressioni regolari costituiscono quell'insieme di linguaggi che possono essere rappresentati da automi a stati finiti (grammatica di tipo 3 della gerarchia di Chomsky). Le espressioni regolari descrivono tutti i linguaggi costruiti applicando ai simboli appartenenti ad un alfabeto $\Sigma$ gli operatori di unione, concatenazione e chiusura. Le espressioni regolari sono generate ricorsivamente dalle sottoespressioni che le formano, secondo le seguenti regole.
 \begin{enumerate}
 \item $\epsilon$ è una espressione regolare che denota il linguaggio $L(\epsilon) = \{\epsilon\}$, 					contenente la sola stringa vuota;
-\item se $a$  è un simbolo in $\Sigma$, allora $a$ è un'espressione regolare che denota il linguaggio $L(a) = 	\{a\}$, contenente la sola stringa di lunghezza unitaria $a$.
+\item se $a$  è un simbolo in $\Sigma$, allora $a$ è un'espressione regolare che denota il linguaggio $L(a) = 	\{a\}$, contenente la sola stringa di lunghezza unitaria $a$;
 \item se $x$ e $y$ sono espressioni regolari che denotano rispettivamente i linguaggi $L(x)$ e $L(y)$, allora:
 	\begin{itemize}
 	\item $(x)$ è l'espressione regolare che denota il linguaggio $L(x)$;
@@ -216,7 +216,7 @@ Le espressioni regolari costituiscono quell'insieme di linguaggi che possono ess
 Altri operatori possono essere definiti opportunamente in base al dominio applicativo, generando espressioni regolari estese.
 
 \subsection{Costruzione di Thompson} \label{thompson}
-La costruzione di \emph{McNaughton- Yamada- Thompson}(o semplicemente costruzione di Thompson) è in grado di convertire una espressione regolare in un NFA caratterizzato dal medesimo linguaggio. L'algoritmo opera scomponendo l'espressione regolare in un albero sintattico e costruendo un NFA per ogni sottoespressione, in maniera bottom-up, utilizzando le $\epsilon$-transizioni come "collante" per unire i sottoautomi. L'automa risultante permette di riconoscere se una stringa appartiene o meno al linguaggio relativo all'espressione regolare di partenza.\\
+La costruzione di \emph{McNaughton-Yamada-Thompson} (o semplicemente costruzione di Thompson) è in grado di convertire una espressione regolare in un NFA caratterizzato dal medesimo linguaggio. L'algoritmo opera scomponendo l'espressione regolare in un albero sintattico e costruendo un NFA per ogni sottoespressione, in maniera bottom-up, utilizzando le $\epsilon$-transizioni come "collante" per unire i sottoautomi. L'automa risultante permette di riconoscere se una stringa appartiene o meno al linguaggio relativo all'espressione regolare di partenza.\\
 La regola base del metodo, rappresentata in figura \ref{fig:re_atom}, genera un NFA da una sottoespressione atomica, composta da un solo simbolo $a$ o dal simbolo nullo $\epsilon$. L'automa generato è composto da due stati, uno iniziale e l'altro finale, e una transizione in corrispondenza del simbolo atomico dallo stato iniziale allo stato finale.
 Le regole induttive permettono di ricavare ricorsivamente l'intero automa.
 Si supponga che $N(s)$ e $N(t)$ siano gli NFA ricavati dalle espressioni regolari $s$ e $t$ rispettivamente.

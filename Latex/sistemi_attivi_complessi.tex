@@ -243,7 +243,7 @@ dove $N$ è l'insieme di nodi, mentre $L_c$ è l'insieme dei link tra terminali 
 
 \subsection{Traiettoria}
 Un SAC è una macchina che si trova in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento proveniente dal mondo esterno, il sistema evolve nella sua fase reattiva, fino a quando non raggiunge nuovamente uno stato di quiete. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta traiettoria (o storia), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
-Ogni transizione di un componente porta il sistema in un nuovo stato, dove uno stato è identificato dallo stato corrente di ogni componente di ogni nodo,dalle configurazioni attuali dei link dei nodi e dallo stato attuale dei pattern space di tutti i nodi. Quando un pattern space raggiunge uno stato finale, il relativo pattern event viene inviato al terminale corrispondente.
+Ogni transizione di un componente porta il sistema in un nuovo stato, dove uno stato è identificato dallo stato corrente di ogni componente di ogni nodo, dalle configurazioni attuali dei link dei nodi e dallo stato attuale dei pattern space di tutti i nodi. Quando uno stato del sistema è caratterizzato da uno stato finale di un pattern space, il relativo pattern event viene inviato al terminale corrispondente.
 In altre parole, uno stato del sistema attivo complesso è una tripla $(S,Q,P)$, dove $S$ è la n-pla degli stati dei componenti dei nodi, $Q$ è la m-pla dei contenuti dei link tra nodi, mentre $P$ è la p-pla di pattern space di tutti i nodi.
 Quindi una transizione del sistema può essere scritta come:
 \begin{center}
@@ -344,7 +344,7 @@ Si consideri l'esempio di riferimento \ref{ex:ref} e il viewer specificato nell'
 \begin{center}
 $O_{W_1} = [awk1]$, $O_{W_2} = [awk2,opb2]$, $O_M = [trg1,opr1]$. 
 \end{center}
-L'osservazione globale è data da $\overline{O} = \{O_{W_1}, O_{W_2}, O_M\}$, l'osservazione locale del nodo $L$ è nulla (non essendovi transizioni osservabili).
+L'osservazione globale è data da $\overline{O} = (O_{W_1}, O_{W_2}, O_M)$, l'osservazione locale del nodo $L$ è nulla (non essendovi transizioni osservabili).
 \end{ex}
 
 \subsection{Ruler}
@@ -403,12 +403,12 @@ In altre parole, la soluzione di un problema diagnostico è l'insieme costituito
 
 
 \newpage
-\section{Diagnosi monolitica} \label{section_greedy}
-Analogamente al metodo diagnostico monolitico visto per i sistemi attivi tradizionali, anche per i SAC è possibile adottare un procedimento analogo. Il behavior dato dalla ricostruzione monolitica racchiude tutte le possibili traiettorie del sistema che sono consistenti con le sequenze di osservazioni temporali locali dei vari nodi.
+\section{Diagnosi greedy} \label{section_greedy}
+Analogamente al metodo diagnostico monolitico visto per i sistemi attivi tradizionali, anche per i SAC è possibile adottare un procedimento analogo. Il behavior dato dalla ricostruzione greedy racchiude tutte le possibili traiettorie del sistema che sono consistenti con le sequenze di osservazioni temporali locali dei vari nodi.
 Lo stato del behavior di un SAC differisce da quello visto nel capitolo precedente per il fatto di avere come informazione aggiuntiva la sequenza degli stati correnti dei pattern space. La consumazione dell'osservazione, inoltre, è espressa non più tramite un solo indice ma per mezzo di una n-pla di indici, ognuno relativo alla sequenza di osservazione locale di un nodo del sistema.
 
 \subsection{Ricostruzione del behavior}
-Il primo passo della diagnosi monolitica consiste nella ricostruzione del behavior, ovvero del DFA contenente tutte le traiettorie del sistema consistenti con le osservazioni temporali.
+Il primo passo della diagnosi greedy consiste nella ricostruzione del behavior, ovvero del DFA contenente tutte le traiettorie del sistema consistenti con le osservazioni temporali.
 \begin{defn}
 Sia $P(C) = (a_0,V,O,R)$ un problema diagnostico per un sistema attivo complesso $C = (N,L_c)$, dove $N$ è un insieme di nodi, mentre $L_c$ è un insieme di link tra i nodi. Sia $I$ l'insieme delle sequenze di indici $[0 \ldots i_{n_f}]$ che rappresentano le consumazioni delle osservazioni di lunghezza $i_{n_f}$ di ogni nodo $n$ del sistema, con $0$ corrispondente all'indice relativo all'osservazione iniziale nulla. 
 Il behavior spurio di $P(C)$ è l'automa deterministico
@@ -478,13 +478,13 @@ L'interpretazione di questo risultato è dovuto alla seguente dinamica:
 \end{ex}
 
 \newpage
-\section{Diagnosi distribuita}
-Il metodo di ricostruzione monolitica, analizzato nei paragrafi precedenti, è inefficiente in quanto la complessità della generazione del behavior dell'intero SAC è in generale esponenziale nel numero di componenti totali, nel numero di link, nel numero dei pattern space e nel numero dei nodi (ad ognuno dei quali corrisponde una sequenza di osservazione). Sebbene la ricostruzione permetta di non generare il comportamento completo del sistema (behavior space), la ricostruzione del behavior del SAC è comunque costosa, sia in termini di tempo di esecuzione sia soprattutto di memoria.
-Per questo motivo, nel corso di questo lavoro di tesi, è stato sviluppato un algoritmo distribuito che ricostruisce il comportamento del singolo nodo, unitamente alle informazioni necessarie scaturite dai pattern event, in modo da non dover generare il behavior del sistema nella sua interezza. Per fare questo si è seguita la topologia del sistema: trattandosi di una gerarchia, l'algoritmo opera in maniera bottom-up partendo dai nodi foglia. Il comportamento di questi ultimi, infatti, non è vincolato dal comportamento di nessun altro nodo, quindi la ricostruzione del loro behavior è esattamente quella vista nel paragrafo precedente, eccetto il fatto che si considera il singolo nodo e non l'intero sistema. Per poter ricostruire i comportamenti dei nodi nel livello superiore della gerarchia, invece, è necessario considerare i pattern event che vengono inviati dal livello base. Per fare questo viene creata, per ogni nodo foglia, una interfaccia ottenuta togliendo dal linguaggio del behavior locale tutte quelle transizioni che non portano alla generazione di un pattern event in un terminale di uscita del nodo. I comportamenti del livello superiore, quindi, sono ricostruiti tenendo conto delle interfacce dei nodi sottostanti da cui essi dipendono. Ogni passaggio di stato dell'interfaccia sottostante corrisponde alla generazione di un pattern event che può essere consumato dai componenti a livello superiore. Il procedimento viene reiterato per ogni strato della gerarchia del sistema.
+\section{Diagnosi lazy}
+Il metodo di ricostruzione greedy, analizzato nei paragrafi precedenti, è inefficiente in quanto la complessità della generazione del behavior dell'intero SAC è in generale esponenziale nel numero di componenti totali, nel numero di link, nel numero dei pattern space e nel numero dei nodi (ad ognuno dei quali corrisponde una sequenza di osservazione). Sebbene la ricostruzione permetta di non generare il comportamento completo del sistema (behavior space), la ricostruzione del behavior del SAC è comunque costosa, sia in termini di tempo di esecuzione sia soprattutto di memoria.
+Per questo motivo, nel corso di questo lavoro di tesi, è stato sviluppato un algoritmo lazy che ricostruisce il comportamento del singolo nodo, unitamente alle informazioni necessarie scaturite dai pattern event, in modo da non dover generare il behavior del sistema nella sua interezza. Per fare questo si è seguita la topologia del sistema: trattandosi di una gerarchia, l'algoritmo opera in maniera bottom-up partendo dai nodi foglia. Il comportamento di questi ultimi, infatti, non è vincolato dal comportamento di nessun altro nodo, quindi la ricostruzione del loro behavior è esattamente quella vista nel paragrafo precedente, eccetto il fatto che si considera il singolo nodo e non l'intero sistema. Per poter ricostruire i comportamenti dei nodi nel livello superiore della gerarchia, invece, è necessario considerare i pattern event che vengono inviati dal livello base. Per fare questo viene creata, per ogni nodo foglia, una interfaccia ottenuta togliendo dal linguaggio del behavior locale tutte quelle transizioni che non portano alla generazione di un pattern event in un terminale di uscita del nodo. I comportamenti del livello superiore, quindi, sono ricostruiti tenendo conto delle interfacce dei nodi sottostanti da cui essi dipendono. Ogni passaggio di stato dell'interfaccia sottostante corrisponde alla generazione di un pattern event che può essere consumato dai componenti a livello superiore. Il procedimento viene reiterato per ogni strato della gerarchia del sistema.
 Una volta raggiunta la radice dell'albero, non è più necessario generare l'interfaccia di tale nodo (dato che nessun pattern event viene gestito da un livello superiore), quindi l'unico behavior corrispondente racchiude in sé tutte le diagnosi dell'intero sistema in forma sintetica. La sua decorazione permette di ricavare l'insieme di diagnosi candidate del SAC.
 
 \subsection{Costruzione del Behavior non vincolato}
-La ricostruzione dei behavior dei nodi foglia del SAC è un caso particolare della ricostruzione monolitica. Le variazioni consistono nel considerare solo i pattern space relativi al nodo locale e unicamente l'osservazione locale, la cui consumazione viene monitorata per mezzo di un unico indice di sequenza. Analogamente il viewer può essere ristretto al viewer locale del nodo corrente, in quanto si considerano solo transizioni di componenti appartenenti al nodo in esame.
+La ricostruzione dei behavior dei nodi foglia del SAC è un caso particolare della ricostruzione greedy. Le variazioni consistono nel considerare solo i pattern space relativi al nodo locale e unicamente l'osservazione locale, la cui consumazione viene monitorata per mezzo di un unico indice di sequenza. Analogamente il viewer può essere ristretto al viewer locale del nodo corrente, in quanto si considerano solo transizioni di componenti appartenenti al nodo in esame.
 
 \begin{ex}
 In figura \ref{fig:bhv_leaves} sono riportati i behavior dei nodi foglia del problema diagnostico di riferimento. Le transizioni e gli stati tratteggiati, al solito, costituiscono la parte spuria degli automi che non è in un cammino dallo stato iniziale ad uno stato finale.
@@ -564,7 +564,7 @@ In figura \ref{fig:inter_m}, per completezza, viene generata l'interfaccia del n
 
 
 \subsection{Decorazione del Behavior del nodo radice}
-Una volta che il metodo di ricostruzione distribuito raggiunge il nodo radice ed è stata effettuata la ricostruzione del behavior di quest'ultimo, è necessario effettuarne la decorazione, in maniera simile a quanto visto per il caso monolitico, con due variazioni:
+Una volta che il metodo di ricostruzione lazy raggiunge il nodo radice ed è stata effettuata la ricostruzione del behavior di quest'ultimo, è necessario effettuarne la decorazione, in maniera simile a quanto visto per il caso greedy, con due variazioni:
 \begin{itemize}
 \item attraversando una transizione relativa ad una interfaccia, è necessario combinare la diagnosi dello stato di partenza con la diagnosi associata alla transizione di interfaccia, mentre per le transizioni relative a componenti del nodo locale si mantiene il solito approccio, ricercando nel ruler se la transizione è presente e con quale label;
 \item quando la decorazione raggiunge uno stato finale, bisogna combinare la diagnosi ottenute con la diagnosi relativa agli stati finali dell'interfaccia.
@@ -577,7 +577,7 @@ La soluzione, ottenuta distillando le diagnosi dello stato finale (unico) è:
 \begin{center}
  $\{\{fli,fm1,fob1\}\}$.
 \end{center}
-Tale soluzione è, come voluto, identica a quella dell'esempio \ref{ex:soluz} ottenuta mediante la ricostruzione monolitica.
+Tale soluzione è, come voluto, identica a quella dell'esempio \ref{ex:soluz} ottenuta mediante la ricostruzione greedy.
 \end{ex}
 
 \begin{figure}[htbp]

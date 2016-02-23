@@ -2,16 +2,16 @@ digraph G {
 rankdir=LR;
 1[shape=ellipse,label="1
 watch"];
-1 -> 2 [label="m1",fontsize=10];
-1 -> 2 [label="m2",fontsize=10];
-1 -> 2 [label="m3",fontsize=10];
-1 -> 1 [label="m5",fontsize=10];
-1 -> 1 [label="m6",fontsize=10];
-1 -> 1 [label="m7",fontsize=10];
+1 -> 2 [label="m1"];
+1 -> 2 [label="m2"];
+1 -> 2 [label="m3"];
+1 -> 1 [label="m5,m6,m7"];
+//1 -> 1 [label="m6"];
+//1 -> 1 [label="m7"];
 2[shape=ellipse,label="2
 trigger"];
-2 -> 2 [label="m10",fontsize=10];
-2 -> 2 [label="m4",fontsize=10];
-2 -> 2 [label="m8",fontsize=10];
-2 -> 2 [label="m9",fontsize=10];
+2 -> 2 [label="m4,m8,m9,m10"];
+//2 -> 2 [label="m4"];
+//2 -> 2 [label="m8"];
+//2 -> 2 [label="m9"];
 }

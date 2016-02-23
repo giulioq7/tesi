@@ -1,6 +1,6 @@
 \chapter{Sistemi Attivi}
-In questo capitolo vengono presentate definizioni, modelli ed esempi riguardanti i sistemi attivi tradizionali.
-I sistemi attivi rappresentano una classe specifica di sistemi a eventi discreti. Ad un certo livello di astrazione, generalmente, qualsiasi sistema fisico può essere modellato attraverso un comportamento discreto. Un sistema, infatti, non è continuo o discreto di per sé, anche se si può prestare o meno ad una certa scelta nel modello da adottare.
+In questo capitolo vengono presentate definizioni, modelli ed esempi riguardanti i sistemi attivi tradizionali\cite{book:lamp}.
+I sistemi attivi rappresentano una classe specifica di sistemi a eventi discreti\cite{book:DES}. Ad un certo livello di astrazione, generalmente, qualsiasi sistema fisico può essere modellato attraverso un comportamento discreto. Un sistema, infatti, non è continuo o discreto di per sé, anche se si può prestare o meno ad una certa scelta nel modello da adottare.
 I sistemi attivi sono asincroni; questo significa che gli eventi generati dai componenti sono immagazzinati nei link prima di essere consumati (in maniera asincrona).
 Il modello dei sistemi attivi include due tipi fondamentali di elementi: i componenti e i link. Un sistema attivo è una rete di componenti connessi gli uni agli altri per mezzo di link uscenti da terminali di output di alcuni componenti ed entranti nei terminali di input di altri componenti. Il comportamento di ogni componente è descritto da un automa a stati finiti, le cui transizioni tra gli stati sono compiute in base alla consumazione di determinati eventi disponibili nei terminali di input. L'esecuzione di una transizione causa la generazione di eventi trasmessi ai terminali di output del componente. \'E altresì possibile che alcune transizioni non vengano innescate da alcun evento particolare presente nel modello: in questo caso si assume che l'evento scatenante provenga dal mondo esterno al sistema. Il modello comportamentale del componente è assunto essere completo, nel senso che racchiude sia le transizioni normali, sia quelle di guasto.
 Un sistema attivo è quindi caratterizzato da una topologia (collegamenti tra componenti) e dal comportamento dei singoli componenti e dei link. Questi ultimi, in un problema generale, potrebbero avere differenti capacità di immagazzinamento (in termini di numero di eventi) e comportamenti diversi nel caso siano colmi (la cosiddetta politica di saturazione).
@@ -143,11 +143,11 @@ Un sistema attivo è una tripla
 \end{center}
 dove $C$ è l'insieme dei componenti, $L$ l'insieme dei link tra terminali di componenti in $C$, e $D$ è l'insieme dei terminali scollegati. Quest'ultimo insieme può essere visto come l'unione di due insiemi disgiunti:
 \begin{center}
-	$ D = D_{on} \cup D_{off}$
+	$ D = D_{on} \cup D_\mathit{off}$
 \end{center}
-dove $D_{on}$ è l'insieme dei terminali on scollegati, mentre $D_{off}$ è l'insieme dei terminali off scollegati. 
+dove $D_{on}$ è l'insieme dei terminali on scollegati, mentre $D_\mathit{off}$ è l'insieme dei terminali off scollegati. 
 \end{defn}
-Se $D_{on} \neq \emptyset $, il sistema $A$ è detto aperto, altrimenti è detto chiuso. Nel caso $A$ sia chiuso ($D_{on} = \emptyset$), nessun evento è disponibile nei terminali di input di $D_{off}$, mentre gli eventi generati nei terminali di output di $D_{off}$ sono persi.
+Se $D_{on} \neq \emptyset $, il sistema $A$ è detto aperto, altrimenti è detto chiuso. Nel caso $A$ sia chiuso ($D_{on} = \emptyset$), nessun evento è disponibile nei terminali di input di $D_\mathit{off}$, mentre gli eventi generati nei terminali di output di $D_\mathit{off}$ sono persi.
 D'altro canto, se $A$ è aperto, si assume che i terminali scollegati in $D_{on}$ siano connessi attraverso link all'esterno del sistema $A$; quest'ultimo, in altre parole, è come se fosse incorporato in un altro sistema più grande (sconosciuto). Quindi gli eventi generati in terminali di output in $D_{on}$ sono immagazzinati all'interno dei link (sconosciuti) esterni al sistema $A$. Analogamente, il componente in corrispondenza del quale si trova un terminale di input in $D_{on}$ è sensibile a eventi disponibili in quel terminale.
 
 \begin{ex} \label{ex:sa}
@@ -155,7 +155,7 @@ Con riferimento agli esempi \ref{ex:modelli} e \ref{ex:link}, il sistema rappres
 \end{ex}
 
 \subsection{Traiettoria}
-Un sistema attivo può essere pensato come una macchina che si trova in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento, sia esso proveniente dal mondo esterno, sia da un terminale di input scollegato appartenente a $D_{on}$, il sistema evolve nella sua fase reattiva. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta \emph{traiettoria} (o \emph{storia}), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
+Un sistema attivo può essere pensato come una macchina che si trova in uno stato quiescente o in uno stato reattivo. Se si trova nello stato quiescente, i componenti non effettuano alcuna transizione, dal momento che nessun evento è disponibile nei terminali di ingresso. In corrispondenza del verificarsi di un determinato evento, sia esso proveniente dal mondo esterno, sia da un terminale di input scollegato appartenente a $D_\mathit{on}$, il sistema evolve nella sua fase reattiva. Dato che il comportamento del sistema è asincrono (non dipende dal tempo), la reazione, detta \emph{traiettoria} (o \emph{storia}), consiste in una sequenza di transizioni compiute da componenti presenti nel sistema.
 Ogni transizione di un componente porta il sistema in un nuovo stato, dove uno stato è identificato dallo stato corrente di ogni componente e dallo stato attuale di ogni link. In altre parole, uno stato del sistema attivo è una coppia $(S,Q)$, dove $S$ è la n-pla degli stati dei componenti, mentre $Q$ è la m-pla delle configurazioni dei link, ovvero la m-pla del contenuto dei terminali di input di tutti i componenti.
 In questo lavoro di tesi, il focus è sulla cosiddetta diagnosi a posteriori, che avviene quando il sistema ha percorso una traiettoria partendo da uno stato quiescente e tornando in uno stato di quiete, nel quale cioè tutti i terminali di input dei componenti sono vuoti. In questo contesto, una traiettoria completa può essere vista come una sequenza di transizioni che, partendo dallo stato iniziale (quiescente), termina in uno stato finale (anch'esso quiescente).
 Una transizione del sistema può essere scritta come:
@@ -208,7 +208,7 @@ $t(c) = s \xrightarrow{(e,x) | \{(e_1,y_1), \ldots, (e_p,y_p)\}} s^\prime$
 \end{center}
 se e solo se:
 \begin{itemize}
-\item $x = In$, cioè l'evento è disponibile sul terminale di input virtuale sensibile agli eventi esterni al sistema, oppure $x \in D_{on}$, o $e$ è pronto al terminale $x$ all'interno di un link del sistema;
+\item $x = In$, cioè l'evento è disponibile sul terminale di input virtuale sensibile agli eventi esterni al sistema, oppure $x \in D_\mathit{on}$, o $e$ è pronto al terminale $x$ all'interno di un link del sistema;
 \item Per ogni $i \in [1 \ldots n]$, abbiamo
 \begin{center}
 $s^\prime_i = \begin{cases} s^\prime & \mbox{se }c_i = c\\ s_i & \mbox{altrimenti} \end{cases}$
@@ -249,7 +249,7 @@ Si noti che, dal momento che la funzione di osservabilità è suriettiva, posson
 \begin{defn}
 Sia $h$ una traiettoria di un sistema attivo $A$, e $V$ un viewer per $A$. La traccia di $h$ basata su $V$, scritta $h_{[V]}$, è la sequenza di etichette osservabili:
 \begin{center}
-$h_{[V]} = \{l|t \in h, (t,l) \in V\}$
+$h_{[V]} = [l|t \in h, (t,l) \in V]$
 \end{center}
 \end{defn}
 In altre parole, la traccia di una traiettoria $h$ di un sistema attivo è la proiezione delle transizioni osservabili di $h$ nelle corrispondenti label osservabili definite nel viewer $V$.
@@ -292,8 +292,8 @@ Si noti che, per convenienza, la funzione di mapping potrebbe essere biettiva; t
 Si noti che la specifica del viewer, del ruler e dello stato iniziale viene data posteriormente al modello del sistema. Questo perché, in linea generale, differenti problemi di diagnosi, anche legati allo stesso sistema, possono essere caratterizzati da ontologie diverse, ognuna delle quali con un particolare modo di specificare le transizioni osservabili e di guasto. Un approccio ibrido, che è quello utilizzato in questo lavoro di tesi (esteso al caso di sistemi attivi complessi), consiste nel definire opzionalmente viewer, ruler e stato iniziale in fase di modellazione, fornendo la possibilità di ridefinirli nella successiva fase  diagnostica.
 
 \begin{ex}
-In tabella \ref{tab:ruler} è rappresentato un possibile \emph{ruler} per il sistema attivo $\overline{A}$ dell'esempio \ref{ex:sa}. La protezione ha come etichette di guasto $fop$, che si verifica quando la transizione $p_3$ fallisce nel comandare l'apertura del breaker, e $fcp$, che si verifica quando la transizione $p_4$ fallisce nel comandare la chiusura del breaker. 
-Il breaker è caratterizzato da due guasti: la label $nob$ si riferisce alla mancata apertura del breaker nella transizione $b_3$, mentre $ncb$ alla sua mancata chiusura nella transizione $b_4$.
+In tabella \ref{tab:ruler} è rappresentato un possibile \emph{ruler} per il sistema attivo $\overline{A}$ dell'esempio \ref{ex:sa}. La protezione ha come etichette di guasto $\mathit{fop}$, che si verifica quando la transizione $p_3$ fallisce nel comandare l'apertura del breaker, e $\mathit{fcp}$, che si verifica quando la transizione $p_4$ fallisce nel comandare la chiusura del breaker. 
+Il breaker è caratterizzato da due guasti: la label $\mathit{nob}$ si riferisce alla mancata apertura del breaker nella transizione $b_3$, mentre $\mathit{ncb}$ alla sua mancata chiusura nella transizione $b_4$.
 \end{ex}
 
 \begin{table}[htbp] 
@@ -301,7 +301,7 @@ Il breaker è caratterizzato da due guasti: la label $nob$ si riferisce alla man
 \hline
 \textbf{Transizione} & $p_1$ & $p_2$ & $p_3$ & $p_4$ & $b_1$ & $b_2$ & $b_3$ & $b_4$ & $b_5$ & $b_6$\\
 \hline
-\textbf{Label di guasto} &  &  & $fop$ & $fcp$ &  &  & $nob$ & $ncb$ &  & \\
+\textbf{Label di guasto} &  &  & $\mathit{fop}$ & $\mathit{fcp}$ &  &  & $\mathit{nob}$ & $\mathit{ncb}$ &  & \\
 \hline
 \end{tabularx}
 \caption{\emph{Ruler} per il sistema attivo $\overline{A}$}
@@ -320,7 +320,7 @@ Con riferimento all'esempio \ref{ex:sa}, si consideri la traiettoria:
 \begin{center}
 $h = [p_1,b_1,p_4,b_6]$
 \end{center} 
-In base al \emph{ruler} $\overline{R}$ definito nella tabella \ref{tab:ruler}, la diagnosi della traiettoria $h$ è l'insieme $h_{[\overline{R}]} = \{fcp\}$, ottenuto dal guasto in corrispondenza della transizione $p_4$.
+In base al \emph{ruler} $\overline{R}$ definito nella tabella \ref{tab:ruler}, la diagnosi della traiettoria $h$ è l'insieme $h_{[\overline{R}]} = \{\mathit{fcp}\}$, ottenuto dal guasto in corrispondenza della transizione $p_4$.
 \end{ex}
 
 \subsection{Problema diagnostico}
@@ -344,12 +344,12 @@ In altre parole, la soluzione di un problema diagnostico è l'insieme costituito
 Si consideri il \emph{behavior space} del sistema attivo $\overline{A}$ in figura \ref{fig:bsp}, l'osservazione dell'esempio \ref{ex:oss} $\overline{O} = [awk, opb, ide]$, il viewer $\overline{V}$ e il ruler $\overline{R}$ riportati rispettivamente nelle tabelle \ref{tab:viewer} e \ref{tab:ruler}.
 Le possibili traiettorie consistenti con l'osservazione sono:
 \begin{itemize}
-\item $h_1 = [p_1,b_1,p_2,b_4]$, a cui corrisponde la diagnosi $h_{1,[\overline{R}]} = \{ncb\}$;
-\item $h_2 = [p_1,b_1,p_4,b_6]$, a cui corrisponde la diagnosi $h_{2,[\overline{R}]} = \{fcp\}$.
+\item $h_1 = [p_1,b_1,p_2,b_4]$, a cui corrisponde la diagnosi $h_{1,[\overline{R}]} = \{\mathit{ncb}\}$;
+\item $h_2 = [p_1,b_1,p_4,b_6]$, a cui corrisponde la diagnosi $h_{2,[\overline{R}]} = \{\mathit{fcp}\}$.
 \end{itemize}
 La soluzione del problema diagnostico $P(\overline{A}) = (a_0,\overline{V},\overline{O},\overline{R})$ è data dalla composizione delle diagnosi di queste traiettorie:
 \begin{center}
-$\Delta(P(\overline{A}) = \{\{ncb\},\{fcp\}\}$.
+$\Delta(P(\overline{A}) = \{\{\mathit{ncb}\},\{\mathit{fcp}\}\}$.
 \end{center}
 Il significato delle due soluzioni trovate è il seguente: o il breaker $b$ non riesce a chiudersi, oppure la protezione $p$ invia il comando sbagliato al breaker.  
 \end{ex}
@@ -380,7 +380,7 @@ dove:
 \begin{center}
 	$t(c) = s \xrightarrow{(e,x) | \{(e_1,y_1), \ldots, (e_p,y_p)\}} s^\prime$
 \end{center}
-con $e$ disponibile in corrispondenza del terminale di input $x$, oppure nullo se rappresenta un evento esterno o relativo ad un terminale scollegato in $D_{on}$. La transizione è effettuabile se e solo se:
+con $e$ disponibile in corrispondenza del terminale di input $x$, oppure nullo se rappresenta un evento esterno o relativo ad un terminale scollegato in $D_\mathit{on}$. La transizione è effettuabile se e solo se:
 \begin{itemize}
 \item Per ogni $j \in [1 \ldots n]$:
 \begin{center}
@@ -415,7 +415,7 @@ L'algoritmo \ref{alg:bhv} riporta lo pseudocodice della procedura di ricostruzio
 	\STATE $B \leftarrow \{\beta_0\}$
 	\STATE $\tau \leftarrow \emptyset$
 	\REPEAT
-		\STATE Viene scelto uno stato non ancora marcato $\beta = (S,Q,i)$
+		\STATE Scegli uno stato non ancora marcato $\beta = (S,Q,i) \in B$
 		\FORALL{$t(c)$ effettuabile in $\beta$} 
 			\IF{$t(c)$ non è osservabile in $V$}
 				\STATE $i^\prime \leftarrow i$
@@ -424,18 +424,18 @@ L'algoritmo \ref{alg:bhv} riporta lo pseudocodice della procedura di ricostruzio
 			\ELSE
 				\STATE continue
 			\ENDIF
-			\STATE $S^\prime \leftarrow S$ e viene aggiornato lo stato del componente $c$ di $t(c)$
-			\STATE $Q^\prime \leftarrow Q$ e viene aggiornato lo stato dei link coinvolti in $t(c)$
+			\STATE $S^\prime \leftarrow S$ e aggiorna lo stato del componente $c$ di $t(c)$
+			\STATE $Q^\prime \leftarrow Q$ e aggiorna lo stato dei link coinvolti in $t(c)$
 			\STATE $\beta^\prime \leftarrow (S^\prime,Q^\prime,i^\prime)$
 			\IF{$\beta^\prime \notin B $}
-				\STATE $\beta^\prime$ è inserito in $B$
+				\STATE inserisci $\beta^\prime$ in $B$
 			\ENDIF
-			\STATE La transizione $\beta \xrightarrow{t(c)} \beta^\prime$ è inserita in $\tau$
+			\STATE Inserisci la transizione $\beta \xrightarrow{t(c)} \beta^\prime$ in $\tau$
 		\ENDFOR
-		\STATE Lo stato $\beta$ è marcato
+		\STATE Marca lo stato $\beta$
 	\UNTIL{tutti gli stati in $B$ sono marcati}
 	\STATE $\beta_f \leftarrow \{\beta_f | \beta_f \in B, \beta_f=(S,Q,i_f), i_f$  indice finale di $O\}$
-	\STATE Rimuovere da $B$ e da $\tau$, rispettivamente, tutti gli stati e le transizioni non inclusi in un cammino da $\beta_0$ ad uno stato finale
+	\STATE Rimuovi da $B$ e da $\tau$, rispettivamente, tutti gli stati e le transizioni non inclusi in un cammino da $\beta_0$ ad uno stato finale
 \end{algorithmic}
 \caption{Algoritmo di ricostruzione del behavior}
 \label{alg:bhv}
@@ -460,20 +460,20 @@ Il secondo passo della ricostruzione monolitica consiste nella decorazione del b
 \begin{defn}
 Sia $Bhv(P(A))$ il behavior di un problema diagnostico $P(A)$. Il behavior decorato $Bhv^\star(P(A))$ è il DFA ottenuto dal behavior marcando ogni stato $\beta$ con un insieme diagnostico $\Delta(\beta)$ basato sull'applicazione delle seguenti regole:
 \begin{enumerate}
-\item lo stato iniziale è decorato con l'insieme diagnostico vuoto $\delta(\beta_0) = \{\emptyset\}$
+\item lo stato iniziale è decorato con l'insieme diagnostico vuoto $\delta(\beta_0) = \{\emptyset\}$;
 \item per ogni transizione $\beta \xrightarrow{t(c)} \beta^\prime$, per ogni $\delta \in \Delta(\beta)$, se $(t(c),f) \in R$ allora $\delta \cup \{f\} \in \Delta(\beta^\prime)$, altrimenti $\delta \in \Delta(\beta^\prime)$.
 \end{enumerate}
 \end{defn}
 La prima regola è quella base, in cui si associa alla traiettoria nulla la diagnosi vuota.
 Se la decorazione di uno stato $\beta$ include una diagnosi $\delta$ allora esiste almeno una traiettoria $h$, che termina in $\beta$, la cui diagnosi è $\delta$. Conseguentemente, esiste una traiettoria $h \cup [t(c)]$ terminante in $\beta^\prime$ la cui diagnosi è $\delta$ se $(t(c),f) \notin R$, oppure la diagnosi è l'estensione di $\delta$ tramite la label di guasto $f$, associata alla transizione $t(c)$ nel ruler $R$. 
 Quest'ultima regola è induttiva e deve essere applicata continuamente allo stato successivo della transizione fino a che la decorazione non aggiunge nuove diagnosi, raggiungendo una condizione di stabilità.
-L'algoritmo di decorazione, in forma ricorsiva, è fornito di seguito (\ref{alg:decoration}).
+L'algoritmo di decorazione, in forma ricorsiva, è fornito nell'algoritmo \ref{alg:decoration}.
 
 \begin{algorithm}
 \textbf{Decorate($Bhv(P(A))$)}
 \begin{algorithmic}
-\STATE Marcare lo stato iniziale $\beta_0$ con $\{\emptyset\}$ 
-\STATE Marcare tutti gli altri stati non iniziali con l'insieme vuoto $\emptyset$
+\STATE Marca lo stato iniziale $\beta_0$ con $\{\emptyset\}$ 
+\STATE Marca tutti gli altri stati non iniziali con l'insieme vuoto $\emptyset$
 \STATE $Dec(\beta_0,\{\emptyset\})$
 \STATE
 \STATE \textbf{Function} $Dec(\beta$,$D)$
@@ -518,9 +518,9 @@ N & Chiamata & $\Delta(1)$ & $\Delta(2)$ & $\Delta(3)$ & $\Delta(4)$ & $\Delta(5
 2 & $(2,\{\emptyset\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$\\
 3 & $(3,\{\emptyset\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\{\emptyset\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$\\
 4 & $(4,\{\emptyset\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\emptyset\}$ & $\emptyset$ & $\emptyset$\\
-5 & $(5,\{\{ncb\}\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\{ncb\}\}$ & $\emptyset$\\
-6 & $(6,\{\{fcp\}\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\{ncb\}\}$ & $\{\{fcp\}\}$\\
-7 & $(5,\{\{fcp\}\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\{ncb\},\{fcp\}\}$ & $\{\{fcp\}\}$\\
+5 & $(5,\{\{\mathit{ncb}\}\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\{\mathit{ncb}\}\}$ & $\emptyset$\\
+6 & $(6,\{\{\mathit{fcp}\}\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\{\mathit{ncb}\}\}$ & $\{\{\mathit{fcp}\}\}$\\
+7 & $(5,\{\{\mathit{fcp}\}\})$ & $\{\emptyset\}$  & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\emptyset\}$ & $\{\{\mathit{ncb}\},\{\mathit{fcp}\}\}$ & $\{\{\mathit{fcp}\}\}$\\
 \hline
 \end{tabularx}
 \caption{Applicazione dell'algoritmo di decorazione per ricavare $Bhv^\star(P(\overline{A}))$}
@@ -537,7 +537,7 @@ $\Delta(P(A))) = \{\delta | \delta \in \Delta(\beta_f), \beta_f$ finale in $Bhv^
 \begin{ex}
 Considerando il behavior decorato in figura \ref{fig:bhv_star}, la distillazione delle diagnosi avviene considerando l'insieme delle diagnosi relative all'unico stato finale $5$, cioè
 \begin{center}
-$\Delta(P(\overline{A})) = \{\{ncb\},\{fcp\}\}$
+$\Delta(P(\overline{A})) = \{\{\mathit{ncb}\},\{\mathit{fcp}\}\}$
 \end{center}
 Si noti come la soluzione trovata è la stessa intuitivamente ricavata dalle definizioni nell'esempio \ref{ex:problem}.
 \end{ex}
