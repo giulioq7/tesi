@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI verified="false" xmi.version="1.2" timestamp="2016-02-22T20:57:41" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
+<XMI verified="false" xmi.version="1.2" timestamp="2016-02-23T10:43:43" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://umbrello.kde.org</XMI.exporter>
@@ -2370,9 +2370,9 @@
      </UML:Namespace.ownedElement>
      <XMI.extension xmi.extender="umbrello">
       <diagrams>
-       <diagram showopsig="1" linecolor="#000000" snapx="25" showattribassocs="1" snapy="25" linewidth="0" showattsig="1" textcolor="#000000" isopen="1" showpackage="1" showpubliconly="0" showstereotype="1" name="int_state" font="Sans Serif,12,-1,0,50,0,0,0,0,0" canvasheight="2985,25" canvaswidth="4078,05" localid="-1" snapcsgrid="0" showgrid="0" showops="1" griddotcolor="#000000" backgroundcolor="#ffffff" usefillcolor="1" fillcolor="#ffffff" zoom="60" xmi.id="zDzsSDLlOjho" documentation="" showscope="0" snapgrid="0" showatts="1" type="1">
+       <diagram showopsig="1" linecolor="#000000" snapx="25" showattribassocs="1" snapy="25" linewidth="0" showattsig="1" textcolor="#000000" isopen="1" showpackage="1" showpubliconly="0" showstereotype="1" name="int_trans" font="Sans Serif,12,-1,0,50,0,0,0,0,0" canvasheight="2985,25" canvaswidth="4078,05" localid="-1" snapcsgrid="0" showgrid="0" showops="1" griddotcolor="#000000" backgroundcolor="#ffffff" usefillcolor="1" fillcolor="#ffffff" zoom="103" xmi.id="zDzsSDLlOjho" documentation="" showscope="0" snapgrid="0" showatts="1" type="1">
         <widgets>
-         <classwidget linecolor="none" usesdiagramfillcolor="0" linewidth="0" showoperations="1" textcolor="#000000" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="-1007,2" showattsigs="602" showstereotype="1" y="769,4666666666668" showattributes="1" font="Sans Serif,12,-1,0,50,0,0,0,0,0" localid="795upPBfbead" width="581" isinstance="0" usefillcolor="1" fillcolor="#ffffff" xmi.id="y7dLrWl7Ji3a" showscope="0" height="361" showopsigs="602"/>
+         <classwidget linecolor="none" usesdiagramfillcolor="0" linewidth="0" showoperations="1" textcolor="#000000" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="-559,4936708860758" showattsigs="602" showstereotype="1" y="949,3670886075948" showattributes="1" font="Sans Serif,12,-1,0,50,0,0,0,0,0" localid="mDwQ5TOAbU2O" width="601" isinstance="0" usefillcolor="1" fillcolor="#ffffff" xmi.id="H1Z4wM9ZKqAz" showscope="0" height="228" showopsigs="602"/>
         </widgets>
         <messages/>
         <associations/>
@@ -2418,7 +2418,7 @@
   </UML:Model>
  </XMI.content>
  <XMI.extensions xmi.extender="umbrello">
-  <docsettings viewid="zDzsSDLlOjho" uniqueid="795upPBfbead" documentation=""/>
+  <docsettings viewid="zDzsSDLlOjho" uniqueid="mDwQ5TOAbU2O" documentation=""/>
   <listview>
    <listitem open="1" type="800" id="Views">
     <listitem open="1" type="821" id="Component View">
@@ -2609,7 +2609,7 @@
       <listitem open="0" type="829" id="gXVpKZDOn7le"/>
       <listitem open="0" type="829" id="vaIuESF4pdV7"/>
      </listitem>
-     <listitem open="0" type="807" id="zDzsSDLlOjho" label="int_state"/>
+     <listitem open="0" type="807" id="zDzsSDLlOjho" label="int_trans"/>
      <listitem open="0" type="813" id="y7dLrWl7Ji3a">
       <listitem open="0" type="815" id="QY1jwqNFeLKA"/>
       <listitem open="0" type="814" id="oXnKgj8lZbHs"/>

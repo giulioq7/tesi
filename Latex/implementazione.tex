@@ -1,9 +1,9 @@
 \chapter{Implementazione}
-L'architettura software del progetto di questa tesi è composta da tre moduli principali:
+L'architettura software del progetto sviluppato è composta da tre moduli principali:
 \begin{enumerate}
-\item \verb|SpecificationLanguage|, che comprende un compilatore per il linguaggio di specifica e il preprocessing dei pattern space;
-\item \verb|GreedyDiagnosis|, che rappresenta il motore diagnostico greedy;
-\item \verb|LazyDiagnosis|, che attua la tecnica di ricostruzione lazy.
+\item il compilatore offline, che comprende un compilatore per il linguaggio di specifica e il preprocessing dei pattern space;
+\item la macchina diagnostica greedy, che rappresenta il motore diagnostico greedy;
+\item la macchina diagnostica lazy, che attua la tecnica di ricostruzione lazy.
 \end{enumerate}
 
 La specifica dell'istanza di un sistema attivo complesso di cui si vuole determinare le diagnosi è espressa tramite un linguaggio creato ad hoc, la cui grammatica è fornita nell'appendice \ref{bnf}. Un esempio di specifica, relativo al problema diagnostico \ref{ex:prob_diagn}, è riportato nell'appendice \ref{spec_ex}.
@@ -12,7 +12,7 @@ La procedura diagnostica legge i file generati da una precedente compilazione de
 Il linguaggio di programmazione adottato è il C++, che è stato scelto in quanto buon compromesso tra le esigenze di efficienza richieste dal problema e il livello di astrazione tipico della programmazione ad oggetti.
 
 \section{Rappresentazione degli automi}
-Per la rappresentazione degli automi è stata scelta una libreria esterna che fornisse da un lato delle strutture dati e dei metodi efficienti, dall'altro che fosse quanto più generica e personalizzabile, dal momento che gli automi necessari alle tecniche risolutive possiedono vari tipi di informazione negli stati e nelle transizioni. La libreria ASTL(\emph{Automata Standard Template Library})\cite{web:astl} soddisfa entrambe le esigenze. Le due classi principali di questa libreria utilizzate nell'implementazione sono:
+Per la rappresentazione degli automi è stata ricercata una libreria esterna che fornisse da un lato delle strutture dati e dei metodi efficienti, dall'altro che fosse quanto più generica e personalizzabile, dal momento che gli automi necessari alle tecniche risolutive possiedono vari tipi di informazione negli stati e nelle transizioni. La libreria ASTL(\emph{Automata Standard Template Library})\cite{web:astl} soddisfa entrambe le esigenze. Le due classi principali di questa libreria utilizzate nell'implementazione sono:
 \begin{itemize}
 \item \verb|DFA_map<SIGMA,TAG>| rappresenta automi deterministici ed è implementata memorizzando le transizioni di uno stato in uno standard \verb|map|, associando i relativi simboli dell'alfabeto agli stati raggiunti. Dato che la struttura \verb|map| costituisce un albero binario, le operazioni di accesso, inserimento e cancellazione sono effettuate in un tempo logaritmico $\mathcal{O}(\log n)$ rispetto al numero di elementi contenuti.  Si tratta di un buon compromesso tra tempi richiesti dalle operazioni e memoria occupata.
 \item \verb|NFA_mmap<SIGMA,TAG>|, rappresenta automi non deterministici. Le transizioni sono memorizzate per mezzo di \verb|multimap|, le cui principali operazioni hanno complessità logaritmica.
@@ -48,9 +48,9 @@ Rappresenta il modello di un nodo. Possiede gli attributi seguenti:
 \item \verb|pattern_space|: vettore di automi che costituiscono i pattern space del nodo;
 \item \verb|languages|: vettore di linguaggi, ognuno dei quali costituito da un insieme di stringhe recanti i nomi delle transizioni appartenenti al linguaggio di una o più dichiarazioni di pattern.
 \end{itemize}
-Si noti che le informazioni relative agli stati iniziali, al viewer e al ruler possono non essere presenti oppure venire sovrascritte nelle successive dichiarazioni del sistema o del problema diagnostico.
+Si noti che le informazioni relative agli stati iniziali, al viewer e al ruler possono non essere presenti oppure venire sovrascritte nelle successive dichiarazioni di istanza del nodo del sistema o del problema diagnostico.
 \item \verb|Pattern|\\
-Rappresenta una dichiarazione di pattern e contiene gli attributi relativi al nome del pattern event, al nome del terminale di destinazione del pattern event, un attributo booleano che indica se il linguaggio associato al pattern è massimo, ovvero costituito dall'insieme di tutte le transizioni di tutti i componenti del nodo, e un vettore di elementi del linguaggio.
+Rappresenta una dichiarazione di pattern e contiene gli attributi relativi al nome del pattern event, all'espressione regolare, al nome del terminale di destinazione del pattern event, un attributo booleano che indica se il linguaggio associato al pattern è massimo, ovvero costituito dall'insieme di tutte le transizioni di tutti i componenti del nodo, e un vettore di elementi del linguaggio.
 \item \verb|Terminal|\\
 rappresenta un terminale di un componente o di un nodo. \'E caratterizzato da una stringa del nome, una relativa al valore contenuto (evento), e un vettore di riferimenti a terminali ad esso connessi.
 \item \verb|Transition|\\ 
@@ -89,11 +89,11 @@ Rappresenta un nodo del problema diagnostico. Possiede i seguenti attributi:
 \item \verb|input_terminals|: vettore di terminali di ingresso fisici del nodo;
 \item \verb|output_terminals|: vettore di terminali di uscita fisici del nodo;
 \item \verb|observation|: sequenza di label relative all'osservazione locale;
-\item \verb|index_space|: automa lineare ottenuto dall'osservazione, utile per eventuali sviluppi futuri nei quali l'osservazione è incerta.
+\item \verb|index_space|: automa lineare ottenuto dall'osservazione, utile per eventuali sviluppi futuri nei quali l'osservazione è incerta;
 \item \verb|depends|: lista di indici dei nodi dai quali il nodo corrente dipende topologicamente;
 \item \verb|patt_map|: mappa un pattern event nel terminale di uscita fisico del nodo;
-\item \verb|patt_indexes_map|: mappa un pattern event nell'indice della tupla dei terminali di input di tutto il problema (utile per la diagnosi greedy);
-\item \verb|lazy_patt_indexes_map|: mappa un pattern event nell'indice della tupla dei terminali di input del nodo (utile per la diagnosi lazy);
+\item \verb|patt_indexes_map|: mappa un pattern event nell'indice della tupla dei terminali di input dei componenti dell'intero problema (utile per la diagnosi greedy);
+\item \verb|lazy_patt_indexes_map|: mappa un pattern event nell'indice della tupla dei terminali di input dei componenti del nodo (utile per la diagnosi lazy);
 \end{itemize}
 La classe contiene inoltre le informazioni definitive riguardanti gli stati iniziali dei componenti, il viewer e il ruler locali, che possono essere ereditati dalla specifica del nodo del sistema.
 \item \verb|Utils|, contiene metodi statici di utilità.
@@ -122,9 +122,9 @@ class Transition : public CHAR_TRAITS<Transition>
 \label{class_trans}
 \end{figure}
 
-In figura \ref{fig:comp} è riportato il diagramma UML delle classi relative ai componenti del sistema.\\
-In figura \ref{fig:trans} è riportati il diagramma UML delle classi relative alle transizioni.\\
-In figura \ref{fig:nodes} è riportato il diagramma UML delle classi che rappresentano, a diversi livelli di astrazione, i nodi del sistema.
+In figura \ref{fig:comp} è riportato il diagramma UML delle classi relative ai componenti del sistema, ovvero le classi \verb|ComponentModel|, \verb|NetComponent| e \verb|Component|.\\
+In figura \ref{fig:trans} è riportato il diagramma UML delle classi relative alle transizioni, ovvero \verb|Transition|, \verb|NetTransition| e \verb|SysTransition|.\\
+In figura \ref{fig:nodes} è riportato il diagramma UML delle classi che rappresentano, nei diversi livelli di definizione, i nodi del sistema, cioè le classi \verb|NetworkModel|, \verb|SystemNode| e \verb|ProblemNode|.
 
 \begin{figure}[htbp]
 \centering
@@ -148,7 +148,7 @@ In figura \ref{fig:nodes} è riportato il diagramma UML delle classi che rappres
 \end{figure}
 
 \newpage
-\section{Linguaggio di specifica}
+\section{Compilatore offline}
 Il linguaggio di specifica dei sistemi attivi complessi è fornito, tramite notazione BNF, in appendice \ref{bnf}. 
 Il file di specifica è articolato in quattro parti principali:
 \begin{itemize}
@@ -212,7 +212,7 @@ comment		\/\/.*
 \label{code:lex_decl}
 \end{figure}
 
-Le regole di traduzione utilizzate sono principalmente volte a generare i token relativi a parole chiave del linguaggio e gli identificatori.
+Le regole di traduzione utilizzate sono principalmente volte a generare i token relativi a parole chiave del linguaggio e agli identificatori.
 In corrispondenza di direttive \verb|#include|, il passaggio di lettura al file incluso è operato, come mostrato in figura \ref{code:lex_rules}, creando una pila di buffer. 
 
 \begin{figure}[htbp]
@@ -279,8 +279,8 @@ is          return yy::spec_parser::make_IS(loc);
 \end{figure}
 
 \subsection{Analizzatore sintattico}
-L'analizzatore sintattico (parser) è implementato tramite lo strumento \emph{Bison}.
-Il file della grammatica \verb|specparser.yy| inizia richiedendo lo skeleton parser deterministico per poter utilizzare direttamente il linguaggio C++, creando il file header della grammatica e specificando il nome della classe del parser.
+L'analizzatore sintattico (parser) è implementato tramite lo strumento \emph{Bison}. La generazione della grammatica è supportata dalla classe \verb|spec_driver|, la quale avvia il parsing e ne gestisce gli eventuali errori generati.
+Il file della grammatica inizia richiedendo lo skeleton parser deterministico per poter utilizzare direttamente il linguaggio C++, creando il file header della grammatica e specificando il nome della classe del parser.
 
 \begin{verbatim}
 %skeleton "lalr1.cc"
@@ -352,18 +352,18 @@ L'analisi semantica, a differenza di quella lessicale e sintattica, non prevede 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.6]{./Img/implementazione/driver.png}
+\includegraphics[scale=0.7]{./Img/implementazione/driver.png}
 \caption{Classe specdriver}
 \label{fig:driver}
 \end{figure}
 
 La classe possiede, tra gli altri, i metodi \verb|semantic_checks|, implementati in \emph{overloading} per i seguenti tipi di parametro d'ingresso:
 \begin{enumerate}
-\item \verb|ComponentModel|: verifica che non vi siano identificatori multipli per le liste di eventi, terminali di input e di output e stati; nelle dichiarazioni delle transizioni, verifica che il nome degli eventi, dei terminali e degli stati siano stati precedentemente definiti. 
+\item \verb|ComponentModel|: verifica che non vi siano identificatori multipli per le liste di eventi, terminali di input, terminali di output e stati; nelle dichiarazioni delle transizioni, verifica che il nome degli eventi, dei terminali e degli stati siano stati precedentemente definiti. 
 \item \verb|NetworkModel|: verifica l'unicità del nome dei componenti, dei terminali e dei nomi dei pattern;
-verifica che i terminali e i componenti dei link siano definiti. Verifica che non vi siano più link entranti nello stesso terminale di input. Verifica l'esistenza delle transizioni utilizzate nei pattern, nel viewer e nel ruler (se presenti), oltre all'esistenza degli stati iniziali dei componenti dichiarati.
+verifica che i terminali e i componenti dei link siano definiti. Verifica che non vi siano più link entranti nello stesso terminale di input. Verifica l'esistenza delle transizioni utilizzate nei pattern, nel viewer e nel ruler (se presenti), oltre all'esistenza degli eventuali stati iniziali dei componenti dichiarati.
 \item \verb|System|: verifica che nelle dichiarazioni di \emph{emergence} i nomi dei nodi e dei relativi terminali siano stati definiti.
-\item \verb|SystemNode|: verifica i controlli sulle eventuali dichiarazioni di stati iniziali, viewer e ruler locali.
+\item \verb|SystemNode|: effettua i controlli sulle eventuali dichiarazioni di stati iniziali, viewer e ruler locali.
 \item \verb|Problem|: verifica che siano ivi dichiarati tutti i nodi definiti nel sistema.
 \item \verb|ProblemNode|: verifica i controlli sulle eventuali dichiarazioni di stati iniziali, viewer e ruler locali. Se esse non sono presenti, vengono ereditate dal nodo di sistema corrispondente. Viene inoltre verificata l'esistenza delle label dell'osservazione locale nel viewer corrente.
 \end{enumerate}
@@ -398,7 +398,7 @@ fm<int> patodfa(std::string regex)
 Data una stringa in ingresso, la funzione implementata inserisce tale stringa in un oggetto della classe \verb|re|(\emph{regular expression}), parametrizzato per mezzo di un template che indica l'alfabeto di appartenenza dei simboli dell'espressione. 
 Dato che gli alfabeti possibili per questa libreria erano esclusivamente di tipo \verb|char| o \verb|int|, è stato scelto quest'ultimo (poiché 256 simboli possibili potevano non essere sufficienti in applicazioni di dimensioni ragguardevoli), mantenendo una corrispondenza biunivoca tra ogni intero e una transizione, coinvolta nella dichiarazione del pattern, relativa ad un componente del nodo. La conversione da espressione regolare ad automa a stati finiti avviene applicando all'oggetto che rappresenta l'espressione regolare il metodo \verb|retofm|, che crea l'automa nell'oggetto della classe \verb|fm|(\emph{finite machine}) passato come parametro. A seguito della conversione, l'automa è determinizzato applicando il metodo \verb|subset|, il quale esegue la subset construction descritta nel paragrafo\ref{subset}.
 Successive manipolazioni dei diversi automi ottenuti dai pattern dichiarati permettono di unirli, aggiungere le $\epsilon$-transizioni opportune e determinizzare il risultato. L'automa finale viene poi convertito in un automa equivalente, utilizzando le strutture dati della libreria ASTL. Infatti, la libreria Grail+, sebbene utile poiché implementa la costruzione di Thompson, non sembrava indicata ad un utilizzo negli algoritmi di diagnosi, in quanto non permette estensioni per quanto riguarda i dati satellite associati a transizioni e stati dell'automa.
-La minimizzazione finale del pattern space è implementata nel metodo \verb|Utils::minimize_by_partition|, che esegue una minimizzazione tenendo conto dei tag associati ai nodi finali dell'automa.
+La minimizzazione finale del pattern space è implementata nel metodo \verb|Utils::minimize_by_partition|, che esegue una minimizzazione tenendo conto dei tag associati (pattern event) ai nodi finali dell'automa.
 
 \subsection{Salvataggio dei dati compilati}
 Una volta che il file di specifica è stato processato, le classi opportune sono state create e i controlli semantici sono andati a buon fine, la procedura di elaborazione offline termina creando dei file binari contenenti tutte le informazioni utili alla successiva fase diagnostica, ovvero tutti gli oggetti istanziati per il problema specificato. La scrittura di questi dati, chiamata serializzazione, è una procedura piuttosto complessa se implementata manualmente in C++, in quanto deve gestire puntatori ed evitare ridondanza. Per questo è stata adottata la libreria \emph{Serialization}, fornita dalla collezione \emph{Boost}\cite{web:boost}. Essa permette di salvare un oggetto con semplici modifiche della classe a cui esso appartiene.
@@ -451,7 +451,7 @@ Per eseguire la scrittura di un oggetto è sufficiente dare istruzioni simili a 
 \label{code:serialize_main}
 \end{figure}
 
-Si noti che la libreria \emph{Serialization} permette di salvare, senza il bisogno di istruzioni aggiuntive, oggetti appartenenti alla Standard Template Library, quali ad esempio \verb|vector, map, list, set|. Per quanto riguarda il salvataggio di puntatori, al fine di evitare ridondanza, la libreria salva l'oggetto puntato un'unica volta, mantenendone i riferimenti.
+Si noti che la libreria \emph{Serialization} permette di salvare, senza il bisogno di istruzioni aggiuntive, oggetti appartenenti alla Standard Template Library, quali ad esempio \verb|vector|, \verb|map|, \verb|list| e \verb|set|. Per quanto riguarda il salvataggio di puntatori, al fine di evitare ridondanza, la libreria salva l'oggetto puntato un'unica volta, mantenendone i riferimenti.
 
 
 \section{Macchina diagnostica}
@@ -488,13 +488,14 @@ La classe che rappresenta uno stato del behavior è riportata in figura \ref{fig
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.6]{./Img/implementazione/bhv_state.png}
+\includegraphics[scale=0.7]{./Img/implementazione/bhv_state.png}
 \caption{Classe BehaviorState}
 \label{fig:bhv_state}
 \end{figure}
 
-L'algoritmo tiene traccia delle configurazioni di ogni stato attraverso una tabella hash: in questo modo la verifica dell'esistenza di uno stato generato da una transizione avviene in tempo costante. La tabella mappa la stringa relativa al contenuto dello stato nel valore intero associato allo stato del behavior, come mostrato di seguito per lo stato iniziale.
+L'algoritmo tiene traccia delle configurazioni di ogni stato attraverso una tabella hash: in questo modo la verifica dell'esistenza di uno stato generato da una transizione avviene in tempo costante. La tabella mappa la stringa relativa al contenuto dello stato nel valore intero associato allo stato del behavior, come mostrato di in figura \ref{code:hash_tab} per lo stato iniziale.
 
+\begin{figure}[htbp]
 \begin{verbatim}
 DFA_map<SysTransition,BehaviorState> behavior;
 unordered_map<string,unsigned int> hash_values;
@@ -505,10 +506,14 @@ behavior.tag(s0) = tag_s0;
 behavior.initial(s0);
 hash_values[ss.str()] = s0;
 \end{verbatim}
+\caption{Creazione tabella hash}
+\label{code:hash_tab}
+\end{figure}
 
 La creazione del behavior avviene come descritto nella sezione \ref{section_greedy}.
-La verifica dell'esistenza di uno stato raggiunto da una transizione avviene nel seguente modo (\verb|tag_s1| è un'istanza della classe \verb|BehaviorState|).
+La verifica dell'esistenza di uno stato raggiunto da una transizione avviene come descritto in figura \ref{code:ricerca_hash}, dove \verb|tag_s1| è un'istanza della classe \verb|BehaviorState|.
 
+\begin{figure}[htbp]
 \begin{verbatim}
 stringstream s_str;
 s_str << tag_s1;
@@ -522,16 +527,23 @@ catch (const std::out_of_range&)
     hash_values[str] = s1;
 ...
 \end{verbatim}
+\caption{Ricerca nella tabella hash}
+\label{code:ricerca_hash}
+\end{figure}
 
 Per ogni stato creato viene contestualmente verificato se si tratta di uno stato finale, ovvero caratterizzato da terminali di input vuoti e che ha consumato tutte le osservazioni locali dei vari nodi.
-Una volta terminato il ciclo principale della generazione del behavior, ed ottenuto quindi il behavior spurio, esso viene potato di tutte le transizioni e gli stati che non sono in un cammino tra lo stato iniziale ed uno stato finale. L'operazione avviene invocando la funzione predisposta \verb|trim| presente nella libreria ASTL.
+Una volta terminato il ciclo principale della generazione del behavior, ed ottenuto quindi il behavior spurio, esso viene potato di tutte le transizioni e gli stati che non sono in un cammino tra lo stato iniziale ed uno stato finale. L'operazione avviene invocando la funzione predisposta \verb|trim| presente nella libreria ASTL (figura \ref{code:trim}).
 
+\begin{figure}[htbp]
 \begin{verbatim}
 DFA_map<SysTransition,BehaviorState> bhv;
 unsigned int init = trim(bhv,dfirst_markc(behavior));
 \end{verbatim}
+\caption{Rimozione della parte spuria del behavior}
+\label{code:trim}
+\end{figure}
 
-Se dopo questa operazione il behavior risulta vuoto, significa che le osservazioni date non sono possibili e l'esecuzione viene terminata con errore. Questo può avvenire in fase di sperimentazione, a causa dell'assenza di un reale sistema fisico che dia un'osservazione vera del comportamento.
+Se dopo questa operazione il behavior risulta vuoto, significa che le osservazioni date non sono consistenti con il modello specificato e l'esecuzione viene terminata con errore. Questo può avvenire in fase di sperimentazione, a causa dell'assenza di un reale sistema fisico che dia un'osservazione vera del comportamento.
 Altrimenti, l'algoritmo procede decorando l'automa ottenuto e distillandone le diagnosi.
 L'algoritmo di decorazione consiste nella semplice implementazione dello pseudocodice \ref{alg:decoration}. La distillazione consiste nell'unione delle diagnosi contenute negli stati finali del behavior.
 
@@ -550,15 +562,26 @@ La classe \verb|Determinization| fornisce dei metodi statici che permettono di o
 \item \verb|move| calcola gli stati raggiungibili attraverso transizioni, applicate a stati interni allo stato dell'interfaccia, che generano pattern event.
 \end{itemize}
 La decorazione del sottoautoma contenuto negli stati dell'interfaccia avviene richiamando un metodo della classe \verb|Decoration| che implementa la classica decorazione come nell'algoritmo \ref{alg:decoration}.
-In corrispondenza degli stati finali dell'interfaccia, ovvero quelli che contengono stati finali del corrispondente behavior, viene calcolata la diagnosi data dall'unione delle diagnosi degli stati finali interni allo stato dell'interfaccia.
 La classe che rappresenta lo stato dell'interfaccia è visualizzata in figura \ref{fig:int_state}.
-
+Le transizioni dell'interfaccia (figura \ref{fig:int_trans}) possiedono invece i seguenti attributi:
+\begin{itemize}
+\item \verb|trans|: transizione di un componente del nodo;
+\item \verb|delta|: diagnosi associata alla transizione;
+\item \verb|pattern_events|: elenco dei patter event associati alla transizione dell'interfaccia.
+\end{itemize}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.6]{./Img/implementazione/int_state.png}
+\includegraphics[scale=0.7]{./Img/implementazione/int_state.png}
 \caption{Classe InterfaceState}
 \label{fig:int_state}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.7]{./Img/implementazione/int_trans.png}
+\caption{Classe InterfaceTrans}
+\label{fig:int_trans}
 \end{figure}
 
 \subsubsection{Decorazione del behavior del nodo radice}
