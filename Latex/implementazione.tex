@@ -12,9 +12,9 @@ La procedura diagnostica legge i file generati da una precedente compilazione de
 Il linguaggio di programmazione adottato è il C++, che è stato scelto in quanto buon compromesso tra le esigenze di efficienza richieste dal problema e il livello di astrazione tipico della programmazione ad oggetti.
 
 \section{Rappresentazione degli automi}
-Per la rappresentazione degli automi è stata ricercata una libreria esterna che fornisse da un lato delle strutture dati e dei metodi efficienti, dall'altro che fosse quanto più generica e personalizzabile, dal momento che gli automi necessari alle tecniche risolutive possiedono vari tipi di informazione negli stati e nelle transizioni. La libreria ASTL(\emph{Automata Standard Template Library})\cite{web:astl} soddisfa entrambe le esigenze. Le due classi principali di questa libreria utilizzate nell'implementazione sono:
+Per la rappresentazione degli automi è stata ricercata una libreria esterna che fornisse da un lato delle strutture dati e dei metodi efficienti, dall'altro che fosse quanto più generica e personalizzabile, dal momento che gli automi necessari alle tecniche risolutive possiedono vari tipi di informazione negli stati e nelle transizioni. La libreria ASTL (\emph{Automata Standard Template Library}) \cite{web:astl} soddisfa entrambe le esigenze. Le due classi principali di questa libreria utilizzate nell'implementazione sono:
 \begin{itemize}
-\item \verb|DFA_map<SIGMA,TAG>| rappresenta automi deterministici ed è implementata memorizzando le transizioni di uno stato in uno standard \verb|map|, associando i relativi simboli dell'alfabeto agli stati raggiunti. Dato che la struttura \verb|map| costituisce un albero binario, le operazioni di accesso, inserimento e cancellazione sono effettuate in un tempo logaritmico $\mathcal{O}(\log n)$ rispetto al numero di elementi contenuti.  Si tratta di un buon compromesso tra tempi richiesti dalle operazioni e memoria occupata.
+\item \verb|DFA_map<SIGMA,TAG>|, rappresenta automi deterministici ed è implementata memorizzando le transizioni di uno stato in uno standard \verb|map|, associando i relativi simboli dell'alfabeto agli stati raggiunti. Dato che la struttura \verb|map| costituisce un albero binario, le operazioni di accesso, inserimento e cancellazione sono effettuate in un tempo logaritmico $\mathcal{O}(\log n)$ rispetto al numero di elementi contenuti.  Si tratta di un buon compromesso tra tempi richiesti dalle operazioni e memoria occupata.
 \item \verb|NFA_mmap<SIGMA,TAG>|, rappresenta automi non deterministici. Le transizioni sono memorizzate per mezzo di \verb|multimap|, le cui principali operazioni hanno complessità logaritmica.
 \end{itemize}
 Il template \verb|SIGMA| permette di specificare l'alfabeto cui i simboli di transizione appartengono, mentre il template \verb|TAG| consente di associare ad uno stato delle informazioni satelliti generiche. 
@@ -181,7 +181,7 @@ L'analizzatore lessicale (o scanner) è implementato mediante lo strumento \emph
 \item regole di traduzione, che specificano per ogni pattern dichiarato per mezzo di una espressione regolare le azioni da compiere, attraverso frammenti di codice;
 \item funzioni ausiliarie, che possono essere richiamate nelle azioni dei pattern.
 \end{enumerate}
-Sebbene Flex abbia un'opzione per creare direttamente uno scanner C++, il codice generato spesso non funziona e contiene errori\cite{book:bison} .
+Sebbene Flex abbia un'opzione per creare direttamente uno scanner C++, il codice generato spesso non funziona e contiene errori \cite{book:bison} .
 La procedura adottata per risolvere questo problema è quella di compilare il programma Flex scritto in linguaggio C per mezzo di un compilatore C++.
 La sezione dichiarativa del linguaggio è riportata in figura \ref{code:lex_decl}. In essa si definiscono spazi, delimitatori, commenti di linea (in stile C) e l'espressione regolare che definisce gli identificatori \verb|id|, formata da una lettera a cui seguono altre lettere, numeri oppure il carattere \verb|_|.
 
@@ -353,7 +353,7 @@ L'analisi semantica, a differenza di quella lessicale e sintattica, non prevede 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.7]{./Img/implementazione/driver.png}
-\caption{Classe specdriver}
+\caption{Classe spec\_driver}
 \label{fig:driver}
 \end{figure}
 
@@ -374,7 +374,7 @@ Nel caso il grafo sia aciclico, viene calcolato l'ordinamento topologico, attrav
 \subsection{Generazione dei pattern space}
 La principale azione compiuta in fase offline, ovvero in un momento antecedente la diagnosi, è la generazione dei pattern space dei modelli di nodi definiti, come descritto nel paragrafo \ref{pts_construction}. 
 Il primo passo di questo algoritmo consiste nella costruzione di un automa equivalente all'espressione regolare definita nella dichiarazione di pattern. Un metodo noto consiste nella costruzione di Thompson descritta nel paragrafo \ref{thompson}. 
-Per questo scopo, è stata utilizzata la libreria \emph{Grail+}\cite{web:grail}, una libreria C++ che permette di definire espressioni regolari e convertirle in automi con un linguaggio equivalente.
+Per questo scopo, è stata utilizzata la libreria \emph{Grail+} \cite{web:grail}, una libreria C++ che permette di definire espressioni regolari e convertirle in automi con un linguaggio equivalente.
 La conversione avviene utilizzando la sintassi presentata in figura \ref{code:patodfa}.
 
 \begin{figure}[htbp]
@@ -395,13 +395,13 @@ fm<int> patodfa(std::string regex)
 \label{code:patodfa}
 \end{figure}
 
-Data una stringa in ingresso, la funzione implementata inserisce tale stringa in un oggetto della classe \verb|re|(\emph{regular expression}), parametrizzato per mezzo di un template che indica l'alfabeto di appartenenza dei simboli dell'espressione. 
-Dato che gli alfabeti possibili per questa libreria erano esclusivamente di tipo \verb|char| o \verb|int|, è stato scelto quest'ultimo (poiché 256 simboli possibili potevano non essere sufficienti in applicazioni di dimensioni ragguardevoli), mantenendo una corrispondenza biunivoca tra ogni intero e una transizione, coinvolta nella dichiarazione del pattern, relativa ad un componente del nodo. La conversione da espressione regolare ad automa a stati finiti avviene applicando all'oggetto che rappresenta l'espressione regolare il metodo \verb|retofm|, che crea l'automa nell'oggetto della classe \verb|fm|(\emph{finite machine}) passato come parametro. A seguito della conversione, l'automa è determinizzato applicando il metodo \verb|subset|, il quale esegue la subset construction descritta nel paragrafo\ref{subset}.
+Data una stringa in ingresso, la funzione implementata inserisce tale stringa in un oggetto della classe \verb|re| (\emph{regular expression}), parametrizzato per mezzo di un template che indica l'alfabeto di appartenenza dei simboli dell'espressione. 
+Dato che gli alfabeti possibili per questa libreria erano esclusivamente di tipo \verb|char| o \verb|int|, è stato scelto quest'ultimo (poiché 256 simboli possibili potevano non essere sufficienti in applicazioni di dimensioni ragguardevoli), mantenendo una corrispondenza biunivoca tra ogni intero e una transizione, coinvolta nella dichiarazione del pattern, relativa ad un componente del nodo. La conversione da espressione regolare ad automa a stati finiti avviene applicando all'oggetto che rappresenta l'espressione regolare il metodo \verb|retofm|, che crea l'automa nell'oggetto della classe \verb|fm| (\emph{finite machine}) passato come parametro. A seguito della conversione, l'automa è determinizzato applicando il metodo \verb|subset|, il quale esegue la subset construction descritta nel paragrafo \ref{subset}.
 Successive manipolazioni dei diversi automi ottenuti dai pattern dichiarati permettono di unirli, aggiungere le $\epsilon$-transizioni opportune e determinizzare il risultato. L'automa finale viene poi convertito in un automa equivalente, utilizzando le strutture dati della libreria ASTL. Infatti, la libreria Grail+, sebbene utile poiché implementa la costruzione di Thompson, non sembrava indicata ad un utilizzo negli algoritmi di diagnosi, in quanto non permette estensioni per quanto riguarda i dati satellite associati a transizioni e stati dell'automa.
 La minimizzazione finale del pattern space è implementata nel metodo \verb|Utils::minimize_by_partition|, che esegue una minimizzazione tenendo conto dei tag associati (pattern event) ai nodi finali dell'automa.
 
 \subsection{Salvataggio dei dati compilati}
-Una volta che il file di specifica è stato processato, le classi opportune sono state create e i controlli semantici sono andati a buon fine, la procedura di elaborazione offline termina creando dei file binari contenenti tutte le informazioni utili alla successiva fase diagnostica, ovvero tutti gli oggetti istanziati per il problema specificato. La scrittura di questi dati, chiamata serializzazione, è una procedura piuttosto complessa se implementata manualmente in C++, in quanto deve gestire puntatori ed evitare ridondanza. Per questo è stata adottata la libreria \emph{Serialization}, fornita dalla collezione \emph{Boost}\cite{web:boost}. Essa permette di salvare un oggetto con semplici modifiche della classe a cui esso appartiene.
+Una volta che il file di specifica è stato processato, le classi opportune sono state create e i controlli semantici sono andati a buon fine, la procedura di elaborazione offline termina creando dei file binari contenenti tutte le informazioni utili alla successiva fase diagnostica, ovvero tutti gli oggetti istanziati per il problema specificato. La scrittura di questi dati, chiamata serializzazione, è una procedura piuttosto complessa se implementata manualmente in C++, in quanto deve gestire puntatori ed evitare ridondanza. Per questo è stata adottata la libreria \emph{Serialization}, fornita dalla collezione \emph{Boost} \cite{web:boost}. Essa permette di salvare un oggetto con semplici modifiche della classe a cui esso appartiene.
 Ad esempio, la definizione della classe \verb|ComponentModel| è stata modificata aggiungendo le istruzioni riportate in figura \ref{code:serialize}. Per ogni attributo della classe, viene specificata la lettura e la scrittura in un oggetto di tipo \verb|Archive|, appartenente alla libreria. \'E necessario esplicitare l'operazione per ogni attributo della classe, in modo da poter salvare lo stato dell'oggetto corrente; eventuali attributi non salvati avranno un valore impredicibile. Quando l'oggetto corrisponde ad un archivio di output, l'operatore \verb|&| indica la scrittura, mentre nel caso di un archivio di input esso indica l'operazione di lettura. Le modifiche attuate permettono quindi sia la scrittura su file che la lettura operata durante la successiva fase diagnostica.
 
 \begin{figure}[htbp]
