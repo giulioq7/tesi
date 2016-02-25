@@ -8,6 +8,15 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{listings} %Per inserire codice
+\lstset{ %language=C,
+  %basicstyle=\ttfamily,
+  mathescape,
+  %alsoletter={',{,},[,],(,),()},
+  morekeywords={component,model,id,is,end,event,input,output,state,transition,network,link,pattern,initial,
+  viewer,ruler,system,node,emergence,problem,obs},
+  %keywordstyle=\bfseries,
+}
+%\lstset{morekeywords={component,model,id,is}}
 \usepackage[usenames]{color} %Per permettere la colorazione dei caratteri
 \usepackage[colorlinks=false]{hyperref}
 \usepackage{verbatim}
@@ -58,8 +67,7 @@
 \include{conclusioni}
 
 \appendix
-\chapter{BNF del linguaggio di specifica}\label{bnf}
-\includepdf[pages={1-}]{bnf/bnf.pdf}
+\include{bnf}
 \include{input_files}
 \include{installazione}
 

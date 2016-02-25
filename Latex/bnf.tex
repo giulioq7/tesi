@@ -1,0 +1,83 @@
+\chapter{BNF del linguaggio di specifica} \label{bnf}
+\'E di seguito riportata la grammatica, in notazione BNF, del linguaggio di specifica adottato per i sistemi attivi complessi. 
+Si noti che un file di specifica può avere delle direttive \verb|#include| (non coinvolte nella definizione della grammatica), gestite da un preprocessore, in modo da incorporare delle parti di specifica contenute in altri file.
+
+\begin{lstlisting}
+specification $\rightarrow$ spec_list
+spec_list $\rightarrow$ spec . spec_list $|$ spec .
+spec $\rightarrow$ model_decl $|$ system_decl $|$ problem_decl
+model_decl $\rightarrow$ comp_model_decl $|$ net_model_decl
+
+comp_model_decl $\rightarrow$ component model id is
+                              	event_decl
+                              	input_decl
+                              	output_decl
+                              	state_decl
+                              	transition_decl
+                             end id
+event_decl $\rightarrow$ event id_list ;
+id_list $\rightarrow$ id , id_list $|$ id
+input_decl $\rightarrow$ input id_list ; $|$ $\varepsilon$
+output_decl $\rightarrow$ output id_list ; $|$ $\varepsilon$
+state_decl $\rightarrow$ state id_list ; 
+transition_decl $\rightarrow$ transition trans_decl_list ;
+trans_decl_list$\rightarrow$ trans_decl , trans_decl_list $|$ trans_decl
+trans_decl $\rightarrow$ id = event , id -> id , { opt_ref_list }
+event $\rightarrow$ ref $|$ ( )
+ref $\rightarrow$ id ( id )
+opt_ref_list $\rightarrow$ ref_list $$|$$ $\varepsilon$
+ref_list $\rightarrow$ ref , ref_list $$|$$ ref
+
+net_model_decl $\rightarrow$ network model id is
+			component_section
+			input_decl
+			output_decl
+			link_section
+			pattern_section
+			initial_section
+			viewer_section
+			ruler_section
+		end id
+component_section $\rightarrow$ component decl_list ;
+decl_list $\rightarrow$ decl , decl_list $$|$$ decl
+decl $\rightarrow$ id_list : id
+link_section $\rightarrow$ link link_list ; $$|$$ $\varepsilon$
+link_list$\rightarrow$ link_decl , link_list $$|$$ link_decl
+link_decl $\rightarrow$ ref -> ref
+pattern_section $\rightarrow$ pattern pattern_list ; $$|$$ $\varepsilon$
+pattern_list$\rightarrow$ pattern_decl , pattern_list $$|$$ pattern_decl
+pattern_decl $\rightarrow$ ref pattern_op expr
+pattern_op $\rightarrow$ = $$|$$ ==
+expr $\rightarrow$ expr '$$|$$' term $$|$$ term
+term $\rightarrow$ term factor $$|$$ term & factor $$|$$ factor
+factor $\rightarrow$ factor * $$|$$ factor + $$|$$ factor ? $$|$$ ( expr ) $$|$$ ~ ref  $$|$$ ref 
+initial_section $\rightarrow$ initial ref_list ; $$|$$ $\varepsilon$
+viewer_section $\rightarrow$ viewer map_list ; $$|$$ $\varepsilon$
+map_list $\rightarrow$ map_decl , map_list $$|$$ map_decl
+map_decl $\rightarrow$ ref -> id
+ruler_section $\rightarrow$ ruler map_list ; $$|$$ $\varepsilon$
+
+system_decl $\rightarrow$ system id is 
+		system_node_
+		list emergence_section  
+	end id
+system_node_list $\rightarrow$ system_node, system_node_list $$|$$ system_node ;
+system_node $\rightarrow$ node id: id is 
+			initial_section 
+			viewer_section 
+			ruler_section 
+		end id
+emergence_section $\rightarrow$ emergence link_list ; $$|$$ $\varepsilon$
+
+problem_decl $\rightarrow$ problem id is problem_node_list end id
+problem_node_list $\rightarrow$ problem_node, problem_node_list 
+		$$|$$ problem_node ;
+problem_node $\rightarrow$ node id is 
+			initial_section 
+			viewer_section 
+			obs_section 
+			ruler_section 
+		end id
+obs_section $\rightarrow$ obs [ opt_id_list ] ;
+opt_id_list $\rightarrow$ id_list $$|$$ $\varepsilon$
+\end{lstlisting}

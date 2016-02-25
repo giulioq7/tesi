@@ -12,7 +12,7 @@
 #include "sys/resource.h"
 #include <unistd.h>
 
-#define GRAPHS_DIR "./Graphs/"
+#define GRAPHS_DIR "../Graphs/LazyDiagnosis/"
 
 #define EMPTY_LINK_FINAL true
 

@@ -1,1 +1,35 @@
 \chapter{Istruzioni di installazione del software}
+Il software sviluppato è distribuito nell'archivio \verb|CASdiagnosis.tar.gz|. Nell'appendice corrente è descritto come compilare ed eseguire il codice relativo, in ambiente Linux.
+Per poter compilare il codice, una volta copiato l'archivio nella cartella desiderata, digitare da terminale:
+
+\begin{verbatim}
+$ tar -zxvf CASdiagnosis.tar.gz
+\end{verbatim}
+
+Quindi, per accedere alla cartella creata, dare il comando:
+
+\begin{verbatim}
+$ cd CASdiagnosis/
+\end{verbatim}
+
+All'interno della cartella, dare il comando:
+
+\begin{verbatim}
+$ make
+\end{verbatim}
+
+per compilare l'intero programma.
+Una volta portata a termine la procedura, la cartella principale del programma conterrà le seguenti sottocartelle:
+\begin{itemize}
+\item \verb|SpecificationLanguage|, contenente il codice del compilatore offline;
+\item \verb|GreedyDiagnosis|, contenente il codice della macchina diagnostica greedy;
+\item \verb|LazyDiagnosis|, contenente il codice del metodo lazy;
+\item \verb|bin|, contenente i file eseguibili;
+\item \verb|doc|, con la documentazione generata da \emph{doxygen};
+\item \verb|Graphs|, contenente le rappresentazioni degli automi generati in fase diagnostica;
+\item \verb|CompiledData|, contenente le informazioni del file di specifica compilate in fase offline;
+\item \verb|Libraries|, contenente le librerie esterne utilizzate dal software;
+\item \verb|InputFiles|, dove sono collocati alcuni file di specifica di esempio.
+\end{itemize}
+Lo script \verb|compareLazyGreedy.sh| (presente nella cartella principale) permette, passando un parametro indicante il nome del file di specifica, di effettuare un confronto tra i due metodi diagnostici.
+Per ulteriori informazioni, visionare i file \verb|README| presenti nelle cartelle.

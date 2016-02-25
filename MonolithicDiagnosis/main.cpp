@@ -6,11 +6,10 @@
 #include "astl.h"
 #include "systransition.h"
 #include "behaviorstate.h"
-#include <unordered_map>
 #include <sys/resource.h>
 #include <unistd.h>
 
-#define GRAPHS_DIR "./Graphs/"
+#define GRAPHS_DIR "../Graphs/GreedyDiagnosis/"
 
 using namespace std;
 using namespace astl;
@@ -120,7 +119,7 @@ int main()
      }
 
 
-     unordered_map<string,DFA_map<SysTransition,BehaviorState>::state_type> hash_values;
+     map<string,DFA_map<SysTransition,BehaviorState>::state_type> hash_values;
      stringstream ss;
      ss << tag_s0;
      DFA_map<SysTransition,BehaviorState>::state_type s0 = behavior.new_state();

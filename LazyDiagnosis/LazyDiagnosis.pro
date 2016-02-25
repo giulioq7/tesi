@@ -52,6 +52,7 @@ HEADERS += \
 INCLUDEPATH += "../Libraries/astl/tags/2.0/include" \
                "../Libraries/boost_1_59_0"\
                "../SharedClasses/"
+DESTDIR = ../bin
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../Libraries/boost_1_59_0/lib/release/ -lboost_serialization
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../Libraries/boost_1_59_0/lib/debug/ -lboost_serialization

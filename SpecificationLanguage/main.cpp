@@ -14,7 +14,7 @@
 #include "minimize.h"
 
 #define TYPE int
-#define GRAPHS_DIR "./Graphs/"
+#define GRAPHS_DIR "../Graphs/SpecificationLanguage/"
 
 
 
@@ -100,7 +100,7 @@ int main(int argc, char** argv)
         }
     }
     //print all info
-    cout << driver;
+    //cout << driver;
 
     //xdot file should be blank because initial state is missed
     /*ofstream file("comp_model_bhv.xdot");
@@ -338,7 +338,7 @@ int main(int argc, char** argv)
 
 
     // ... some time later restore the class instance to its orginal state
-   vector<ComponentModel> comps;
+   /*vector<ComponentModel> comps;
    vector<NetworkModel> nets;
    System system;
    Problem problem;
@@ -373,7 +373,7 @@ int main(int argc, char** argv)
        // read class state from archive
        ia >> problem;
        // archive and stream closed when destructors are called
-   }
+   }*/
 
     /*ofstream f2("comp_concrete_bhv.xdot");
     full_dot(f2,dfirst_markc(*problem.nodes[0].concrete_components[2].automaton));

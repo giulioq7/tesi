@@ -15,18 +15,18 @@
 13 2 cl 1 I 2 b4 0 0 4 open 4 open
 14 2 cl 1 I 2 b5 0 0 6 closed 6 closed
 15 2 op 1 I 2 b6 0 0 4 open 4 open
-16 2 0 1 2 6 Sensor 3
+16 2 0 1 2 10 Protection 3
 17 3 0 -1 6
 18 4 idle 2 0
-19 0  0  2 s1 1 0 2 op 1 O 4 idle 6 awaken 2
-20 0  0  2 s3 1 0 2 cl 1 O 4 idle 6 awaken 2 6
+19 0  0  2 p1 1 0 2 op 1 O 4 idle 6 awaken 2
+20 0  0  2 p3 1 0 2 cl 1 O 4 idle 6 awaken 2 6
 21 6 awaken 2 0
-22 0  0  2 s2 1 0 2 cl 1 O 6 awaken 4 idle 1
-23 0  0  2 s4 1 0 2 op 1 O 6 awaken 4 idle 1 0 3 0 0 0 0 2 4 2 0 2 op 2 cl 0 0 1 0 1 O 2 0 4 idle 6 awaken 4 0
-24 0  0  2 s1 1 0 2 op 1 O 4 idle 6 awaken
-25 0  0  2 s2 1 0 2 cl 1 O 6 awaken 4 idle
-26 0  0  2 s3 1 0 2 cl 1 O 4 idle 6 awaken
-27 0  0  2 s4 1 0 2 op 1 O 6 awaken 4 idle
+22 0  0  2 p2 1 0 2 cl 1 O 6 awaken 4 idle 1
+23 0  0  2 p4 1 0 2 op 1 O 6 awaken 4 idle 1 0 3 0 0 0 0 2 4 2 0 2 op 2 cl 0 0 1 0 1 O 2 0 4 idle 6 awaken 4 0
+24 0  0  2 p1 1 0 2 op 1 O 4 idle 6 awaken
+25 0  0  2 p2 1 0 2 cl 1 O 6 awaken 4 idle
+26 0  0  2 p3 1 0 2 cl 1 O 4 idle 6 awaken
+27 0  0  2 p4 1 0 2 op 1 O 6 awaken 4 idle
 28 2 0 1 2 7 Monitor 3
 29 3 0 -1 6
 30 5 watch 6 0
