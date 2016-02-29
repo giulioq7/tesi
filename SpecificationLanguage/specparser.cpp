@@ -978,12 +978,12 @@ namespace yy {
                         msg.append(yystack_[0].value.as< string > ());
                         driver.error(loc, msg);
                     }
-                    yylhs.value.as< ComponentModel > ().name = yystack_[8].value.as< string > ();
-                    yylhs.value.as< ComponentModel > ().events = yystack_[6].value.as< vector<string>  > ();
-                    yylhs.value.as< ComponentModel > ().inputs = yystack_[5].value.as< vector<string>  > ();
-                    yylhs.value.as< ComponentModel > ().outputs = yystack_[4].value.as< vector<string>  > ();
-                    yylhs.value.as< ComponentModel > ().states = yystack_[3].value.as< vector<string>  > ();
-                    yylhs.value.as< ComponentModel > ().trans = yystack_[2].value.as< vector<Transition>  > ();
+                    yylhs.value.as< ComponentModel > () = ComponentModel(yystack_[8].value.as< string > ());
+                    yylhs.value.as< ComponentModel > ().set_events(yystack_[6].value.as< vector<string>  > ());
+                    yylhs.value.as< ComponentModel > ().set_inputs(yystack_[5].value.as< vector<string>  > ());
+                    yylhs.value.as< ComponentModel > ().set_outputs(yystack_[4].value.as< vector<string>  > ());
+                    yylhs.value.as< ComponentModel > ().set_states(yystack_[3].value.as< vector<string>  > ());
+                    yylhs.value.as< ComponentModel > ().set_trans(yystack_[2].value.as< vector<Transition>  > ());
 
                     driver.semantic_checks(yylhs.value.as< ComponentModel > ());
                   }
@@ -1059,9 +1059,9 @@ namespace yy {
   case 22:
 #line 221 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
-                    yylhs.value.as< Transition > ().name = yystack_[10].value.as< string > (); yylhs.value.as< Transition > ().input_event = yystack_[8].value.as< pair<string,string>  > ();
-                    string s1 = yystack_[6].value.as< string > (); string s2 = yystack_[4].value.as< string > (); yylhs.value.as< Transition > ().s1_s2 = make_pair(s1,s2);
-                    yylhs.value.as< Transition > ().out_events = yystack_[1].value.as< vector<pair<string,string> >  > ();
+                    yylhs.value.as< Transition > () = Transition(yystack_[10].value.as< string > ()); yylhs.value.as< Transition > ().set_input_event(yystack_[8].value.as< pair<string,string>  > ().first,yystack_[8].value.as< pair<string,string>  > ().second);
+                    yylhs.value.as< Transition > ().set_s1_s2(yystack_[6].value.as< string > (),yystack_[4].value.as< string > ());
+                    yylhs.value.as< Transition > ().set_out_events(yystack_[1].value.as< vector<pair<string,string> >  > ());
                   }
 #line 1067 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
@@ -1112,7 +1112,7 @@ namespace yy {
 #line 245 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
                         driver.current_net_model = NetworkModel();
-                        driver.current_net_model.components = yystack_[0].value.as< vector<NetComponent>  > ();
+                        driver.current_net_model.set_components(yystack_[0].value.as< vector<NetComponent>  > ());
                     }
 #line 1118 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
@@ -1132,15 +1132,15 @@ namespace yy {
                         msg.append(yystack_[0].value.as< string > ());
                         driver.error(loc, msg);
                     }
-                    yylhs.value.as< NetworkModel > ().name = yystack_[12].value.as< string > ();
-                    yylhs.value.as< NetworkModel > ().components = yystack_[10].value.as< vector<NetComponent>  > ();
-                    yylhs.value.as< NetworkModel > ().inputs = yystack_[8].value.as< vector<string>  > ();
-                    yylhs.value.as< NetworkModel > ().outputs = yystack_[7].value.as< vector<string>  > ();
-                    yylhs.value.as< NetworkModel > ().links = yystack_[6].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ();
-                    yylhs.value.as< NetworkModel > ().patterns = yystack_[5].value.as< vector<Pattern>  > ();
-                    yylhs.value.as< NetworkModel > ().initials = yystack_[4].value.as< vector<pair<string,string> >  > ();
-                    yylhs.value.as< NetworkModel > ().viewer = yystack_[3].value.as< map<pair<string,string>,string>   > ();
-                    yylhs.value.as< NetworkModel > ().ruler = yystack_[2].value.as< map<pair<string,string>,string>   > ();
+                    yylhs.value.as< NetworkModel > () = NetworkModel(yystack_[12].value.as< string > ());
+                    yylhs.value.as< NetworkModel > ().set_components(yystack_[10].value.as< vector<NetComponent>  > ());
+                    yylhs.value.as< NetworkModel > ().set_inputs(yystack_[8].value.as< vector<string>  > ());
+                    yylhs.value.as< NetworkModel > ().set_outputs(yystack_[7].value.as< vector<string>  > ());
+                    yylhs.value.as< NetworkModel > ().set_links(yystack_[6].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ());
+                    yylhs.value.as< NetworkModel > ().set_patterns(yystack_[5].value.as< vector<Pattern>  > ());
+                    yylhs.value.as< NetworkModel > ().set_initials(yystack_[4].value.as< vector<pair<string,string> >  > ());
+                    yylhs.value.as< NetworkModel > ().set_viewer(yystack_[3].value.as< map<pair<string,string>,string>   > ());
+                    yylhs.value.as< NetworkModel > ().set_ruler(yystack_[2].value.as< map<pair<string,string>,string>   > ());
 
                     driver.semantic_checks(yylhs.value.as< NetworkModel > ());
                   }
@@ -1433,7 +1433,7 @@ namespace yy {
   case 68:
 #line 432 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
-                        if(driver.system.name != "")
+                        if(driver.system.get_name() != "")
                             driver.error(loc,"Multiple system declaration (system must be unique)");
                         if(yystack_[5].value.as< string > () != yystack_[0].value.as< string > ())
                         {
@@ -1441,9 +1441,9 @@ namespace yy {
                             msg.append(yystack_[0].value.as< string > ());
                             driver.error(loc, msg);
                         }
-                        yylhs.value.as< System > ().name = yystack_[5].value.as< string > ();
-                        yylhs.value.as< System > ().node_list = yystack_[3].value.as< vector<SystemNode>  > ();
-                        yylhs.value.as< System > ().emergence = yystack_[2].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ();
+                        yylhs.value.as< System > () = System(yystack_[5].value.as< string > ());
+                        yylhs.value.as< System > ().set_node_list(yystack_[3].value.as< vector<SystemNode>  > ());
+                        yylhs.value.as< System > ().set_emergence(yystack_[2].value.as< vector<pair<pair<string,string>,pair<string,string> > >  > ());
 
                         driver.semantic_checks(yylhs.value.as< System > ());
                     }
@@ -1472,10 +1472,10 @@ namespace yy {
                             driver.error(loc, msg);
                         }
                         yylhs.value.as< SystemNode > () = SystemNode(yystack_[8].value.as< string > ());
-                        yylhs.value.as< SystemNode > ().net_model = driver.find_netmodel(yystack_[6].value.as< string > ());
-                        yylhs.value.as< SystemNode > ().initials = yystack_[4].value.as< vector<pair<string,string> >  > ();
-                        yylhs.value.as< SystemNode > ().viewer = yystack_[3].value.as< map<pair<string,string>,string>   > ();
-                        yylhs.value.as< SystemNode > ().ruler = yystack_[2].value.as< map<pair<string,string>,string>   > ();
+                        yylhs.value.as< SystemNode > ().set_net_model(driver.find_netmodel(yystack_[6].value.as< string > ()));
+                        yylhs.value.as< SystemNode > ().set_initials(yystack_[4].value.as< vector<pair<string,string> >  > ());
+                        yylhs.value.as< SystemNode > ().set_viewer(yystack_[3].value.as< map<pair<string,string>,string>   > ());
+                        yylhs.value.as< SystemNode > ().set_ruler(yystack_[2].value.as< map<pair<string,string>,string>   > ());
                     }
 #line 1481 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;
@@ -1495,7 +1495,7 @@ namespace yy {
   case 74:
 #line 480 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.yy" // lalr1.cc:859
     {
-                        if(driver.problem.name != "")
+                        if(driver.problem.get_name() != "")
                             driver.error(loc,"Multiple problem declaration (problem must be unique)");
                         if(yystack_[4].value.as< string > () != yystack_[0].value.as< string > ())
                         {
@@ -1503,8 +1503,8 @@ namespace yy {
                             msg.append(yystack_[0].value.as< string > ());
                             driver.error(loc, msg);
                         }
-                        yylhs.value.as< Problem > ().name = yystack_[4].value.as< string > ();
-                        yylhs.value.as< Problem > ().nodes = yystack_[2].value.as< vector<ProblemNode>  > ();
+                        yylhs.value.as< Problem > () = Problem(yystack_[4].value.as< string > ());
+                        yylhs.value.as< Problem > ().set_nodes(yystack_[2].value.as< vector<ProblemNode>  > ());
 
                         driver.semantic_checks(yylhs.value.as< Problem > ());
                     }
@@ -1533,11 +1533,11 @@ namespace yy {
                             driver.error(loc, msg);
                         }
                         yylhs.value.as< ProblemNode > () = ProblemNode(yystack_[7].value.as< string > ());
-                        yylhs.value.as< ProblemNode > ().ref_node = driver.find_node(yystack_[7].value.as< string > ());
-                        yylhs.value.as< ProblemNode > ().initials = yystack_[5].value.as< vector<pair<string,string> >  > ();
-                        yylhs.value.as< ProblemNode > ().viewer = yystack_[4].value.as< map<pair<string,string>,string>   > ();
-                        yylhs.value.as< ProblemNode > ().observation = yystack_[3].value.as< vector<string>  > ();
-                        yylhs.value.as< ProblemNode > ().ruler = yystack_[2].value.as< map<pair<string,string>,string>   > ();
+                        yylhs.value.as< ProblemNode > ().set_ref_node(driver.find_node(yystack_[7].value.as< string > ()));
+                        yylhs.value.as< ProblemNode > ().set_initials(yystack_[5].value.as< vector<pair<string,string> >  > ());
+                        yylhs.value.as< ProblemNode > ().set_viewer(yystack_[4].value.as< map<pair<string,string>,string>   > ());
+                        yylhs.value.as< ProblemNode > ().set_observation(yystack_[3].value.as< vector<string>  > ());
+                        yylhs.value.as< ProblemNode > ().set_ruler(yystack_[2].value.as< map<pair<string,string>,string>   > ());
                     }
 #line 1543 "/home/giulio/Scrivania/Tesi/SpecificationLanguage/specparser.cpp" // lalr1.cc:859
     break;

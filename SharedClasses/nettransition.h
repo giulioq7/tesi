@@ -9,6 +9,11 @@
 
 class NetTransition : public CHAR_TRAITS<NetTransition>
 {
+protected:
+    Transition* trans;
+    NetComponent* component;
+    std::string name;
+
     friend class boost::serialization::access;
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
@@ -19,12 +24,13 @@ class NetTransition : public CHAR_TRAITS<NetTransition>
     }
 
 public:
-    Transition* trans;
-    NetComponent* component;
-    std::string name;
-
     NetTransition();
     NetTransition(Transition* t, NetComponent* c);
+
+    std::string get_name() const;
+    Transition* get_trans() const;
+    NetComponent* get_component() const;
+
 
     //required definitions to use a NetTransition as automata alphabet for astl lib
     typedef NetTransition char_type;
@@ -34,11 +40,11 @@ public:
     static bool lt(const char_type &x, const char_type &y) { return x < y; }
     bool operator<(const NetTransition t) const
     {
-       return (name < t.name);
+       return (name < t.get_name());
     }
     bool operator==(const NetTransition t) const
     {
-        return (name == t.name);
+        return (name == t.get_name());
     }
 
 };

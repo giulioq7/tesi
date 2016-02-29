@@ -157,7 +157,7 @@ void Decoration::decorate_lazy_bhv(astl::DFA_map<SIGMA,TAG> &dfa, unsigned int b
                 for(it = diagnosis.begin(); it != diagnosis.end(); it++)
                 {
                     set<string> delta;
-                    M1 name = t.trans.t_name_c_name;
+                    M1 name = t.trans.get_t_name_c_name();
                     bool fault = (ruler.find(name) != ruler.end());
                     if(fault)
                     {
@@ -245,7 +245,7 @@ void Decoration::decorate_lazy_bhv(astl::NFA_mmap<SIGMA,TAG> &nfa, unsigned int 
                 for(it = diagnosis.begin(); it != diagnosis.end(); it++)
                 {
                     set<string> delta;
-                    M1 name = t.trans.t_name_c_name;
+                    M1 name = t.trans.get_t_name_c_name();
                     bool fault = (ruler.find(name) != ruler.end());
                     if(fault)
                     {

@@ -9,6 +9,10 @@
 
 class NetComponent
 {
+protected:
+    std::string name;
+    ComponentModel* model;
+
     friend class boost::serialization::access;
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
@@ -17,11 +21,13 @@ class NetComponent
         ar & model;
     }
 public:
-    std::string name;
-    ComponentModel* model;
-
     NetComponent();
     NetComponent(std::string str);
+
+    std::string get_name() const;
+    ComponentModel* get_model() const;
+
+    void set_model(ComponentModel* cm);
 
     bool operator==(const NetComponent c) const {return name == c.name;}
 };

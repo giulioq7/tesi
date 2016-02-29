@@ -64,6 +64,8 @@ int main()
 
      gettimeofday(&start, NULL);
 
+
+
      vector< forward_cursor<DFA_map<SysTransition,StateData_str> > > fc_S;
      vector< forward_cursor<DFA_map<NetTransition,StateData_strList> > > fc_P;
      vector<unsigned int> initial_P;
@@ -77,12 +79,13 @@ int main()
      {
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
          {
-             for(vector<Terminal*>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
+             vector<Terminal*> terms = it2->get_input_terminals();
+             for(vector<Terminal*>::iterator it3 = terms.begin(); it3 != terms.end(); it3++)
              {
-                 tag_s0.E[index_term] = (*it3)->value;
+                 tag_s0.E[index_term] = (*it3)->get_value();
                  index_term++;
              }
-             forward_cursor<DFA_map<SysTransition,StateData_str> > fc(*it2->automaton,it2->automaton->initial());
+             forward_cursor<DFA_map<SysTransition,StateData_str> > fc(*it2->get_automaton(),it2->get_automaton()->initial());
              fc_S.push_back(fc);
              tag_s0.S[index_comp] = fc.src();
              index_comp++;
@@ -93,11 +96,12 @@ int main()
      int index_patt = 0;
      for(vector<SystemNode>::iterator it = system.node_list.begin(); it != system.node_list.end(); it++)
      {
-         if(it->net_model->pattern_space.empty())
+         if(it->get_net_model()->get_pattern_space().empty())
              pattern_indexes[index_node][0] = pattern_indexes[index_node][1] = -1;
          else
             pattern_indexes[index_node][0] = index_patt;
-         for(vector<astl::DFA_map<NetTransition,StateData_strList> *>::iterator it2 = it->net_model->pattern_space.begin(); it2 != it->net_model->pattern_space.end(); it2++)
+         vector<astl::DFA_map<NetTransition,StateData_strList> *> ptss = it->get_net_model()->get_pattern_space();
+         for(vector<astl::DFA_map<NetTransition,StateData_strList> *>::iterator it2 = ptss.begin(); it2 != ptss.end(); it2++)
          {
              forward_cursor<DFA_map<NetTransition,StateData_strList> > fc(**it2,(*it2)->initial());
              fc_P.push_back(fc);
@@ -105,14 +109,14 @@ int main()
              tag_s0.P[index_patt] = fc.src();
              index_patt++;
          }
-         if(!it->net_model->pattern_space.empty())
+         if(!it->get_net_model()->get_pattern_space().empty())
              pattern_indexes[index_node][1] = index_patt;
          index_node++;
      }
      index_node = 0;
      for(vector<ProblemNode>::iterator it = problem.nodes.begin(); it != problem.nodes.end(); it++)
      {
-         forward_cursor<DFA_map<strings,StateData_str> > fc(*it->index_space,it->index_space->initial());
+         forward_cursor<DFA_map<strings,StateData_str> > fc(*it->get_index_space(),it->get_index_space()->initial());
          fc_I.push_back(fc);
          tag_s0.I[index_node] = fc.src();
          index_node++;
@@ -158,7 +162,7 @@ int main()
                              std::string label;
                              //transition is observable
                              try
-                             {label = it->viewer.at(t.t_name_c_name);}
+                             {label = it->get_viewer().at(t.get_t_name_c_name());}
                              //transition is not observable
                              catch (const std::out_of_range&)
                              {label = "";}
@@ -180,7 +184,7 @@ int main()
 
                              bool triggerable_pattern = true;
 
-                             NetTransition nt = t.net_trans;
+                             NetTransition nt(t.get_trans(),t.get_component());
 
                              for(int i=pattern_indexes[index_node][0];i<pattern_indexes[index_node][1];i++)
                              {
@@ -198,7 +202,7 @@ int main()
                                         for(it_patt = patt_events.elements.begin(); it_patt != patt_events.elements.end(); it_patt++)
                                         {
                                             bool empty_t = true;
-                                            vector<int> list = it->patt_indexes_map[*it_patt];
+                                            vector<int> list = it->get_patt_indexes_map()[*it_patt];
                                             vector<int>::iterator it_i;
                                             for(it_i = list.begin(); it_i != list.end(); it_i++)
                                             {
@@ -242,7 +246,7 @@ int main()
                                 bool is_final = true;
                                 for(unsigned int i = 0; i< problem.nodes.size(); i++)
                                 {
-                                    if(!problem.nodes[i].index_space->final(tag_s1.I[i]))
+                                    if(!problem.nodes[i].get_index_space()->final(tag_s1.I[i]))
                                     {
                                         is_final = false;
                                         break;
@@ -342,8 +346,8 @@ int main()
 
 
      //delete pointers to free memory
-     for(vector<ComponentModel>::iterator it = comp_models.begin(); it != comp_models.end(); it++)
-         delete it->automaton;
+     /*for(vector<ComponentModel>::iterator it = comp_models.begin(); it != comp_models.end(); it++)
+         delete it->get_automaton();
      for(vector<NetworkModel>::iterator it = net_models.begin(); it != net_models.end(); it++)
      {
          for(vector<astl::DFA_map<NetTransition,StateData_strList> *>::iterator it2 = it->pattern_space.begin(); it2 != it->pattern_space.end(); it2++)
@@ -353,8 +357,8 @@ int main()
      {
          delete it->index_space;
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
-             delete it2->automaton;
-     }
+             delete it2->get_automaton();
+     }*/
 
 
      return 0;
@@ -373,12 +377,13 @@ void decorate(DFA_map<SysTransition,BehaviorState> &dfa, DFA_map<SysTransition,B
             for(it = diagnosis.begin(); it != diagnosis.end(); it++)
             {
                 set<string> delta;
-                std::pair<string,string> net_t = make_pair(fc.letter().trans->name,fc.letter().component->name);
-                ProblemNode *node = Utils::find_from_id(problem.nodes,fc.letter().node->name);
-                bool fault = (node->ruler.find(net_t) != node->ruler.end());
+                std::pair<string,string> net_t = make_pair(fc.letter().get_trans()->get_name(),fc.letter().get_component()->get_name());
+                ProblemNode *node = Utils::find_from_id(problem.nodes,fc.letter().get_node()->get_name());
+                map<pair<string,string>,string> rlr = node->get_ruler();
+                bool fault = (rlr.find(net_t) != rlr.end());
                 if(fault)
                 {
-                    std::string fault_label = node->ruler[net_t];
+                    std::string fault_label = node->get_ruler()[net_t];
                     set<string> singleton;
                     singleton.insert(fault_label);
                     set_union(it->begin(),it->end(),singleton.begin(),singleton.end(),std::inserter(delta,delta.end()));

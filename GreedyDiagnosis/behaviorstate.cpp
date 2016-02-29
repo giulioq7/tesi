@@ -72,7 +72,7 @@ void BehaviorState::set_E(vector<Terminal*> terms)
     vector<Terminal*>::iterator it;
     int index = 0;
     for(it = terms.begin(); it != terms.end(); it++)
-        E[index++] = (*it)->value;
+        E[index++] = (*it)->get_value();
 }
 
 

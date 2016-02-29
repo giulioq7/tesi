@@ -39,9 +39,9 @@ bool InterfaceTrans::operator==(const InterfaceTrans t) const
 std::ostream& operator<<(std::ostream& out, const InterfaceTrans& t)
 {
     if(t.delta.empty())
-        out << t.trans.name;
+        out << t.trans.get_name();
     else
-        out << "[" << t.trans.name << "," << t.delta << "]";
+        out << "[" << t.trans.get_name() << "," << t.delta << "]";
 
     return out;
 }

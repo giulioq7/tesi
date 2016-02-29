@@ -53,9 +53,10 @@ int main(int argc, char** argv)
     //adjust inherited attributes of system nodes and problem nodes (initial states, viewer, ruler)
     driver.adjust_inherited();
 
+
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
-        if(it->initials.size() < it->ref_node->net_model->components.size())
+        if(it->get_initials().size() < it->get_ref_node()->get_net_model()->get_components().size())
         {
             driver.error("Initial state missed");
             exit(1);
@@ -72,7 +73,7 @@ int main(int argc, char** argv)
     {
         ofstream file;
         file.open("dependency_graph");
-        Utils::my_dot(file, driver.system.dependency_graph);
+        Utils::my_dot(file, *driver.system.get_dependency_graph());
         //full_dot(file, dfirst_markc(driver.system.dependency_graph));
     }
 
@@ -81,19 +82,21 @@ int main(int argc, char** argv)
 
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
-        for(vector<NetComponent>::iterator it2 = it->ref_node->net_model->components.begin();
-            it2 != it->ref_node->net_model->components.end(); it2++)
+        vector<NetComponent> comps = it->get_ref_node()->get_net_model()->get_components();
+        for(vector<NetComponent>::iterator it2 = comps.begin();
+            it2 != comps.end(); it2++)
         {
-            Component c(it2->name);
-            c.model = it2->model;
+            Component c(it2->get_name());
+            c.set_model(it2->get_model());
 
-            it->concrete_components.push_back(c);
+            it->add_concrete_component(c);
         }
     }
 
     for(vector<NetworkModel>::iterator it = driver.networks.begin(); it != driver.networks.end(); it++)
     {
-        for(vector<Pattern>::iterator it2 = it->patterns.begin(); it2 != it->patterns.end(); it2++)
+        vector<Pattern> patts = it->get_patterns();
+        for(vector<Pattern>::iterator it2 = patts.begin(); it2 != patts.end(); it2++)
         {
             if(!it2->is_max_language())
                 it2->not_substitution();
@@ -117,7 +120,7 @@ int main(int argc, char** argv)
     for(vector<NetworkModel>::iterator it = driver.networks.begin(); it != driver.networks.end(); it++)
     {
         int num_pts = 0;
-        vector<Pattern> remaining = it->patterns;
+        vector<Pattern> remaining = it->get_patterns();
         while(!remaining.empty())
         {
             vector<Pattern> same_language;
@@ -136,7 +139,7 @@ int main(int argc, char** argv)
             fm<TYPE> gr = start_build(same_language);
             DFA_map<NetTransition,StateData_strList>* ptspace = from_grail_to_astl(&gr,&(*it));
             //Utils::minimize_by_partition(*ptspace);
-            it->pattern_space.push_back(ptspace);
+            it->add_pattern_space(ptspace);
 
             vector<int> lang = same_language.at(0).get_language();
             std::set<std::string> res_lang;
@@ -147,13 +150,13 @@ int main(int argc, char** argv)
                 s.append("("); s.append(conv.second); s.append(")");
                 res_lang.insert(s);
             }
-            it->pattern_languages.push_back(res_lang);
+            it->add_language(res_lang);
 
             if(debug > 0)
             {
                ofstream file;
                stringstream ss;
-               ss << "pts_" << it->name << num_pts;
+               ss << "pts_" << it->get_name() << num_pts;
                file.open (ss.str().c_str());
                Utils::my_dot(file,*ptspace);
                //full_dot(file, dfirst_markc(*ptspace));
@@ -171,29 +174,34 @@ int main(int argc, char** argv)
 
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
     {
-        for(vector<std::string>::iterator it2 = it->ref_node->net_model->inputs.begin(); it2 != it->ref_node->net_model->inputs.end(); it2++)
+        vector<std::string> inputs = it->get_ref_node()->get_net_model()->get_inputs();
+        for(vector<std::string>::iterator it2 = inputs.begin(); it2 != inputs.end(); it2++)
         {
             Terminal *t = new Terminal(*it2);
-            it->input_terminals.push_back(t);
+            it->add_input_terminal(t);
         }
-        for(vector<std::string>::iterator it2 = it->ref_node->net_model->outputs.begin(); it2 != it->ref_node->net_model->outputs.end(); it2++)
+        vector<std::string> outputs = it->get_ref_node()->get_net_model()->get_outputs();
+        for(vector<std::string>::iterator it2 = outputs.begin(); it2 != outputs.end(); it2++)
         {
             Terminal *t = new Terminal(*it2);
-            it->output_terminals.push_back(t);
+            it->add_output_terminal(t);
         }
     }
     for(vector<ProblemNode>::iterator it = driver.problem.nodes.begin(); it != driver.problem.nodes.end(); it++)
            it->make_terminals();
 
-    for(vector<std::pair<std::pair<std::string,std::string>,std::pair<std::string,std::string> > >::iterator it = driver.system.emergence.begin(); it != driver.system.emergence.end(); it++)
+    vector<std::pair<std::pair<std::string,std::string>,std::pair<std::string,std::string> > > emer = driver.system.get_emergence();
+    for(vector<std::pair<std::pair<std::string,std::string>,std::pair<std::string,std::string> > >::iterator it = emer.begin(); it != emer.end(); it++)
     {
         Terminal *t1, *t2;
         ProblemNode *n1, *n2;
         n1 = Utils::find_from_id(driver.problem.nodes, it->first.second);
-        t1 = Utils::findptr_from_id(n1->output_terminals, it->first.first);
+        vector<Terminal*> outs = n1->get_output_terminals();
+        t1 = Utils::findptr_from_id(outs, it->first.first);
         n2 = Utils::find_from_id(driver.problem.nodes, it->second.second);
-        t2 = Utils::findptr_from_id(n2->input_terminals, it->second.first);
-        t1->linked_terminals.push_back(t2);
+        vector<Terminal*> ins = n2->get_input_terminals();
+        t2 = Utils::findptr_from_id(ins, it->second.first);
+        t1->add_linked_terminal(t2);
     }
 
     vector<Terminal*> input_terminals;
@@ -203,7 +211,8 @@ int main(int argc, char** argv)
         int i=0;
         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
         {
-            for(vector<Terminal*>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
+            vector<Terminal*> terms = it2->get_input_terminals();
+            for(vector<Terminal*>::iterator it3 = terms.begin(); it3 != terms.end(); it3++)
             {
                 input_terminals.push_back(*it3);
                 lazy.insert(make_pair(*it3,i));
@@ -224,7 +233,8 @@ int main(int argc, char** argv)
          vector<Terminal*> lazy_input_terminals;
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
          {
-             for(vector<Terminal*>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
+             vector<Terminal*> terms = it2->get_input_terminals();
+             for(vector<Terminal*>::iterator it3 = terms.begin(); it3 != terms.end(); it3++)
                  lazy_input_terminals.push_back(*it3);
          }
          map<Terminal*,int> lazy_term_map;
@@ -236,64 +246,70 @@ int main(int argc, char** argv)
          }
         for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
         {
-            it2->automaton = new DFA_map<SysTransition,StateData_str>();
-
+            it2->set_automaton(new DFA_map<SysTransition,StateData_str>());
+            DFA_map<Transition,StateData_str> *current = it2->get_model()->get_automaton();
             DFA_map<Transition,StateData_str>::const_iterator c_it;
-            for(c_it = it2->model->automaton->begin(); c_it != it2->model->automaton->end(); c_it++)
+            for(c_it = current->begin(); c_it != current->end(); c_it++)
             {
                 DFA_map<SysTransition,StateData_str>::state_type s;
-                s = it2->automaton->new_state();
-                it2->automaton->tag(s) = it2->model->automaton->tag(*c_it);
+                s = it2->get_automaton()->new_state();
+                current->tag(s) = current->tag(*c_it);
             }
-            it2->automaton->initial(it->find_initial_state(it2->name));
-            it2->model->automaton->initial(*it2->model->automaton->begin());
+            it2->get_automaton()->initial(it->find_initial_state(it2->get_name()));
+            current->initial(*current->begin());
             typename bfirst_mark_cursor_type<DFA_map<Transition,StateData_str>, DFA_concept, set_marker
-                    <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(*it2->model->automaton), bfc_end;
+                    <unsigned int, std::less<unsigned int> > >::model bfc = bfirst_markc(*it2->get_model()->get_automaton()), bfc_end;
 
             while(bfc != bfc_end)
             {
                 do
                 {
-                    NetComponent *nc = it->ref_node->net_model->find_component(it2->name);
-                    Transition *simple = nc->model->find_trans(bfc.letter().name);
-                    SysTransition t(simple,nc,it->ref_node);
-                    t.input_event = make_pair(t.trans->input_event.first, term_map[it2->find_input_terminal(t.trans->input_event.second)]);
-                    t.lazy_input_event = make_pair(t.trans->input_event.first, lazy_term_map[it2->find_input_terminal(t.trans->input_event.second)]);
-                    for(vector<std::pair<std::string,std::string> >::iterator i = t.trans->out_events.begin(); i!= t.trans->out_events.end(); i++)
+                    NetComponent *nc = it->get_ref_node()->get_net_model()->find_component(it2->get_name());
+                    Transition *simple = nc->get_model()->find_trans(bfc.letter().get_name());
+                    SysTransition t(simple,nc,it->get_ref_node());
+                    t.set_input_event(t.get_trans()->get_input_event().first, term_map[it2->find_input_terminal(t.get_trans()->get_input_event().second)]);
+                    t.set_lazy_input_event(t.get_trans()->get_input_event().first, lazy_term_map[it2->find_input_terminal(t.get_trans()->get_input_event().second)]);
+                    std::vector<std::pair<std::string,std::string> > out_evs = t.get_trans()->get_out_events();
+                    for(vector<std::pair<std::string,std::string> >::iterator i = out_evs.begin(); i!= out_evs.end(); i++)
                     {
                         Terminal *out_term = it2->find_output_terminal(i->second);
                         vector<int> list,lazy_list;
-                        for(vector<Terminal*>::iterator j = out_term->linked_terminals.begin(); j != out_term->linked_terminals.end(); j++)
+                        vector<Terminal*> terms = out_term->get_linked_terminals();
+                        for(vector<Terminal*>::iterator j = terms.begin(); j != terms.end(); j++)
                         {
                             list.push_back(term_map[*j]);
                             lazy_list.push_back(lazy_term_map[*j]);
                         }
-                        t.output_events.push_back(make_pair(i->first,list));
-                        t.lazy_output_events.push_back(make_pair(i->first,lazy_list));
+                        t.add_output_event(i->first,list);
+                        t.add_lazy_output_event(i->first,lazy_list);
                     }
-                    it2->automaton->set_trans(bfc.src(),t,bfc.aim());
+                    it2->get_automaton()->set_trans(bfc.src(),t,bfc.aim());
                 }while(bfc.next());
             }
-            it2->model->automaton->initial(it2->model->automaton->null_state);
+            current->initial(current->null_state);
         }
-        for(vector<Pattern>::iterator it2 = it->ref_node->net_model->patterns.begin(); it2 != it->ref_node->net_model->patterns.end(); it2++)
+        vector<Pattern> patterns = it->get_ref_node()->get_net_model()->get_patterns();
+        for(vector<Pattern>::iterator it2 = patterns.begin(); it2 != patterns.end(); it2++)
         {
-            Terminal *out = Utils::findptr_from_id(it->output_terminals,it2->get_terminal_id());
-            it->patt_map[it2->name] = out;
+            vector<Terminal*> outs = it->get_output_terminals();
+            Terminal *out = Utils::findptr_from_id(outs,it2->get_terminal_id());
+            it->add_patt_map(it2->get_name(), out);
             vector<int> list, lazy_list;
             //searches all network input terminals linked to out terminal
-            for(vector<Terminal*>::iterator it3 = out->linked_terminals.begin(); it3 != out->linked_terminals.end(); it3++)
+            vector<Terminal*> terms = out->get_linked_terminals();
+            for(vector<Terminal*>::iterator it3 = terms.begin(); it3 != terms.end(); it3++)
             {
                 //searches all component input terminals linked to network input terminal
-                for(vector<Terminal*>::iterator it4 = (*it3)->linked_terminals.begin(); it4 != (*it3)->linked_terminals.end(); it4++)
+                vector<Terminal*> terms2 = (*it3)->get_linked_terminals();
+                for(vector<Terminal*>::iterator it4 = terms2.begin(); it4 != terms2.end(); it4++)
                 {
                     list.push_back(term_map[*it4]);
                     //lazy_list.push_back(lazy_term_map[*it4]);
                     lazy_list.push_back(lazy.find(*it4)->second);
                 }
             }
-            it->patt_indexes_map[it2->name] = list;
-            it->lazy_patt_indexes_map[it2->name] = lazy_list;
+            it->add_patt_indexes_map(it2->get_name(),list);
+            it->add_lazy_patt_indexes_map(it2->get_name(), lazy_list);
         }
     }
 
@@ -786,7 +802,7 @@ DFA_map<NetTransition, StateData_strList> *from_grail_to_astl(fm<TYPE> *dfa, Net
         std::pair<std::string,std::string> p = net->conv_int_str[trans[i].get_label()];
         //cout << p.first << "(" << p.second << ")" << endl;
         NetComponent *comp = net->find_component(p.second);
-        Transition *tr = comp->model->find_trans(p.first);
+        Transition *tr = comp->get_model()->find_trans(p.first);
         NetTransition t(tr,comp);
         target->set_trans(s[index_src],t,s[index_aim]);
 

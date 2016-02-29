@@ -1,0 +1,20 @@
+digraph G {
+ratio=0.5;
+rankdir=TB;
+ranksep=0.4;
+1 [shape=circle,fontsize=30,label="1
+(6,7)"];
+2 [shape=circle,fontsize=30,label="2
+(2,3)"];
+1 -> 2 [label="[b1(b(N6)),(( ))]",fontsize=20];
+3 [shape=doublecircle,fontsize=30,label="3
+(1)
+(( ))"];
+2 -> 3 [label="[b4(b(N6)),((ncb))]",fontsize=20];
+4 [shape=doublecircle,fontsize=30,label="4
+(4,5)
+(( ))"];
+2 -> 4 [label="[p4(p(N6)),((fcp))]",fontsize=20];
+node [shape = point, color=white, fontcolor=white]; start;
+start -> 1;
+}

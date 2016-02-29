@@ -7,6 +7,10 @@
 
 class Terminal
 {
+    std::string name;
+    std::string value;
+    std::vector<Terminal*> linked_terminals;
+
     friend class boost::serialization::access;
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
@@ -16,12 +20,15 @@ class Terminal
         ar & linked_terminals;
     }
 public:
-    std::string name;
-    std::string value;
-    std::vector<Terminal*> linked_terminals;
-
     Terminal();
     Terminal(std::string n);
+
+    std::string get_name() const;
+    std::string get_value() const;
+    std::vector<Terminal*> get_linked_terminals() const;
+
+    void set_value(std::string v);
+    void add_linked_terminal(Terminal* t);
 };
 
 #endif // TERMINAL_H

@@ -8,6 +8,9 @@
 
 class Problem
 {
+    std::string name;
+    vector<int> topological_order;
+
     friend class boost::serialization::access;
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
@@ -18,13 +21,19 @@ class Problem
     }
 
 public:
-    std::string name;
-    vector<ProblemNode> nodes;
-    vector<int> topological_order;
-
-
     Problem();
     Problem(std::string str) { name = str;}
+
+    vector<ProblemNode> nodes;
+
+    std::string get_name() const;
+    vector<ProblemNode> get_nodes() const;
+    vector<int> get_topological_order() const;
+
+    void add_node(ProblemNode pn);
+    void set_nodes(vector<ProblemNode> v);
+    void set_topological_order(vector<int> order);
+
 
     ProblemNode* find_node(std::string id);
     int find_index(std::string id);

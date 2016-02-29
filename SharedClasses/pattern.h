@@ -11,7 +11,7 @@
 
 class Pattern
 {
-
+    std::string name;
     std::string terminal_id;
     std::string expr;
     bool max_language;
@@ -29,7 +29,6 @@ class Pattern
     }
 
 public:
-    std::string name;
     Pattern();
     Pattern(std::string str);
 

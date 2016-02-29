@@ -180,12 +180,12 @@ comp_model_decl : COMPONENT MODEL ID IS
                         msg.append($11);
                         driver.error(loc, msg);
                     }
-                    $$.name = $3;
-                    $$.events = $5;
-                    $$.inputs = $6;
-                    $$.outputs = $7;
-                    $$.states = $8;
-                    $$.trans = $9;
+                    $$ = ComponentModel($3);
+                    $$.set_events($5);
+                    $$.set_inputs($6);
+                    $$.set_outputs($7);
+                    $$.set_states($8);
+                    $$.set_trans($9);
 
                     driver.semantic_checks($$);
                   }
@@ -219,9 +219,9 @@ trans_decl_list : trans_decl COMMA trans_decl_list { $$.push_back($1); $$ = Util
 
 trans_decl      : ID EQUALS event COMMA ID ARROW ID COMMA L_CURLY_BRACKET opt_ref_list R_CURLY_BRACKET
                   {
-                    $$.name = $1; $$.input_event = $3;
-                    string s1 = $5; string s2 = $7; $$.s1_s2 = make_pair(s1,s2);
-                    $$.out_events = $10;
+                    $$ = Transition($1); $$.set_input_event($3.first,$3.second);
+                    $$.set_s1_s2($5,$7);
+                    $$.set_out_events($10);
                   }
                 ;
 
@@ -244,7 +244,7 @@ net_model_decl  : NETWORK MODEL ID IS
                     component_section
                     {
                         driver.current_net_model = NetworkModel();
-                        driver.current_net_model.components = $5;
+                        driver.current_net_model.set_components($5);
                     }
                     input_decl
                     output_decl
@@ -267,15 +267,15 @@ net_model_decl  : NETWORK MODEL ID IS
                         msg.append($15);
                         driver.error(loc, msg);
                     }
-                    $$.name = $3;
-                    $$.components = $5;
-                    $$.inputs = $7;
-                    $$.outputs = $8;
-                    $$.links = $9;
-                    $$.patterns = $10;
-                    $$.initials = $11;
-                    $$.viewer = $12;
-                    $$.ruler = $13;
+                    $$ = NetworkModel($3);
+                    $$.set_components($5);
+                    $$.set_inputs($7);
+                    $$.set_outputs($8);
+                    $$.set_links($9);
+                    $$.set_patterns($10);
+                    $$.set_initials($11);
+                    $$.set_viewer($12);
+                    $$.set_ruler($13);
 
                     driver.semantic_checks($$);
                   }
@@ -430,7 +430,7 @@ system_decl       : SYSTEM ID IS
                         emergence_section
                     END ID
                     {
-                        if(driver.system.name != "")
+                        if(driver.system.get_name() != "")
                             driver.error(loc,"Multiple system declaration (system must be unique)");
                         if($2 != $7)
                         {
@@ -438,9 +438,9 @@ system_decl       : SYSTEM ID IS
                             msg.append($7);
                             driver.error(loc, msg);
                         }
-                        $$.name = $2;
-                        $$.node_list = $4;
-                        $$.emergence = $5;
+                        $$ = System($2);
+                        $$.set_node_list($4);
+                        $$.set_emergence($5);
 
                         driver.semantic_checks($$);
                     }
@@ -463,10 +463,10 @@ system_node       : NODE ID COLON ID IS
                             driver.error(loc, msg);
                         }
                         $$ = SystemNode($2);
-                        $$.net_model = driver.find_netmodel($4);
-                        $$.initials = $6;
-                        $$.viewer = $7;
-                        $$.ruler = $8;
+                        $$.set_net_model(driver.find_netmodel($4));
+                        $$.set_initials($6);
+                        $$.set_viewer($7);
+                        $$.set_ruler($8);
                     }
                    ;
 
@@ -478,7 +478,7 @@ problem_decl      : PROBLEM ID IS
                         problem_node_list
                     END ID
                     {
-                        if(driver.problem.name != "")
+                        if(driver.problem.get_name() != "")
                             driver.error(loc,"Multiple problem declaration (problem must be unique)");
                         if($2 != $6)
                         {
@@ -486,8 +486,8 @@ problem_decl      : PROBLEM ID IS
                             msg.append($6);
                             driver.error(loc, msg);
                         }
-                        $$.name = $2;
-                        $$.nodes = $4;
+                        $$ = Problem($2);
+                        $$.set_nodes($4);
 
                         driver.semantic_checks($$);
                     }
@@ -511,11 +511,11 @@ problem_node      : NODE ID IS
                             driver.error(loc, msg);
                         }
                         $$ = ProblemNode($2);
-                        $$.ref_node = driver.find_node($2);
-                        $$.initials = $4;
-                        $$.viewer = $5;
-                        $$.observation = $6;
-                        $$.ruler = $7;
+                        $$.set_ref_node(driver.find_node($2));
+                        $$.set_initials($4);
+                        $$.set_viewer($5);
+                        $$.set_observation($6);
+                        $$.set_ruler($7);
                     }
                   ;
 

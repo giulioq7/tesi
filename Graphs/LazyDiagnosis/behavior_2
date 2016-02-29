@@ -3,28 +3,60 @@ ratio=0.5;
 rankdir=TB;
 ranksep=0.4;
 1 [shape=circle,fontsize=30,label="1
-[1,1]
+[1]
 [<eps>]
 [1]
 1
-[ ]
+[1]
 "];
 2 [shape=circle,fontsize=30,label="2
-[1,2]
-[op]
-[5]
-2
-[ ]
+[1]
+[di]
+[1]
+1
+[2]
 "];
-1 -> 2 [label="p1(p(W1))",fontsize=20];
-3 [shape=doublecircle,fontsize=30,label="3
-[1,2]
+1 -> 2 [label="[b1(b(N6)),(( ))]",fontsize=20];
+3 [shape=circle,fontsize=30,label="3
+[2]
 [<eps>]
-[8]
-2
-[ ]
+[1]
+1
+[2]
 "];
-2 -> 3 [label="b3(b(W1))",fontsize=20];
+2 -> 3 [label="w2(W(N3))",fontsize=20];
+4 [shape=circle,fontsize=30,label="4
+[2]
+[nc]
+[1]
+1
+[3]
+"];
+3 -> 4 [label="[b4(b(N6)),((ncb))]",fontsize=20];
+5 [shape=doublecircle,fontsize=30,label="5
+[2]
+[<eps>]
+[3]
+1
+[3]
+inter_delta: (( ))"];
+4 -> 5 [label="w6(W(N3))",fontsize=20];
+6 [shape=circle,fontsize=30,label="6
+[2]
+[nc]
+[1]
+1
+[4]
+"];
+3 -> 6 [label="[p4(p(N6)),((fcp))]",fontsize=20];
+7 [shape=doublecircle,fontsize=30,label="7
+[2]
+[<eps>]
+[3]
+1
+[4]
+inter_delta: (( ))"];
+6 -> 7 [label="w6(W(N3))",fontsize=20];
 node [shape = point, color=white, fontcolor=white]; start;
 start -> 1;
 }

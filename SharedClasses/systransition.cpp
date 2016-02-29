@@ -10,13 +10,44 @@ SysTransition::SysTransition(Transition* t, NetComponent *c, SystemNode *n)
     trans = t;
     component = c;
     node = n;
-    std::string str = trans->name;
-    str.append("("); str.append(component->name);
-    str.append("("); str.append(node->name); str.append("))");
+    std::string str = trans->get_name();
+    str.append("("); str.append(component->get_name());
+    str.append("("); str.append(node->get_name()); str.append("))");
     name = str;
-    net_trans = NetTransition(trans,component);
-    t_name_c_name = make_pair(trans->name, component->name);
+    t_name_c_name = make_pair(trans->get_name(), component->get_name());
 }
+
+
+SystemNode* SysTransition::get_node() const
+{
+    return node;
+}
+
+pair<string, string> SysTransition::get_t_name_c_name() const
+{
+    return t_name_c_name;
+}
+
+void SysTransition::set_input_event(std::string e, int index)
+{
+    input_event = make_pair(e,index);
+}
+
+void SysTransition::add_output_event(std::string e, vector<int> indexes)
+{
+    output_events.push_back(make_pair(e,indexes));
+}
+
+void SysTransition::set_lazy_input_event(std::string e, int index)
+{
+    lazy_input_event = make_pair(e,index);
+}
+
+void SysTransition::add_lazy_output_event(std::string e, vector<int> indexes)
+{
+    lazy_output_events.push_back(make_pair(e,indexes));
+}
+
 
 bool SysTransition::is_triggerable(vector<string> &E, bool lazy)
 {

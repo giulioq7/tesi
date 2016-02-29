@@ -77,12 +77,13 @@ int main()
      {
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
          {
-             for(vector<Terminal*>::iterator it3 = it2->input_terminals.begin(); it3 != it2->input_terminals.end(); it3++)
+             vector<Terminal*> terms = it2->get_input_terminals();
+             for(vector<Terminal*>::iterator it3 = terms.begin(); it3 != terms.end(); it3++)
              {
                  tag_s0.E[index_term] = (*it3)->value;
                  index_term++;
              }
-             forward_cursor<DFA_map<SysTransition,StateData_str> > fc(*it2->automaton,it2->automaton->initial());
+             forward_cursor<DFA_map<SysTransition,StateData_str> > fc(*it2->get_automaton(),it2->get_automaton()->initial());
              fc_S.push_back(fc);
              tag_s0.S[index_comp] = fc.src();
              index_comp++;
@@ -343,7 +344,7 @@ int main()
 
      //delete pointers to free memory
      for(vector<ComponentModel>::iterator it = comp_models.begin(); it != comp_models.end(); it++)
-         delete it->automaton;
+         delete it->get_automaton();
      for(vector<NetworkModel>::iterator it = net_models.begin(); it != net_models.end(); it++)
      {
          for(vector<astl::DFA_map<NetTransition,StateData_strList> *>::iterator it2 = it->pattern_space.begin(); it2 != it->pattern_space.end(); it2++)
@@ -353,7 +354,7 @@ int main()
      {
          delete it->index_space;
          for(vector<Component>::iterator it2 = it->concrete_components.begin(); it2 != it->concrete_components.end(); it2++)
-             delete it2->automaton;
+             delete it2->get_automaton();
      }
 
 
@@ -373,7 +374,7 @@ void decorate(DFA_map<SysTransition,BehaviorState> &dfa, DFA_map<SysTransition,B
             for(it = diagnosis.begin(); it != diagnosis.end(); it++)
             {
                 set<string> delta;
-                std::pair<string,string> net_t = make_pair(fc.letter().trans->name,fc.letter().component->name);
+                std::pair<string,string> net_t = make_pair(fc.letter().trans->name,fc.letter().component->get_name());
                 ProblemNode *node = Utils::find_from_id(problem.nodes,fc.letter().node->name);
                 bool fault = (node->ruler.find(net_t) != node->ruler.end());
                 if(fault)

@@ -1,0 +1,86 @@
+digraph G {
+ratio=0.5;
+rankdir=TB;
+ranksep=0.4;
+1 [shape=circle,fontsize=30,label="1
+[1,1]
+[<eps>]
+[1]
+1
+[ ]
+"];
+2 [shape=circle,fontsize=30,label="2
+[1,2]
+[op]
+[5]
+2
+[ ]
+"];
+1 -> 2 [label="p1(p(N6))",fontsize=20];
+3 [shape=circle,fontsize=30,label="3
+[2,2]
+[<eps>]
+[2]
+3
+[ ]
+"];
+2 -> 3 [label="b1(b(N6))",fontsize=20];
+4 [shape=circle,fontsize=30,label="4
+[2,1]
+[cl]
+[7]
+4
+[ ]
+"];
+3 -> 4 [label="p2(p(N6))",fontsize=20];
+5 [shape=doublecircle,fontsize=30,label="5
+[2,1]
+[<eps>]
+[10]
+4
+[ ]
+"];
+4 -> 5 [label="b4(b(N6))",fontsize=20];
+6 [shape=circle,fontsize=30,label="6
+[2,1]
+[op]
+[6]
+4
+[ ]
+"];
+3 -> 6 [label="p4(p(N6))",fontsize=20];
+7 [shape=doublecircle,fontsize=30,label="7
+[2,1]
+[<eps>]
+[1]
+4
+[ ]
+"];
+6 -> 7 [label="b6(b(N6))",fontsize=20];
+8 [shape=circle,fontsize=30,label="8
+[1,2]
+[<eps>]
+[8]
+2
+[ ]
+"];
+2 -> 8 [label="b3(b(N6))",fontsize=20];
+9 [shape=circle,fontsize=30,label="9
+[1,2]
+[cl]
+[4]
+2
+[ ]
+"];
+1 -> 9 [label="p3(p(N6))",fontsize=20];
+10 [shape=circle,fontsize=30,label="10
+[1,2]
+[<eps>]
+[1]
+2
+[ ]
+"];
+9 -> 10 [label="b5(b(N6))",fontsize=20];
+node [shape = point, color=white, fontcolor=white]; start;
+start -> 1;
+}

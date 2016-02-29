@@ -87,7 +87,7 @@ set<unsigned int> Determinization::eps_closure(NFA_mmap<SIGMA,TAG> &nfa, set<uns
         {
             do
             {
-                if(fc.letter().trans.name == EPS_TRANS)
+                if(fc.letter().trans.get_name() == EPS_TRANS)
                 {
                     unsigned int aim = fc.aim();
                     if(!Utils::contain(result,aim))
@@ -120,7 +120,7 @@ set<unsigned int> Determinization::move(NFA_mmap<SIGMA,TAG> &nfa, set<unsigned i
         {
             do
             {
-                if(fc.letter().trans.name == letter.trans.name && dfa.tag(dfa_state).get_automaton()->tag(*it2).candidate_diagnosis == letter.delta)
+                if(fc.letter().trans.get_name() == letter.trans.get_name() && dfa.tag(dfa_state).get_automaton()->tag(*it2).candidate_diagnosis == letter.delta)
                     result.insert(fc.aim());
             }
             while(fc.next());
@@ -185,7 +185,7 @@ void Determinization::NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIG
                     if(fc.letter() != SIGMA())
                     {
                         set<set<string> > delta = dfa.tag(*c).get_automaton()->tag(*it2).candidate_diagnosis, delta2;
-                        M1 name = fc.letter().trans.t_name_c_name;
+                        M1 name = fc.letter().trans.get_t_name_c_name();
                         bool fault = (ruler.find(name) != ruler.end());
                         if(fault)
                         {

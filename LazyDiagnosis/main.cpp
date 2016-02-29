@@ -80,17 +80,19 @@ int main()
         spurious_bhvs[i] = new DFA_map<InterfaceTrans,BehaviorState>;
     int i=0;
 
-    for(vector<int>::iterator it = problem.topological_order.begin(); it != problem.topological_order.end(); it++)
+    vector<int> top_order = problem.get_topological_order();
+    for(vector<int>::iterator it = top_order.begin(); it != top_order.end(); it++)
     {
-        vector<int> dependency = problem.nodes[*it].depends;
+        vector<int> dependency = problem.nodes[*it].get_depends();
         build_behavior(*spurious_bhvs[*it], *bhvs[*it], problem, system, *it, interfaces, dependency);
 
-         if(problem.nodes[*it].radix)
+         if(problem.nodes[*it].is_radix())
          {
              if(bhvs[*it]->state_count() == 0)
                  break;
              bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis.insert(set<string>());
-             Decoration::decorate_lazy_bhv(*bhvs[*it],bhvs[*it]->initial(),bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis, problem.nodes[*it].ruler, interfaces, dependency);
+             map<pair<string,string>,string> ruler = problem.nodes[*it].get_ruler();
+             Decoration::decorate_lazy_bhv(*bhvs[*it],bhvs[*it]->initial(),bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis, ruler, interfaces, dependency);
 
              if(bhvs[*it]->final(bhvs[*it]->initial()))
                  bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis = Decoration::join_op(bhvs[*it]->tag(bhvs[*it]->initial()).candidate_diagnosis, bhvs[*it]->tag(bhvs[*it]->initial()).interface_delta);
@@ -115,7 +117,8 @@ int main()
 
          NFA_mmap<InterfaceTrans,BehaviorState> nfa;
          to_nfa(*bhvs[*it],nfa);
-         Determinization::NFAtoDFA(*bhvs[*it],nfa,problem.nodes[*it].ruler,*interfaces[*it]);
+         map<pair<string,string>,string> ruler = problem.nodes[*it].get_ruler();
+         Determinization::NFAtoDFA(*bhvs[*it],nfa,ruler,*interfaces[*it]);
 
         i++;
     }
@@ -207,19 +210,20 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
     forward_cursor<DFA_map<strings,StateData_str> >  fc_I;
     vector< forward_cursor<DFA_map<InterfaceTrans,InterfaceState> > > fc_interfaces;
 
-    BehaviorState tag_s0(prob_node.concrete_components.size(), prob_node.input_terminals_count(),sys_node.net_model->pattern_space.size(), dependency.size());
+    BehaviorState tag_s0(prob_node.concrete_components.size(), prob_node.input_terminals_count(),sys_node.get_net_model()->get_pattern_space().size(), dependency.size());
 
     int index_comp = 0;
     for(vector<Component>::iterator it = prob_node.concrete_components.begin(); it != prob_node.concrete_components.end(); it++)
     {
-        forward_cursor<DFA_map<SysTransition,StateData_str> > fc(*it->automaton,it->automaton->initial());
+        forward_cursor<DFA_map<SysTransition,StateData_str> > fc(*it->get_automaton(),it->get_automaton()->initial());
         fc_S.push_back(fc);
         tag_s0.S[index_comp] = fc.src();
         index_comp++;
     }
 
     int index_patt = 0;
-    for(vector<astl::DFA_map<NetTransition,StateData_strList> *>::iterator it = sys_node.net_model->pattern_space.begin(); it != sys_node.net_model->pattern_space.end(); it++)
+    vector<astl::DFA_map<NetTransition,StateData_strList> *> ptss = sys_node.get_net_model()->get_pattern_space();
+    for(vector<astl::DFA_map<NetTransition,StateData_strList> *>::iterator it = ptss.begin(); it != ptss.end(); it++)
     {
         forward_cursor<DFA_map<NetTransition,StateData_strList> > fc(**it,(*it)->initial());
         fc_P.push_back(fc);
@@ -228,7 +232,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
         index_patt++;
     }
 
-    fc_I = forward_cursor<DFA_map<strings,StateData_str> >(*prob_node.index_space,prob_node.index_space->initial());
+    fc_I = forward_cursor<DFA_map<strings,StateData_str> >(*prob_node.get_index_space(),prob_node.get_index_space()->initial());
     tag_s0.I = fc_I.src();
 
     int interface_index = 0;
@@ -251,7 +255,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
     hash_values[ss.str()] = s0;
 
     bool is_final = true;
-    if(!prob_node.index_space->final(tag_s0.I))
+    if(!prob_node.get_index_space()->final(tag_s0.I))
         is_final = false;
     if(is_final)
     {
@@ -307,8 +311,9 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                     {
                         std::string label;
                         //transition is observable
-                        if(prob_node.viewer.find(t.trans.t_name_c_name) != prob_node.viewer.end())
-                            label = prob_node.viewer[t.trans.t_name_c_name];
+                        map<pair<string,string>,string> vwr = prob_node.get_viewer();
+                        if(vwr.find(t.trans.get_t_name_c_name()) != vwr.end())
+                            label = vwr[t.trans.get_t_name_c_name()];
                         //transition is not observable
                         else
                             label = "";
@@ -328,7 +333,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                         //updates input terminal values after doing component transition
                         t.trans.effects(tag_s1.E, true);
 
-                        NetTransition nt = t.trans.net_trans;
+                        NetTransition nt(t.trans.get_trans(),t.trans.get_component());
 
                         for(int i=0; i<fc_P.size(); i++)
                         {
@@ -361,7 +366,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                            //checks if the new state is final, so if current state of index spaces is final and all interfaces states are final (and all links are empty)
                            bool is_final = true;
 
-                           if(!prob_node.index_space->final(tag_s1.I))
+                           if(!prob_node.get_index_space()->final(tag_s1.I))
                                is_final = false;
 
                            int i=0;
@@ -411,7 +416,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                     bool empty_t = true;
                     for(it_patt = patt_events.begin(); it_patt != patt_events.end(); it_patt++)
                     {
-                        vector<int> list = problem.nodes[dependency[interface_index]].lazy_patt_indexes_map[*it_patt];
+                        vector<int> list = problem.nodes[dependency[interface_index]].get_lazy_patt_indexes_map()[*it_patt];
                         vector<int>::iterator it_i;
                         for(it_i = list.begin(); it_i != list.end(); it_i++)
                         {
@@ -449,7 +454,7 @@ void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<In
                        //checks if the new state is final, so if current state of index spaces is final and all interfaces states are final (and all links are empty)
                        bool is_final = true;
 
-                       if(!prob_node.index_space->final(tag_s1.I))
+                       if(!prob_node.get_index_space()->final(tag_s1.I))
                            is_final = false;
 
                        int i=0;

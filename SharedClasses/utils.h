@@ -86,7 +86,7 @@ T* Utils::find_from_id(vector<T> &v,std::string id)
     T* ref = NULL;
     for(typename vector<T>::iterator it = v.begin(); it != v.end(); it++)
     {
-        if((*it).name == id)
+        if((*it).get_name() == id)
         {
             ref = &(*it);
             break;
@@ -101,7 +101,7 @@ T Utils::findptr_from_id(vector<T> &v,std::string id)
     T ref = NULL;
     for(typename vector<T>::iterator it = v.begin(); it != v.end(); it++)
     {
-        if((*it)->name == id)
+        if((*it)->get_name() == id)
         {
             ref = *it;
             break;
