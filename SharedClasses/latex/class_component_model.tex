@@ -1,0 +1,383 @@
+\hypertarget{class_component_model}{}\section{Component\+Model Class Reference}
+\label{class_component_model}\index{Component\+Model@{Component\+Model}}
+
+
+The \hyperlink{class_component_model}{Component\+Model} class.  
+
+
+
+
+{\ttfamily \#include $<$componentmodel.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_component_model_a8df1c9db45b776c8447300b6ff1845ac}{Component\+Model} ()\hypertarget{class_component_model_a8df1c9db45b776c8447300b6ff1845ac}{}\label{class_component_model_a8df1c9db45b776c8447300b6ff1845ac}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_component_model}{Component\+Model} default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_component_model_a4a2b81f18a4109a2510da0441bd6dd92}{Component\+Model} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_component_model}{Component\+Model} constructor from id. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_component_model_a8827d16c2751dc3ec2e876bd219c81f4}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+vector$<$ std\+::string $>$ \hyperlink{class_component_model_a0e405f2d7095cb12c48994a7028e5a49}{get\+\_\+events} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+events \end{DoxyCompactList}\item 
+vector$<$ std\+::string $>$ \hyperlink{class_component_model_a59727fd988b5adddd5e769500720c99a}{get\+\_\+inputs} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+inputs \end{DoxyCompactList}\item 
+vector$<$ std\+::string $>$ \hyperlink{class_component_model_afbdb01b399354b308d61ae1393cbec63}{get\+\_\+outputs} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+outputs \end{DoxyCompactList}\item 
+vector$<$ std\+::string $>$ \hyperlink{class_component_model_a7960473e775b4dbbc0ddcc0c89bc2d20}{get\+\_\+states} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+states \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_transition}{Transition} $>$ \hyperlink{class_component_model_ad35b6b75698b8eeeee0e59b994e6292a}{get\+\_\+trans} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+trans \end{DoxyCompactList}\item 
+astl\+::\+D\+F\+A\+\_\+map$<$ \hyperlink{class_transition}{Transition}, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$ $\ast$ \hyperlink{class_component_model_a6ebfb1ee56c82313e9305462e29d0fc1}{get\+\_\+automaton} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+automaton \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_a62c871017dcb565d2ffea30f2bf64eab}{set\+\_\+events} (vector$<$ std\+::string $>$ v)
+\begin{DoxyCompactList}\small\item\em set\+\_\+events \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_a6066f9a643b19ce2a3a8922c957db8d1}{set\+\_\+inputs} (vector$<$ std\+::string $>$ v)
+\begin{DoxyCompactList}\small\item\em set\+\_\+inputs \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_ae87ec7dc958cfc89815472970d90fdc6}{set\+\_\+outputs} (vector$<$ std\+::string $>$ v)
+\begin{DoxyCompactList}\small\item\em set\+\_\+outputs \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_ac5510406a3ebbc0aec567973d9f02d44}{set\+\_\+states} (vector$<$ std\+::string $>$ v)
+\begin{DoxyCompactList}\small\item\em set\+\_\+states \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_a7ccd13a1905914b08d079ac3e89d7ef9}{set\+\_\+trans} (vector$<$ \hyperlink{class_transition}{Transition} $>$ v)
+\begin{DoxyCompactList}\small\item\em set\+\_\+trans \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_a0c56c8a83e2af3bf68bc5bd820607ed5}{add\+\_\+event} (std\+::string ev)
+\begin{DoxyCompactList}\small\item\em add\+\_\+event \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_a4f7421bbe94259bc579d05b197a4885d}{add\+\_\+input} (std\+::string in)
+\begin{DoxyCompactList}\small\item\em add\+\_\+input \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_a759f3d8b44dc9d50242dc2914f8d2302}{add\+\_\+output} (std\+::string out)
+\begin{DoxyCompactList}\small\item\em add\+\_\+output \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_a018585d39632c1137fccdd5a636fc429}{add\+\_\+state} (std\+::string st)
+\begin{DoxyCompactList}\small\item\em add\+\_\+state \end{DoxyCompactList}\item 
+void \hyperlink{class_component_model_a60a971d9497c283d1b53b19955197d2e}{build\+\_\+automaton} ()\hypertarget{class_component_model_a60a971d9497c283d1b53b19955197d2e}{}\label{class_component_model_a60a971d9497c283d1b53b19955197d2e}
+
+\begin{DoxyCompactList}\small\item\em build\+\_\+automaton \end{DoxyCompactList}\item 
+astl\+::\+D\+F\+A\+\_\+map$<$ \hyperlink{class_transition}{Transition}, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$\+::state\+\_\+type \hyperlink{class_component_model_a1dce877ed60027f1346b521d848d0889}{find\+\_\+state} (std\+::string name)
+\begin{DoxyCompactList}\small\item\em find\+\_\+state from name \end{DoxyCompactList}\item 
+\hyperlink{class_transition}{Transition} $\ast$ \hyperlink{class_component_model_a3788c218834cffc04c0cd4239364c7df}{find\+\_\+trans} (std\+::string name\+\_\+tr)
+\begin{DoxyCompactList}\small\item\em find\+\_\+trans finds transition from id \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_component_model_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_component_model_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_component_model}{Component\+Model} class. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Component\+Model@{Component\+Model}!Component\+Model@{Component\+Model}}
+\index{Component\+Model@{Component\+Model}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{Component\+Model(std\+::string str)}{ComponentModel(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}Component\+Model\+::\+Component\+Model (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_component_model_a4a2b81f18a4109a2510da0441bd6dd92}{}\label{class_component_model_a4a2b81f18a4109a2510da0441bd6dd92}
+
+
+\hyperlink{class_component_model}{Component\+Model} constructor from id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Component\+Model@{Component\+Model}!add\+\_\+event@{add\+\_\+event}}
+\index{add\+\_\+event@{add\+\_\+event}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+event(std\+::string ev)}{add_event(std::string ev)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::add\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{ev}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a0c56c8a83e2af3bf68bc5bd820607ed5}{}\label{class_component_model_a0c56c8a83e2af3bf68bc5bd820607ed5}
+
+
+add\+\_\+event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ev} & \\
+\hline
+\end{DoxyParams}
+\index{Component\+Model@{Component\+Model}!add\+\_\+input@{add\+\_\+input}}
+\index{add\+\_\+input@{add\+\_\+input}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+input(std\+::string in)}{add_input(std::string in)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::add\+\_\+input (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a4f7421bbe94259bc579d05b197a4885d}{}\label{class_component_model_a4f7421bbe94259bc579d05b197a4885d}
+
+
+add\+\_\+input 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & \\
+\hline
+\end{DoxyParams}
+\index{Component\+Model@{Component\+Model}!add\+\_\+output@{add\+\_\+output}}
+\index{add\+\_\+output@{add\+\_\+output}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+output(std\+::string out)}{add_output(std::string out)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::add\+\_\+output (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{out}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a759f3d8b44dc9d50242dc2914f8d2302}{}\label{class_component_model_a759f3d8b44dc9d50242dc2914f8d2302}
+
+
+add\+\_\+output 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & \\
+\hline
+\end{DoxyParams}
+\index{Component\+Model@{Component\+Model}!add\+\_\+state@{add\+\_\+state}}
+\index{add\+\_\+state@{add\+\_\+state}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+state(std\+::string st)}{add_state(std::string st)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::add\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{st}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a018585d39632c1137fccdd5a636fc429}{}\label{class_component_model_a018585d39632c1137fccdd5a636fc429}
+
+
+add\+\_\+state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em st} & \\
+\hline
+\end{DoxyParams}
+\index{Component\+Model@{Component\+Model}!find\+\_\+state@{find\+\_\+state}}
+\index{find\+\_\+state@{find\+\_\+state}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{find\+\_\+state(std\+::string name)}{find_state(std::string name)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+F\+A\+\_\+map$<$ {\bf Transition}, {\bf State\+Data\+\_\+str} $>$\+::state\+\_\+type Component\+Model\+::find\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a1dce877ed60027f1346b521d848d0889}{}\label{class_component_model_a1dce877ed60027f1346b521d848d0889}
+
+
+find\+\_\+state from name 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+automaton state 
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!find\+\_\+trans@{find\+\_\+trans}}
+\index{find\+\_\+trans@{find\+\_\+trans}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{find\+\_\+trans(std\+::string name\+\_\+tr)}{find_trans(std::string name_tr)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Transition} $\ast$ Component\+Model\+::find\+\_\+trans (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{name\+\_\+tr}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a3788c218834cffc04c0cd4239364c7df}{}\label{class_component_model_a3788c218834cffc04c0cd4239364c7df}
+
+
+find\+\_\+trans finds transition from id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name\+\_\+tr} & transition name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to \hyperlink{class_transition}{Transition} 
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!get\+\_\+automaton@{get\+\_\+automaton}}
+\index{get\+\_\+automaton@{get\+\_\+automaton}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+automaton() const }{get_automaton() const }}]{\setlength{\rightskip}{0pt plus 5cm}astl\+::\+D\+F\+A\+\_\+map$<$ {\bf Transition}, {\bf State\+Data\+\_\+str} $>$ $\ast$ Component\+Model\+::get\+\_\+automaton (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_model_a6ebfb1ee56c82313e9305462e29d0fc1}{}\label{class_component_model_a6ebfb1ee56c82313e9305462e29d0fc1}
+
+
+get\+\_\+automaton 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!get\+\_\+events@{get\+\_\+events}}
+\index{get\+\_\+events@{get\+\_\+events}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+events() const }{get_events() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ std\+::string $>$ Component\+Model\+::get\+\_\+events (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_model_a0e405f2d7095cb12c48994a7028e5a49}{}\label{class_component_model_a0e405f2d7095cb12c48994a7028e5a49}
+
+
+get\+\_\+events 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!get\+\_\+inputs@{get\+\_\+inputs}}
+\index{get\+\_\+inputs@{get\+\_\+inputs}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+inputs() const }{get_inputs() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ std\+::string $>$ Component\+Model\+::get\+\_\+inputs (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_model_a59727fd988b5adddd5e769500720c99a}{}\label{class_component_model_a59727fd988b5adddd5e769500720c99a}
+
+
+get\+\_\+inputs 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Component\+Model\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_model_a8827d16c2751dc3ec2e876bd219c81f4}{}\label{class_component_model_a8827d16c2751dc3ec2e876bd219c81f4}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!get\+\_\+outputs@{get\+\_\+outputs}}
+\index{get\+\_\+outputs@{get\+\_\+outputs}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+outputs() const }{get_outputs() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ std\+::string $>$ Component\+Model\+::get\+\_\+outputs (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_model_afbdb01b399354b308d61ae1393cbec63}{}\label{class_component_model_afbdb01b399354b308d61ae1393cbec63}
+
+
+get\+\_\+outputs 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!get\+\_\+states@{get\+\_\+states}}
+\index{get\+\_\+states@{get\+\_\+states}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+states() const }{get_states() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ std\+::string $>$ Component\+Model\+::get\+\_\+states (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_model_a7960473e775b4dbbc0ddcc0c89bc2d20}{}\label{class_component_model_a7960473e775b4dbbc0ddcc0c89bc2d20}
+
+
+get\+\_\+states 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!get\+\_\+trans@{get\+\_\+trans}}
+\index{get\+\_\+trans@{get\+\_\+trans}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+trans() const }{get_trans() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Transition} $>$ Component\+Model\+::get\+\_\+trans (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_model_ad35b6b75698b8eeeee0e59b994e6292a}{}\label{class_component_model_ad35b6b75698b8eeeee0e59b994e6292a}
+
+
+get\+\_\+trans 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component\+Model@{Component\+Model}!set\+\_\+events@{set\+\_\+events}}
+\index{set\+\_\+events@{set\+\_\+events}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+events(vector$<$ std\+::string $>$ v)}{set_events(vector< std::string > v)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::set\+\_\+events (
+\begin{DoxyParamCaption}
+\item[{vector$<$ std\+::string $>$}]{v}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a62c871017dcb565d2ffea30f2bf64eab}{}\label{class_component_model_a62c871017dcb565d2ffea30f2bf64eab}
+
+
+set\+\_\+events 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \\
+\hline
+\end{DoxyParams}
+\index{Component\+Model@{Component\+Model}!set\+\_\+inputs@{set\+\_\+inputs}}
+\index{set\+\_\+inputs@{set\+\_\+inputs}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+inputs(vector$<$ std\+::string $>$ v)}{set_inputs(vector< std::string > v)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::set\+\_\+inputs (
+\begin{DoxyParamCaption}
+\item[{vector$<$ std\+::string $>$}]{v}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a6066f9a643b19ce2a3a8922c957db8d1}{}\label{class_component_model_a6066f9a643b19ce2a3a8922c957db8d1}
+
+
+set\+\_\+inputs 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \\
+\hline
+\end{DoxyParams}
+\index{Component\+Model@{Component\+Model}!set\+\_\+outputs@{set\+\_\+outputs}}
+\index{set\+\_\+outputs@{set\+\_\+outputs}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+outputs(vector$<$ std\+::string $>$ v)}{set_outputs(vector< std::string > v)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::set\+\_\+outputs (
+\begin{DoxyParamCaption}
+\item[{vector$<$ std\+::string $>$}]{v}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_ae87ec7dc958cfc89815472970d90fdc6}{}\label{class_component_model_ae87ec7dc958cfc89815472970d90fdc6}
+
+
+set\+\_\+outputs 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \\
+\hline
+\end{DoxyParams}
+\index{Component\+Model@{Component\+Model}!set\+\_\+states@{set\+\_\+states}}
+\index{set\+\_\+states@{set\+\_\+states}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+states(vector$<$ std\+::string $>$ v)}{set_states(vector< std::string > v)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::set\+\_\+states (
+\begin{DoxyParamCaption}
+\item[{vector$<$ std\+::string $>$}]{v}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_ac5510406a3ebbc0aec567973d9f02d44}{}\label{class_component_model_ac5510406a3ebbc0aec567973d9f02d44}
+
+
+set\+\_\+states 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \\
+\hline
+\end{DoxyParams}
+\index{Component\+Model@{Component\+Model}!set\+\_\+trans@{set\+\_\+trans}}
+\index{set\+\_\+trans@{set\+\_\+trans}!Component\+Model@{Component\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+trans(vector$<$ Transition $>$ v)}{set_trans(vector< Transition > v)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+Model\+::set\+\_\+trans (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Transition} $>$}]{v}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_model_a7ccd13a1905914b08d079ac3e89d7ef9}{}\label{class_component_model_a7ccd13a1905914b08d079ac3e89d7ef9}
+
+
+set\+\_\+trans 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+componentmodel.\+h\item 
+componentmodel.\+cpp\end{DoxyCompactItemize}

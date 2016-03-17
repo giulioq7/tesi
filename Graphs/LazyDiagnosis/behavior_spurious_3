@@ -16,71 +16,31 @@ ranksep=0.4;
 2
 [ ]
 "];
-1 -> 2 [label="p1(p(N4))",fontsize=20];
-3 [shape=circle,fontsize=30,label="3
+1 -> 2 [label="p1(p(W2))",fontsize=20];
+3 [shape=doublecircle,fontsize=30,label="3
 [2,2]
 [<eps>]
 [2]
 3
 [ ]
 "];
-2 -> 3 [label="b1(b(N4))",fontsize=20];
+2 -> 3 [label="b1(b(W2))",fontsize=20];
 4 [shape=circle,fontsize=30,label="4
-[2,1]
-[cl]
-[7]
-4
-[ ]
-"];
-3 -> 4 [label="p2(p(N4))",fontsize=20];
-5 [shape=doublecircle,fontsize=30,label="5
-[2,1]
-[<eps>]
-[10]
-4
-[ ]
-"];
-4 -> 5 [label="b4(b(N4))",fontsize=20];
-6 [shape=circle,fontsize=30,label="6
-[2,1]
-[op]
-[6]
-4
-[ ]
-"];
-3 -> 6 [label="p4(p(N4))",fontsize=20];
-7 [shape=doublecircle,fontsize=30,label="7
-[2,1]
-[<eps>]
-[1]
-4
-[ ]
-"];
-6 -> 7 [label="b6(b(N4))",fontsize=20];
-8 [shape=circle,fontsize=30,label="8
 [1,2]
 [<eps>]
 [8]
 2
 [ ]
 "];
-2 -> 8 [label="b3(b(N4))",fontsize=20];
-9 [shape=circle,fontsize=30,label="9
+2 -> 4 [label="b3(b(W2))",fontsize=20];
+5 [shape=circle,fontsize=30,label="5
 [1,2]
 [cl]
 [4]
 2
 [ ]
 "];
-1 -> 9 [label="p3(p(N4))",fontsize=20];
-10 [shape=circle,fontsize=30,label="10
-[1,2]
-[<eps>]
-[1]
-2
-[ ]
-"];
-9 -> 10 [label="b5(b(N4))",fontsize=20];
+1 -> 5 [label="p3(p(W2))",fontsize=20];
 node [shape = point, color=white, fontcolor=white]; start;
 start -> 1;
 }

@@ -5,24 +5,64 @@
 #include "nfa_mmap.h"
 #include <sstream>
 
-
+/**
+ * @brief The Decoration class contains static methods to decorate generic automata
+ * @date Febbraio 2016
+ * @author Giulio Quarenghi
+ */
 class Decoration
 {
 public:
 
     template <typename SIGMA,typename TAG, typename M1, typename M2>
+    /**
+     * @brief decorate dfa plain decoration
+     * @param dfa
+     * @param beta
+     * @param diagnosis
+     * @param ruler
+     */
     static void decorate(astl::DFA_map<SIGMA,TAG> &dfa, unsigned int beta, set<set<M2> > diagnosis, map<M1,M2> &ruler);
 
     template <typename SIGMA,typename TAG, typename M1, typename M2>
+    /**
+     * @brief decorate nfa plain decoration
+     * @param nfa
+     * @param beta
+     * @param diagnosis
+     * @param ruler
+     */
     static void decorate(astl::NFA_mmap<SIGMA,TAG> &nfa, unsigned int beta, set<set<M2> > diagnosis, map<M1,M2> &ruler);
 
     template <typename SIGMA,typename TAG, typename M1, typename M2, typename INTER_SIGMA, typename INTER_TAG>
+    /**
+     * @brief decorate_lazy_bhv dfa modified decoration for interface transitions and final interface states diagnosis
+     * @param dfa
+     * @param beta
+     * @param diagnosis
+     * @param ruler
+     * @param interfaces
+     * @param dependency
+     */
     static void decorate_lazy_bhv(astl::DFA_map<SIGMA,TAG> &dfa, unsigned int beta, set<set<M2> > diagnosis, map<M1,M2> &ruler, vector<astl::DFA_map<INTER_SIGMA,INTER_TAG> *> &interfaces, vector<int> &dependency);
 
     template <typename SIGMA,typename TAG, typename M1, typename M2>
+    /**
+     * @brief decorate_lazy_bhv nfa modified decoration for interface transitions and final interface states diagnosis
+     * @param nfa
+     * @param beta
+     * @param diagnosis
+     * @param ruler
+     */
     static void decorate_lazy_bhv(astl::NFA_mmap<SIGMA,TAG> &nfa, unsigned int beta, set<set<M2> > diagnosis, map<M1,M2> &ruler);
 
     template <typename T>
+    /**
+     * @brief join_op join operation to combine diagnosis sets
+     * @param d1
+     * @param d2
+     * @return
+     */
     static set<set<T> > join_op(set<set<T> > &d1, set<set<T> > &d2);
 };
 

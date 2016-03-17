@@ -1,3 +1,14 @@
+/**
+ * @mainpage
+ *
+ * @brief Greedy diagnosis engine
+ *
+ * @author Giulio Quarenghi
+ *
+ * @date  2016 February
+ *
+ */
+
 #include <iostream>
 #include <boost/functional/hash.hpp>
 #include <sys/time.h>

@@ -15,7 +15,7 @@
 13 2 cl 1 I 2 b4 0 0 4 open 4 open
 14 2 cl 1 I 2 b5 0 0 6 closed 6 closed
 15 2 op 1 I 2 b6 0 0 4 open 4 open
-16 2 0 1 2 16 ProtectionDevice 3
+16 2 0 1 2 10 Protection 3
 17 3 0 -1 6
 18 4 idle 2 0
 19 0  0  2 p1 1 0 2 op 1 O 4 idle 6 awaken 2
@@ -27,34 +27,39 @@
 25 0  0  2 p2 1 0 2 cl 1 O 6 awaken 4 idle
 26 0  0  2 p3 1 0 2 cl 1 O 4 idle 6 awaken
 27 0  0  2 p4 1 0 2 op 1 O 6 awaken 4 idle
-28 3 0 1 2 3 18 ProtectionHardware 3
-29 4 0 -1 6
-30 3 con 2 0
-31 2 nd 3 Cot 2 w1 0 0 3 con 3 con 1
-32 2 di 3 Cot 2 w2 0 0 3 con 4 dis1 2 6
-33 4 dis1 3 0
-34 2 di 3 Cot 2 w3 0 0 4 dis1 4 dis2 3
-35 2 co 3 Cot 2 w5 0 0 4 dis1 3 con 1
-36 2 nc 3 Cot 2 w6 0 0 4 dis1 4 dis1 2 6
-37 4 dis2 2 0
-38 2 co 3 Cot 2 w4 0 0 4 dis2 4 dis1 2
-39 2 nc 3 Cot 2 w7 0 0 4 dis2 4 dis2 3 0 4 0 0 0 0 0 3 7 4 0 2 nd 2 di 2 co 2 nc 1 0 3 Cot 0 0 3 0 3 con 4 dis1 4 dis2 7 0
-40 2 nd 3 Cot 2 w1 0 0 3 con 3 con
-41 2 di 3 Cot 2 w2 0 0 3 con 4 dis1
-42 2 di 3 Cot 2 w3 0 0 4 dis1 4 dis2
-43 2 co 3 Cot 2 w4 0 0 4 dis2 4 dis1
-44 2 co 3 Cot 2 w5 0 0 4 dis1 3 con
-45 2 nc 3 Cot 2 w6 0 0 4 dis1 4 dis1
-46 2 nc 3 Cot 2 w7 0 0 4 dis2 4 dis2
-47 4 0 1 2 3 4 4 Line 3
-48 5 0 -1 6
-49 6 normal 3 0
-50 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted 2
-51 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated 3
-52 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent 4 6
-53 7 shorted 0 0 6
-54 8 isolated 0 0 6
-55 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 3 Cot 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
-56 2 ni 3 Cot 2 l1 0 0 6 normal 7 shorted
-57 2 nr 3 Cot 2 l2 0 0 6 normal 8 isolated
-58 2 ps 3 Cot 2 l3 0 0 6 normal 10 persistent
+28 2 0 1 2 7 Monitor 3
+29 3 0 -1 6
+30 5 watch 6 0
+31 2 nd 1 E 2 m1 2 0 2 op 1 R 2 rc 1 O 5 watch 7 trigger 2
+32 2 nd 1 E 2 m2 1 0 2 op 1 R 5 watch 7 trigger 2
+33 2 rc 1 I 2 m3 1 0 2 op 1 R 5 watch 7 trigger 2
+34 2 di 1 E 2 m5 0 0 5 watch 5 watch 1
+35 2 co 1 E 2 m6 0 0 5 watch 5 watch 1
+36 2 nc 1 E 2 m7 0 0 5 watch 5 watch 1 6
+37 7 trigger 4 0
+38 2 nc 1 E 3 m10 0 0 7 trigger 7 trigger 2
+39 2 nd 1 E 2 m4 0 0 7 trigger 7 trigger 2
+40 2 di 1 E 2 m8 0 0 7 trigger 7 trigger 2
+41 2 co 1 E 2 m9 0 0 7 trigger 7 trigger 2 0 3 0 0 0 0 2 10 6 0 2 di 2 co 2 nd 2 nc 2 rc 2 op 2 0 1 E 1 I 2 0 1 O 1 R 2 0 5 watch 7 trigger 10 0
+42 2 nd 1 E 2 m1 2 0 2 op 1 R 2 rc 1 O 5 watch 7 trigger
+43 2 nd 1 E 2 m2 1 0 2 op 1 R 5 watch 7 trigger
+44 2 rc 1 I 2 m3 1 0 2 op 1 R 5 watch 7 trigger
+45 2 nd 1 E 2 m4 0 0 7 trigger 7 trigger
+46 2 di 1 E 2 m5 0 0 5 watch 5 watch
+47 2 co 1 E 2 m6 0 0 5 watch 5 watch
+48 2 nc 1 E 2 m7 0 0 5 watch 5 watch
+49 2 di 1 E 2 m8 0 0 7 trigger 7 trigger
+50 2 co 1 E 2 m9 0 0 7 trigger 7 trigger
+51 2 nc 1 E 3 m10 0 0 7 trigger 7 trigger
+52 4 0 1 2 3 4 4 Line 3
+53 5 0 -1 6
+54 6 normal 3 0
+55 2 ni 1 E 2 l1 0 0 6 normal 7 shorted 2
+56 2 nr 1 E 2 l2 0 0 6 normal 8 isolated 3
+57 2 ps 1 E 2 l3 0 0 6 normal 10 persistent 4 6
+58 7 shorted 0 0 6
+59 8 isolated 0 0 6
+60 10 persistent 0 0 0 5 0 0 0 0 0 0 4 3 3 0 2 ni 2 nr 2 ps 1 0 1 E 0 0 4 0 6 normal 7 shorted 8 isolated 10 persistent 3 0
+61 2 ni 1 E 2 l1 0 0 6 normal 7 shorted
+62 2 nr 1 E 2 l2 0 0 6 normal 8 isolated
+63 2 ps 1 E 2 l3 0 0 6 normal 10 persistent

@@ -10,24 +10,70 @@
 
 #define EPS_TRANS ""
 
+/**
+ * @brief The Determinization class
+ * @date Febbraio 2016
+ * @author Giulio Quarenghi
+ */
 class Determinization
 {
     template<typename SIGMA, typename TAG>
+    /**
+     * @brief is_final checks if a set of nfa states contains at least one final state
+     * @param nfa
+     * @param states
+     * @return
+     */
     static bool is_final(astl::NFA_mmap<SIGMA,TAG> &nfa, set<unsigned int> states);
 
     template<typename SIGMA_DFA, typename SIGMA, typename TAG>
+    /**
+     * @brief extract_subNFA extracts sub-automaton of states in the set (eps-closure)
+     * @param bhv
+     * @param states
+     * @param starts
+     * @param subnfa
+     */
     static void extract_subNFA(astl::DFA_map<SIGMA_DFA,TAG> &bhv, set<unsigned int> states,  set<unsigned int> starts, astl::NFA_mmap<SIGMA,TAG> &subnfa);
 public:
     template<typename SIGMA, typename TAG>
+    /**
+     * @brief eps_closure computes eps-closure of a single state
+     * @param nfa
+     * @param state
+     * @return
+     */
     static set<unsigned int> eps_closure(astl::NFA_mmap<SIGMA,TAG> &nfa, unsigned int state);
 
     template<typename SIGMA, typename TAG>
+    /**
+     * @brief eps_closure computes eps-closure of a set of states
+     * @param nfa
+     * @param states
+     * @return
+     */
     static set<unsigned int> eps_closure(astl::NFA_mmap<SIGMA,TAG> &nfa, set<unsigned int> states);
 
     template<typename SIGMA, typename SIGMA_DFA, typename TAG, typename TAG_DFA>
+    /**
+     * @brief move computes union of reached states from source states by specified transition
+     * @param nfa
+     * @param states
+     * @param dfa
+     * @param dfa_state
+     * @param letter
+     * @return
+     */
     static set<unsigned int> move(NFA_mmap<SIGMA,TAG> &nfa, set<unsigned int> states, DFA_map<SIGMA_DFA,TAG_DFA> &dfa, unsigned int dfa_state, SIGMA_DFA letter);
 
     template<typename SIGMA, typename SIGMA_DFA, typename TAG, typename TAG_DFA, typename M1, typename M2>
+    /**
+     * @brief NFAtoDFA driver method for interface determinization
+     * @param bhv
+     * @param nfa
+     * @param ruler
+     * @param dfa
+     */
     static void NFAtoDFA(astl::DFA_map<SIGMA,TAG> &bhv, astl::NFA_mmap<SIGMA,TAG> &nfa, map<M1,M2> &ruler, astl::DFA_map<SIGMA_DFA,TAG_DFA> &dfa);
 };
 

@@ -1,0 +1,168 @@
+\hypertarget{class_net_component}{}\section{Net\+Component Class Reference}
+\label{class_net_component}\index{Net\+Component@{Net\+Component}}
+
+
+The \hyperlink{class_net_component}{Net\+Component} class represents a component in a network model.  
+
+
+
+
+{\ttfamily \#include $<$netcomponent.\+h$>$}
+
+
+
+Inheritance diagram for Net\+Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{class_net_component__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Net\+Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=173pt]{class_net_component__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_net_component_a77dc2a06629c0cbbe1b2ce1c33ae34f7}{Net\+Component} ()\hypertarget{class_net_component_a77dc2a06629c0cbbe1b2ce1c33ae34f7}{}\label{class_net_component_a77dc2a06629c0cbbe1b2ce1c33ae34f7}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_net_component}{Net\+Component} default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_net_component_aa1b768bd499286c1ee62202d5fe36e7c}{Net\+Component} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_net_component}{Net\+Component} constructor from id. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_net_component_a04ae33a17be08247e96bee14775d31e6}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+\hyperlink{class_component_model}{Component\+Model} $\ast$ \hyperlink{class_net_component_a94adff8ef99b5283f7768f13e54c538a}{get\+\_\+model} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+model \end{DoxyCompactList}\item 
+void \hyperlink{class_net_component_a82a52610414f1913eb4711d5ad63f66c}{set\+\_\+model} (\hyperlink{class_component_model}{Component\+Model} $\ast$cm)
+\begin{DoxyCompactList}\small\item\em set\+\_\+model assigns model \end{DoxyCompactList}\item 
+bool \hyperlink{class_net_component_ad810dbc0fc141639e872ca7526d29b0e}{operator==} (const \hyperlink{class_net_component}{Net\+Component} c) const 
+\begin{DoxyCompactList}\small\item\em operator == overload of equality operator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void {\bfseries serialize} (Archive \&ar, const unsigned int version)\hypertarget{class_net_component_af55f6a28639ad956b41a21e73e16f445}{}\label{class_net_component_af55f6a28639ad956b41a21e73e16f445}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{class_net_component_aa1fd04ed705210806544993b51fffb0f}{name}\hypertarget{class_net_component_aa1fd04ed705210806544993b51fffb0f}{}\label{class_net_component_aa1fd04ed705210806544993b51fffb0f}
+
+\begin{DoxyCompactList}\small\item\em name \end{DoxyCompactList}\item 
+\hyperlink{class_component_model}{Component\+Model} $\ast$ \hyperlink{class_net_component_a7fec3d6449003b423d617529e337a7f5}{model}\hypertarget{class_net_component_a7fec3d6449003b423d617529e337a7f5}{}\label{class_net_component_a7fec3d6449003b423d617529e337a7f5}
+
+\begin{DoxyCompactList}\small\item\em model component model \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_net_component_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_net_component_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_net_component}{Net\+Component} class represents a component in a network model. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Net\+Component@{Net\+Component}!Net\+Component@{Net\+Component}}
+\index{Net\+Component@{Net\+Component}!Net\+Component@{Net\+Component}}
+\subsubsection[{\texorpdfstring{Net\+Component(std\+::string str)}{NetComponent(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}Net\+Component\+::\+Net\+Component (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{class_net_component_aa1b768bd499286c1ee62202d5fe36e7c}{}\label{class_net_component_aa1b768bd499286c1ee62202d5fe36e7c}
+
+
+\hyperlink{class_net_component}{Net\+Component} constructor from id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & name \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Net\+Component@{Net\+Component}!get\+\_\+model@{get\+\_\+model}}
+\index{get\+\_\+model@{get\+\_\+model}!Net\+Component@{Net\+Component}}
+\subsubsection[{\texorpdfstring{get\+\_\+model() const }{get_model() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Component\+Model} $\ast$ Net\+Component\+::get\+\_\+model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_net_component_a94adff8ef99b5283f7768f13e54c538a}{}\label{class_net_component_a94adff8ef99b5283f7768f13e54c538a}
+
+
+get\+\_\+model 
+
+\begin{DoxyReturn}{Returns}
+pointer to \hyperlink{class_component_model}{Component\+Model} 
+\end{DoxyReturn}
+\index{Net\+Component@{Net\+Component}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!Net\+Component@{Net\+Component}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Net\+Component\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_net_component_a04ae33a17be08247e96bee14775d31e6}{}\label{class_net_component_a04ae33a17be08247e96bee14775d31e6}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Net\+Component@{Net\+Component}!operator==@{operator==}}
+\index{operator==@{operator==}!Net\+Component@{Net\+Component}}
+\subsubsection[{\texorpdfstring{operator==(const Net\+Component c) const }{operator==(const NetComponent c) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Net\+Component\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Net\+Component}}]{c}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_net_component_ad810dbc0fc141639e872ca7526d29b0e}{}\label{class_net_component_ad810dbc0fc141639e872ca7526d29b0e}
+
+
+operator == overload of equality operator 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Net\+Component@{Net\+Component}!set\+\_\+model@{set\+\_\+model}}
+\index{set\+\_\+model@{set\+\_\+model}!Net\+Component@{Net\+Component}}
+\subsubsection[{\texorpdfstring{set\+\_\+model(\+Component\+Model $\ast$cm)}{set_model(ComponentModel *cm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Net\+Component\+::set\+\_\+model (
+\begin{DoxyParamCaption}
+\item[{{\bf Component\+Model} $\ast$}]{cm}
+\end{DoxyParamCaption}
+)}\hypertarget{class_net_component_a82a52610414f1913eb4711d5ad63f66c}{}\label{class_net_component_a82a52610414f1913eb4711d5ad63f66c}
+
+
+set\+\_\+model assigns model 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cm} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+netcomponent.\+h\item 
+netcomponent.\+cpp\end{DoxyCompactItemize}

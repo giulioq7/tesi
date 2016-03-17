@@ -1,0 +1,372 @@
+\hypertarget{classspec__driver}{}\section{spec\+\_\+driver Class Reference}
+\label{classspec__driver}\index{spec\+\_\+driver@{spec\+\_\+driver}}
+
+
+The \hyperlink{classspec__driver}{spec\+\_\+driver} class\+: sintax analysis and semantics driver class.  
+
+
+
+
+{\ttfamily \#include $<$spec\+\_\+driver.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries spec\+\_\+driver} (int n\+\_\+comp, int n\+\_\+net)\hypertarget{classspec__driver_a501cafe1beec7fb6bdf123fbee1f64fd}{}\label{classspec__driver_a501cafe1beec7fb6bdf123fbee1f64fd}
+
+\item 
+void \hyperlink{classspec__driver_a1dec95b6431143ef6eb2d7072769ccd7}{scan\+\_\+begin} ()\hypertarget{classspec__driver_a1dec95b6431143ef6eb2d7072769ccd7}{}\label{classspec__driver_a1dec95b6431143ef6eb2d7072769ccd7}
+
+\begin{DoxyCompactList}\small\item\em scan\+\_\+begin \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a2fdbda19869304c97c249af047450972}{scan\+\_\+end} ()\hypertarget{classspec__driver_a2fdbda19869304c97c249af047450972}{}\label{classspec__driver_a2fdbda19869304c97c249af047450972}
+
+\begin{DoxyCompactList}\small\item\em scan\+\_\+end \end{DoxyCompactList}\item 
+int \hyperlink{classspec__driver_aa046696e40b60102725e627b42521c32}{parse} (const std\+::string \&f)
+\begin{DoxyCompactList}\small\item\em parse \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a26346ffb6356f1d39658b9200599c5cc}{error} (const \hyperlink{classyy_1_1location}{yy\+::location} \&l, const std\+::string \&m)
+\begin{DoxyCompactList}\small\item\em error \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a1cee1cf6c4bdb30e6ffde06806807aef}{error} (const std\+::string \&m)
+\begin{DoxyCompactList}\small\item\em error \end{DoxyCompactList}\item 
+bool \hyperlink{classspec__driver_ad85b6046a06158cf786164b763b47beb}{duplicate\+\_\+component\+\_\+model\+\_\+id} (std\+::string id)
+\begin{DoxyCompactList}\small\item\em duplicate\+\_\+component\+\_\+model\+\_\+id\+: checks if current ID is already used \end{DoxyCompactList}\item 
+bool \hyperlink{classspec__driver_a794189e9d2f75a0f30b6ac8e1616c14d}{duplicate\+\_\+network\+\_\+model\+\_\+id} (std\+::string id)
+\begin{DoxyCompactList}\small\item\em duplicate\+\_\+network\+\_\+model\+\_\+id\+: checks if current ID is already used \end{DoxyCompactList}\item 
+vector$<$ Net\+Component $>$ \hyperlink{classspec__driver_aae557c73a2e1ae2d919ca291442c9729}{build\+\_\+components} (vector$<$ std\+::string $>$ ids, std\+::string name)
+\begin{DoxyCompactList}\small\item\em build\+\_\+components\+: build network components from a list of ids \end{DoxyCompactList}\item 
+Network\+Model $\ast$ \hyperlink{classspec__driver_aa301f786c511e059a45e5d340d18ac5b}{find\+\_\+netmodel} (std\+::string id\+\_\+model)
+\begin{DoxyCompactList}\small\item\em find\+\_\+netmodel\+: find a network model from id \end{DoxyCompactList}\item 
+System\+Node $\ast$ \hyperlink{classspec__driver_acb67929d0cd4f576f9fd264667a815b6}{find\+\_\+node} (std\+::string id)
+\begin{DoxyCompactList}\small\item\em find\+\_\+node\+: find a system node from id \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_ab3950645bdc391613ed3e55f18783312}{adjust\+\_\+inherited} ()\hypertarget{classspec__driver_ab3950645bdc391613ed3e55f18783312}{}\label{classspec__driver_ab3950645bdc391613ed3e55f18783312}
+
+\begin{DoxyCompactList}\small\item\em adjust\+\_\+inherited\+: adjusts viewer, ruler and initial states of all nodes \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_ab1232c0107789885cb253aed227df43e}{build\+\_\+automata\+\_\+comp} ()\hypertarget{classspec__driver_ab1232c0107789885cb253aed227df43e}{}\label{classspec__driver_ab1232c0107789885cb253aed227df43e}
+
+\begin{DoxyCompactList}\small\item\em build\+\_\+automata\+\_\+comp\+: builds component models automata (initial state missed) \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a419a6aec9dffd43f3f0a7969a3fbb6b1}{build\+\_\+dependency\+\_\+graph} ()\hypertarget{classspec__driver_a419a6aec9dffd43f3f0a7969a3fbb6b1}{}\label{classspec__driver_a419a6aec9dffd43f3f0a7969a3fbb6b1}
+
+\begin{DoxyCompactList}\small\item\em build\+\_\+dependency\+\_\+graph\+: builds an automata representing dependencies beetwen system nodes (pattern events links) \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a6ebc152f1570fadb0c7a229132b1140f}{build\+\_\+\+Isp} ()\hypertarget{classspec__driver_a6ebc152f1570fadb0c7a229132b1140f}{}\label{classspec__driver_a6ebc152f1570fadb0c7a229132b1140f}
+
+\begin{DoxyCompactList}\small\item\em build\+\_\+\+Isp\+: builds index spaces from local observations \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a850c8f53f48c51e46fcf8eb08dbca436}{semantic\+\_\+checks} (Component\+Model cm)
+\begin{DoxyCompactList}\small\item\em semantic\+\_\+checks \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a7e79bc384e1645b85161c7ef1361e1a4}{semantic\+\_\+checks} (Network\+Model nm)
+\begin{DoxyCompactList}\small\item\em semantic\+\_\+checks \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a9f8fb73fdce4b11df8c6ecf03ba8e3be}{semantic\+\_\+checks} (System sys)
+\begin{DoxyCompactList}\small\item\em semantic\+\_\+checks \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a043c3c288ade5e461a4e84577f7f18d8}{semantic\+\_\+checks} (System\+Node node)
+\begin{DoxyCompactList}\small\item\em semantic\+\_\+checks \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a2ca24547de7b6c5424c1d448a6692bb3}{semantic\+\_\+checks} (Problem pb)
+\begin{DoxyCompactList}\small\item\em semantic\+\_\+checks \end{DoxyCompactList}\item 
+void \hyperlink{classspec__driver_a741561fb61e30a71c24d5f926eee9447}{semantic\+\_\+checks} (Problem\+Node pbn)
+\begin{DoxyCompactList}\small\item\em semantic\+\_\+checks \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ Component\+Model $>$ \hyperlink{classspec__driver_adf12e35e8ac794efbc0c6c0b04dca443}{components}\hypertarget{classspec__driver_adf12e35e8ac794efbc0c6c0b04dca443}{}\label{classspec__driver_adf12e35e8ac794efbc0c6c0b04dca443}
+
+\begin{DoxyCompactList}\small\item\em components\+: vector of component models \end{DoxyCompactList}\item 
+vector$<$ Network\+Model $>$ \hyperlink{classspec__driver_a04e74c30d0ceac769f4b8f4a00ee639a}{networks}\hypertarget{classspec__driver_a04e74c30d0ceac769f4b8f4a00ee639a}{}\label{classspec__driver_a04e74c30d0ceac769f4b8f4a00ee639a}
+
+\begin{DoxyCompactList}\small\item\em networks\+: vector ok network models \end{DoxyCompactList}\item 
+Network\+Model \hyperlink{classspec__driver_a547f299187b1a5837cf03e2785d78da2}{current\+\_\+net\+\_\+model}\hypertarget{classspec__driver_a547f299187b1a5837cf03e2785d78da2}{}\label{classspec__driver_a547f299187b1a5837cf03e2785d78da2}
+
+\begin{DoxyCompactList}\small\item\em current\+\_\+net\+\_\+model\+: current network model \end{DoxyCompactList}\item 
+bool \hyperlink{classspec__driver_afcf21254f19afba075dc2ef8cb0dcd58}{current\+\_\+patt\+\_\+maxl}\hypertarget{classspec__driver_afcf21254f19afba075dc2ef8cb0dcd58}{}\label{classspec__driver_afcf21254f19afba075dc2ef8cb0dcd58}
+
+\begin{DoxyCompactList}\small\item\em current\+\_\+patt\+\_\+maxl\+: true if the language of current pattern is max \end{DoxyCompactList}\item 
+Pattern \hyperlink{classspec__driver_a5b6ed2f787740c74f515f2b4e53e17ce}{current\+\_\+pattern}\hypertarget{classspec__driver_a5b6ed2f787740c74f515f2b4e53e17ce}{}\label{classspec__driver_a5b6ed2f787740c74f515f2b4e53e17ce}
+
+\begin{DoxyCompactList}\small\item\em current\+\_\+pattern \end{DoxyCompactList}\item 
+System \hyperlink{classspec__driver_ae012fcf3dbf5b42df635cc3e5ca49cb1}{system}\hypertarget{classspec__driver_ae012fcf3dbf5b42df635cc3e5ca49cb1}{}\label{classspec__driver_ae012fcf3dbf5b42df635cc3e5ca49cb1}
+
+\begin{DoxyCompactList}\small\item\em system \end{DoxyCompactList}\item 
+Problem \hyperlink{classspec__driver_a90eb87057b6e71f1fb6b383a17d9b599}{problem}\hypertarget{classspec__driver_a90eb87057b6e71f1fb6b383a17d9b599}{}\label{classspec__driver_a90eb87057b6e71f1fb6b383a17d9b599}
+
+\begin{DoxyCompactList}\small\item\em problem \end{DoxyCompactList}\item 
+bool \hyperlink{classspec__driver_a42dbd5f4b0e37e3960acf66e0d7e35cc}{trace\+\_\+scanning}\hypertarget{classspec__driver_a42dbd5f4b0e37e3960acf66e0d7e35cc}{}\label{classspec__driver_a42dbd5f4b0e37e3960acf66e0d7e35cc}
+
+\begin{DoxyCompactList}\small\item\em trace\+\_\+scanning\+: keeps track while scanning (verbose) \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classspec__driver_ae464044f944cddc8ee4bb5190ff2213d}{file}\hypertarget{classspec__driver_ae464044f944cddc8ee4bb5190ff2213d}{}\label{classspec__driver_ae464044f944cddc8ee4bb5190ff2213d}
+
+\begin{DoxyCompactList}\small\item\em file \end{DoxyCompactList}\item 
+bool \hyperlink{classspec__driver_a8aecceacb14f142966e5a792112f26b7}{trace\+\_\+parsing}\hypertarget{classspec__driver_a8aecceacb14f142966e5a792112f26b7}{}\label{classspec__driver_a8aecceacb14f142966e5a792112f26b7}
+
+\begin{DoxyCompactList}\small\item\em trace\+\_\+parsing \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{classspec__driver_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{classspec__driver_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classspec__driver}{spec\+\_\+driver} class\+: sintax analysis and semantics driver class. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!build\+\_\+components@{build\+\_\+components}}
+\index{build\+\_\+components@{build\+\_\+components}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{build\+\_\+components(vector$<$ std\+::string $>$ ids, std\+::string name)}{build_components(vector< std::string > ids, std::string name)}}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ Net\+Component $>$ spec\+\_\+driver\+::build\+\_\+components (
+\begin{DoxyParamCaption}
+\item[{vector$<$ std\+::string $>$}]{ids, }
+\item[{std\+::string}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_aae557c73a2e1ae2d919ca291442c9729}{}\label{classspec__driver_aae557c73a2e1ae2d919ca291442c9729}
+
+
+build\+\_\+components\+: build network components from a list of ids 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ids} & list of names \\
+\hline
+{\em name} & name of component model \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector of Net\+Component 
+\end{DoxyReturn}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!duplicate\+\_\+component\+\_\+model\+\_\+id@{duplicate\+\_\+component\+\_\+model\+\_\+id}}
+\index{duplicate\+\_\+component\+\_\+model\+\_\+id@{duplicate\+\_\+component\+\_\+model\+\_\+id}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{duplicate\+\_\+component\+\_\+model\+\_\+id(std\+::string id)}{duplicate_component_model_id(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}bool spec\+\_\+driver\+::duplicate\+\_\+component\+\_\+model\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_ad85b6046a06158cf786164b763b47beb}{}\label{classspec__driver_ad85b6046a06158cf786164b763b47beb}
+
+
+duplicate\+\_\+component\+\_\+model\+\_\+id\+: checks if current ID is already used 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if duplicated, false otherwise 
+\end{DoxyReturn}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!duplicate\+\_\+network\+\_\+model\+\_\+id@{duplicate\+\_\+network\+\_\+model\+\_\+id}}
+\index{duplicate\+\_\+network\+\_\+model\+\_\+id@{duplicate\+\_\+network\+\_\+model\+\_\+id}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{duplicate\+\_\+network\+\_\+model\+\_\+id(std\+::string id)}{duplicate_network_model_id(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}bool spec\+\_\+driver\+::duplicate\+\_\+network\+\_\+model\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a794189e9d2f75a0f30b6ac8e1616c14d}{}\label{classspec__driver_a794189e9d2f75a0f30b6ac8e1616c14d}
+
+
+duplicate\+\_\+network\+\_\+model\+\_\+id\+: checks if current ID is already used 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if duplicated, false otherwise 
+\end{DoxyReturn}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!error@{error}}
+\index{error@{error}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{error(const yy\+::location \&l, const std\+::string \&m)}{error(const yy::location &l, const std::string &m)}}]{\setlength{\rightskip}{0pt plus 5cm}void spec\+\_\+driver\+::error (
+\begin{DoxyParamCaption}
+\item[{const {\bf yy\+::location} \&}]{l, }
+\item[{const std\+::string \&}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a26346ffb6356f1d39658b9200599c5cc}{}\label{classspec__driver_a26346ffb6356f1d39658b9200599c5cc}
+
+
+error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em l} & \\
+\hline
+{\em m} & \\
+\hline
+\end{DoxyParams}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!error@{error}}
+\index{error@{error}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{error(const std\+::string \&m)}{error(const std::string &m)}}]{\setlength{\rightskip}{0pt plus 5cm}void spec\+\_\+driver\+::error (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a1cee1cf6c4bdb30e6ffde06806807aef}{}\label{classspec__driver_a1cee1cf6c4bdb30e6ffde06806807aef}
+
+
+error 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \\
+\hline
+\end{DoxyParams}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!find\+\_\+netmodel@{find\+\_\+netmodel}}
+\index{find\+\_\+netmodel@{find\+\_\+netmodel}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{find\+\_\+netmodel(std\+::string id\+\_\+model)}{find_netmodel(std::string id_model)}}]{\setlength{\rightskip}{0pt plus 5cm}Network\+Model $\ast$ spec\+\_\+driver\+::find\+\_\+netmodel (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id\+\_\+model}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_aa301f786c511e059a45e5d340d18ac5b}{}\label{classspec__driver_aa301f786c511e059a45e5d340d18ac5b}
+
+
+find\+\_\+netmodel\+: find a network model from id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+\_\+model} & name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to Network\+Model 
+\end{DoxyReturn}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!find\+\_\+node@{find\+\_\+node}}
+\index{find\+\_\+node@{find\+\_\+node}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{find\+\_\+node(std\+::string id)}{find_node(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}System\+Node $\ast$ spec\+\_\+driver\+::find\+\_\+node (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_acb67929d0cd4f576f9fd264667a815b6}{}\label{classspec__driver_acb67929d0cd4f576f9fd264667a815b6}
+
+
+find\+\_\+node\+: find a system node from id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to System\+Node 
+\end{DoxyReturn}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!parse@{parse}}
+\index{parse@{parse}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{parse(const std\+::string \&f)}{parse(const std::string &f)}}]{\setlength{\rightskip}{0pt plus 5cm}int spec\+\_\+driver\+::parse (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_aa046696e40b60102725e627b42521c32}{}\label{classspec__driver_aa046696e40b60102725e627b42521c32}
+
+
+parse 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & input file to be parsed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if success 
+\end{DoxyReturn}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!semantic\+\_\+checks@{semantic\+\_\+checks}}
+\index{semantic\+\_\+checks@{semantic\+\_\+checks}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{semantic\+\_\+checks(\+Component\+Model cm)}{semantic_checks(ComponentModel cm)}}]{\setlength{\rightskip}{0pt plus 5cm}void spec\+\_\+driver\+::semantic\+\_\+checks (
+\begin{DoxyParamCaption}
+\item[{Component\+Model}]{cm}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a850c8f53f48c51e46fcf8eb08dbca436}{}\label{classspec__driver_a850c8f53f48c51e46fcf8eb08dbca436}
+
+
+semantic\+\_\+checks 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cm} & \\
+\hline
+\end{DoxyParams}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!semantic\+\_\+checks@{semantic\+\_\+checks}}
+\index{semantic\+\_\+checks@{semantic\+\_\+checks}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{semantic\+\_\+checks(\+Network\+Model nm)}{semantic_checks(NetworkModel nm)}}]{\setlength{\rightskip}{0pt plus 5cm}void spec\+\_\+driver\+::semantic\+\_\+checks (
+\begin{DoxyParamCaption}
+\item[{Network\+Model}]{nm}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a7e79bc384e1645b85161c7ef1361e1a4}{}\label{classspec__driver_a7e79bc384e1645b85161c7ef1361e1a4}
+
+
+semantic\+\_\+checks 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nm} & \\
+\hline
+\end{DoxyParams}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!semantic\+\_\+checks@{semantic\+\_\+checks}}
+\index{semantic\+\_\+checks@{semantic\+\_\+checks}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{semantic\+\_\+checks(\+System sys)}{semantic_checks(System sys)}}]{\setlength{\rightskip}{0pt plus 5cm}void spec\+\_\+driver\+::semantic\+\_\+checks (
+\begin{DoxyParamCaption}
+\item[{System}]{sys}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a9f8fb73fdce4b11df8c6ecf03ba8e3be}{}\label{classspec__driver_a9f8fb73fdce4b11df8c6ecf03ba8e3be}
+
+
+semantic\+\_\+checks 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sys} & \\
+\hline
+\end{DoxyParams}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!semantic\+\_\+checks@{semantic\+\_\+checks}}
+\index{semantic\+\_\+checks@{semantic\+\_\+checks}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{semantic\+\_\+checks(\+System\+Node node)}{semantic_checks(SystemNode node)}}]{\setlength{\rightskip}{0pt plus 5cm}void spec\+\_\+driver\+::semantic\+\_\+checks (
+\begin{DoxyParamCaption}
+\item[{System\+Node}]{node}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a043c3c288ade5e461a4e84577f7f18d8}{}\label{classspec__driver_a043c3c288ade5e461a4e84577f7f18d8}
+
+
+semantic\+\_\+checks 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & \\
+\hline
+\end{DoxyParams}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!semantic\+\_\+checks@{semantic\+\_\+checks}}
+\index{semantic\+\_\+checks@{semantic\+\_\+checks}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{semantic\+\_\+checks(\+Problem pb)}{semantic_checks(Problem pb)}}]{\setlength{\rightskip}{0pt plus 5cm}void spec\+\_\+driver\+::semantic\+\_\+checks (
+\begin{DoxyParamCaption}
+\item[{Problem}]{pb}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a2ca24547de7b6c5424c1d448a6692bb3}{}\label{classspec__driver_a2ca24547de7b6c5424c1d448a6692bb3}
+
+
+semantic\+\_\+checks 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pb} & \\
+\hline
+\end{DoxyParams}
+\index{spec\+\_\+driver@{spec\+\_\+driver}!semantic\+\_\+checks@{semantic\+\_\+checks}}
+\index{semantic\+\_\+checks@{semantic\+\_\+checks}!spec\+\_\+driver@{spec\+\_\+driver}}
+\subsubsection[{\texorpdfstring{semantic\+\_\+checks(\+Problem\+Node pbn)}{semantic_checks(ProblemNode pbn)}}]{\setlength{\rightskip}{0pt plus 5cm}void spec\+\_\+driver\+::semantic\+\_\+checks (
+\begin{DoxyParamCaption}
+\item[{Problem\+Node}]{pbn}
+\end{DoxyParamCaption}
+)}\hypertarget{classspec__driver_a741561fb61e30a71c24d5f926eee9447}{}\label{classspec__driver_a741561fb61e30a71c24d5f926eee9447}
+
+
+semantic\+\_\+checks 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pbn} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+spec\+\_\+driver.\+h\item 
+spec\+\_\+driver.\+cpp\item 
+speclexer.\+cpp\item 
+spelexer.\+cpp\end{DoxyCompactItemize}

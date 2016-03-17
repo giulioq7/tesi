@@ -1,0 +1,261 @@
+\hypertarget{class_net_transition}{}\section{Net\+Transition Class Reference}
+\label{class_net_transition}\index{Net\+Transition@{Net\+Transition}}
+
+
+The \hyperlink{class_net_transition}{Net\+Transition} class.  
+
+
+
+
+{\ttfamily \#include $<$nettransition.\+h$>$}
+
+
+
+Inheritance diagram for Net\+Transition\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{class_net_transition__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Net\+Transition\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_net_transition__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{class_net_transition}{Net\+Transition} \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type}\hypertarget{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{}\label{class_net_transition_a40ad367a5a816d31e7559037c76970f0}
+
+\begin{DoxyCompactList}\small\item\em char\+\_\+type \end{DoxyCompactList}\item 
+typedef long \hyperlink{class_net_transition_a0f9d17d0e4e371ec89c6c2f4bccd1a63}{int\+\_\+type}\hypertarget{class_net_transition_a0f9d17d0e4e371ec89c6c2f4bccd1a63}{}\label{class_net_transition_a0f9d17d0e4e371ec89c6c2f4bccd1a63}
+
+\begin{DoxyCompactList}\small\item\em int\+\_\+type \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_net_transition_a6d3928f521a06cf6b0220175b05e757a}{Net\+Transition} ()\hypertarget{class_net_transition_a6d3928f521a06cf6b0220175b05e757a}{}\label{class_net_transition_a6d3928f521a06cf6b0220175b05e757a}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_net_transition}{Net\+Transition} default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_net_transition_a958eafdf83fb7cd1dd562a4ac48d668f}{Net\+Transition} (\hyperlink{class_transition}{Transition} $\ast$t, \hyperlink{class_net_component}{Net\+Component} $\ast$c)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_net_transition}{Net\+Transition} constructor from pointers to transition and network component. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_net_transition_a6058715be2b7de07b7f1be57e5ccb1bb}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+\hyperlink{class_transition}{Transition} $\ast$ \hyperlink{class_net_transition_ae422d809c42771fab328b22378c80af5}{get\+\_\+trans} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+trans \end{DoxyCompactList}\item 
+\hyperlink{class_net_component}{Net\+Component} $\ast$ \hyperlink{class_net_transition_aa03cb562c3191612bc675172b0b5c90c}{get\+\_\+component} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+component \end{DoxyCompactList}\item 
+bool \hyperlink{class_net_transition_ac7d094a518dfdfb784c42702a3db5f9d}{operator$<$} (const \hyperlink{class_net_transition}{Net\+Transition} t) const 
+\begin{DoxyCompactList}\small\item\em operator $<$ \end{DoxyCompactList}\item 
+bool \hyperlink{class_net_transition_ac7674acf1b41977ebafd99812c648746}{operator==} (const \hyperlink{class_net_transition}{Net\+Transition} t) const 
+\begin{DoxyCompactList}\small\item\em operator == \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{class_net_transition_a00ab091a8fa7d42fbba4ed634018c5a3}{eq} (const \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type} \&x, const \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type} \&y)
+\begin{DoxyCompactList}\small\item\em eq \end{DoxyCompactList}\item 
+static bool \hyperlink{class_net_transition_a30a9ecc563b03dd594afb1077353c1a2}{lt} (const \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type} \&x, const \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type} \&y)
+\begin{DoxyCompactList}\small\item\em lt \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const size\+\_\+t \hyperlink{class_net_transition_a1db4742635a4e9d3b6cce5e5669f2ea7}{size}\hypertarget{class_net_transition_a1db4742635a4e9d3b6cce5e5669f2ea7}{}\label{class_net_transition_a1db4742635a4e9d3b6cce5e5669f2ea7}
+
+\begin{DoxyCompactList}\small\item\em size assign value in order to use matrix representation (not specified in this project) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void {\bfseries serialize} (Archive \&ar, const unsigned int version)\hypertarget{class_net_transition_ab6341feb03a31ba89d660a07a94f43e8}{}\label{class_net_transition_ab6341feb03a31ba89d660a07a94f43e8}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_transition}{Transition} $\ast$ \hyperlink{class_net_transition_ae3b12deb593dab99666592a3686bab9f}{trans}\hypertarget{class_net_transition_ae3b12deb593dab99666592a3686bab9f}{}\label{class_net_transition_ae3b12deb593dab99666592a3686bab9f}
+
+\begin{DoxyCompactList}\small\item\em trans transition of relative component model \end{DoxyCompactList}\item 
+\hyperlink{class_net_component}{Net\+Component} $\ast$ \hyperlink{class_net_transition_ac66eef3e787502efbb61baba213b737d}{component}\hypertarget{class_net_transition_ac66eef3e787502efbb61baba213b737d}{}\label{class_net_transition_ac66eef3e787502efbb61baba213b737d}
+
+\begin{DoxyCompactList}\small\item\em component network component involved \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_net_transition_ad2f59243faa110d4a9f887ed791f404d}{name}\hypertarget{class_net_transition_ad2f59243faa110d4a9f887ed791f404d}{}\label{class_net_transition_ad2f59243faa110d4a9f887ed791f404d}
+
+\begin{DoxyCompactList}\small\item\em name \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_net_transition_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_net_transition_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_net_transition}{Net\+Transition} class. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Net\+Transition@{Net\+Transition}!Net\+Transition@{Net\+Transition}}
+\index{Net\+Transition@{Net\+Transition}!Net\+Transition@{Net\+Transition}}
+\subsubsection[{\texorpdfstring{Net\+Transition(\+Transition $\ast$t, Net\+Component $\ast$c)}{NetTransition(Transition *t, NetComponent *c)}}]{\setlength{\rightskip}{0pt plus 5cm}Net\+Transition\+::\+Net\+Transition (
+\begin{DoxyParamCaption}
+\item[{{\bf Transition} $\ast$}]{t, }
+\item[{{\bf Net\+Component} $\ast$}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{class_net_transition_a958eafdf83fb7cd1dd562a4ac48d668f}{}\label{class_net_transition_a958eafdf83fb7cd1dd562a4ac48d668f}
+
+
+\hyperlink{class_net_transition}{Net\+Transition} constructor from pointers to transition and network component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+{\em c} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Net\+Transition@{Net\+Transition}!eq@{eq}}
+\index{eq@{eq}!Net\+Transition@{Net\+Transition}}
+\subsubsection[{\texorpdfstring{eq(const char\+\_\+type \&x, const char\+\_\+type \&y)}{eq(const char_type &x, const char_type &y)}}]{\setlength{\rightskip}{0pt plus 5cm}static bool Net\+Transition\+::eq (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{x, }
+\item[{const {\bf char\+\_\+type} \&}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_net_transition_a00ab091a8fa7d42fbba4ed634018c5a3}{}\label{class_net_transition_a00ab091a8fa7d42fbba4ed634018c5a3}
+
+
+eq 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Net\+Transition@{Net\+Transition}!get\+\_\+component@{get\+\_\+component}}
+\index{get\+\_\+component@{get\+\_\+component}!Net\+Transition@{Net\+Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+component() const }{get_component() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Net\+Component} $\ast$ Net\+Transition\+::get\+\_\+component (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_net_transition_aa03cb562c3191612bc675172b0b5c90c}{}\label{class_net_transition_aa03cb562c3191612bc675172b0b5c90c}
+
+
+get\+\_\+component 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Net\+Transition@{Net\+Transition}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!Net\+Transition@{Net\+Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Net\+Transition\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_net_transition_a6058715be2b7de07b7f1be57e5ccb1bb}{}\label{class_net_transition_a6058715be2b7de07b7f1be57e5ccb1bb}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Net\+Transition@{Net\+Transition}!get\+\_\+trans@{get\+\_\+trans}}
+\index{get\+\_\+trans@{get\+\_\+trans}!Net\+Transition@{Net\+Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+trans() const }{get_trans() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Transition} $\ast$ Net\+Transition\+::get\+\_\+trans (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_net_transition_ae422d809c42771fab328b22378c80af5}{}\label{class_net_transition_ae422d809c42771fab328b22378c80af5}
+
+
+get\+\_\+trans 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Net\+Transition@{Net\+Transition}!lt@{lt}}
+\index{lt@{lt}!Net\+Transition@{Net\+Transition}}
+\subsubsection[{\texorpdfstring{lt(const char\+\_\+type \&x, const char\+\_\+type \&y)}{lt(const char_type &x, const char_type &y)}}]{\setlength{\rightskip}{0pt plus 5cm}static bool Net\+Transition\+::lt (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{x, }
+\item[{const {\bf char\+\_\+type} \&}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_net_transition_a30a9ecc563b03dd594afb1077353c1a2}{}\label{class_net_transition_a30a9ecc563b03dd594afb1077353c1a2}
+
+
+lt 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Net\+Transition@{Net\+Transition}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Net\+Transition@{Net\+Transition}}
+\subsubsection[{\texorpdfstring{operator$<$(const Net\+Transition t) const }{operator<(const NetTransition t) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Net\+Transition\+::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf Net\+Transition}}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_net_transition_ac7d094a518dfdfb784c42702a3db5f9d}{}\label{class_net_transition_ac7d094a518dfdfb784c42702a3db5f9d}
+
+
+operator $<$ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Net\+Transition@{Net\+Transition}!operator==@{operator==}}
+\index{operator==@{operator==}!Net\+Transition@{Net\+Transition}}
+\subsubsection[{\texorpdfstring{operator==(const Net\+Transition t) const }{operator==(const NetTransition t) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Net\+Transition\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Net\+Transition}}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_net_transition_ac7674acf1b41977ebafd99812c648746}{}\label{class_net_transition_ac7674acf1b41977ebafd99812c648746}
+
+
+operator == 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+nettransition.\+h\item 
+nettransition.\+cpp\end{DoxyCompactItemize}

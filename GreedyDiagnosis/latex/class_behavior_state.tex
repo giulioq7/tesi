@@ -1,0 +1,187 @@
+\hypertarget{class_behavior_state}{}\section{Behavior\+State Class Reference}
+\label{class_behavior_state}\index{Behavior\+State@{Behavior\+State}}
+
+
+The \hyperlink{class_behavior_state}{Behavior\+State} class represents state info in greedy diagnosis.  
+
+
+
+
+{\ttfamily \#include $<$behaviorstate.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_behavior_state_ae98eb22c5e7cf17f287177b96a737b03}{Behavior\+State} ()\hypertarget{class_behavior_state_ae98eb22c5e7cf17f287177b96a737b03}{}\label{class_behavior_state_ae98eb22c5e7cf17f287177b96a737b03}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_behavior_state}{Behavior\+State}. \end{DoxyCompactList}\item 
+\hyperlink{class_behavior_state_a3e13fbeed6b1db2a40b4b01fc879b623}{Behavior\+State} (int n, int m, int k, int i)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_behavior_state}{Behavior\+State} constructor from number of components, input terminals, pattern spaces and nodes. \end{DoxyCompactList}\item 
+\hyperlink{class_behavior_state}{Behavior\+State} {\bfseries copy} ()\hypertarget{class_behavior_state_a6a97b20cd2230a5f1da4d654d825bbe0}{}\label{class_behavior_state_a6a97b20cd2230a5f1da4d654d825bbe0}
+
+\item 
+void \hyperlink{class_behavior_state_a0d69afa6c7dffa10fab23027a4c8dc94}{set\+\_\+E} (vector$<$ Terminal $\ast$ $>$ terms)
+\begin{DoxyCompactList}\small\item\em set\+\_\+E \end{DoxyCompactList}\item 
+bool \hyperlink{class_behavior_state_ac110a160dab521de33f74168933797d5}{empty\+\_\+terminals} ()
+\begin{DoxyCompactList}\small\item\em empty\+\_\+terminals checks if all input terminals are empty \end{DoxyCompactList}\item 
+bool \hyperlink{class_behavior_state_ae75691fc27d4d4ee98e67ecf483d144e}{is\+\_\+marked} () const 
+\begin{DoxyCompactList}\small\item\em is\+\_\+marked \end{DoxyCompactList}\item 
+int \hyperlink{class_behavior_state_a7229a844be3ebd72a985b39d7ff51150}{get\+\_\+number} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+number \end{DoxyCompactList}\item 
+void \hyperlink{class_behavior_state_a8378fa26dc29e847fbadf2ff55ba2d7d}{mark\+\_\+state} ()\hypertarget{class_behavior_state_a8378fa26dc29e847fbadf2ff55ba2d7d}{}\label{class_behavior_state_a8378fa26dc29e847fbadf2ff55ba2d7d}
+
+\begin{DoxyCompactList}\small\item\em mark\+\_\+state \end{DoxyCompactList}\item 
+void \hyperlink{class_behavior_state_ae58c468875e1c1559fdcbb262c378d7c}{set\+\_\+number} (int n)
+\begin{DoxyCompactList}\small\item\em set\+\_\+number \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries n\+\_\+comps}\hypertarget{class_behavior_state_aef4518fec5c81c14717024116848aef8}{}\label{class_behavior_state_aef4518fec5c81c14717024116848aef8}
+
+\item 
+int {\bfseries n\+\_\+inputs}\hypertarget{class_behavior_state_a317485b24596a361746c2e998b5cd5f8}{}\label{class_behavior_state_a317485b24596a361746c2e998b5cd5f8}
+
+\item 
+int {\bfseries n\+\_\+pts}\hypertarget{class_behavior_state_ae6daa12ac5ce1fc39ee33b4a01062dcc}{}\label{class_behavior_state_ae6daa12ac5ce1fc39ee33b4a01062dcc}
+
+\item 
+int {\bfseries n\+\_\+isp}\hypertarget{class_behavior_state_a6f51864a14defe8c8ddf624cdcd90be4}{}\label{class_behavior_state_a6f51864a14defe8c8ddf624cdcd90be4}
+
+\item 
+vector$<$ int $>$ \hyperlink{class_behavior_state_a9e74901f7f9b52884e6c77536a533c28}{S}\hypertarget{class_behavior_state_a9e74901f7f9b52884e6c77536a533c28}{}\label{class_behavior_state_a9e74901f7f9b52884e6c77536a533c28}
+
+\begin{DoxyCompactList}\small\item\em S tuple of component current states. \end{DoxyCompactList}\item 
+vector$<$ std\+::string $>$ \hyperlink{class_behavior_state_ad3db220485edc43dd0cfee1a9fed0b3a}{E}\hypertarget{class_behavior_state_ad3db220485edc43dd0cfee1a9fed0b3a}{}\label{class_behavior_state_ad3db220485edc43dd0cfee1a9fed0b3a}
+
+\begin{DoxyCompactList}\small\item\em E tuple of current input terminals content. \end{DoxyCompactList}\item 
+vector$<$ int $>$ \hyperlink{class_behavior_state_a18d6eb62b3da1d8ed7c81d8c046367dc}{P}\hypertarget{class_behavior_state_a18d6eb62b3da1d8ed7c81d8c046367dc}{}\label{class_behavior_state_a18d6eb62b3da1d8ed7c81d8c046367dc}
+
+\begin{DoxyCompactList}\small\item\em P tuple of pattern spaces current states. \end{DoxyCompactList}\item 
+vector$<$ int $>$ \hyperlink{class_behavior_state_af0b2665eb8974f54596108a073264685}{I}\hypertarget{class_behavior_state_af0b2665eb8974f54596108a073264685}{}\label{class_behavior_state_af0b2665eb8974f54596108a073264685}
+
+\begin{DoxyCompactList}\small\item\em I tuple of current index reached in local nodes observations. \end{DoxyCompactList}\item 
+std\+::set$<$ std\+::set$<$ std\+::string $>$ $>$ \hyperlink{class_behavior_state_a6657360daba04686e59c2541d12d873a}{candidate\+\_\+diagnosis}\hypertarget{class_behavior_state_a6657360daba04686e59c2541d12d873a}{}\label{class_behavior_state_a6657360daba04686e59c2541d12d873a}
+
+\begin{DoxyCompactList}\small\item\em candidate\+\_\+diagnosis decorated info \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_behavior_state}{Behavior\+State} class represents state info in greedy diagnosis. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Behavior\+State@{Behavior\+State}!Behavior\+State@{Behavior\+State}}
+\index{Behavior\+State@{Behavior\+State}!Behavior\+State@{Behavior\+State}}
+\subsubsection[{\texorpdfstring{Behavior\+State(int n, int m, int k, int i)}{BehaviorState(int n, int m, int k, int i)}}]{\setlength{\rightskip}{0pt plus 5cm}Behavior\+State\+::\+Behavior\+State (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{int}]{m, }
+\item[{int}]{k, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}\hypertarget{class_behavior_state_a3e13fbeed6b1db2a40b4b01fc879b623}{}\label{class_behavior_state_a3e13fbeed6b1db2a40b4b01fc879b623}
+
+
+\hyperlink{class_behavior_state}{Behavior\+State} constructor from number of components, input terminals, pattern spaces and nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & \\
+\hline
+{\em m} & \\
+\hline
+{\em k} & \\
+\hline
+{\em i} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Behavior\+State@{Behavior\+State}!empty\+\_\+terminals@{empty\+\_\+terminals}}
+\index{empty\+\_\+terminals@{empty\+\_\+terminals}!Behavior\+State@{Behavior\+State}}
+\subsubsection[{\texorpdfstring{empty\+\_\+terminals()}{empty_terminals()}}]{\setlength{\rightskip}{0pt plus 5cm}bool Behavior\+State\+::empty\+\_\+terminals (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_behavior_state_ac110a160dab521de33f74168933797d5}{}\label{class_behavior_state_ac110a160dab521de33f74168933797d5}
+
+
+empty\+\_\+terminals checks if all input terminals are empty 
+
+\begin{DoxyReturn}{Returns}
+true if all links empty, false otherwise 
+\end{DoxyReturn}
+\index{Behavior\+State@{Behavior\+State}!get\+\_\+number@{get\+\_\+number}}
+\index{get\+\_\+number@{get\+\_\+number}!Behavior\+State@{Behavior\+State}}
+\subsubsection[{\texorpdfstring{get\+\_\+number() const }{get_number() const }}]{\setlength{\rightskip}{0pt plus 5cm}int Behavior\+State\+::get\+\_\+number (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_behavior_state_a7229a844be3ebd72a985b39d7ff51150}{}\label{class_behavior_state_a7229a844be3ebd72a985b39d7ff51150}
+
+
+get\+\_\+number 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Behavior\+State@{Behavior\+State}!is\+\_\+marked@{is\+\_\+marked}}
+\index{is\+\_\+marked@{is\+\_\+marked}!Behavior\+State@{Behavior\+State}}
+\subsubsection[{\texorpdfstring{is\+\_\+marked() const }{is_marked() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Behavior\+State\+::is\+\_\+marked (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_behavior_state_ae75691fc27d4d4ee98e67ecf483d144e}{}\label{class_behavior_state_ae75691fc27d4d4ee98e67ecf483d144e}
+
+
+is\+\_\+marked 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Behavior\+State@{Behavior\+State}!set\+\_\+E@{set\+\_\+E}}
+\index{set\+\_\+E@{set\+\_\+E}!Behavior\+State@{Behavior\+State}}
+\subsubsection[{\texorpdfstring{set\+\_\+\+E(vector$<$ Terminal $\ast$ $>$ terms)}{set_E(vector< Terminal * > terms)}}]{\setlength{\rightskip}{0pt plus 5cm}void Behavior\+State\+::set\+\_\+E (
+\begin{DoxyParamCaption}
+\item[{vector$<$ Terminal $\ast$ $>$}]{terms}
+\end{DoxyParamCaption}
+)}\hypertarget{class_behavior_state_a0d69afa6c7dffa10fab23027a4c8dc94}{}\label{class_behavior_state_a0d69afa6c7dffa10fab23027a4c8dc94}
+
+
+set\+\_\+E 
+
+
+\begin{DoxyParams}{Parameters}
+{\em terms} & \\
+\hline
+\end{DoxyParams}
+\index{Behavior\+State@{Behavior\+State}!set\+\_\+number@{set\+\_\+number}}
+\index{set\+\_\+number@{set\+\_\+number}!Behavior\+State@{Behavior\+State}}
+\subsubsection[{\texorpdfstring{set\+\_\+number(int n)}{set_number(int n)}}]{\setlength{\rightskip}{0pt plus 5cm}void Behavior\+State\+::set\+\_\+number (
+\begin{DoxyParamCaption}
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_behavior_state_ae58c468875e1c1559fdcbb262c378d7c}{}\label{class_behavior_state_ae58c468875e1c1559fdcbb262c378d7c}
+
+
+set\+\_\+number 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+behaviorstate.\+h\item 
+behaviorstate.\+cpp\end{DoxyCompactItemize}

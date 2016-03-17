@@ -1,0 +1,248 @@
+\hypertarget{class_component}{}\section{Component Class Reference}
+\label{class_component}\index{Component@{Component}}
+
+
+The \hyperlink{class_component}{Component} class represents a concrete component in a problem node.  
+
+
+
+
+{\ttfamily \#include $<$component.\+h$>$}
+
+
+
+Inheritance diagram for Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{class_component__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=173pt]{class_component__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_component_a8775db6d1a2c1afc2e77cd3c8f39da6f}{Component} ()\hypertarget{class_component_a8775db6d1a2c1afc2e77cd3c8f39da6f}{}\label{class_component_a8775db6d1a2c1afc2e77cd3c8f39da6f}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_component}{Component} default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_component_a5c645611542c6f3af559645f699b2806}{Component} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_component}{Component} constructor with id. \end{DoxyCompactList}\item 
+astl\+::\+D\+F\+A\+\_\+map$<$ \hyperlink{class_sys_transition}{Sys\+Transition}, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$ $\ast$ \hyperlink{class_component_a05d5dfb1fb2fd6f434e58fa286d4b993}{get\+\_\+automaton} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+automaton \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_terminal}{Terminal} $\ast$ $>$ \hyperlink{class_component_a812ded651f64b6cbc476ac28cae2fab2}{get\+\_\+input\+\_\+terminals} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+input\+\_\+terminals \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_terminal}{Terminal} $\ast$ $>$ \hyperlink{class_component_ae1e4892775ca02ee2a4b727d56edf3a4}{get\+\_\+output\+\_\+terminals} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+output\+\_\+terminals \end{DoxyCompactList}\item 
+void \hyperlink{class_component_a97c16a49225019a6a2b082c006822f8e}{set\+\_\+automaton} (astl\+::\+D\+F\+A\+\_\+map$<$ \hyperlink{class_sys_transition}{Sys\+Transition}, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$ $\ast$autom)
+\begin{DoxyCompactList}\small\item\em set\+\_\+automaton \end{DoxyCompactList}\item 
+void \hyperlink{class_component_ae16ece39192fc71a468e74b7ee3c340b}{add\+\_\+input\+\_\+term} (\hyperlink{class_terminal}{Terminal} $\ast$t)
+\begin{DoxyCompactList}\small\item\em add\+\_\+input\+\_\+term \end{DoxyCompactList}\item 
+void \hyperlink{class_component_ad3d6d9f87552e06409bb759b26743a9d}{add\+\_\+output\+\_\+term} (\hyperlink{class_terminal}{Terminal} $\ast$t)
+\begin{DoxyCompactList}\small\item\em add\+\_\+output\+\_\+term \end{DoxyCompactList}\item 
+\hyperlink{class_terminal}{Terminal} $\ast$ \hyperlink{class_component_ab62c61e09476eea98a5ffd48acdbd11a}{find\+\_\+input\+\_\+terminal} (std\+::string id)
+\begin{DoxyCompactList}\small\item\em find\+\_\+input\+\_\+terminal find input terminal from id \end{DoxyCompactList}\item 
+\hyperlink{class_terminal}{Terminal} $\ast$ \hyperlink{class_component_ac4e822092e193ccf5c2416dcaf2a4982}{find\+\_\+output\+\_\+terminal} (std\+::string id)
+\begin{DoxyCompactList}\small\item\em find\+\_\+output\+\_\+terminal find output terminal from id \end{DoxyCompactList}\item 
+bool \hyperlink{class_component_a4ad3ccb5711e8d27c3488b6d353e6426}{operator==} (const \hyperlink{class_component}{Component} c) const 
+\begin{DoxyCompactList}\small\item\em operator == overload of equality operator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_component_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_component_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_component}{Component} class represents a concrete component in a problem node. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Component@{Component}!Component@{Component}}
+\index{Component@{Component}!Component@{Component}}
+\subsubsection[{\texorpdfstring{Component(std\+::string str)}{Component(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}Component\+::\+Component (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_component_a5c645611542c6f3af559645f699b2806}{}\label{class_component_a5c645611542c6f3af559645f699b2806}
+
+
+\hyperlink{class_component}{Component} constructor with id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & name \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Component@{Component}!add\+\_\+input\+\_\+term@{add\+\_\+input\+\_\+term}}
+\index{add\+\_\+input\+\_\+term@{add\+\_\+input\+\_\+term}!Component@{Component}}
+\subsubsection[{\texorpdfstring{add\+\_\+input\+\_\+term(\+Terminal $\ast$t)}{add_input_term(Terminal *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+::add\+\_\+input\+\_\+term (
+\begin{DoxyParamCaption}
+\item[{{\bf Terminal} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_ae16ece39192fc71a468e74b7ee3c340b}{}\label{class_component_ae16ece39192fc71a468e74b7ee3c340b}
+
+
+add\+\_\+input\+\_\+term 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Component@{Component}!add\+\_\+output\+\_\+term@{add\+\_\+output\+\_\+term}}
+\index{add\+\_\+output\+\_\+term@{add\+\_\+output\+\_\+term}!Component@{Component}}
+\subsubsection[{\texorpdfstring{add\+\_\+output\+\_\+term(\+Terminal $\ast$t)}{add_output_term(Terminal *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+::add\+\_\+output\+\_\+term (
+\begin{DoxyParamCaption}
+\item[{{\bf Terminal} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_ad3d6d9f87552e06409bb759b26743a9d}{}\label{class_component_ad3d6d9f87552e06409bb759b26743a9d}
+
+
+add\+\_\+output\+\_\+term 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Component@{Component}!find\+\_\+input\+\_\+terminal@{find\+\_\+input\+\_\+terminal}}
+\index{find\+\_\+input\+\_\+terminal@{find\+\_\+input\+\_\+terminal}!Component@{Component}}
+\subsubsection[{\texorpdfstring{find\+\_\+input\+\_\+terminal(std\+::string id)}{find_input_terminal(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Terminal} $\ast$ Component\+::find\+\_\+input\+\_\+terminal (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_ab62c61e09476eea98a5ffd48acdbd11a}{}\label{class_component_ab62c61e09476eea98a5ffd48acdbd11a}
+
+
+find\+\_\+input\+\_\+terminal find input terminal from id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & name of terminal \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to \hyperlink{class_terminal}{Terminal} 
+\end{DoxyReturn}
+\index{Component@{Component}!find\+\_\+output\+\_\+terminal@{find\+\_\+output\+\_\+terminal}}
+\index{find\+\_\+output\+\_\+terminal@{find\+\_\+output\+\_\+terminal}!Component@{Component}}
+\subsubsection[{\texorpdfstring{find\+\_\+output\+\_\+terminal(std\+::string id)}{find_output_terminal(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Terminal} $\ast$ Component\+::find\+\_\+output\+\_\+terminal (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_ac4e822092e193ccf5c2416dcaf2a4982}{}\label{class_component_ac4e822092e193ccf5c2416dcaf2a4982}
+
+
+find\+\_\+output\+\_\+terminal find output terminal from id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to \hyperlink{class_terminal}{Terminal} 
+\end{DoxyReturn}
+\index{Component@{Component}!get\+\_\+automaton@{get\+\_\+automaton}}
+\index{get\+\_\+automaton@{get\+\_\+automaton}!Component@{Component}}
+\subsubsection[{\texorpdfstring{get\+\_\+automaton() const }{get_automaton() const }}]{\setlength{\rightskip}{0pt plus 5cm}astl\+::\+D\+F\+A\+\_\+map$<$ {\bf Sys\+Transition}, {\bf State\+Data\+\_\+str} $>$ $\ast$ Component\+::get\+\_\+automaton (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_a05d5dfb1fb2fd6f434e58fa286d4b993}{}\label{class_component_a05d5dfb1fb2fd6f434e58fa286d4b993}
+
+
+get\+\_\+automaton 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component@{Component}!get\+\_\+input\+\_\+terminals@{get\+\_\+input\+\_\+terminals}}
+\index{get\+\_\+input\+\_\+terminals@{get\+\_\+input\+\_\+terminals}!Component@{Component}}
+\subsubsection[{\texorpdfstring{get\+\_\+input\+\_\+terminals() const }{get_input_terminals() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Terminal} $\ast$ $>$ Component\+::get\+\_\+input\+\_\+terminals (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_a812ded651f64b6cbc476ac28cae2fab2}{}\label{class_component_a812ded651f64b6cbc476ac28cae2fab2}
+
+
+get\+\_\+input\+\_\+terminals 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component@{Component}!get\+\_\+output\+\_\+terminals@{get\+\_\+output\+\_\+terminals}}
+\index{get\+\_\+output\+\_\+terminals@{get\+\_\+output\+\_\+terminals}!Component@{Component}}
+\subsubsection[{\texorpdfstring{get\+\_\+output\+\_\+terminals() const }{get_output_terminals() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Terminal} $\ast$ $>$ Component\+::get\+\_\+output\+\_\+terminals (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_component_ae1e4892775ca02ee2a4b727d56edf3a4}{}\label{class_component_ae1e4892775ca02ee2a4b727d56edf3a4}
+
+
+get\+\_\+output\+\_\+terminals 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component@{Component}!operator==@{operator==}}
+\index{operator==@{operator==}!Component@{Component}}
+\subsubsection[{\texorpdfstring{operator==(const Component c) const }{operator==(const Component c) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Component\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Component}}]{c}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_component_a4ad3ccb5711e8d27c3488b6d353e6426}{}\label{class_component_a4ad3ccb5711e8d27c3488b6d353e6426}
+
+
+operator == overload of equality operator 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Component@{Component}!set\+\_\+automaton@{set\+\_\+automaton}}
+\index{set\+\_\+automaton@{set\+\_\+automaton}!Component@{Component}}
+\subsubsection[{\texorpdfstring{set\+\_\+automaton(astl\+::\+D\+F\+A\+\_\+map$<$ Sys\+Transition, State\+Data\+\_\+str $>$ $\ast$autom)}{set_automaton(astl::DFA_map< SysTransition, StateData_str > *autom)}}]{\setlength{\rightskip}{0pt plus 5cm}void Component\+::set\+\_\+automaton (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ {\bf Sys\+Transition}, {\bf State\+Data\+\_\+str} $>$ $\ast$}]{autom}
+\end{DoxyParamCaption}
+)}\hypertarget{class_component_a97c16a49225019a6a2b082c006822f8e}{}\label{class_component_a97c16a49225019a6a2b082c006822f8e}
+
+
+set\+\_\+automaton 
+
+
+\begin{DoxyParams}{Parameters}
+{\em autom} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+component.\+h\item 
+component.\+cpp\end{DoxyCompactItemize}

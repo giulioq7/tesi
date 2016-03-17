@@ -1,0 +1,359 @@
+\hypertarget{class_sys_transition}{}\section{Sys\+Transition Class Reference}
+\label{class_sys_transition}\index{Sys\+Transition@{Sys\+Transition}}
+
+
+The \hyperlink{class_sys_transition}{Sys\+Transition} class represents a transition in a specific problem node.  
+
+
+
+
+{\ttfamily \#include $<$systransition.\+h$>$}
+
+
+
+Inheritance diagram for Sys\+Transition\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{class_sys_transition__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Sys\+Transition\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_sys_transition__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{class_sys_transition}{Sys\+Transition} \hyperlink{class_sys_transition_aa17f0f716cf9f7f3a860bf4606aea72a}{char\+\_\+type}\hypertarget{class_sys_transition_aa17f0f716cf9f7f3a860bf4606aea72a}{}\label{class_sys_transition_aa17f0f716cf9f7f3a860bf4606aea72a}
+
+\begin{DoxyCompactList}\small\item\em char\+\_\+type \end{DoxyCompactList}\item 
+typedef long \hyperlink{class_sys_transition_aa038700854a41ddc7c6d807250b515eb}{int\+\_\+type}\hypertarget{class_sys_transition_aa038700854a41ddc7c6d807250b515eb}{}\label{class_sys_transition_aa038700854a41ddc7c6d807250b515eb}
+
+\begin{DoxyCompactList}\small\item\em int\+\_\+type \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_sys_transition_a3918816e3e9b4e505f1b8db508832cfb}{Sys\+Transition} ()\hypertarget{class_sys_transition_a3918816e3e9b4e505f1b8db508832cfb}{}\label{class_sys_transition_a3918816e3e9b4e505f1b8db508832cfb}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_sys_transition}{Sys\+Transition}. \end{DoxyCompactList}\item 
+\hyperlink{class_sys_transition_aa79fd80b8a077838873db93662accc2c}{Sys\+Transition} (\hyperlink{class_transition}{Transition} $\ast$t, \hyperlink{class_net_component}{Net\+Component} $\ast$c, \hyperlink{class_system_node}{System\+Node} $\ast$n)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_sys_transition}{Sys\+Transition}. \end{DoxyCompactList}\item 
+\hyperlink{class_system_node}{System\+Node} $\ast$ \hyperlink{class_sys_transition_afc54d9b7708e2d80761e9fa99a6d1bfb}{get\+\_\+node} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+node \end{DoxyCompactList}\item 
+pair$<$ string, string $>$ \hyperlink{class_sys_transition_a6ed437db199f6ccbd8578e1db305a221}{get\+\_\+t\+\_\+name\+\_\+c\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+t\+\_\+name\+\_\+c\+\_\+name \end{DoxyCompactList}\item 
+void \hyperlink{class_sys_transition_a6cd5c8bb1f39370c8c4552cea193caf0}{set\+\_\+input\+\_\+event} (std\+::string e, int index)
+\begin{DoxyCompactList}\small\item\em set\+\_\+input\+\_\+event \end{DoxyCompactList}\item 
+void \hyperlink{class_sys_transition_a6a04aa7872a8d891d085764bca41c9cd}{add\+\_\+output\+\_\+event} (std\+::string e, vector$<$ int $>$ indexes)
+\begin{DoxyCompactList}\small\item\em add\+\_\+output\+\_\+event \end{DoxyCompactList}\item 
+void \hyperlink{class_sys_transition_a1a467d06dfa861340820815247fa0bab}{set\+\_\+lazy\+\_\+input\+\_\+event} (std\+::string e, int index)
+\begin{DoxyCompactList}\small\item\em set\+\_\+lazy\+\_\+input\+\_\+event \end{DoxyCompactList}\item 
+void \hyperlink{class_sys_transition_ac97ba8c514e4925a7b86dacf31a69a7d}{add\+\_\+lazy\+\_\+output\+\_\+event} (std\+::string e, vector$<$ int $>$ indexes)
+\begin{DoxyCompactList}\small\item\em add\+\_\+lazy\+\_\+output\+\_\+event \end{DoxyCompactList}\item 
+bool \hyperlink{class_sys_transition_aa46d54c147f5a7c1aa1442d7612953f4}{is\+\_\+triggerable} (vector$<$ string $>$ \&E, bool lazy=false)
+\begin{DoxyCompactList}\small\item\em is\+\_\+triggerable checks if current transition is triggerable (saturation policy W\+A\+IT) \end{DoxyCompactList}\item 
+void \hyperlink{class_sys_transition_aca76296b036d975c4df4e22169b20028}{effects} (vector$<$ string $>$ \&E, bool lazy=false)
+\begin{DoxyCompactList}\small\item\em effects computes new configuration of input terminals after transition execution \end{DoxyCompactList}\item 
+bool \hyperlink{class_sys_transition_a91b3fe79173a73dbe6698c5b31f952e3}{operator$<$} (const \hyperlink{class_sys_transition}{Sys\+Transition} t) const 
+\begin{DoxyCompactList}\small\item\em operator $<$ \end{DoxyCompactList}\item 
+bool \hyperlink{class_sys_transition_a7f7fc86a8a9aa93bc2c46ce4b9bdbc7d}{operator==} (const \hyperlink{class_sys_transition}{Sys\+Transition} t) const 
+\begin{DoxyCompactList}\small\item\em operator == \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{class_sys_transition_a500b0625bdf4376bd9e8efe5ab95a3c6}{eq} (const \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type} \&x, const \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type} \&y)
+\begin{DoxyCompactList}\small\item\em eq \end{DoxyCompactList}\item 
+static bool \hyperlink{class_sys_transition_af4a28bd6c0b91618fb8e7f78c4a7e9dc}{lt} (const \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type} \&x, const \hyperlink{class_net_transition_a40ad367a5a816d31e7559037c76970f0}{char\+\_\+type} \&y)
+\begin{DoxyCompactList}\small\item\em lt \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const size\+\_\+t \hyperlink{class_sys_transition_a18c0e61e238edb4d01c9cefff242cf7b}{size}\hypertarget{class_sys_transition_a18c0e61e238edb4d01c9cefff242cf7b}{}\label{class_sys_transition_a18c0e61e238edb4d01c9cefff242cf7b}
+
+\begin{DoxyCompactList}\small\item\em size \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_sys_transition_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_sys_transition_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_sys_transition}{Sys\+Transition} class represents a transition in a specific problem node. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Sys\+Transition@{Sys\+Transition}!Sys\+Transition@{Sys\+Transition}}
+\index{Sys\+Transition@{Sys\+Transition}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{Sys\+Transition(\+Transition $\ast$t, Net\+Component $\ast$c, System\+Node $\ast$n)}{SysTransition(Transition *t, NetComponent *c, SystemNode *n)}}]{\setlength{\rightskip}{0pt plus 5cm}Sys\+Transition\+::\+Sys\+Transition (
+\begin{DoxyParamCaption}
+\item[{{\bf Transition} $\ast$}]{t, }
+\item[{{\bf Net\+Component} $\ast$}]{c, }
+\item[{{\bf System\+Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)}\hypertarget{class_sys_transition_aa79fd80b8a077838873db93662accc2c}{}\label{class_sys_transition_aa79fd80b8a077838873db93662accc2c}
+
+
+\hyperlink{class_sys_transition}{Sys\+Transition}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+{\em c} & \\
+\hline
+{\em n} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Sys\+Transition@{Sys\+Transition}!add\+\_\+lazy\+\_\+output\+\_\+event@{add\+\_\+lazy\+\_\+output\+\_\+event}}
+\index{add\+\_\+lazy\+\_\+output\+\_\+event@{add\+\_\+lazy\+\_\+output\+\_\+event}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{add\+\_\+lazy\+\_\+output\+\_\+event(std\+::string e, vector$<$ int $>$ indexes)}{add_lazy_output_event(std::string e, vector< int > indexes)}}]{\setlength{\rightskip}{0pt plus 5cm}void Sys\+Transition\+::add\+\_\+lazy\+\_\+output\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{e, }
+\item[{vector$<$ int $>$}]{indexes}
+\end{DoxyParamCaption}
+)}\hypertarget{class_sys_transition_ac97ba8c514e4925a7b86dacf31a69a7d}{}\label{class_sys_transition_ac97ba8c514e4925a7b86dacf31a69a7d}
+
+
+add\+\_\+lazy\+\_\+output\+\_\+event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+{\em indexes} & \\
+\hline
+\end{DoxyParams}
+\index{Sys\+Transition@{Sys\+Transition}!add\+\_\+output\+\_\+event@{add\+\_\+output\+\_\+event}}
+\index{add\+\_\+output\+\_\+event@{add\+\_\+output\+\_\+event}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{add\+\_\+output\+\_\+event(std\+::string e, vector$<$ int $>$ indexes)}{add_output_event(std::string e, vector< int > indexes)}}]{\setlength{\rightskip}{0pt plus 5cm}void Sys\+Transition\+::add\+\_\+output\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{e, }
+\item[{vector$<$ int $>$}]{indexes}
+\end{DoxyParamCaption}
+)}\hypertarget{class_sys_transition_a6a04aa7872a8d891d085764bca41c9cd}{}\label{class_sys_transition_a6a04aa7872a8d891d085764bca41c9cd}
+
+
+add\+\_\+output\+\_\+event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+{\em indexes} & \\
+\hline
+\end{DoxyParams}
+\index{Sys\+Transition@{Sys\+Transition}!effects@{effects}}
+\index{effects@{effects}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{effects(vector$<$ string $>$ \&\+E, bool lazy=false)}{effects(vector< string > &E, bool lazy=false)}}]{\setlength{\rightskip}{0pt plus 5cm}void Sys\+Transition\+::effects (
+\begin{DoxyParamCaption}
+\item[{vector$<$ string $>$ \&}]{E, }
+\item[{bool}]{lazy = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hypertarget{class_sys_transition_aca76296b036d975c4df4e22169b20028}{}\label{class_sys_transition_aca76296b036d975c4df4e22169b20028}
+
+
+effects computes new configuration of input terminals after transition execution 
+
+
+\begin{DoxyParams}{Parameters}
+{\em E} & input terminals values \\
+\hline
+{\em lazy} & true if diagnosis is in lazy mode, false otherwise \\
+\hline
+\end{DoxyParams}
+\index{Sys\+Transition@{Sys\+Transition}!eq@{eq}}
+\index{eq@{eq}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{eq(const char\+\_\+type \&x, const char\+\_\+type \&y)}{eq(const char_type &x, const char_type &y)}}]{\setlength{\rightskip}{0pt plus 5cm}static bool Sys\+Transition\+::eq (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{x, }
+\item[{const {\bf char\+\_\+type} \&}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_sys_transition_a500b0625bdf4376bd9e8efe5ab95a3c6}{}\label{class_sys_transition_a500b0625bdf4376bd9e8efe5ab95a3c6}
+
+
+eq 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Sys\+Transition@{Sys\+Transition}!get\+\_\+node@{get\+\_\+node}}
+\index{get\+\_\+node@{get\+\_\+node}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+node() const }{get_node() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf System\+Node} $\ast$ Sys\+Transition\+::get\+\_\+node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_sys_transition_afc54d9b7708e2d80761e9fa99a6d1bfb}{}\label{class_sys_transition_afc54d9b7708e2d80761e9fa99a6d1bfb}
+
+
+get\+\_\+node 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Sys\+Transition@{Sys\+Transition}!get\+\_\+t\+\_\+name\+\_\+c\+\_\+name@{get\+\_\+t\+\_\+name\+\_\+c\+\_\+name}}
+\index{get\+\_\+t\+\_\+name\+\_\+c\+\_\+name@{get\+\_\+t\+\_\+name\+\_\+c\+\_\+name}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+t\+\_\+name\+\_\+c\+\_\+name() const }{get_t_name_c_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}pair$<$ string, string $>$ Sys\+Transition\+::get\+\_\+t\+\_\+name\+\_\+c\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_sys_transition_a6ed437db199f6ccbd8578e1db305a221}{}\label{class_sys_transition_a6ed437db199f6ccbd8578e1db305a221}
+
+
+get\+\_\+t\+\_\+name\+\_\+c\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Sys\+Transition@{Sys\+Transition}!is\+\_\+triggerable@{is\+\_\+triggerable}}
+\index{is\+\_\+triggerable@{is\+\_\+triggerable}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{is\+\_\+triggerable(vector$<$ string $>$ \&\+E, bool lazy=false)}{is_triggerable(vector< string > &E, bool lazy=false)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Sys\+Transition\+::is\+\_\+triggerable (
+\begin{DoxyParamCaption}
+\item[{vector$<$ string $>$ \&}]{E, }
+\item[{bool}]{lazy = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hypertarget{class_sys_transition_aa46d54c147f5a7c1aa1442d7612953f4}{}\label{class_sys_transition_aa46d54c147f5a7c1aa1442d7612953f4}
+
+
+is\+\_\+triggerable checks if current transition is triggerable (saturation policy W\+A\+IT) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em E} & current configuration of input terminals content \\
+\hline
+{\em lazy} & true if diagnosis is in lazy mode, false otherwise \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true of transition is triggerable, false otherwise 
+\end{DoxyReturn}
+\index{Sys\+Transition@{Sys\+Transition}!lt@{lt}}
+\index{lt@{lt}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{lt(const char\+\_\+type \&x, const char\+\_\+type \&y)}{lt(const char_type &x, const char_type &y)}}]{\setlength{\rightskip}{0pt plus 5cm}static bool Sys\+Transition\+::lt (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{x, }
+\item[{const {\bf char\+\_\+type} \&}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_sys_transition_af4a28bd6c0b91618fb8e7f78c4a7e9dc}{}\label{class_sys_transition_af4a28bd6c0b91618fb8e7f78c4a7e9dc}
+
+
+lt 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Sys\+Transition@{Sys\+Transition}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{operator$<$(const Sys\+Transition t) const }{operator<(const SysTransition t) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Sys\+Transition\+::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf Sys\+Transition}}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_sys_transition_a91b3fe79173a73dbe6698c5b31f952e3}{}\label{class_sys_transition_a91b3fe79173a73dbe6698c5b31f952e3}
+
+
+operator $<$ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Sys\+Transition@{Sys\+Transition}!operator==@{operator==}}
+\index{operator==@{operator==}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{operator==(const Sys\+Transition t) const }{operator==(const SysTransition t) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Sys\+Transition\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Sys\+Transition}}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_sys_transition_a7f7fc86a8a9aa93bc2c46ce4b9bdbc7d}{}\label{class_sys_transition_a7f7fc86a8a9aa93bc2c46ce4b9bdbc7d}
+
+
+operator == 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Sys\+Transition@{Sys\+Transition}!set\+\_\+input\+\_\+event@{set\+\_\+input\+\_\+event}}
+\index{set\+\_\+input\+\_\+event@{set\+\_\+input\+\_\+event}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{set\+\_\+input\+\_\+event(std\+::string e, int index)}{set_input_event(std::string e, int index)}}]{\setlength{\rightskip}{0pt plus 5cm}void Sys\+Transition\+::set\+\_\+input\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{e, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}\hypertarget{class_sys_transition_a6cd5c8bb1f39370c8c4552cea193caf0}{}\label{class_sys_transition_a6cd5c8bb1f39370c8c4552cea193caf0}
+
+
+set\+\_\+input\+\_\+event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+{\em index} & \\
+\hline
+\end{DoxyParams}
+\index{Sys\+Transition@{Sys\+Transition}!set\+\_\+lazy\+\_\+input\+\_\+event@{set\+\_\+lazy\+\_\+input\+\_\+event}}
+\index{set\+\_\+lazy\+\_\+input\+\_\+event@{set\+\_\+lazy\+\_\+input\+\_\+event}!Sys\+Transition@{Sys\+Transition}}
+\subsubsection[{\texorpdfstring{set\+\_\+lazy\+\_\+input\+\_\+event(std\+::string e, int index)}{set_lazy_input_event(std::string e, int index)}}]{\setlength{\rightskip}{0pt plus 5cm}void Sys\+Transition\+::set\+\_\+lazy\+\_\+input\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{e, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}\hypertarget{class_sys_transition_a1a467d06dfa861340820815247fa0bab}{}\label{class_sys_transition_a1a467d06dfa861340820815247fa0bab}
+
+
+set\+\_\+lazy\+\_\+input\+\_\+event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+{\em index} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+systransition.\+h\item 
+systransition.\+cpp\end{DoxyCompactItemize}

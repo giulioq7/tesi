@@ -1,0 +1,183 @@
+\hypertarget{class_decoration}{}\section{Decoration Class Reference}
+\label{class_decoration}\index{Decoration@{Decoration}}
+
+
+The \hyperlink{class_decoration}{Decoration} class contains static methods to decorate generic automata.  
+
+
+
+
+{\ttfamily \#include $<$decoration.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 $>$ }\\void {\bfseries decorate} (D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler)\hypertarget{class_decoration_a3651b7d07d23ccdb2d54e295029515d9}{}\label{class_decoration_a3651b7d07d23ccdb2d54e295029515d9}
+
+\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 $>$ }\\void {\bfseries decorate} (N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler)\hypertarget{class_decoration_a2d27d27a38dbc435ffa09916ed808a7b}{}\label{class_decoration_a2d27d27a38dbc435ffa09916ed808a7b}
+
+\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 , typename I\+N\+T\+E\+R\+\_\+\+S\+I\+G\+MA , typename I\+N\+T\+E\+R\+\_\+\+T\+AG $>$ }\\void {\bfseries decorate\+\_\+lazy\+\_\+bhv} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler, vector$<$ D\+F\+A\+\_\+map$<$ I\+N\+T\+E\+R\+\_\+\+S\+I\+G\+MA, I\+N\+T\+E\+R\+\_\+\+T\+AG $>$ $\ast$ $>$ \&interfaces, vector$<$ int $>$ \&dependency)\hypertarget{class_decoration_adab20531b8777e46f441590d61422fae}{}\label{class_decoration_adab20531b8777e46f441590d61422fae}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 $>$ }\\static void \hyperlink{class_decoration_a61c1ab3fa28bceb41e488501811d5b19}{decorate} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler)
+\begin{DoxyCompactList}\small\item\em decorate dfa plain decoration \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 $>$ }\\static void \hyperlink{class_decoration_a62e20cbf4c6a0c225fc89bf07ec7ddd3}{decorate} (astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler)
+\begin{DoxyCompactList}\small\item\em decorate nfa plain decoration \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 , typename I\+N\+T\+E\+R\+\_\+\+S\+I\+G\+MA , typename I\+N\+T\+E\+R\+\_\+\+T\+AG $>$ }\\static void \hyperlink{class_decoration_a42f1826e20ed2f648caebb6723635e92}{decorate\+\_\+lazy\+\_\+bhv} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler, vector$<$ astl\+::\+D\+F\+A\+\_\+map$<$ I\+N\+T\+E\+R\+\_\+\+S\+I\+G\+MA, I\+N\+T\+E\+R\+\_\+\+T\+AG $>$ $\ast$ $>$ \&interfaces, vector$<$ int $>$ \&dependency)
+\begin{DoxyCompactList}\small\item\em decorate\+\_\+lazy\+\_\+bhv dfa modified decoration for interface transitions and final interface states diagnosis \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 $>$ }\\static void \hyperlink{class_decoration_a56c60f77b8e5b98edf44206844a8bc46}{decorate\+\_\+lazy\+\_\+bhv} (astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler)
+\begin{DoxyCompactList}\small\item\em decorate\+\_\+lazy\+\_\+bhv nfa modified decoration for interface transitions and final interface states diagnosis \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static set$<$ set$<$ T $>$ $>$ \hyperlink{class_decoration_acf67ad362ac411b531d28f41aa8cf4cb}{join\+\_\+op} (set$<$ set$<$ T $>$ $>$ \&d1, set$<$ set$<$ T $>$ $>$ \&d2)
+\begin{DoxyCompactList}\small\item\em join\+\_\+op join operation to combine diagnosis sets \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_decoration}{Decoration} class contains static methods to decorate generic automata. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\index{Decoration@{Decoration}!decorate@{decorate}}
+\index{decorate@{decorate}!Decoration@{Decoration}}
+\subsubsection[{\texorpdfstring{decorate(astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&dfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler)}{decorate(astl::DFA_map< SIGMA, TAG > &dfa, unsigned int beta, set< set< M2 > > diagnosis, map< M1, M2 > &ruler)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 $>$ static void Decoration\+::decorate (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{dfa, }
+\item[{unsigned int}]{beta, }
+\item[{set$<$ set$<$ M2 $>$ $>$}]{diagnosis, }
+\item[{map$<$ M1, M2 $>$ \&}]{ruler}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_decoration_a61c1ab3fa28bceb41e488501811d5b19}{}\label{class_decoration_a61c1ab3fa28bceb41e488501811d5b19}
+
+
+decorate dfa plain decoration 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dfa} & \\
+\hline
+{\em beta} & \\
+\hline
+{\em diagnosis} & \\
+\hline
+{\em ruler} & \\
+\hline
+\end{DoxyParams}
+\index{Decoration@{Decoration}!decorate@{decorate}}
+\index{decorate@{decorate}!Decoration@{Decoration}}
+\subsubsection[{\texorpdfstring{decorate(astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&nfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler)}{decorate(astl::NFA_mmap< SIGMA, TAG > &nfa, unsigned int beta, set< set< M2 > > diagnosis, map< M1, M2 > &ruler)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 $>$ static void Decoration\+::decorate (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{nfa, }
+\item[{unsigned int}]{beta, }
+\item[{set$<$ set$<$ M2 $>$ $>$}]{diagnosis, }
+\item[{map$<$ M1, M2 $>$ \&}]{ruler}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_decoration_a62e20cbf4c6a0c225fc89bf07ec7ddd3}{}\label{class_decoration_a62e20cbf4c6a0c225fc89bf07ec7ddd3}
+
+
+decorate nfa plain decoration 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nfa} & \\
+\hline
+{\em beta} & \\
+\hline
+{\em diagnosis} & \\
+\hline
+{\em ruler} & \\
+\hline
+\end{DoxyParams}
+\index{Decoration@{Decoration}!decorate\+\_\+lazy\+\_\+bhv@{decorate\+\_\+lazy\+\_\+bhv}}
+\index{decorate\+\_\+lazy\+\_\+bhv@{decorate\+\_\+lazy\+\_\+bhv}!Decoration@{Decoration}}
+\subsubsection[{\texorpdfstring{decorate\+\_\+lazy\+\_\+bhv(astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&dfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler, vector$<$ astl\+::\+D\+F\+A\+\_\+map$<$ I\+N\+T\+E\+R\+\_\+\+S\+I\+G\+M\+A, I\+N\+T\+E\+R\+\_\+\+T\+A\+G $>$ $\ast$ $>$ \&interfaces, vector$<$ int $>$ \&dependency)}{decorate_lazy_bhv(astl::DFA_map< SIGMA, TAG > &dfa, unsigned int beta, set< set< M2 > > diagnosis, map< M1, M2 > &ruler, vector< astl::DFA_map< INTER_SIGMA, INTER_TAG > * > &interfaces, vector< int > &dependency)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 , typename I\+N\+T\+E\+R\+\_\+\+S\+I\+G\+MA , typename I\+N\+T\+E\+R\+\_\+\+T\+AG $>$ static void Decoration\+::decorate\+\_\+lazy\+\_\+bhv (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{dfa, }
+\item[{unsigned int}]{beta, }
+\item[{set$<$ set$<$ M2 $>$ $>$}]{diagnosis, }
+\item[{map$<$ M1, M2 $>$ \&}]{ruler, }
+\item[{vector$<$ astl\+::\+D\+F\+A\+\_\+map$<$ I\+N\+T\+E\+R\+\_\+\+S\+I\+G\+MA, I\+N\+T\+E\+R\+\_\+\+T\+AG $>$ $\ast$ $>$ \&}]{interfaces, }
+\item[{vector$<$ int $>$ \&}]{dependency}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_decoration_a42f1826e20ed2f648caebb6723635e92}{}\label{class_decoration_a42f1826e20ed2f648caebb6723635e92}
+
+
+decorate\+\_\+lazy\+\_\+bhv dfa modified decoration for interface transitions and final interface states diagnosis 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dfa} & \\
+\hline
+{\em beta} & \\
+\hline
+{\em diagnosis} & \\
+\hline
+{\em ruler} & \\
+\hline
+{\em interfaces} & \\
+\hline
+{\em dependency} & \\
+\hline
+\end{DoxyParams}
+\index{Decoration@{Decoration}!decorate\+\_\+lazy\+\_\+bhv@{decorate\+\_\+lazy\+\_\+bhv}}
+\index{decorate\+\_\+lazy\+\_\+bhv@{decorate\+\_\+lazy\+\_\+bhv}!Decoration@{Decoration}}
+\subsubsection[{\texorpdfstring{decorate\+\_\+lazy\+\_\+bhv(astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&nfa, unsigned int beta, set$<$ set$<$ M2 $>$ $>$ diagnosis, map$<$ M1, M2 $>$ \&ruler)}{decorate_lazy_bhv(astl::NFA_mmap< SIGMA, TAG > &nfa, unsigned int beta, set< set< M2 > > diagnosis, map< M1, M2 > &ruler)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG , typename M1 , typename M2 $>$ void Decoration\+::decorate\+\_\+lazy\+\_\+bhv (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{nfa, }
+\item[{unsigned int}]{beta, }
+\item[{set$<$ set$<$ M2 $>$ $>$}]{diagnosis, }
+\item[{map$<$ M1, M2 $>$ \&}]{ruler}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_decoration_a56c60f77b8e5b98edf44206844a8bc46}{}\label{class_decoration_a56c60f77b8e5b98edf44206844a8bc46}
+
+
+decorate\+\_\+lazy\+\_\+bhv nfa modified decoration for interface transitions and final interface states diagnosis 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nfa} & \\
+\hline
+{\em beta} & \\
+\hline
+{\em diagnosis} & \\
+\hline
+{\em ruler} & \\
+\hline
+\end{DoxyParams}
+\index{Decoration@{Decoration}!join\+\_\+op@{join\+\_\+op}}
+\index{join\+\_\+op@{join\+\_\+op}!Decoration@{Decoration}}
+\subsubsection[{\texorpdfstring{join\+\_\+op(set$<$ set$<$ T $>$ $>$ \&d1, set$<$ set$<$ T $>$ $>$ \&d2)}{join_op(set< set< T > > &d1, set< set< T > > &d2)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ set$<$ set$<$ T $>$ $>$ Decoration\+::join\+\_\+op (
+\begin{DoxyParamCaption}
+\item[{set$<$ set$<$ T $>$ $>$ \&}]{d1, }
+\item[{set$<$ set$<$ T $>$ $>$ \&}]{d2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_decoration_acf67ad362ac411b531d28f41aa8cf4cb}{}\label{class_decoration_acf67ad362ac411b531d28f41aa8cf4cb}
+
+
+join\+\_\+op join operation to combine diagnosis sets 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d1} & \\
+\hline
+{\em d2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+decoration.\+h\end{DoxyCompactItemize}

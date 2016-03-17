@@ -1,0 +1,335 @@
+\hypertarget{class_transition}{}\section{Transition Class Reference}
+\label{class_transition}\index{Transition@{Transition}}
+
+
+The \hyperlink{class_transition}{Transition} class.  
+
+
+
+
+{\ttfamily \#include $<$transition.\+h$>$}
+
+
+
+Inheritance diagram for Transition\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{class_transition__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Transition\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{class_transition__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{class_transition}{Transition} \hyperlink{class_transition_a701b8dd85eadbda28008778631ed9c08}{char\+\_\+type}\hypertarget{class_transition_a701b8dd85eadbda28008778631ed9c08}{}\label{class_transition_a701b8dd85eadbda28008778631ed9c08}
+
+\begin{DoxyCompactList}\small\item\em char\+\_\+type \end{DoxyCompactList}\item 
+typedef long \hyperlink{class_transition_a2a84af67283a25a2fc2ddd276092adbb}{int\+\_\+type}\hypertarget{class_transition_a2a84af67283a25a2fc2ddd276092adbb}{}\label{class_transition_a2a84af67283a25a2fc2ddd276092adbb}
+
+\begin{DoxyCompactList}\small\item\em int\+\_\+type \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_transition_a73b44b2338b11807f77b620a3e810f92}{Transition} ()\hypertarget{class_transition_a73b44b2338b11807f77b620a3e810f92}{}\label{class_transition_a73b44b2338b11807f77b620a3e810f92}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_transition}{Transition}. \end{DoxyCompactList}\item 
+\hyperlink{class_transition_a2455a9d73049ae0fe4edba67be1cb62d}{Transition} (std\+::string n)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_transition}{Transition}. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_transition_afb2e105b100da66587695033bf45ed0e}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+std\+::pair$<$ std\+::string, std\+::string $>$ \hyperlink{class_transition_aa9a28517d94919fccfb147c8a0ad4dc0}{get\+\_\+input\+\_\+event} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+input\+\_\+event \end{DoxyCompactList}\item 
+std\+::pair$<$ std\+::string, std\+::string $>$ \hyperlink{class_transition_a173debd0cd54c3a87ecdfba9ab761f80}{get\+\_\+s1\+\_\+s2} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+s1\+\_\+s2 \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \hyperlink{class_transition_ade549af354654b844af6d54693f4af6a}{get\+\_\+out\+\_\+events} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+out\+\_\+events \end{DoxyCompactList}\item 
+void \hyperlink{class_transition_a4b220aa7b2001942e23ab15075f1aa31}{set\+\_\+input\+\_\+event} (std\+::string e, std\+::string t)
+\begin{DoxyCompactList}\small\item\em set\+\_\+input\+\_\+event \end{DoxyCompactList}\item 
+void \hyperlink{class_transition_ae5aafaf781f86a2cdd5e72fb19d97f5f}{set\+\_\+s1\+\_\+s2} (std\+::string s1, std\+::string s2)
+\begin{DoxyCompactList}\small\item\em set\+\_\+s1\+\_\+s2 \end{DoxyCompactList}\item 
+void \hyperlink{class_transition_a2520c6cc0f7e6607341f6d8f20e45d28}{add\+\_\+out\+\_\+event} (std\+::string e, std\+::string t)
+\begin{DoxyCompactList}\small\item\em add\+\_\+out\+\_\+event \end{DoxyCompactList}\item 
+void \hyperlink{class_transition_acf51ad82dfa53f630e34f8c61cc3fbfb}{set\+\_\+out\+\_\+events} (std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ evs)
+\begin{DoxyCompactList}\small\item\em set\+\_\+out\+\_\+events \end{DoxyCompactList}\item 
+bool \hyperlink{class_transition_abb05ffb0eafbc0b97a478e7a3a266609}{operator$<$} (const \hyperlink{class_transition}{Transition} t) const 
+\begin{DoxyCompactList}\small\item\em operator $<$ \end{DoxyCompactList}\item 
+bool \hyperlink{class_transition_af76ce33a5b0b44fbd87c17e872d32d8c}{operator==} (const \hyperlink{class_transition}{Transition} t) const 
+\begin{DoxyCompactList}\small\item\em operator == \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{class_transition_aff29b326d916908afcbb377178d34e43}{eq} (const \hyperlink{class_transition_a701b8dd85eadbda28008778631ed9c08}{char\+\_\+type} \&x, const \hyperlink{class_transition_a701b8dd85eadbda28008778631ed9c08}{char\+\_\+type} \&y)
+\begin{DoxyCompactList}\small\item\em eq \end{DoxyCompactList}\item 
+static bool \hyperlink{class_transition_ad1b2ae9ff8cde5bb8888fb6002cfa671}{lt} (const \hyperlink{class_transition_a701b8dd85eadbda28008778631ed9c08}{char\+\_\+type} \&x, const \hyperlink{class_transition_a701b8dd85eadbda28008778631ed9c08}{char\+\_\+type} \&y)
+\begin{DoxyCompactList}\small\item\em lt \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const size\+\_\+t \hyperlink{class_transition_a579785c1d2d34e7dab5d34495041e004}{size}\hypertarget{class_transition_a579785c1d2d34e7dab5d34495041e004}{}\label{class_transition_a579785c1d2d34e7dab5d34495041e004}
+
+\begin{DoxyCompactList}\small\item\em size \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_transition_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_transition_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_transition}{Transition} class. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Transition@{Transition}!Transition@{Transition}}
+\index{Transition@{Transition}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{Transition(std\+::string n)}{Transition(std::string n)}}]{\setlength{\rightskip}{0pt plus 5cm}Transition\+::\+Transition (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_transition_a2455a9d73049ae0fe4edba67be1cb62d}{}\label{class_transition_a2455a9d73049ae0fe4edba67be1cb62d}
+
+
+\hyperlink{class_transition}{Transition}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Transition@{Transition}!add\+\_\+out\+\_\+event@{add\+\_\+out\+\_\+event}}
+\index{add\+\_\+out\+\_\+event@{add\+\_\+out\+\_\+event}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{add\+\_\+out\+\_\+event(std\+::string e, std\+::string t)}{add_out_event(std::string e, std::string t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Transition\+::add\+\_\+out\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{e, }
+\item[{std\+::string}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_transition_a2520c6cc0f7e6607341f6d8f20e45d28}{}\label{class_transition_a2520c6cc0f7e6607341f6d8f20e45d28}
+
+
+add\+\_\+out\+\_\+event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Transition@{Transition}!eq@{eq}}
+\index{eq@{eq}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{eq(const char\+\_\+type \&x, const char\+\_\+type \&y)}{eq(const char_type &x, const char_type &y)}}]{\setlength{\rightskip}{0pt plus 5cm}static bool Transition\+::eq (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{x, }
+\item[{const {\bf char\+\_\+type} \&}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_transition_aff29b326d916908afcbb377178d34e43}{}\label{class_transition_aff29b326d916908afcbb377178d34e43}
+
+
+eq 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Transition@{Transition}!get\+\_\+input\+\_\+event@{get\+\_\+input\+\_\+event}}
+\index{get\+\_\+input\+\_\+event@{get\+\_\+input\+\_\+event}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+input\+\_\+event() const }{get_input_event() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ std\+::string, std\+::string $>$ Transition\+::get\+\_\+input\+\_\+event (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_transition_aa9a28517d94919fccfb147c8a0ad4dc0}{}\label{class_transition_aa9a28517d94919fccfb147c8a0ad4dc0}
+
+
+get\+\_\+input\+\_\+event 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Transition@{Transition}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Transition\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_transition_afb2e105b100da66587695033bf45ed0e}{}\label{class_transition_afb2e105b100da66587695033bf45ed0e}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Transition@{Transition}!get\+\_\+out\+\_\+events@{get\+\_\+out\+\_\+events}}
+\index{get\+\_\+out\+\_\+events@{get\+\_\+out\+\_\+events}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+out\+\_\+events() const }{get_out_events() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ Transition\+::get\+\_\+out\+\_\+events (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_transition_ade549af354654b844af6d54693f4af6a}{}\label{class_transition_ade549af354654b844af6d54693f4af6a}
+
+
+get\+\_\+out\+\_\+events 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Transition@{Transition}!get\+\_\+s1\+\_\+s2@{get\+\_\+s1\+\_\+s2}}
+\index{get\+\_\+s1\+\_\+s2@{get\+\_\+s1\+\_\+s2}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{get\+\_\+s1\+\_\+s2() const }{get_s1_s2() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ std\+::string, std\+::string $>$ Transition\+::get\+\_\+s1\+\_\+s2 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_transition_a173debd0cd54c3a87ecdfba9ab761f80}{}\label{class_transition_a173debd0cd54c3a87ecdfba9ab761f80}
+
+
+get\+\_\+s1\+\_\+s2 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Transition@{Transition}!lt@{lt}}
+\index{lt@{lt}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{lt(const char\+\_\+type \&x, const char\+\_\+type \&y)}{lt(const char_type &x, const char_type &y)}}]{\setlength{\rightskip}{0pt plus 5cm}static bool Transition\+::lt (
+\begin{DoxyParamCaption}
+\item[{const {\bf char\+\_\+type} \&}]{x, }
+\item[{const {\bf char\+\_\+type} \&}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_transition_ad1b2ae9ff8cde5bb8888fb6002cfa671}{}\label{class_transition_ad1b2ae9ff8cde5bb8888fb6002cfa671}
+
+
+lt 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Transition@{Transition}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{operator$<$(const Transition t) const }{operator<(const Transition t) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Transition\+::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf Transition}}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_transition_abb05ffb0eafbc0b97a478e7a3a266609}{}\label{class_transition_abb05ffb0eafbc0b97a478e7a3a266609}
+
+
+operator $<$ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Transition@{Transition}!operator==@{operator==}}
+\index{operator==@{operator==}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{operator==(const Transition t) const }{operator==(const Transition t) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Transition\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Transition}}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_transition_af76ce33a5b0b44fbd87c17e872d32d8c}{}\label{class_transition_af76ce33a5b0b44fbd87c17e872d32d8c}
+
+
+operator == 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Transition@{Transition}!set\+\_\+input\+\_\+event@{set\+\_\+input\+\_\+event}}
+\index{set\+\_\+input\+\_\+event@{set\+\_\+input\+\_\+event}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{set\+\_\+input\+\_\+event(std\+::string e, std\+::string t)}{set_input_event(std::string e, std::string t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Transition\+::set\+\_\+input\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{e, }
+\item[{std\+::string}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_transition_a4b220aa7b2001942e23ab15075f1aa31}{}\label{class_transition_a4b220aa7b2001942e23ab15075f1aa31}
+
+
+set\+\_\+input\+\_\+event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Transition@{Transition}!set\+\_\+out\+\_\+events@{set\+\_\+out\+\_\+events}}
+\index{set\+\_\+out\+\_\+events@{set\+\_\+out\+\_\+events}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{set\+\_\+out\+\_\+events(std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ evs)}{set_out_events(std::vector< std::pair< std::string, std::string > > evs)}}]{\setlength{\rightskip}{0pt plus 5cm}void Transition\+::set\+\_\+out\+\_\+events (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$}]{evs}
+\end{DoxyParamCaption}
+)}\hypertarget{class_transition_acf51ad82dfa53f630e34f8c61cc3fbfb}{}\label{class_transition_acf51ad82dfa53f630e34f8c61cc3fbfb}
+
+
+set\+\_\+out\+\_\+events 
+
+
+\begin{DoxyParams}{Parameters}
+{\em evs} & \\
+\hline
+\end{DoxyParams}
+\index{Transition@{Transition}!set\+\_\+s1\+\_\+s2@{set\+\_\+s1\+\_\+s2}}
+\index{set\+\_\+s1\+\_\+s2@{set\+\_\+s1\+\_\+s2}!Transition@{Transition}}
+\subsubsection[{\texorpdfstring{set\+\_\+s1\+\_\+s2(std\+::string s1, std\+::string s2)}{set_s1_s2(std::string s1, std::string s2)}}]{\setlength{\rightskip}{0pt plus 5cm}void Transition\+::set\+\_\+s1\+\_\+s2 (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{s1, }
+\item[{std\+::string}]{s2}
+\end{DoxyParamCaption}
+)}\hypertarget{class_transition_ae5aafaf781f86a2cdd5e72fb19d97f5f}{}\label{class_transition_ae5aafaf781f86a2cdd5e72fb19d97f5f}
+
+
+set\+\_\+s1\+\_\+s2 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & \\
+\hline
+{\em s2} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+transition.\+h\item 
+transition.\+cpp\end{DoxyCompactItemize}

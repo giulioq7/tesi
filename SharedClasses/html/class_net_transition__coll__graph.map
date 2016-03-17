@@ -1,0 +1,5 @@
+<map id="NetTransition" name="NetTransition">
+<area shape="rect" id="node3" href="$class_transition.html" title="The Transition class. " alt="" coords="249,95,327,121"/>
+<area shape="rect" id="node5" href="$class_net_component.html" title="The NetComponent class represents a component in a network model. " alt="" coords="385,95,495,121"/>
+<area shape="rect" id="node6" href="$class_component_model.html" title="The ComponentModel class. " alt="" coords="394,5,518,32"/>
+</map>

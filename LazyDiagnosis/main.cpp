@@ -1,3 +1,14 @@
+/**
+ * @mainpage
+ *
+ * @brief Lazy diagnosis engine
+ *
+ * @author Giulio Quarenghi
+ *
+ * @date  2016 February
+ *
+ */
+
 #include <iostream>
 #include <boost/functional/hash.hpp>
 #include <sys/time.h>
@@ -21,6 +32,7 @@ using namespace astl;
 
 void build_behavior(DFA_map<InterfaceTrans, BehaviorState> &behavior, DFA_map<InterfaceTrans, BehaviorState> &bhv, Problem &problem, System &system, int index_node,vector<DFA_map<InterfaceTrans,InterfaceState>*> &interfaces, vector<int> &dependency);
 void to_nfa(DFA_map<InterfaceTrans, BehaviorState> &dfa, NFA_mmap<InterfaceTrans, BehaviorState> &nfa);
+
 
 int main()
 {

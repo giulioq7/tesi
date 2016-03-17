@@ -1,3 +1,14 @@
+/**
+ * @mainpage
+ *
+ * @brief Offline compiler (specification and preprocessing)
+ *
+ * @author Giulio Quarenghi
+ *
+ * @date  2016 February
+ *
+ */
+
 #include <iostream>
 #include <utility>
 #include <unistd.h>

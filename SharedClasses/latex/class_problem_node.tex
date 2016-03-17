@@ -1,0 +1,736 @@
+\hypertarget{class_problem_node}{}\section{Problem\+Node Class Reference}
+\label{class_problem_node}\index{Problem\+Node@{Problem\+Node}}
+
+
+The \hyperlink{class_problem_node}{Problem\+Node} class.  
+
+
+
+
+{\ttfamily \#include $<$problemnode.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_problem_node_a9c6e0d7a1c2f47de36b468ff18aabc87}{Problem\+Node} ()\hypertarget{class_problem_node_a9c6e0d7a1c2f47de36b468ff18aabc87}{}\label{class_problem_node_a9c6e0d7a1c2f47de36b468ff18aabc87}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_problem_node}{Problem\+Node} default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_problem_node_a44f4d955cf9e6511a8c1167d267b4b1f}{Problem\+Node} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_problem_node}{Problem\+Node} constructor from id. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_problem_node_a3ed292114a64c22a73f22af4cef39cbe}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+\hyperlink{class_system_node}{System\+Node} $\ast$ \hyperlink{class_problem_node_a9c95d7a2f4d9bdcf9219541bf5513149}{get\+\_\+ref\+\_\+node} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+ref\+\_\+node \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_terminal}{Terminal} $\ast$ $>$ \hyperlink{class_problem_node_af2ae217f6705303eaaaffb7c52d43a64}{get\+\_\+input\+\_\+terminals} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+input\+\_\+terminals \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_terminal}{Terminal} $\ast$ $>$ \hyperlink{class_problem_node_af500b2ee484e05950319793a6dfaf150}{get\+\_\+output\+\_\+terminals} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+output\+\_\+terminals \end{DoxyCompactList}\item 
+vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$ \hyperlink{class_problem_node_a6296775d75919e4fa3812c0ccc819378}{get\+\_\+initials} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+initials \end{DoxyCompactList}\item 
+map$<$ pair$<$ string, string $>$, string $>$ \hyperlink{class_problem_node_a2757bb8dbd2a6484d0fc16cf382f1d08}{get\+\_\+viewer} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+viewer \end{DoxyCompactList}\item 
+map$<$ pair$<$ string, string $>$, string $>$ \hyperlink{class_problem_node_a2de3b5186ce76f1782a7dacb754825d7}{get\+\_\+ruler} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+ruler \end{DoxyCompactList}\item 
+vector$<$ std\+::string $>$ \hyperlink{class_problem_node_abe5f148c704822a49331653d40bf5935}{get\+\_\+observation} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+observation \end{DoxyCompactList}\item 
+astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$ $\ast$ \hyperlink{class_problem_node_a3eed067387419bc7bcce0c83ab5157a5}{get\+\_\+index\+\_\+space} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+index\+\_\+space \end{DoxyCompactList}\item 
+vector$<$ int $>$ \hyperlink{class_problem_node_a430f7615bc2fe993127623326da650b2}{get\+\_\+depends} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+depends \end{DoxyCompactList}\item 
+bool \hyperlink{class_problem_node_a8ac910812a8684b0dbc238b944a76973}{is\+\_\+radix} ()
+\begin{DoxyCompactList}\small\item\em is\+\_\+radix \end{DoxyCompactList}\item 
+map$<$ std\+::string, \hyperlink{class_terminal}{Terminal} $\ast$ $>$ \hyperlink{class_problem_node_a5ab8edec582d3492b8a353f48eef0a7b}{get\+\_\+patt\+\_\+map} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+patt\+\_\+map \end{DoxyCompactList}\item 
+map$<$ std\+::string, vector$<$ int $>$ $>$ \hyperlink{class_problem_node_ace11ab62fc8182b0c24e7f7b0c0a20a8}{get\+\_\+patt\+\_\+indexes\+\_\+map} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+patt\+\_\+indexes\+\_\+map \end{DoxyCompactList}\item 
+map$<$ std\+::string, vector$<$ int $>$ $>$ \hyperlink{class_problem_node_afcb99542c2898a0c90e08d427f125e40}{get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_ae5a02932d1824b6674dcf362eafcf5de}{set\+\_\+ref\+\_\+node} (\hyperlink{class_system_node}{System\+Node} $\ast$sn)
+\begin{DoxyCompactList}\small\item\em set\+\_\+ref\+\_\+node \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_aac1af94c44088e6226fa9d2d76a85fc3}{add\+\_\+concrete\+\_\+component} (\hyperlink{class_component}{Component} comp)
+\begin{DoxyCompactList}\small\item\em add\+\_\+concrete\+\_\+component \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a40f1c45f44b6c45a178cbc2caf249d39}{add\+\_\+input\+\_\+terminal} (\hyperlink{class_terminal}{Terminal} $\ast$t)
+\begin{DoxyCompactList}\small\item\em add\+\_\+input\+\_\+terminal \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a477e374fa906d9d64681af5722fe6e29}{add\+\_\+output\+\_\+terminal} (\hyperlink{class_terminal}{Terminal} $\ast$t)
+\begin{DoxyCompactList}\small\item\em add\+\_\+output\+\_\+terminal \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a399a6285036abe32e012dc352813463a}{add\+\_\+initial} (std\+::string state, std\+::string c)
+\begin{DoxyCompactList}\small\item\em add\+\_\+initial \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a5e085ece16170ff948a377d68fb4c55e}{set\+\_\+initials} (vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$ in)
+\begin{DoxyCompactList}\small\item\em set\+\_\+initials \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_ad0af55ddc077322259159752d090a3a0}{add\+\_\+label} (pair$<$ string, string $>$ t, std\+::string l)
+\begin{DoxyCompactList}\small\item\em add\+\_\+label \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_ab7d4599d392a447b611ef873e3db1236}{add\+\_\+fault} (pair$<$ string, string $>$ t, std\+::string f)
+\begin{DoxyCompactList}\small\item\em add\+\_\+fault \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_ab66497cb64a9938de688c69c829f32df}{set\+\_\+viewer} (map$<$ pair$<$ string, string $>$, string $>$ v)
+\begin{DoxyCompactList}\small\item\em set\+\_\+viewer \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_abb26a57e5a160416fcd115d685a258a6}{set\+\_\+ruler} (map$<$ pair$<$ string, string $>$, string $>$ r)
+\begin{DoxyCompactList}\small\item\em set\+\_\+ruler \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_ae14d133c72eebda9060f892e2a923eba}{add\+\_\+obs\+\_\+label} (std\+::string l)
+\begin{DoxyCompactList}\small\item\em add\+\_\+obs\+\_\+label \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_aa83e75cbce1acfd5af82209373fdc716}{set\+\_\+observation} (vector$<$ std\+::string $>$ obs)
+\begin{DoxyCompactList}\small\item\em set\+\_\+observation \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a620f579ddb1fc4fcb58b7d90cb729a0b}{set\+\_\+index\+\_\+space} (astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$ $\ast$idxsp)
+\begin{DoxyCompactList}\small\item\em set\+\_\+index\+\_\+space \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a09442a3f2d71c45db258f61e7bd47e7a}{add\+\_\+depend} (int i)
+\begin{DoxyCompactList}\small\item\em add\+\_\+depend \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a11506b767704fe9d6c4d7810e686bd9c}{set\+\_\+radix} ()\hypertarget{class_problem_node_a11506b767704fe9d6c4d7810e686bd9c}{}\label{class_problem_node_a11506b767704fe9d6c4d7810e686bd9c}
+
+\begin{DoxyCompactList}\small\item\em set\+\_\+radix \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a32c401ce10dfaa57ac655f7babea4dbe}{set\+\_\+patt\+\_\+map} (map$<$ std\+::string, \hyperlink{class_terminal}{Terminal} $\ast$ $>$ m)
+\begin{DoxyCompactList}\small\item\em set\+\_\+patt\+\_\+map \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a01190aafe2a2a98e54248e24f616211e}{set\+\_\+patt\+\_\+indexes\+\_\+map} (map$<$ std\+::string, vector$<$ int $>$ $>$ m)
+\begin{DoxyCompactList}\small\item\em set\+\_\+patt\+\_\+indexes\+\_\+map \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_af66d3a4c07b775317936081c8f65d5f4}{set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map} (map$<$ std\+::string, vector$<$ int $>$ $>$ m)
+\begin{DoxyCompactList}\small\item\em set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_aa13c3f089e810d16fe469e66da57d77f}{add\+\_\+patt\+\_\+map} (std\+::string s, \hyperlink{class_terminal}{Terminal} $\ast$t)
+\begin{DoxyCompactList}\small\item\em add\+\_\+patt\+\_\+map \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_aa5051b2706175f404395ed70733baa03}{add\+\_\+patt\+\_\+indexes\+\_\+map} (std\+::string s, vector$<$ int $>$ is)
+\begin{DoxyCompactList}\small\item\em add\+\_\+patt\+\_\+indexes\+\_\+map \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a11b21decb60550d8b1fafae8ae2392c9}{add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map} (std\+::string s, vector$<$ int $>$ is)
+\begin{DoxyCompactList}\small\item\em add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map \end{DoxyCompactList}\item 
+\hyperlink{class_component}{Component} $\ast$ \hyperlink{class_problem_node_a96315dd81607e0807b6cc17d08cd9685}{find\+\_\+component} (std\+::string id)
+\begin{DoxyCompactList}\small\item\em find\+\_\+component find component from id \end{DoxyCompactList}\item 
+void \hyperlink{class_problem_node_a9ab02d7d90e07278bf96e554eab93ef6}{make\+\_\+terminals} ()\hypertarget{class_problem_node_a9ab02d7d90e07278bf96e554eab93ef6}{}\label{class_problem_node_a9ab02d7d90e07278bf96e554eab93ef6}
+
+\begin{DoxyCompactList}\small\item\em make\+\_\+terminals build concrete terminals of components, based on relative model \end{DoxyCompactList}\item 
+int \hyperlink{class_problem_node_a77aace2dc6e8df3bbfa07c0c99e56f12}{input\+\_\+terminals\+\_\+count} ()
+\begin{DoxyCompactList}\small\item\em input\+\_\+terminals\+\_\+count counts total inpute terminal of components \end{DoxyCompactList}\item 
+astl\+::\+D\+F\+A\+\_\+map$<$ \hyperlink{class_transition}{Transition}, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$\+::state\+\_\+type \hyperlink{class_problem_node_af24c9aaa0b19f79eb03811e156c30bc6}{find\+\_\+initial\+\_\+state} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em find\+\_\+initial\+\_\+state find initial state of a component \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_problem_node_ab11f2bfb638d6c5fca4e0dae4c8d4666}{concrete\+\_\+components}\hypertarget{class_problem_node_ab11f2bfb638d6c5fca4e0dae4c8d4666}{}\label{class_problem_node_ab11f2bfb638d6c5fca4e0dae4c8d4666}
+
+\begin{DoxyCompactList}\small\item\em concrete\+\_\+components \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_problem_node_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_problem_node_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_problem_node}{Problem\+Node} class. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Problem\+Node@{Problem\+Node}!Problem\+Node@{Problem\+Node}}
+\index{Problem\+Node@{Problem\+Node}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{Problem\+Node(std\+::string str)}{ProblemNode(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}Problem\+Node\+::\+Problem\+Node (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_problem_node_a44f4d955cf9e6511a8c1167d267b4b1f}{}\label{class_problem_node_a44f4d955cf9e6511a8c1167d267b4b1f}
+
+
+\hyperlink{class_problem_node}{Problem\+Node} constructor from id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & name \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+concrete\+\_\+component@{add\+\_\+concrete\+\_\+component}}
+\index{add\+\_\+concrete\+\_\+component@{add\+\_\+concrete\+\_\+component}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+concrete\+\_\+component(\+Component comp)}{add_concrete_component(Component comp)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+concrete\+\_\+component (
+\begin{DoxyParamCaption}
+\item[{{\bf Component}}]{comp}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_aac1af94c44088e6226fa9d2d76a85fc3}{}\label{class_problem_node_aac1af94c44088e6226fa9d2d76a85fc3}
+
+
+add\+\_\+concrete\+\_\+component 
+
+
+\begin{DoxyParams}{Parameters}
+{\em comp} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+depend@{add\+\_\+depend}}
+\index{add\+\_\+depend@{add\+\_\+depend}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+depend(int i)}{add_depend(int i)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+depend (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a09442a3f2d71c45db258f61e7bd47e7a}{}\label{class_problem_node_a09442a3f2d71c45db258f61e7bd47e7a}
+
+
+add\+\_\+depend 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+fault@{add\+\_\+fault}}
+\index{add\+\_\+fault@{add\+\_\+fault}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+fault(pair$<$ string, string $>$ t, std\+::string f)}{add_fault(pair< string, string > t, std::string f)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+fault (
+\begin{DoxyParamCaption}
+\item[{pair$<$ string, string $>$}]{t, }
+\item[{std\+::string}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_ab7d4599d392a447b611ef873e3db1236}{}\label{class_problem_node_ab7d4599d392a447b611ef873e3db1236}
+
+
+add\+\_\+fault 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+{\em f} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+initial@{add\+\_\+initial}}
+\index{add\+\_\+initial@{add\+\_\+initial}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+initial(std\+::string state, std\+::string c)}{add_initial(std::string state, std::string c)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+initial (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{state, }
+\item[{std\+::string}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a399a6285036abe32e012dc352813463a}{}\label{class_problem_node_a399a6285036abe32e012dc352813463a}
+
+
+add\+\_\+initial 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & \\
+\hline
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+input\+\_\+terminal@{add\+\_\+input\+\_\+terminal}}
+\index{add\+\_\+input\+\_\+terminal@{add\+\_\+input\+\_\+terminal}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+input\+\_\+terminal(\+Terminal $\ast$t)}{add_input_terminal(Terminal *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+input\+\_\+terminal (
+\begin{DoxyParamCaption}
+\item[{{\bf Terminal} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a40f1c45f44b6c45a178cbc2caf249d39}{}\label{class_problem_node_a40f1c45f44b6c45a178cbc2caf249d39}
+
+
+add\+\_\+input\+\_\+terminal 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+label@{add\+\_\+label}}
+\index{add\+\_\+label@{add\+\_\+label}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+label(pair$<$ string, string $>$ t, std\+::string l)}{add_label(pair< string, string > t, std::string l)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+label (
+\begin{DoxyParamCaption}
+\item[{pair$<$ string, string $>$}]{t, }
+\item[{std\+::string}]{l}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_ad0af55ddc077322259159752d090a3a0}{}\label{class_problem_node_ad0af55ddc077322259159752d090a3a0}
+
+
+add\+\_\+label 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+{\em l} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map@{add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map}}
+\index{add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map@{add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map(std\+::string s, vector$<$ int $>$ is)}{add_lazy_patt_indexes_map(std::string s, vector< int > is)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{s, }
+\item[{vector$<$ int $>$}]{is}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a11b21decb60550d8b1fafae8ae2392c9}{}\label{class_problem_node_a11b21decb60550d8b1fafae8ae2392c9}
+
+
+add\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+{\em is} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+obs\+\_\+label@{add\+\_\+obs\+\_\+label}}
+\index{add\+\_\+obs\+\_\+label@{add\+\_\+obs\+\_\+label}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+obs\+\_\+label(std\+::string l)}{add_obs_label(std::string l)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+obs\+\_\+label (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{l}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_ae14d133c72eebda9060f892e2a923eba}{}\label{class_problem_node_ae14d133c72eebda9060f892e2a923eba}
+
+
+add\+\_\+obs\+\_\+label 
+
+
+\begin{DoxyParams}{Parameters}
+{\em l} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+output\+\_\+terminal@{add\+\_\+output\+\_\+terminal}}
+\index{add\+\_\+output\+\_\+terminal@{add\+\_\+output\+\_\+terminal}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+output\+\_\+terminal(\+Terminal $\ast$t)}{add_output_terminal(Terminal *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+output\+\_\+terminal (
+\begin{DoxyParamCaption}
+\item[{{\bf Terminal} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a477e374fa906d9d64681af5722fe6e29}{}\label{class_problem_node_a477e374fa906d9d64681af5722fe6e29}
+
+
+add\+\_\+output\+\_\+terminal 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+patt\+\_\+indexes\+\_\+map@{add\+\_\+patt\+\_\+indexes\+\_\+map}}
+\index{add\+\_\+patt\+\_\+indexes\+\_\+map@{add\+\_\+patt\+\_\+indexes\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+patt\+\_\+indexes\+\_\+map(std\+::string s, vector$<$ int $>$ is)}{add_patt_indexes_map(std::string s, vector< int > is)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+patt\+\_\+indexes\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{s, }
+\item[{vector$<$ int $>$}]{is}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_aa5051b2706175f404395ed70733baa03}{}\label{class_problem_node_aa5051b2706175f404395ed70733baa03}
+
+
+add\+\_\+patt\+\_\+indexes\+\_\+map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+{\em is} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!add\+\_\+patt\+\_\+map@{add\+\_\+patt\+\_\+map}}
+\index{add\+\_\+patt\+\_\+map@{add\+\_\+patt\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{add\+\_\+patt\+\_\+map(std\+::string s, Terminal $\ast$t)}{add_patt_map(std::string s, Terminal *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::add\+\_\+patt\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{s, }
+\item[{{\bf Terminal} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_aa13c3f089e810d16fe469e66da57d77f}{}\label{class_problem_node_aa13c3f089e810d16fe469e66da57d77f}
+
+
+add\+\_\+patt\+\_\+map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!find\+\_\+component@{find\+\_\+component}}
+\index{find\+\_\+component@{find\+\_\+component}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{find\+\_\+component(std\+::string id)}{find_component(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Component} $\ast$ Problem\+Node\+::find\+\_\+component (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a96315dd81607e0807b6cc17d08cd9685}{}\label{class_problem_node_a96315dd81607e0807b6cc17d08cd9685}
+
+
+find\+\_\+component find component from id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!find\+\_\+initial\+\_\+state@{find\+\_\+initial\+\_\+state}}
+\index{find\+\_\+initial\+\_\+state@{find\+\_\+initial\+\_\+state}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{find\+\_\+initial\+\_\+state(std\+::string str)}{find_initial_state(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+F\+A\+\_\+map$<$ {\bf Transition}, {\bf State\+Data\+\_\+str} $>$\+::state\+\_\+type Problem\+Node\+::find\+\_\+initial\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_af24c9aaa0b19f79eb03811e156c30bc6}{}\label{class_problem_node_af24c9aaa0b19f79eb03811e156c30bc6}
+
+
+find\+\_\+initial\+\_\+state find initial state of a component 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & component name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+automaton state 
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+depends@{get\+\_\+depends}}
+\index{get\+\_\+depends@{get\+\_\+depends}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+depends() const }{get_depends() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ int $>$ Problem\+Node\+::get\+\_\+depends (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_a430f7615bc2fe993127623326da650b2}{}\label{class_problem_node_a430f7615bc2fe993127623326da650b2}
+
+
+get\+\_\+depends 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+index\+\_\+space@{get\+\_\+index\+\_\+space}}
+\index{get\+\_\+index\+\_\+space@{get\+\_\+index\+\_\+space}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+index\+\_\+space() const }{get_index_space() const }}]{\setlength{\rightskip}{0pt plus 5cm}astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, {\bf State\+Data\+\_\+str} $>$ $\ast$ Problem\+Node\+::get\+\_\+index\+\_\+space (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_a3eed067387419bc7bcce0c83ab5157a5}{}\label{class_problem_node_a3eed067387419bc7bcce0c83ab5157a5}
+
+
+get\+\_\+index\+\_\+space 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+initials@{get\+\_\+initials}}
+\index{get\+\_\+initials@{get\+\_\+initials}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+initials() const }{get_initials() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$ Problem\+Node\+::get\+\_\+initials (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_a6296775d75919e4fa3812c0ccc819378}{}\label{class_problem_node_a6296775d75919e4fa3812c0ccc819378}
+
+
+get\+\_\+initials 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+input\+\_\+terminals@{get\+\_\+input\+\_\+terminals}}
+\index{get\+\_\+input\+\_\+terminals@{get\+\_\+input\+\_\+terminals}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+input\+\_\+terminals() const }{get_input_terminals() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Terminal} $\ast$ $>$ Problem\+Node\+::get\+\_\+input\+\_\+terminals (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_af2ae217f6705303eaaaffb7c52d43a64}{}\label{class_problem_node_af2ae217f6705303eaaaffb7c52d43a64}
+
+
+get\+\_\+input\+\_\+terminals 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map@{get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map}}
+\index{get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map@{get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map() const }{get_lazy_patt_indexes_map() const }}]{\setlength{\rightskip}{0pt plus 5cm}map$<$ std\+::string, vector$<$ int $>$ $>$ Problem\+Node\+::get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_afcb99542c2898a0c90e08d427f125e40}{}\label{class_problem_node_afcb99542c2898a0c90e08d427f125e40}
+
+
+get\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Problem\+Node\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_a3ed292114a64c22a73f22af4cef39cbe}{}\label{class_problem_node_a3ed292114a64c22a73f22af4cef39cbe}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+observation@{get\+\_\+observation}}
+\index{get\+\_\+observation@{get\+\_\+observation}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+observation() const }{get_observation() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ std\+::string $>$ Problem\+Node\+::get\+\_\+observation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_abe5f148c704822a49331653d40bf5935}{}\label{class_problem_node_abe5f148c704822a49331653d40bf5935}
+
+
+get\+\_\+observation 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+output\+\_\+terminals@{get\+\_\+output\+\_\+terminals}}
+\index{get\+\_\+output\+\_\+terminals@{get\+\_\+output\+\_\+terminals}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+output\+\_\+terminals() const }{get_output_terminals() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Terminal} $\ast$ $>$ Problem\+Node\+::get\+\_\+output\+\_\+terminals (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_af500b2ee484e05950319793a6dfaf150}{}\label{class_problem_node_af500b2ee484e05950319793a6dfaf150}
+
+
+get\+\_\+output\+\_\+terminals 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+patt\+\_\+indexes\+\_\+map@{get\+\_\+patt\+\_\+indexes\+\_\+map}}
+\index{get\+\_\+patt\+\_\+indexes\+\_\+map@{get\+\_\+patt\+\_\+indexes\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+patt\+\_\+indexes\+\_\+map() const }{get_patt_indexes_map() const }}]{\setlength{\rightskip}{0pt plus 5cm}map$<$ std\+::string, vector$<$ int $>$ $>$ Problem\+Node\+::get\+\_\+patt\+\_\+indexes\+\_\+map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_ace11ab62fc8182b0c24e7f7b0c0a20a8}{}\label{class_problem_node_ace11ab62fc8182b0c24e7f7b0c0a20a8}
+
+
+get\+\_\+patt\+\_\+indexes\+\_\+map 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+patt\+\_\+map@{get\+\_\+patt\+\_\+map}}
+\index{get\+\_\+patt\+\_\+map@{get\+\_\+patt\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+patt\+\_\+map() const }{get_patt_map() const }}]{\setlength{\rightskip}{0pt plus 5cm}map$<$ std\+::string, {\bf Terminal} $\ast$ $>$ Problem\+Node\+::get\+\_\+patt\+\_\+map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_a5ab8edec582d3492b8a353f48eef0a7b}{}\label{class_problem_node_a5ab8edec582d3492b8a353f48eef0a7b}
+
+
+get\+\_\+patt\+\_\+map 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+ref\+\_\+node@{get\+\_\+ref\+\_\+node}}
+\index{get\+\_\+ref\+\_\+node@{get\+\_\+ref\+\_\+node}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+ref\+\_\+node() const }{get_ref_node() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf System\+Node} $\ast$ Problem\+Node\+::get\+\_\+ref\+\_\+node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_a9c95d7a2f4d9bdcf9219541bf5513149}{}\label{class_problem_node_a9c95d7a2f4d9bdcf9219541bf5513149}
+
+
+get\+\_\+ref\+\_\+node 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+ruler@{get\+\_\+ruler}}
+\index{get\+\_\+ruler@{get\+\_\+ruler}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+ruler() const }{get_ruler() const }}]{\setlength{\rightskip}{0pt plus 5cm}map$<$ pair$<$ string, string $>$, string $>$ Problem\+Node\+::get\+\_\+ruler (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_a2de3b5186ce76f1782a7dacb754825d7}{}\label{class_problem_node_a2de3b5186ce76f1782a7dacb754825d7}
+
+
+get\+\_\+ruler 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!get\+\_\+viewer@{get\+\_\+viewer}}
+\index{get\+\_\+viewer@{get\+\_\+viewer}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{get\+\_\+viewer() const }{get_viewer() const }}]{\setlength{\rightskip}{0pt plus 5cm}map$<$ pair$<$ string, string $>$, string $>$ Problem\+Node\+::get\+\_\+viewer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_problem_node_a2757bb8dbd2a6484d0fc16cf382f1d08}{}\label{class_problem_node_a2757bb8dbd2a6484d0fc16cf382f1d08}
+
+
+get\+\_\+viewer 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!input\+\_\+terminals\+\_\+count@{input\+\_\+terminals\+\_\+count}}
+\index{input\+\_\+terminals\+\_\+count@{input\+\_\+terminals\+\_\+count}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{input\+\_\+terminals\+\_\+count()}{input_terminals_count()}}]{\setlength{\rightskip}{0pt plus 5cm}int Problem\+Node\+::input\+\_\+terminals\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a77aace2dc6e8df3bbfa07c0c99e56f12}{}\label{class_problem_node_a77aace2dc6e8df3bbfa07c0c99e56f12}
+
+
+input\+\_\+terminals\+\_\+count counts total inpute terminal of components 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!is\+\_\+radix@{is\+\_\+radix}}
+\index{is\+\_\+radix@{is\+\_\+radix}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{is\+\_\+radix()}{is_radix()}}]{\setlength{\rightskip}{0pt plus 5cm}bool Problem\+Node\+::is\+\_\+radix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a8ac910812a8684b0dbc238b944a76973}{}\label{class_problem_node_a8ac910812a8684b0dbc238b944a76973}
+
+
+is\+\_\+radix 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+index\+\_\+space@{set\+\_\+index\+\_\+space}}
+\index{set\+\_\+index\+\_\+space@{set\+\_\+index\+\_\+space}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+index\+\_\+space(astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, State\+Data\+\_\+str $>$ $\ast$idxsp)}{set_index_space(astl::DFA_map< astl::strings, StateData_str > *idxsp)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+index\+\_\+space (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, {\bf State\+Data\+\_\+str} $>$ $\ast$}]{idxsp}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a620f579ddb1fc4fcb58b7d90cb729a0b}{}\label{class_problem_node_a620f579ddb1fc4fcb58b7d90cb729a0b}
+
+
+set\+\_\+index\+\_\+space 
+
+
+\begin{DoxyParams}{Parameters}
+{\em idxsp} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+initials@{set\+\_\+initials}}
+\index{set\+\_\+initials@{set\+\_\+initials}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+initials(vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$ in)}{set_initials(vector< pair< std::string, std::string > > in)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+initials (
+\begin{DoxyParamCaption}
+\item[{vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a5e085ece16170ff948a377d68fb4c55e}{}\label{class_problem_node_a5e085ece16170ff948a377d68fb4c55e}
+
+
+set\+\_\+initials 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map@{set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map}}
+\index{set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map@{set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map(map$<$ std\+::string, vector$<$ int $>$ $>$ m)}{set_lazy_patt_indexes_map(map< std::string, vector< int > > m)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{map$<$ std\+::string, vector$<$ int $>$ $>$}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_af66d3a4c07b775317936081c8f65d5f4}{}\label{class_problem_node_af66d3a4c07b775317936081c8f65d5f4}
+
+
+set\+\_\+lazy\+\_\+patt\+\_\+indexes\+\_\+map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+observation@{set\+\_\+observation}}
+\index{set\+\_\+observation@{set\+\_\+observation}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+observation(vector$<$ std\+::string $>$ obs)}{set_observation(vector< std::string > obs)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+observation (
+\begin{DoxyParamCaption}
+\item[{vector$<$ std\+::string $>$}]{obs}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_aa83e75cbce1acfd5af82209373fdc716}{}\label{class_problem_node_aa83e75cbce1acfd5af82209373fdc716}
+
+
+set\+\_\+observation 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obs} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+patt\+\_\+indexes\+\_\+map@{set\+\_\+patt\+\_\+indexes\+\_\+map}}
+\index{set\+\_\+patt\+\_\+indexes\+\_\+map@{set\+\_\+patt\+\_\+indexes\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+patt\+\_\+indexes\+\_\+map(map$<$ std\+::string, vector$<$ int $>$ $>$ m)}{set_patt_indexes_map(map< std::string, vector< int > > m)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+patt\+\_\+indexes\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{map$<$ std\+::string, vector$<$ int $>$ $>$}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a01190aafe2a2a98e54248e24f616211e}{}\label{class_problem_node_a01190aafe2a2a98e54248e24f616211e}
+
+
+set\+\_\+patt\+\_\+indexes\+\_\+map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+patt\+\_\+map@{set\+\_\+patt\+\_\+map}}
+\index{set\+\_\+patt\+\_\+map@{set\+\_\+patt\+\_\+map}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+patt\+\_\+map(map$<$ std\+::string, Terminal $\ast$ $>$ m)}{set_patt_map(map< std::string, Terminal * > m)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+patt\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{map$<$ std\+::string, {\bf Terminal} $\ast$ $>$}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_a32c401ce10dfaa57ac655f7babea4dbe}{}\label{class_problem_node_a32c401ce10dfaa57ac655f7babea4dbe}
+
+
+set\+\_\+patt\+\_\+map 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+ref\+\_\+node@{set\+\_\+ref\+\_\+node}}
+\index{set\+\_\+ref\+\_\+node@{set\+\_\+ref\+\_\+node}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+ref\+\_\+node(\+System\+Node $\ast$sn)}{set_ref_node(SystemNode *sn)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+ref\+\_\+node (
+\begin{DoxyParamCaption}
+\item[{{\bf System\+Node} $\ast$}]{sn}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_ae5a02932d1824b6674dcf362eafcf5de}{}\label{class_problem_node_ae5a02932d1824b6674dcf362eafcf5de}
+
+
+set\+\_\+ref\+\_\+node 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sn} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+ruler@{set\+\_\+ruler}}
+\index{set\+\_\+ruler@{set\+\_\+ruler}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+ruler(map$<$ pair$<$ string, string $>$, string $>$ r)}{set_ruler(map< pair< string, string >, string > r)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+ruler (
+\begin{DoxyParamCaption}
+\item[{map$<$ pair$<$ string, string $>$, string $>$}]{r}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_abb26a57e5a160416fcd115d685a258a6}{}\label{class_problem_node_abb26a57e5a160416fcd115d685a258a6}
+
+
+set\+\_\+ruler 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & \\
+\hline
+\end{DoxyParams}
+\index{Problem\+Node@{Problem\+Node}!set\+\_\+viewer@{set\+\_\+viewer}}
+\index{set\+\_\+viewer@{set\+\_\+viewer}!Problem\+Node@{Problem\+Node}}
+\subsubsection[{\texorpdfstring{set\+\_\+viewer(map$<$ pair$<$ string, string $>$, string $>$ v)}{set_viewer(map< pair< string, string >, string > v)}}]{\setlength{\rightskip}{0pt plus 5cm}void Problem\+Node\+::set\+\_\+viewer (
+\begin{DoxyParamCaption}
+\item[{map$<$ pair$<$ string, string $>$, string $>$}]{v}
+\end{DoxyParamCaption}
+)}\hypertarget{class_problem_node_ab66497cb64a9938de688c69c829f32df}{}\label{class_problem_node_ab66497cb64a9938de688c69c829f32df}
+
+
+set\+\_\+viewer 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+problemnode.\+h\item 
+problemnode.\+cpp\end{DoxyCompactItemize}

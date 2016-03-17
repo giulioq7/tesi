@@ -1,0 +1,148 @@
+\hypertarget{class_terminal}{}\section{Terminal Class Reference}
+\label{class_terminal}\index{Terminal@{Terminal}}
+
+
+The \hyperlink{class_terminal}{Terminal} class represents concrete terminals of components and problem nodes.  
+
+
+
+
+{\ttfamily \#include $<$terminal.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_terminal_aa448509b5aa1ece53c3d86385655be0e}{Terminal} ()\hypertarget{class_terminal_aa448509b5aa1ece53c3d86385655be0e}{}\label{class_terminal_aa448509b5aa1ece53c3d86385655be0e}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_terminal}{Terminal}. \end{DoxyCompactList}\item 
+\hyperlink{class_terminal_a528fbc18108f9396d969775453851efe}{Terminal} (std\+::string n)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_terminal}{Terminal}. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_terminal_a79757bf237bac0a7d988ca61938f2bec}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_terminal_a74dc0c5c76ec9a03f2efed4dae74b7a5}{get\+\_\+value} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+value \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{class_terminal}{Terminal} $\ast$ $>$ \hyperlink{class_terminal_a9ca76f85961beb83450055da4e559b48}{get\+\_\+linked\+\_\+terminals} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+linked\+\_\+terminals \end{DoxyCompactList}\item 
+void \hyperlink{class_terminal_a2772ca04d4b5e6f468eaa8fca866c171}{set\+\_\+value} (std\+::string v)
+\begin{DoxyCompactList}\small\item\em set\+\_\+value \end{DoxyCompactList}\item 
+void \hyperlink{class_terminal_a46b1e64649f14e8443403f9ef8aa6342}{add\+\_\+linked\+\_\+terminal} (\hyperlink{class_terminal}{Terminal} $\ast$t)
+\begin{DoxyCompactList}\small\item\em add\+\_\+linked\+\_\+terminal \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_terminal_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_terminal_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_terminal}{Terminal} class represents concrete terminals of components and problem nodes. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Terminal@{Terminal}!Terminal@{Terminal}}
+\index{Terminal@{Terminal}!Terminal@{Terminal}}
+\subsubsection[{\texorpdfstring{Terminal(std\+::string n)}{Terminal(std::string n)}}]{\setlength{\rightskip}{0pt plus 5cm}Terminal\+::\+Terminal (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{n}
+\end{DoxyParamCaption}
+)}\hypertarget{class_terminal_a528fbc18108f9396d969775453851efe}{}\label{class_terminal_a528fbc18108f9396d969775453851efe}
+
+
+\hyperlink{class_terminal}{Terminal}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Terminal@{Terminal}!add\+\_\+linked\+\_\+terminal@{add\+\_\+linked\+\_\+terminal}}
+\index{add\+\_\+linked\+\_\+terminal@{add\+\_\+linked\+\_\+terminal}!Terminal@{Terminal}}
+\subsubsection[{\texorpdfstring{add\+\_\+linked\+\_\+terminal(\+Terminal $\ast$t)}{add_linked_terminal(Terminal *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Terminal\+::add\+\_\+linked\+\_\+terminal (
+\begin{DoxyParamCaption}
+\item[{{\bf Terminal} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_terminal_a46b1e64649f14e8443403f9ef8aa6342}{}\label{class_terminal_a46b1e64649f14e8443403f9ef8aa6342}
+
+
+add\+\_\+linked\+\_\+terminal 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Terminal@{Terminal}!get\+\_\+linked\+\_\+terminals@{get\+\_\+linked\+\_\+terminals}}
+\index{get\+\_\+linked\+\_\+terminals@{get\+\_\+linked\+\_\+terminals}!Terminal@{Terminal}}
+\subsubsection[{\texorpdfstring{get\+\_\+linked\+\_\+terminals() const }{get_linked_terminals() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ {\bf Terminal} $\ast$ $>$ Terminal\+::get\+\_\+linked\+\_\+terminals (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_terminal_a9ca76f85961beb83450055da4e559b48}{}\label{class_terminal_a9ca76f85961beb83450055da4e559b48}
+
+
+get\+\_\+linked\+\_\+terminals 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Terminal@{Terminal}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!Terminal@{Terminal}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Terminal\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_terminal_a79757bf237bac0a7d988ca61938f2bec}{}\label{class_terminal_a79757bf237bac0a7d988ca61938f2bec}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Terminal@{Terminal}!get\+\_\+value@{get\+\_\+value}}
+\index{get\+\_\+value@{get\+\_\+value}!Terminal@{Terminal}}
+\subsubsection[{\texorpdfstring{get\+\_\+value() const }{get_value() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Terminal\+::get\+\_\+value (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_terminal_a74dc0c5c76ec9a03f2efed4dae74b7a5}{}\label{class_terminal_a74dc0c5c76ec9a03f2efed4dae74b7a5}
+
+
+get\+\_\+value 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Terminal@{Terminal}!set\+\_\+value@{set\+\_\+value}}
+\index{set\+\_\+value@{set\+\_\+value}!Terminal@{Terminal}}
+\subsubsection[{\texorpdfstring{set\+\_\+value(std\+::string v)}{set_value(std::string v)}}]{\setlength{\rightskip}{0pt plus 5cm}void Terminal\+::set\+\_\+value (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{v}
+\end{DoxyParamCaption}
+)}\hypertarget{class_terminal_a2772ca04d4b5e6f468eaa8fca866c171}{}\label{class_terminal_a2772ca04d4b5e6f468eaa8fca866c171}
+
+
+set\+\_\+value 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+terminal.\+h\item 
+terminal.\+cpp\end{DoxyCompactItemize}

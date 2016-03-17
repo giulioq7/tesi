@@ -1,0 +1,150 @@
+\hypertarget{class_determinization}{}\section{Determinization Class Reference}
+\label{class_determinization}\index{Determinization@{Determinization}}
+
+
+The \hyperlink{class_determinization}{Determinization} class.  
+
+
+
+
+{\ttfamily \#include $<$determinization.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\set$<$ unsigned int $>$ {\bfseries eps\+\_\+closure} (N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, unsigned int state)\hypertarget{class_determinization_a915518c4e27962c500b07ac8a8ad22bf}{}\label{class_determinization_a915518c4e27962c500b07ac8a8ad22bf}
+
+\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\set$<$ unsigned int $>$ {\bfseries eps\+\_\+closure} (N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, set$<$ unsigned int $>$ states)\hypertarget{class_determinization_a8cba41e0bc796ffdead6d766100b1111}{}\label{class_determinization_a8cba41e0bc796ffdead6d766100b1111}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\static set$<$ unsigned int $>$ \hyperlink{class_determinization_a22c8f2c6e117c7b25c5375b6f395317b}{eps\+\_\+closure} (astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, unsigned int state)
+\begin{DoxyCompactList}\small\item\em eps\+\_\+closure computes eps-\/closure of a single state \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\static set$<$ unsigned int $>$ \hyperlink{class_determinization_aaf37598efd880e04fb0bba9e01351dab}{eps\+\_\+closure} (astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, set$<$ unsigned int $>$ states)
+\begin{DoxyCompactList}\small\item\em eps\+\_\+closure computes eps-\/closure of a set of states \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename S\+I\+G\+M\+A\+\_\+\+D\+FA , typename T\+AG , typename T\+A\+G\+\_\+\+D\+FA $>$ }\\static set$<$ unsigned int $>$ \hyperlink{class_determinization_aa05556441aefb6ee604167e7e9bd5c69}{move} (N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, set$<$ unsigned int $>$ states, D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A\+\_\+\+D\+FA, T\+A\+G\+\_\+\+D\+FA $>$ \&dfa, unsigned int dfa\+\_\+state, S\+I\+G\+M\+A\+\_\+\+D\+FA letter)
+\begin{DoxyCompactList}\small\item\em move computes union of reached states from source states by specified transition \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename S\+I\+G\+M\+A\+\_\+\+D\+FA , typename T\+AG , typename T\+A\+G\+\_\+\+D\+FA , typename M1 , typename M2 $>$ }\\static void \hyperlink{class_determinization_a06ec7854454e92290ebb1b140b0f9b38}{N\+F\+Ato\+D\+FA} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&bhv, astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&nfa, map$<$ M1, M2 $>$ \&ruler, astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A\+\_\+\+D\+FA, T\+A\+G\+\_\+\+D\+FA $>$ \&dfa)
+\begin{DoxyCompactList}\small\item\em N\+F\+Ato\+D\+FA driver method for interface determinization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_determinization}{Determinization} class. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\index{Determinization@{Determinization}!eps\+\_\+closure@{eps\+\_\+closure}}
+\index{eps\+\_\+closure@{eps\+\_\+closure}!Determinization@{Determinization}}
+\subsubsection[{\texorpdfstring{eps\+\_\+closure(astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&nfa, unsigned int state)}{eps_closure(astl::NFA_mmap< SIGMA, TAG > &nfa, unsigned int state)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG $>$ static set$<$unsigned int$>$ Determinization\+::eps\+\_\+closure (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{nfa, }
+\item[{unsigned int}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_determinization_a22c8f2c6e117c7b25c5375b6f395317b}{}\label{class_determinization_a22c8f2c6e117c7b25c5375b6f395317b}
+
+
+eps\+\_\+closure computes eps-\/closure of a single state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nfa} & \\
+\hline
+{\em state} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Determinization@{Determinization}!eps\+\_\+closure@{eps\+\_\+closure}}
+\index{eps\+\_\+closure@{eps\+\_\+closure}!Determinization@{Determinization}}
+\subsubsection[{\texorpdfstring{eps\+\_\+closure(astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&nfa, set$<$ unsigned int $>$ states)}{eps_closure(astl::NFA_mmap< SIGMA, TAG > &nfa, set< unsigned int > states)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG $>$ static set$<$unsigned int$>$ Determinization\+::eps\+\_\+closure (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{nfa, }
+\item[{set$<$ unsigned int $>$}]{states}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_determinization_aaf37598efd880e04fb0bba9e01351dab}{}\label{class_determinization_aaf37598efd880e04fb0bba9e01351dab}
+
+
+eps\+\_\+closure computes eps-\/closure of a set of states 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nfa} & \\
+\hline
+{\em states} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Determinization@{Determinization}!move@{move}}
+\index{move@{move}!Determinization@{Determinization}}
+\subsubsection[{\texorpdfstring{move(\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&nfa, set$<$ unsigned int $>$ states, D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A\+\_\+\+D\+F\+A, T\+A\+G\+\_\+\+D\+F\+A $>$ \&dfa, unsigned int dfa\+\_\+state, S\+I\+G\+M\+A\+\_\+\+D\+F\+A letter)}{move(NFA_mmap< SIGMA, TAG > &nfa, set< unsigned int > states, DFA_map< SIGMA_DFA, TAG_DFA > &dfa, unsigned int dfa_state, SIGMA_DFA letter)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename S\+I\+G\+M\+A\+\_\+\+D\+FA , typename T\+AG , typename T\+A\+G\+\_\+\+D\+FA $>$ set$<$ unsigned int $>$ Determinization\+::move (
+\begin{DoxyParamCaption}
+\item[{N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{nfa, }
+\item[{set$<$ unsigned int $>$}]{states, }
+\item[{D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A\+\_\+\+D\+FA, T\+A\+G\+\_\+\+D\+FA $>$ \&}]{dfa, }
+\item[{unsigned int}]{dfa\+\_\+state, }
+\item[{S\+I\+G\+M\+A\+\_\+\+D\+FA}]{letter}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_determinization_aa05556441aefb6ee604167e7e9bd5c69}{}\label{class_determinization_aa05556441aefb6ee604167e7e9bd5c69}
+
+
+move computes union of reached states from source states by specified transition 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nfa} & \\
+\hline
+{\em states} & \\
+\hline
+{\em dfa} & \\
+\hline
+{\em dfa\+\_\+state} & \\
+\hline
+{\em letter} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Determinization@{Determinization}!N\+F\+Ato\+D\+FA@{N\+F\+Ato\+D\+FA}}
+\index{N\+F\+Ato\+D\+FA@{N\+F\+Ato\+D\+FA}!Determinization@{Determinization}}
+\subsubsection[{\texorpdfstring{N\+F\+Ato\+D\+F\+A(astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&bhv, astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&nfa, map$<$ M1, M2 $>$ \&ruler, astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A\+\_\+\+D\+F\+A, T\+A\+G\+\_\+\+D\+F\+A $>$ \&dfa)}{NFAtoDFA(astl::DFA_map< SIGMA, TAG > &bhv, astl::NFA_mmap< SIGMA, TAG > &nfa, map< M1, M2 > &ruler, astl::DFA_map< SIGMA_DFA, TAG_DFA > &dfa)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename S\+I\+G\+M\+A\+\_\+\+D\+FA , typename T\+AG , typename T\+A\+G\+\_\+\+D\+FA , typename M1 , typename M2 $>$ void Determinization\+::\+N\+F\+Ato\+D\+FA (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{bhv, }
+\item[{astl\+::\+N\+F\+A\+\_\+mmap$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{nfa, }
+\item[{map$<$ M1, M2 $>$ \&}]{ruler, }
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A\+\_\+\+D\+FA, T\+A\+G\+\_\+\+D\+FA $>$ \&}]{dfa}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_determinization_a06ec7854454e92290ebb1b140b0f9b38}{}\label{class_determinization_a06ec7854454e92290ebb1b140b0f9b38}
+
+
+N\+F\+Ato\+D\+FA driver method for interface determinization. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bhv} & \\
+\hline
+{\em nfa} & \\
+\hline
+{\em ruler} & \\
+\hline
+{\em dfa} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+determinization.\+h\end{DoxyCompactItemize}

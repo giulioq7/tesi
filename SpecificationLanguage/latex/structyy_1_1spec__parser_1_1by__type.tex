@@ -1,0 +1,69 @@
+\hypertarget{structyy_1_1spec__parser_1_1by__type}{}\section{yy\+:\+:spec\+\_\+parser\+:\+:by\+\_\+type Struct Reference}
+\label{structyy_1_1spec__parser_1_1by__type}\index{yy\+::spec\+\_\+parser\+::by\+\_\+type@{yy\+::spec\+\_\+parser\+::by\+\_\+type}}
+
+
+Type access provider for token (enum) based symbols.  
+
+
+
+
+{\ttfamily \#include $<$specparser.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{classyy_1_1spec__parser_aa2d8316e069c6922b83594046e5bdd46}{token\+\_\+type} \hyperlink{structyy_1_1spec__parser_1_1by__type_ab9109b2d2351ec8985490d982685138d}{kind\+\_\+type}\hypertarget{structyy_1_1spec__parser_1_1by__type_ab9109b2d2351ec8985490d982685138d}{}\label{structyy_1_1spec__parser_1_1by__type_ab9109b2d2351ec8985490d982685138d}
+
+\begin{DoxyCompactList}\small\item\em The symbol type as needed by the constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structyy_1_1spec__parser_1_1by__type_aa5b00743ab133d706a518c2739737377}{by\+\_\+type} ()\hypertarget{structyy_1_1spec__parser_1_1by__type_aa5b00743ab133d706a518c2739737377}{}\label{structyy_1_1spec__parser_1_1by__type_aa5b00743ab133d706a518c2739737377}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{structyy_1_1spec__parser_1_1by__type_aa975d5258373dce86cba9402efab5e48}{by\+\_\+type} (const \hyperlink{structyy_1_1spec__parser_1_1by__type}{by\+\_\+type} \&other)\hypertarget{structyy_1_1spec__parser_1_1by__type_aa975d5258373dce86cba9402efab5e48}{}\label{structyy_1_1spec__parser_1_1by__type_aa975d5258373dce86cba9402efab5e48}
+
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+\hyperlink{structyy_1_1spec__parser_1_1by__type_a15ddc1764b43bd5d2c426ae4442017cf}{by\+\_\+type} (\hyperlink{structyy_1_1spec__parser_1_1by__type_ab9109b2d2351ec8985490d982685138d}{kind\+\_\+type} t)\hypertarget{structyy_1_1spec__parser_1_1by__type_a15ddc1764b43bd5d2c426ae4442017cf}{}\label{structyy_1_1spec__parser_1_1by__type_a15ddc1764b43bd5d2c426ae4442017cf}
+
+\begin{DoxyCompactList}\small\item\em Constructor from (external) token numbers. \end{DoxyCompactList}\item 
+void \hyperlink{structyy_1_1spec__parser_1_1by__type_a7fcf98efe6fe6480db14939061c2a130}{clear} ()\hypertarget{structyy_1_1spec__parser_1_1by__type_a7fcf98efe6fe6480db14939061c2a130}{}\label{structyy_1_1spec__parser_1_1by__type_a7fcf98efe6fe6480db14939061c2a130}
+
+\begin{DoxyCompactList}\small\item\em Record that this symbol is empty. \end{DoxyCompactList}\item 
+void \hyperlink{structyy_1_1spec__parser_1_1by__type_a841977a9d8b7e9136059ec52b2fc3151}{move} (\hyperlink{structyy_1_1spec__parser_1_1by__type}{by\+\_\+type} \&that)\hypertarget{structyy_1_1spec__parser_1_1by__type_a841977a9d8b7e9136059ec52b2fc3151}{}\label{structyy_1_1spec__parser_1_1by__type_a841977a9d8b7e9136059ec52b2fc3151}
+
+\begin{DoxyCompactList}\small\item\em Steal the symbol type from {\itshape that}. \end{DoxyCompactList}\item 
+\hyperlink{classyy_1_1spec__parser_af57584750bfabfb567b9e6204dd87562}{symbol\+\_\+number\+\_\+type} \hyperlink{structyy_1_1spec__parser_1_1by__type_a876b6d316133d06485030586e01826a0}{type\+\_\+get} () const 
+\item 
+\hyperlink{classyy_1_1spec__parser_aa2d8316e069c6922b83594046e5bdd46}{token\+\_\+type} \hyperlink{structyy_1_1spec__parser_1_1by__type_af43ee4b49e0e1c31b5b8f0a7526d88ad}{token} () const \hypertarget{structyy_1_1spec__parser_1_1by__type_af43ee4b49e0e1c31b5b8f0a7526d88ad}{}\label{structyy_1_1spec__parser_1_1by__type_af43ee4b49e0e1c31b5b8f0a7526d88ad}
+
+\begin{DoxyCompactList}\small\item\em The token. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structyy_1_1spec__parser_1_1by__type_a1ee34e993a81e7912c0d7b3d5ce2bd58}{type}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Type access provider for token (enum) based symbols. 
+
+\subsection{Member Function Documentation}
+\index{yy\+::spec\+\_\+parser\+::by\+\_\+type@{yy\+::spec\+\_\+parser\+::by\+\_\+type}!type\+\_\+get@{type\+\_\+get}}
+\index{type\+\_\+get@{type\+\_\+get}!yy\+::spec\+\_\+parser\+::by\+\_\+type@{yy\+::spec\+\_\+parser\+::by\+\_\+type}}
+\subsubsection[{\texorpdfstring{type\+\_\+get() const }{type_get() const }}]{\setlength{\rightskip}{0pt plus 5cm}int yy\+::spec\+\_\+parser\+::by\+\_\+type\+::type\+\_\+get (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structyy_1_1spec__parser_1_1by__type_a876b6d316133d06485030586e01826a0}{}\label{structyy_1_1spec__parser_1_1by__type_a876b6d316133d06485030586e01826a0}
+The (internal) type number (corresponding to {\itshape type}). {\itshape empty} when empty. 
+
+\subsection{Member Data Documentation}
+\index{yy\+::spec\+\_\+parser\+::by\+\_\+type@{yy\+::spec\+\_\+parser\+::by\+\_\+type}!type@{type}}
+\index{type@{type}!yy\+::spec\+\_\+parser\+::by\+\_\+type@{yy\+::spec\+\_\+parser\+::by\+\_\+type}}
+\subsubsection[{\texorpdfstring{type}{type}}]{\setlength{\rightskip}{0pt plus 5cm}int yy\+::spec\+\_\+parser\+::by\+\_\+type\+::type}\hypertarget{structyy_1_1spec__parser_1_1by__type_a1ee34e993a81e7912c0d7b3d5ce2bd58}{}\label{structyy_1_1spec__parser_1_1by__type_a1ee34e993a81e7912c0d7b3d5ce2bd58}
+The symbol type. {\itshape empty\+\_\+symbol} when empty. An int, not token\+\_\+number\+\_\+type, to be able to store empty\+\_\+symbol. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{specparser_8hpp}{specparser.\+hpp}\end{DoxyCompactItemize}

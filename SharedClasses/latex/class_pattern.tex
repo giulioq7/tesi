@@ -1,0 +1,222 @@
+\hypertarget{class_pattern}{}\section{Pattern Class Reference}
+\label{class_pattern}\index{Pattern@{Pattern}}
+
+
+The \hyperlink{class_pattern}{Pattern} class represents a pattern declaration.  
+
+
+
+
+{\ttfamily \#include $<$pattern.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_pattern_a95f42b0f1717d9e6c2d831e87d27f83c}{Pattern} ()\hypertarget{class_pattern_a95f42b0f1717d9e6c2d831e87d27f83c}{}\label{class_pattern_a95f42b0f1717d9e6c2d831e87d27f83c}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_pattern}{Pattern} default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_pattern_a13a6b021ad96f605132817bc09067fb5}{Pattern} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_pattern}{Pattern} constructor from id. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_pattern_a46de2634013b74dd9eb6c5b4b9221207}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_pattern_a70a07c4f18a44547451a7a31cb4f559b}{get\+\_\+terminal\+\_\+id} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+terminal\+\_\+id \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_pattern_aae66f42063f4f6eac934995201f77a64}{get\+\_\+expr} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+expr \end{DoxyCompactList}\item 
+bool \hyperlink{class_pattern_ac0b9bfafaea69a90627843c8f43aa71f}{is\+\_\+max\+\_\+language} () const 
+\begin{DoxyCompactList}\small\item\em is\+\_\+max\+\_\+language \end{DoxyCompactList}\item 
+vector$<$ int $>$ \hyperlink{class_pattern_ad3330677dbf1c9bd66a1ee3f79cb499f}{get\+\_\+language} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+language \end{DoxyCompactList}\item 
+void \hyperlink{class_pattern_a4517fb348f3bd3ba9453e1ef39d6ed84}{set\+\_\+terminal\+\_\+id} (std\+::string id)
+\begin{DoxyCompactList}\small\item\em set\+\_\+terminal\+\_\+id \end{DoxyCompactList}\item 
+void \hyperlink{class_pattern_a54cdffa32c1864cf10d352284116767e}{set\+\_\+expr} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em set\+\_\+expr \end{DoxyCompactList}\item 
+void \hyperlink{class_pattern_a57f4cee0c0c88ef7ca4d2b8711d60f41}{choose\+\_\+max\+\_\+language} ()\hypertarget{class_pattern_a57f4cee0c0c88ef7ca4d2b8711d60f41}{}\label{class_pattern_a57f4cee0c0c88ef7ca4d2b8711d60f41}
+
+\begin{DoxyCompactList}\small\item\em choose\+\_\+max\+\_\+language set max\+\_\+language to true \end{DoxyCompactList}\item 
+void \hyperlink{class_pattern_a90cf4b5ea94e949c1a206ff662dfe8c2}{add\+\_\+trans} (int t)
+\begin{DoxyCompactList}\small\item\em add\+\_\+trans \end{DoxyCompactList}\item 
+void \hyperlink{class_pattern_ac0629ef0c4dcd91b3976f945ece47aef}{assign\+\_\+language} (vector$<$ int $>$ l)
+\begin{DoxyCompactList}\small\item\em assign\+\_\+language \end{DoxyCompactList}\item 
+void \hyperlink{class_pattern_afbdbce628c0b1ff61f02b9b015998e06}{not\+\_\+substitution} ()\hypertarget{class_pattern_afbdbce628c0b1ff61f02b9b015998e06}{}\label{class_pattern_afbdbce628c0b1ff61f02b9b015998e06}
+
+\begin{DoxyCompactList}\small\item\em not\+\_\+substitution substitutes not operator with result after language determination \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_pattern_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_pattern_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_pattern}{Pattern} class represents a pattern declaration. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Pattern@{Pattern}!Pattern@{Pattern}}
+\index{Pattern@{Pattern}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{Pattern(std\+::string str)}{Pattern(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}Pattern\+::\+Pattern (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{class_pattern_a13a6b021ad96f605132817bc09067fb5}{}\label{class_pattern_a13a6b021ad96f605132817bc09067fb5}
+
+
+\hyperlink{class_pattern}{Pattern} constructor from id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & name \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Pattern@{Pattern}!add\+\_\+trans@{add\+\_\+trans}}
+\index{add\+\_\+trans@{add\+\_\+trans}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{add\+\_\+trans(int t)}{add_trans(int t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Pattern\+::add\+\_\+trans (
+\begin{DoxyParamCaption}
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{class_pattern_a90cf4b5ea94e949c1a206ff662dfe8c2}{}\label{class_pattern_a90cf4b5ea94e949c1a206ff662dfe8c2}
+
+
+add\+\_\+trans 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{Pattern@{Pattern}!assign\+\_\+language@{assign\+\_\+language}}
+\index{assign\+\_\+language@{assign\+\_\+language}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{assign\+\_\+language(vector$<$ int $>$ l)}{assign_language(vector< int > l)}}]{\setlength{\rightskip}{0pt plus 5cm}void Pattern\+::assign\+\_\+language (
+\begin{DoxyParamCaption}
+\item[{vector$<$ int $>$}]{l}
+\end{DoxyParamCaption}
+)}\hypertarget{class_pattern_ac0629ef0c4dcd91b3976f945ece47aef}{}\label{class_pattern_ac0629ef0c4dcd91b3976f945ece47aef}
+
+
+assign\+\_\+language 
+
+
+\begin{DoxyParams}{Parameters}
+{\em l} & \\
+\hline
+\end{DoxyParams}
+\index{Pattern@{Pattern}!get\+\_\+expr@{get\+\_\+expr}}
+\index{get\+\_\+expr@{get\+\_\+expr}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{get\+\_\+expr() const }{get_expr() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Pattern\+::get\+\_\+expr (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_pattern_aae66f42063f4f6eac934995201f77a64}{}\label{class_pattern_aae66f42063f4f6eac934995201f77a64}
+
+
+get\+\_\+expr 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Pattern@{Pattern}!get\+\_\+language@{get\+\_\+language}}
+\index{get\+\_\+language@{get\+\_\+language}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{get\+\_\+language() const }{get_language() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ int $>$ Pattern\+::get\+\_\+language (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_pattern_ad3330677dbf1c9bd66a1ee3f79cb499f}{}\label{class_pattern_ad3330677dbf1c9bd66a1ee3f79cb499f}
+
+
+get\+\_\+language 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Pattern@{Pattern}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Pattern\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_pattern_a46de2634013b74dd9eb6c5b4b9221207}{}\label{class_pattern_a46de2634013b74dd9eb6c5b4b9221207}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Pattern@{Pattern}!get\+\_\+terminal\+\_\+id@{get\+\_\+terminal\+\_\+id}}
+\index{get\+\_\+terminal\+\_\+id@{get\+\_\+terminal\+\_\+id}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{get\+\_\+terminal\+\_\+id() const }{get_terminal_id() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Pattern\+::get\+\_\+terminal\+\_\+id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_pattern_a70a07c4f18a44547451a7a31cb4f559b}{}\label{class_pattern_a70a07c4f18a44547451a7a31cb4f559b}
+
+
+get\+\_\+terminal\+\_\+id 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Pattern@{Pattern}!is\+\_\+max\+\_\+language@{is\+\_\+max\+\_\+language}}
+\index{is\+\_\+max\+\_\+language@{is\+\_\+max\+\_\+language}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{is\+\_\+max\+\_\+language() const }{is_max_language() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Pattern\+::is\+\_\+max\+\_\+language (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_pattern_ac0b9bfafaea69a90627843c8f43aa71f}{}\label{class_pattern_ac0b9bfafaea69a90627843c8f43aa71f}
+
+
+is\+\_\+max\+\_\+language 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Pattern@{Pattern}!set\+\_\+expr@{set\+\_\+expr}}
+\index{set\+\_\+expr@{set\+\_\+expr}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{set\+\_\+expr(std\+::string str)}{set_expr(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}void Pattern\+::set\+\_\+expr (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{class_pattern_a54cdffa32c1864cf10d352284116767e}{}\label{class_pattern_a54cdffa32c1864cf10d352284116767e}
+
+
+set\+\_\+expr 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & \\
+\hline
+\end{DoxyParams}
+\index{Pattern@{Pattern}!set\+\_\+terminal\+\_\+id@{set\+\_\+terminal\+\_\+id}}
+\index{set\+\_\+terminal\+\_\+id@{set\+\_\+terminal\+\_\+id}!Pattern@{Pattern}}
+\subsubsection[{\texorpdfstring{set\+\_\+terminal\+\_\+id(std\+::string id)}{set_terminal_id(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}void Pattern\+::set\+\_\+terminal\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{class_pattern_a4517fb348f3bd3ba9453e1ef39d6ed84}{}\label{class_pattern_a4517fb348f3bd3ba9453e1ef39d6ed84}
+
+
+set\+\_\+terminal\+\_\+id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+pattern.\+h\item 
+pattern.\+cpp\end{DoxyCompactItemize}

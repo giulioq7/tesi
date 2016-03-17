@@ -1,0 +1,288 @@
+\hypertarget{class_utils}{}\section{Utils Class Reference}
+\label{class_utils}\index{Utils@{Utils}}
+
+
+The \hyperlink{class_utils}{Utils} class contains utility methods for generic tasks.  
+
+
+
+
+{\ttfamily \#include $<$utils.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\vector$<$ T $>$ {\bfseries merge} (vector$<$ T $>$ \&v1, vector$<$ T $>$ \&v2)\hypertarget{class_utils_adc7e231723207c2f3354cddbe0a5a3d2}{}\label{class_utils_adc7e231723207c2f3354cddbe0a5a3d2}
+
+\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\vector$<$ unsigned int $>$ {\bfseries topological\+\_\+sort} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa)\hypertarget{class_utils_ac45463d2407cd5fc9c435002ba53dcdd}{}\label{class_utils_ac45463d2407cd5fc9c435002ba53dcdd}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\static std\+::vector$<$ T $>$ \hyperlink{class_utils_afc63a897787a89008c17a4834f0362d4}{merge} (std\+::vector$<$ T $>$ \&v1, std\+::vector$<$ T $>$ \&v2)
+\begin{DoxyCompactList}\small\item\em merge \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static bool \hyperlink{class_utils_a59515972c2cd159f8d019cba3647393d}{contain} (vector$<$ T $>$ \&v, T \&elem)
+\begin{DoxyCompactList}\small\item\em contain membership operator /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static bool \hyperlink{class_utils_af118b2c4ad73a2284addc4846e98d1ef}{contain} (set$<$ T $>$ \&v, T \&elem)
+\begin{DoxyCompactList}\small\item\em contain membership operator for set containers /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static bool \hyperlink{class_utils_ae444cd6b2dc77be3bb1f8440fe40f8cd}{duplicate\+\_\+content} (vector$<$ T $>$ \&v)
+\begin{DoxyCompactList}\small\item\em duplicate\+\_\+content checks if a vector contains two equal elements /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static T $\ast$ \hyperlink{class_utils_a570aaceb177c0232d750350fa000d369}{find\+\_\+from\+\_\+id} (vector$<$ T $>$ \&v, std\+::string id)
+\begin{DoxyCompactList}\small\item\em find\+\_\+from\+\_\+id /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static T \hyperlink{class_utils_a9c17eb284b87af0bb9d71cdc08be3b0c}{findptr\+\_\+from\+\_\+id} (vector$<$ T $>$ \&v, std\+::string id)
+\begin{DoxyCompactList}\small\item\em findptr\+\_\+from\+\_\+id /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\static bool \hyperlink{class_utils_af4e7092e603d58d89b11fd2619e0fbf5}{cyclic\+\_\+graph} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa)
+\begin{DoxyCompactList}\small\item\em cyclic\+\_\+graph /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\static std\+::vector$<$ unsigned int $>$ \hyperlink{class_utils_ad942df63e0acc46e4bc3a45894bee37a}{topological\+\_\+sort} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa)
+\begin{DoxyCompactList}\small\item\em topological\+\_\+sort /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\static bool \hyperlink{class_utils_af47d96c02cc09059732afa2a2345d68a}{disconnected\+\_\+graph} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa, set$<$ unsigned int $>$ \&radixes)
+\begin{DoxyCompactList}\small\item\em disconnected\+\_\+graph checks if graph is disconnected /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\static void \hyperlink{class_utils_aa1110027883961c446dc33814ee3e937}{minimize\+\_\+by\+\_\+partition} (astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa)
+\begin{DoxyCompactList}\small\item\em minimize\+\_\+by\+\_\+partition Hopcroft\textquotesingle{}s Algorithm /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename S\+I\+G\+MA , typename T\+AG $>$ }\\static void \hyperlink{class_utils_ac5a93fc0237ff7e55ec81d28fca94189}{my\+\_\+dot} (ostream \&ostr, astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&dfa)
+\begin{DoxyCompactList}\small\item\em my\+\_\+dot generates dot file from automaton /$\ast$$\ast$ $\ast$ \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_utils}{Utils} class contains utility methods for generic tasks. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\index{Utils@{Utils}!contain@{contain}}
+\index{contain@{contain}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{contain(vector$<$ T $>$ \&v, T \&elem)}{contain(vector< T > &v, T &elem)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ bool Utils\+::contain (
+\begin{DoxyParamCaption}
+\item[{vector$<$ T $>$ \&}]{v, }
+\item[{T \&}]{elem}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_a59515972c2cd159f8d019cba3647393d}{}\label{class_utils_a59515972c2cd159f8d019cba3647393d}
+
+
+contain membership operator /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em v} & /$\ast$$\ast$ $\ast$ \\
+\hline
+{\em elem} & /$\ast$$\ast$ $\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if elem belongs to v, false otherwise /$\ast$$\ast$ 
+\end{DoxyReturn}
+\index{Utils@{Utils}!contain@{contain}}
+\index{contain@{contain}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{contain(set$<$ T $>$ \&v, T \&elem)}{contain(set< T > &v, T &elem)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ bool Utils\+::contain (
+\begin{DoxyParamCaption}
+\item[{set$<$ T $>$ \&}]{v, }
+\item[{T \&}]{elem}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_af118b2c4ad73a2284addc4846e98d1ef}{}\label{class_utils_af118b2c4ad73a2284addc4846e98d1ef}
+
+
+contain membership operator for set containers /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em v} & /$\ast$$\ast$ $\ast$ \\
+\hline
+{\em elem} & /$\ast$$\ast$ $\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+/$\ast$$\ast$ 
+\end{DoxyReturn}
+\index{Utils@{Utils}!cyclic\+\_\+graph@{cyclic\+\_\+graph}}
+\index{cyclic\+\_\+graph@{cyclic\+\_\+graph}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{cyclic\+\_\+graph(astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&dfa)}{cyclic_graph(astl::DFA_map< SIGMA, TAG > &dfa)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG $>$ bool Utils\+::cyclic\+\_\+graph (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{dfa}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_af4e7092e603d58d89b11fd2619e0fbf5}{}\label{class_utils_af4e7092e603d58d89b11fd2619e0fbf5}
+
+
+cyclic\+\_\+graph /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em dfa} & /$\ast$$\ast$ $\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if graph is cyclic, false otherwise /$\ast$$\ast$ 
+\end{DoxyReturn}
+\index{Utils@{Utils}!disconnected\+\_\+graph@{disconnected\+\_\+graph}}
+\index{disconnected\+\_\+graph@{disconnected\+\_\+graph}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{disconnected\+\_\+graph(astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&dfa, set$<$ unsigned int $>$ \&radixes)}{disconnected_graph(astl::DFA_map< SIGMA, TAG > &dfa, set< unsigned int > &radixes)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG $>$ bool Utils\+::disconnected\+\_\+graph (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{dfa, }
+\item[{set$<$ unsigned int $>$ \&}]{radixes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_af47d96c02cc09059732afa2a2345d68a}{}\label{class_utils_af47d96c02cc09059732afa2a2345d68a}
+
+
+disconnected\+\_\+graph checks if graph is disconnected /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em dfa} & /$\ast$$\ast$ $\ast$ \\
+\hline
+{\em radixes} & /$\ast$$\ast$ $\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+/$\ast$$\ast$ 
+\end{DoxyReturn}
+\index{Utils@{Utils}!duplicate\+\_\+content@{duplicate\+\_\+content}}
+\index{duplicate\+\_\+content@{duplicate\+\_\+content}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{duplicate\+\_\+content(vector$<$ T $>$ \&v)}{duplicate_content(vector< T > &v)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ bool Utils\+::duplicate\+\_\+content (
+\begin{DoxyParamCaption}
+\item[{vector$<$ T $>$ \&}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_ae444cd6b2dc77be3bb1f8440fe40f8cd}{}\label{class_utils_ae444cd6b2dc77be3bb1f8440fe40f8cd}
+
+
+duplicate\+\_\+content checks if a vector contains two equal elements /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em v} & /$\ast$$\ast$ $\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+/$\ast$$\ast$ 
+\end{DoxyReturn}
+\index{Utils@{Utils}!find\+\_\+from\+\_\+id@{find\+\_\+from\+\_\+id}}
+\index{find\+\_\+from\+\_\+id@{find\+\_\+from\+\_\+id}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{find\+\_\+from\+\_\+id(vector$<$ T $>$ \&v, std\+::string id)}{find_from_id(vector< T > &v, std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ T $\ast$ Utils\+::find\+\_\+from\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{vector$<$ T $>$ \&}]{v, }
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_a570aaceb177c0232d750350fa000d369}{}\label{class_utils_a570aaceb177c0232d750350fa000d369}
+
+
+find\+\_\+from\+\_\+id /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em v} & /$\ast$$\ast$ $\ast$ \\
+\hline
+{\em id} & /$\ast$$\ast$ $\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+/$\ast$$\ast$ 
+\end{DoxyReturn}
+\index{Utils@{Utils}!findptr\+\_\+from\+\_\+id@{findptr\+\_\+from\+\_\+id}}
+\index{findptr\+\_\+from\+\_\+id@{findptr\+\_\+from\+\_\+id}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{findptr\+\_\+from\+\_\+id(vector$<$ T $>$ \&v, std\+::string id)}{findptr_from_id(vector< T > &v, std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ T Utils\+::findptr\+\_\+from\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{vector$<$ T $>$ \&}]{v, }
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_a9c17eb284b87af0bb9d71cdc08be3b0c}{}\label{class_utils_a9c17eb284b87af0bb9d71cdc08be3b0c}
+
+
+findptr\+\_\+from\+\_\+id /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em v} & /$\ast$$\ast$ $\ast$ \\
+\hline
+{\em id} & /$\ast$$\ast$ $\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+/$\ast$$\ast$ 
+\end{DoxyReturn}
+\index{Utils@{Utils}!merge@{merge}}
+\index{merge@{merge}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{merge(std\+::vector$<$ T $>$ \&v1, std\+::vector$<$ T $>$ \&v2)}{merge(std::vector< T > &v1, std::vector< T > &v2)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ static std\+::vector$<$T$>$ Utils\+::merge (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ T $>$ \&}]{v1, }
+\item[{std\+::vector$<$ T $>$ \&}]{v2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_afc63a897787a89008c17a4834f0362d4}{}\label{class_utils_afc63a897787a89008c17a4834f0362d4}
+
+
+merge 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & \\
+\hline
+{\em v2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+merged vector 
+\end{DoxyReturn}
+\index{Utils@{Utils}!minimize\+\_\+by\+\_\+partition@{minimize\+\_\+by\+\_\+partition}}
+\index{minimize\+\_\+by\+\_\+partition@{minimize\+\_\+by\+\_\+partition}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{minimize\+\_\+by\+\_\+partition(astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&dfa)}{minimize_by_partition(astl::DFA_map< SIGMA, TAG > &dfa)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG $>$ void Utils\+::minimize\+\_\+by\+\_\+partition (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{dfa}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_aa1110027883961c446dc33814ee3e937}{}\label{class_utils_aa1110027883961c446dc33814ee3e937}
+
+
+minimize\+\_\+by\+\_\+partition Hopcroft\textquotesingle{}s Algorithm /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em dfa} & /$\ast$$\ast$ \\
+\hline
+\end{DoxyParams}
+\index{Utils@{Utils}!my\+\_\+dot@{my\+\_\+dot}}
+\index{my\+\_\+dot@{my\+\_\+dot}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{my\+\_\+dot(ostream \&ostr, astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&dfa)}{my_dot(ostream &ostr, astl::DFA_map< SIGMA, TAG > &dfa)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG $>$ void Utils\+::my\+\_\+dot (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{ostr, }
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{dfa}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_ac5a93fc0237ff7e55ec81d28fca94189}{}\label{class_utils_ac5a93fc0237ff7e55ec81d28fca94189}
+
+
+my\+\_\+dot generates dot file from automaton /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em ostr} & /$\ast$$\ast$ $\ast$ \\
+\hline
+{\em dfa} & /$\ast$$\ast$ \\
+\hline
+\end{DoxyParams}
+\index{Utils@{Utils}!topological\+\_\+sort@{topological\+\_\+sort}}
+\index{topological\+\_\+sort@{topological\+\_\+sort}!Utils@{Utils}}
+\subsubsection[{\texorpdfstring{topological\+\_\+sort(astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+M\+A, T\+A\+G $>$ \&dfa)}{topological_sort(astl::DFA_map< SIGMA, TAG > &dfa)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename S\+I\+G\+MA , typename T\+AG $>$ static std\+::vector$<$unsigned int$>$ Utils\+::topological\+\_\+sort (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ S\+I\+G\+MA, T\+AG $>$ \&}]{dfa}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_utils_ad942df63e0acc46e4bc3a45894bee37a}{}\label{class_utils_ad942df63e0acc46e4bc3a45894bee37a}
+
+
+topological\+\_\+sort /$\ast$$\ast$ $\ast$ 
+
+/$\ast$$\ast$ $\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em dfa} & /$\ast$$\ast$ $\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return a total topological sort of a graph (automaton) /$\ast$$\ast$ 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+utils.\+h\end{DoxyCompactItemize}

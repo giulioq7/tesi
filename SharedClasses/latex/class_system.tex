@@ -1,0 +1,262 @@
+\hypertarget{class_system}{}\section{System Class Reference}
+\label{class_system}\index{System@{System}}
+
+
+The \hyperlink{class_system}{System} class.  
+
+
+
+
+{\ttfamily \#include $<$system.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_system_ae317936c9bcf1374d61745572e0f2f8a}{System} ()\hypertarget{class_system_ae317936c9bcf1374d61745572e0f2f8a}{}\label{class_system_ae317936c9bcf1374d61745572e0f2f8a}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_system}{System} default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_system_a9bada97aaf44e8d1f97af1b4b3cd5b5e}{System} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_system}{System} constructor from id. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_system_ae954855d19dbdf150c3f0d320fd01eb2}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$ $\ast$ \hyperlink{class_system_a6b946a08e7ae3638271086057c52f551}{get\+\_\+dependency\+\_\+graph} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+dependency\+\_\+graph \end{DoxyCompactList}\item 
+vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$ \hyperlink{class_system_a5f440ce561affd28214f51b8aeebc641}{get\+\_\+emergence} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+emergence \end{DoxyCompactList}\item 
+void \hyperlink{class_system_a8415d22cdbef13af10d7e9cc1624f1a2}{build\+\_\+dependency\+\_\+graph} ()\hypertarget{class_system_a8415d22cdbef13af10d7e9cc1624f1a2}{}\label{class_system_a8415d22cdbef13af10d7e9cc1624f1a2}
+
+\begin{DoxyCompactList}\small\item\em build\+\_\+dependency\+\_\+graph \end{DoxyCompactList}\item 
+void \hyperlink{class_system_a8a9ad6506e7e08154b32fb5b0cc203c7}{add\+\_\+node} (\hyperlink{class_system_node}{System\+Node} sn)
+\begin{DoxyCompactList}\small\item\em add\+\_\+node \end{DoxyCompactList}\item 
+void \hyperlink{class_system_a3ad74a1f0027cf04df6d0befa0eb9ff7}{add\+\_\+emergence} (pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ e)
+\begin{DoxyCompactList}\small\item\em add\+\_\+emergence \end{DoxyCompactList}\item 
+void \hyperlink{class_system_af320c45d04c78caf00b7fb5ed767a026}{set\+\_\+node\+\_\+list} (vector$<$ \hyperlink{class_system_node}{System\+Node} $>$ nl)
+\begin{DoxyCompactList}\small\item\em set\+\_\+node\+\_\+list \end{DoxyCompactList}\item 
+void \hyperlink{class_system_af5d54ed7ec28113209452d0f854f161d}{set\+\_\+emergence} (vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$ emer)
+\begin{DoxyCompactList}\small\item\em set\+\_\+emergence \end{DoxyCompactList}\item 
+void \hyperlink{class_system_af3c648073ce697f79df86892cf62fe99}{set\+\_\+dependency\+\_\+graph} (astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, \hyperlink{class_state_data__str}{State\+Data\+\_\+str} $>$ $\ast$dg)
+\begin{DoxyCompactList}\small\item\em set\+\_\+dependency\+\_\+graph \end{DoxyCompactList}\item 
+bool \hyperlink{class_system_a02307398de63c4947e99c8b59155b95d}{is\+\_\+acyclic} () const 
+\begin{DoxyCompactList}\small\item\em is\+\_\+acyclic \end{DoxyCompactList}\item 
+void \hyperlink{class_system_aea6aa0ba4dbe8f139a13d5b6de2db4bd}{set\+\_\+acyclic} ()\hypertarget{class_system_aea6aa0ba4dbe8f139a13d5b6de2db4bd}{}\label{class_system_aea6aa0ba4dbe8f139a13d5b6de2db4bd}
+
+\begin{DoxyCompactList}\small\item\em set\+\_\+acyclic \end{DoxyCompactList}\item 
+\hyperlink{class_system_node}{System\+Node} $\ast$ \hyperlink{class_system_a3213213c0bcb2cd07d0692dae5715276}{find\+\_\+node} (std\+::string)
+\begin{DoxyCompactList}\small\item\em find\+\_\+node finds node from id \end{DoxyCompactList}\item 
+int \hyperlink{class_system_ac8f236831ab3c7f946c5a0f6694f86b1}{pts\+\_\+count} ()
+\begin{DoxyCompactList}\small\item\em pts\+\_\+count counts number of pattern spaces \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ \hyperlink{class_system_node}{System\+Node} $>$ \hyperlink{class_system_a1594bcbf0c3297a2b2bc5c66ae3dda91}{node\+\_\+list}\hypertarget{class_system_a1594bcbf0c3297a2b2bc5c66ae3dda91}{}\label{class_system_a1594bcbf0c3297a2b2bc5c66ae3dda91}
+
+\begin{DoxyCompactList}\small\item\em node\+\_\+list system nodes \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_system_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_system_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_system}{System} class. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{System@{System}!System@{System}}
+\index{System@{System}!System@{System}}
+\subsubsection[{\texorpdfstring{System(std\+::string str)}{System(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}System\+::\+System (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{class_system_a9bada97aaf44e8d1f97af1b4b3cd5b5e}{}\label{class_system_a9bada97aaf44e8d1f97af1b4b3cd5b5e}
+
+
+\hyperlink{class_system}{System} constructor from id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & name \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{System@{System}!add\+\_\+emergence@{add\+\_\+emergence}}
+\index{add\+\_\+emergence@{add\+\_\+emergence}!System@{System}}
+\subsubsection[{\texorpdfstring{add\+\_\+emergence(pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ e)}{add_emergence(pair< pair< std::string, std::string >, pair< std::string, std::string > > e)}}]{\setlength{\rightskip}{0pt plus 5cm}void System\+::add\+\_\+emergence (
+\begin{DoxyParamCaption}
+\item[{pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$}]{e}
+\end{DoxyParamCaption}
+)}\hypertarget{class_system_a3ad74a1f0027cf04df6d0befa0eb9ff7}{}\label{class_system_a3ad74a1f0027cf04df6d0befa0eb9ff7}
+
+
+add\+\_\+emergence 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+\end{DoxyParams}
+\index{System@{System}!add\+\_\+node@{add\+\_\+node}}
+\index{add\+\_\+node@{add\+\_\+node}!System@{System}}
+\subsubsection[{\texorpdfstring{add\+\_\+node(\+System\+Node sn)}{add_node(SystemNode sn)}}]{\setlength{\rightskip}{0pt plus 5cm}void System\+::add\+\_\+node (
+\begin{DoxyParamCaption}
+\item[{{\bf System\+Node}}]{sn}
+\end{DoxyParamCaption}
+)}\hypertarget{class_system_a8a9ad6506e7e08154b32fb5b0cc203c7}{}\label{class_system_a8a9ad6506e7e08154b32fb5b0cc203c7}
+
+
+add\+\_\+node 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sn} & \\
+\hline
+\end{DoxyParams}
+\index{System@{System}!find\+\_\+node@{find\+\_\+node}}
+\index{find\+\_\+node@{find\+\_\+node}!System@{System}}
+\subsubsection[{\texorpdfstring{find\+\_\+node(std\+::string)}{find_node(std::string)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf System\+Node} $\ast$ System\+::find\+\_\+node (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{class_system_a3213213c0bcb2cd07d0692dae5715276}{}\label{class_system_a3213213c0bcb2cd07d0692dae5715276}
+
+
+find\+\_\+node finds node from id 
+
+\begin{DoxyReturn}{Returns}
+pointer to \hyperlink{class_system_node}{System\+Node} 
+\end{DoxyReturn}
+\index{System@{System}!get\+\_\+dependency\+\_\+graph@{get\+\_\+dependency\+\_\+graph}}
+\index{get\+\_\+dependency\+\_\+graph@{get\+\_\+dependency\+\_\+graph}!System@{System}}
+\subsubsection[{\texorpdfstring{get\+\_\+dependency\+\_\+graph() const }{get_dependency_graph() const }}]{\setlength{\rightskip}{0pt plus 5cm}astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, {\bf State\+Data\+\_\+str} $>$ $\ast$ System\+::get\+\_\+dependency\+\_\+graph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_system_a6b946a08e7ae3638271086057c52f551}{}\label{class_system_a6b946a08e7ae3638271086057c52f551}
+
+
+get\+\_\+dependency\+\_\+graph 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{System@{System}!get\+\_\+emergence@{get\+\_\+emergence}}
+\index{get\+\_\+emergence@{get\+\_\+emergence}!System@{System}}
+\subsubsection[{\texorpdfstring{get\+\_\+emergence() const }{get_emergence() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$ System\+::get\+\_\+emergence (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_system_a5f440ce561affd28214f51b8aeebc641}{}\label{class_system_a5f440ce561affd28214f51b8aeebc641}
+
+
+get\+\_\+emergence 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{System@{System}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!System@{System}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string System\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_system_ae954855d19dbdf150c3f0d320fd01eb2}{}\label{class_system_ae954855d19dbdf150c3f0d320fd01eb2}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{System@{System}!is\+\_\+acyclic@{is\+\_\+acyclic}}
+\index{is\+\_\+acyclic@{is\+\_\+acyclic}!System@{System}}
+\subsubsection[{\texorpdfstring{is\+\_\+acyclic() const }{is_acyclic() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool System\+::is\+\_\+acyclic (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_system_a02307398de63c4947e99c8b59155b95d}{}\label{class_system_a02307398de63c4947e99c8b59155b95d}
+
+
+is\+\_\+acyclic 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{System@{System}!pts\+\_\+count@{pts\+\_\+count}}
+\index{pts\+\_\+count@{pts\+\_\+count}!System@{System}}
+\subsubsection[{\texorpdfstring{pts\+\_\+count()}{pts_count()}}]{\setlength{\rightskip}{0pt plus 5cm}int System\+::pts\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_system_ac8f236831ab3c7f946c5a0f6694f86b1}{}\label{class_system_ac8f236831ab3c7f946c5a0f6694f86b1}
+
+
+pts\+\_\+count counts number of pattern spaces 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{System@{System}!set\+\_\+dependency\+\_\+graph@{set\+\_\+dependency\+\_\+graph}}
+\index{set\+\_\+dependency\+\_\+graph@{set\+\_\+dependency\+\_\+graph}!System@{System}}
+\subsubsection[{\texorpdfstring{set\+\_\+dependency\+\_\+graph(astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, State\+Data\+\_\+str $>$ $\ast$dg)}{set_dependency_graph(astl::DFA_map< astl::strings, StateData_str > *dg)}}]{\setlength{\rightskip}{0pt plus 5cm}void System\+::set\+\_\+dependency\+\_\+graph (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ astl\+::strings, {\bf State\+Data\+\_\+str} $>$ $\ast$}]{dg}
+\end{DoxyParamCaption}
+)}\hypertarget{class_system_af3c648073ce697f79df86892cf62fe99}{}\label{class_system_af3c648073ce697f79df86892cf62fe99}
+
+
+set\+\_\+dependency\+\_\+graph 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dg} & \\
+\hline
+\end{DoxyParams}
+\index{System@{System}!set\+\_\+emergence@{set\+\_\+emergence}}
+\index{set\+\_\+emergence@{set\+\_\+emergence}!System@{System}}
+\subsubsection[{\texorpdfstring{set\+\_\+emergence(vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$ emer)}{set_emergence(vector< pair< pair< std::string, std::string >, pair< std::string, std::string > > > emer)}}]{\setlength{\rightskip}{0pt plus 5cm}void System\+::set\+\_\+emergence (
+\begin{DoxyParamCaption}
+\item[{vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$}]{emer}
+\end{DoxyParamCaption}
+)}\hypertarget{class_system_af5d54ed7ec28113209452d0f854f161d}{}\label{class_system_af5d54ed7ec28113209452d0f854f161d}
+
+
+set\+\_\+emergence 
+
+
+\begin{DoxyParams}{Parameters}
+{\em emer} & \\
+\hline
+\end{DoxyParams}
+\index{System@{System}!set\+\_\+node\+\_\+list@{set\+\_\+node\+\_\+list}}
+\index{set\+\_\+node\+\_\+list@{set\+\_\+node\+\_\+list}!System@{System}}
+\subsubsection[{\texorpdfstring{set\+\_\+node\+\_\+list(vector$<$ System\+Node $>$ nl)}{set_node_list(vector< SystemNode > nl)}}]{\setlength{\rightskip}{0pt plus 5cm}void System\+::set\+\_\+node\+\_\+list (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf System\+Node} $>$}]{nl}
+\end{DoxyParamCaption}
+)}\hypertarget{class_system_af320c45d04c78caf00b7fb5ed767a026}{}\label{class_system_af320c45d04c78caf00b7fb5ed767a026}
+
+
+set\+\_\+node\+\_\+list 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nl} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+system.\+h\item 
+system.\+cpp\end{DoxyCompactItemize}

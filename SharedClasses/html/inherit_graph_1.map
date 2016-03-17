@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_net_component.html" title="The NetComponent class represents a component in a network model. " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node2" href="$class_component.html" title="The Component class represents a concrete component in a problem node. " alt="" coords="164,5,253,32"/>
+</map>

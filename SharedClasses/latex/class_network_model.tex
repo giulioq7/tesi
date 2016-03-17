@@ -1,0 +1,636 @@
+\hypertarget{class_network_model}{}\section{Network\+Model Class Reference}
+\label{class_network_model}\index{Network\+Model@{Network\+Model}}
+
+
+The \hyperlink{class_network_model}{Network\+Model} class.  
+
+
+
+
+{\ttfamily \#include $<$networkmodel.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_network_model_a680923e0ff3293e1ac1853c5bfff6626}{Network\+Model} ()\hypertarget{class_network_model_a680923e0ff3293e1ac1853c5bfff6626}{}\label{class_network_model_a680923e0ff3293e1ac1853c5bfff6626}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_network_model}{Network\+Model} default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_network_model_aa9163a8897dc4b0961d6b283fafb243d}{Network\+Model} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_network_model}{Network\+Model} constructor from id. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_network_model_ade7b5e15e745b08ae6d5f13e0447ab20}{get\+\_\+name} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+name \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_net_component}{Net\+Component} $>$ \hyperlink{class_network_model_abce681ce925e7d379091932650177af3}{get\+\_\+components} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+components \end{DoxyCompactList}\item 
+vector$<$ std\+::string $>$ \hyperlink{class_network_model_ad0f615741e4cf35edbdd0e1325b261f6}{get\+\_\+inputs} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+inputs \end{DoxyCompactList}\item 
+vector$<$ std\+::string $>$ \hyperlink{class_network_model_aa26c3852306f0861ac86a312a3de0cc7}{get\+\_\+outputs} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+outputs \end{DoxyCompactList}\item 
+vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$ \hyperlink{class_network_model_a83a9cf2752510f7a8d76cb6f91cf5c6a}{get\+\_\+links} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+links \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_pattern}{Pattern} $>$ \hyperlink{class_network_model_af72c9c9d6889647c091786fefdb184a9}{get\+\_\+patterns} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+patterns \end{DoxyCompactList}\item 
+vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$ \hyperlink{class_network_model_a6e227573863655c96aa1b6cf7136863a}{get\+\_\+initials} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+initials \end{DoxyCompactList}\item 
+map$<$ pair$<$ string, string $>$, string $>$ \hyperlink{class_network_model_ac1546106a62f35dca850f23a2c137c9b}{get\+\_\+viewer} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+viewer \end{DoxyCompactList}\item 
+map$<$ pair$<$ string, string $>$, string $>$ \hyperlink{class_network_model_a8aebf68fbb04f19840641c4e12540d13}{get\+\_\+ruler} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+ruler \end{DoxyCompactList}\item 
+vector$<$ astl\+::\+D\+F\+A\+\_\+map$<$ \hyperlink{class_net_transition}{Net\+Transition}, \hyperlink{class_state_data__str_list}{State\+Data\+\_\+str\+List} $>$ $\ast$ $>$ \hyperlink{class_network_model_ae34c23f6543d3cb4a5c1ef5ae18ac1a0}{get\+\_\+pattern\+\_\+space} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+pattern\+\_\+space \end{DoxyCompactList}\item 
+vector$<$ set$<$ string $>$ $>$ \hyperlink{class_network_model_aee2158178eb05711c5f438f365bbe959}{get\+\_\+pattern\+\_\+languages} () const 
+\begin{DoxyCompactList}\small\item\em get\+\_\+pattern\+\_\+languages \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_adb9a3df843ce10b846f1a6d42d36ab89}{add\+\_\+comp} (\hyperlink{class_net_component}{Net\+Component} nc)
+\begin{DoxyCompactList}\small\item\em add\+\_\+comp \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a8abdad23ae7632e76df54c7ba69f49bc}{add\+\_\+input} (std\+::string in)
+\begin{DoxyCompactList}\small\item\em add\+\_\+input \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_aad3bec0b61c3b3b7e8fbaa3f03d1ae45}{add\+\_\+output} (std\+::string out)
+\begin{DoxyCompactList}\small\item\em add\+\_\+output \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_aa5b933f3e3874d655aa5e9c81bff76bc}{add\+\_\+link} (std\+::string t1, std\+::string c1, std\+::string t2, std\+::string c2)
+\begin{DoxyCompactList}\small\item\em add\+\_\+link \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a8c43ca2b56e307410d8dad56392ce773}{add\+\_\+pattern} (\hyperlink{class_pattern}{Pattern} p)
+\begin{DoxyCompactList}\small\item\em add\+\_\+pattern \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a4e76c93d40e4b3e890d07b6bbda11028}{add\+\_\+initial} (std\+::string state, std\+::string c)
+\begin{DoxyCompactList}\small\item\em add\+\_\+initial \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_ad3aa91bba2f26afb2cc2a25f29897420}{add\+\_\+label} (pair$<$ string, string $>$ t, std\+::string l)
+\begin{DoxyCompactList}\small\item\em add\+\_\+label \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a08043ed822076e4a9919c9778093cd12}{add\+\_\+fault} (pair$<$ string, string $>$ t, std\+::string f)
+\begin{DoxyCompactList}\small\item\em add\+\_\+fault \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a3eb4abcd7feb1c3679fc774c217e28a8}{add\+\_\+pattern\+\_\+space} (astl\+::\+D\+F\+A\+\_\+map$<$ \hyperlink{class_net_transition}{Net\+Transition}, \hyperlink{class_state_data__str_list}{State\+Data\+\_\+str\+List} $>$ $\ast$pts)
+\begin{DoxyCompactList}\small\item\em add\+\_\+pattern\+\_\+space \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a019437545f5aeb663e72bc228c287e29}{add\+\_\+language} (set$<$ std\+::string $>$ l)
+\begin{DoxyCompactList}\small\item\em add\+\_\+language \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a8f6e2ed529313d9e88fe8e2069a748f7}{set\+\_\+components} (vector$<$ \hyperlink{class_net_component}{Net\+Component} $>$ vc)
+\begin{DoxyCompactList}\small\item\em set\+\_\+components \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a971e36a67cebd56453a72692f4be7f6e}{set\+\_\+inputs} (vector$<$ std\+::string $>$ vi)
+\begin{DoxyCompactList}\small\item\em set\+\_\+inputs \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a91d15b0367a25661db90c51adaec4302}{set\+\_\+outputs} (vector$<$ std\+::string $>$ vo)
+\begin{DoxyCompactList}\small\item\em set\+\_\+outputs \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a0669f9fc1a612585a6e1977666928557}{set\+\_\+links} (vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$ vl)
+\begin{DoxyCompactList}\small\item\em set\+\_\+links \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a8efd039e281fc53492661b3f595c2c8c}{set\+\_\+patterns} (vector$<$ \hyperlink{class_pattern}{Pattern} $>$ vp)
+\begin{DoxyCompactList}\small\item\em set\+\_\+patterns \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_abd3d5fb2d8fa7f4d7337101d017ad7cc}{set\+\_\+initials} (vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$ vi)
+\begin{DoxyCompactList}\small\item\em set\+\_\+initials \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a0ab949112040285f3dccbef024562c88}{set\+\_\+viewer} (map$<$ pair$<$ string, string $>$, string $>$ vwr)
+\begin{DoxyCompactList}\small\item\em set\+\_\+viewer \end{DoxyCompactList}\item 
+void \hyperlink{class_network_model_a22f2b04c55a7e8ea7d48bc392c7874b3}{set\+\_\+ruler} (map$<$ pair$<$ string, string $>$, string $>$ rlr)
+\begin{DoxyCompactList}\small\item\em set\+\_\+ruler \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_network_model_a0cdc08acf73010472700db9d690eb4d2}{not\+\_\+trans} (std\+::string operand)
+\begin{DoxyCompactList}\small\item\em not\+\_\+trans computes not operation on regular expressions \end{DoxyCompactList}\item 
+\hyperlink{class_net_component}{Net\+Component} $\ast$ \hyperlink{class_network_model_ab2edbaffc9e90c754cbb3ac5b515d74f}{find\+\_\+component} (std\+::string id)
+\begin{DoxyCompactList}\small\item\em find\+\_\+component from id \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries count}\hypertarget{class_network_model_a82ec303222e3a0207865dfb6ed3b81ff}{}\label{class_network_model_a82ec303222e3a0207865dfb6ed3b81ff}
+
+\item 
+std\+::map$<$ std\+::pair$<$ std\+::string, std\+::string $>$, int $>$ \hyperlink{class_network_model_a826def67a5afb8534a1a32c7a8eba84a}{conv\+\_\+str\+\_\+int}\hypertarget{class_network_model_a826def67a5afb8534a1a32c7a8eba84a}{}\label{class_network_model_a826def67a5afb8534a1a32c7a8eba84a}
+
+\begin{DoxyCompactList}\small\item\em conv\+\_\+str\+\_\+int maps transition into number \end{DoxyCompactList}\item 
+std\+::map$<$ int, std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \hyperlink{class_network_model_af008577d60bc685e58c181b85142eccf}{conv\+\_\+int\+\_\+str}\hypertarget{class_network_model_af008577d60bc685e58c181b85142eccf}{}\label{class_network_model_af008577d60bc685e58c181b85142eccf}
+
+\begin{DoxyCompactList}\small\item\em conv\+\_\+int\+\_\+str maps number into transition \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries boost\+::serialization\+::access}\hypertarget{class_network_model_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}\label{class_network_model_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_network_model}{Network\+Model} class. 
+
+\begin{DoxyDate}{Date}
+Febbraio 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Giulio Quarenghi 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Network\+Model@{Network\+Model}!Network\+Model@{Network\+Model}}
+\index{Network\+Model@{Network\+Model}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{Network\+Model(std\+::string str)}{NetworkModel(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}Network\+Model\+::\+Network\+Model (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_aa9163a8897dc4b0961d6b283fafb243d}{}\label{class_network_model_aa9163a8897dc4b0961d6b283fafb243d}
+
+
+\hyperlink{class_network_model}{Network\+Model} constructor from id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & name \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Network\+Model@{Network\+Model}!add\+\_\+comp@{add\+\_\+comp}}
+\index{add\+\_\+comp@{add\+\_\+comp}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+comp(\+Net\+Component nc)}{add_comp(NetComponent nc)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+comp (
+\begin{DoxyParamCaption}
+\item[{{\bf Net\+Component}}]{nc}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_adb9a3df843ce10b846f1a6d42d36ab89}{}\label{class_network_model_adb9a3df843ce10b846f1a6d42d36ab89}
+
+
+add\+\_\+comp 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nc} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+fault@{add\+\_\+fault}}
+\index{add\+\_\+fault@{add\+\_\+fault}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+fault(pair$<$ string, string $>$ t, std\+::string f)}{add_fault(pair< string, string > t, std::string f)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+fault (
+\begin{DoxyParamCaption}
+\item[{pair$<$ string, string $>$}]{t, }
+\item[{std\+::string}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a08043ed822076e4a9919c9778093cd12}{}\label{class_network_model_a08043ed822076e4a9919c9778093cd12}
+
+
+add\+\_\+fault 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+{\em f} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+initial@{add\+\_\+initial}}
+\index{add\+\_\+initial@{add\+\_\+initial}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+initial(std\+::string state, std\+::string c)}{add_initial(std::string state, std::string c)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+initial (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{state, }
+\item[{std\+::string}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a4e76c93d40e4b3e890d07b6bbda11028}{}\label{class_network_model_a4e76c93d40e4b3e890d07b6bbda11028}
+
+
+add\+\_\+initial 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & \\
+\hline
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+input@{add\+\_\+input}}
+\index{add\+\_\+input@{add\+\_\+input}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+input(std\+::string in)}{add_input(std::string in)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+input (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a8abdad23ae7632e76df54c7ba69f49bc}{}\label{class_network_model_a8abdad23ae7632e76df54c7ba69f49bc}
+
+
+add\+\_\+input 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+label@{add\+\_\+label}}
+\index{add\+\_\+label@{add\+\_\+label}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+label(pair$<$ string, string $>$ t, std\+::string l)}{add_label(pair< string, string > t, std::string l)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+label (
+\begin{DoxyParamCaption}
+\item[{pair$<$ string, string $>$}]{t, }
+\item[{std\+::string}]{l}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_ad3aa91bba2f26afb2cc2a25f29897420}{}\label{class_network_model_ad3aa91bba2f26afb2cc2a25f29897420}
+
+
+add\+\_\+label 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & \\
+\hline
+{\em l} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+language@{add\+\_\+language}}
+\index{add\+\_\+language@{add\+\_\+language}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+language(set$<$ std\+::string $>$ l)}{add_language(set< std::string > l)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+language (
+\begin{DoxyParamCaption}
+\item[{set$<$ std\+::string $>$}]{l}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a019437545f5aeb663e72bc228c287e29}{}\label{class_network_model_a019437545f5aeb663e72bc228c287e29}
+
+
+add\+\_\+language 
+
+
+\begin{DoxyParams}{Parameters}
+{\em l} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+link@{add\+\_\+link}}
+\index{add\+\_\+link@{add\+\_\+link}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+link(std\+::string t1, std\+::string c1, std\+::string t2, std\+::string c2)}{add_link(std::string t1, std::string c1, std::string t2, std::string c2)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+link (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{t1, }
+\item[{std\+::string}]{c1, }
+\item[{std\+::string}]{t2, }
+\item[{std\+::string}]{c2}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_aa5b933f3e3874d655aa5e9c81bff76bc}{}\label{class_network_model_aa5b933f3e3874d655aa5e9c81bff76bc}
+
+
+add\+\_\+link 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t1} & \\
+\hline
+{\em c1} & \\
+\hline
+{\em t2} & \\
+\hline
+{\em c2} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+output@{add\+\_\+output}}
+\index{add\+\_\+output@{add\+\_\+output}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+output(std\+::string out)}{add_output(std::string out)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+output (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{out}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_aad3bec0b61c3b3b7e8fbaa3f03d1ae45}{}\label{class_network_model_aad3bec0b61c3b3b7e8fbaa3f03d1ae45}
+
+
+add\+\_\+output 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+pattern@{add\+\_\+pattern}}
+\index{add\+\_\+pattern@{add\+\_\+pattern}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+pattern(\+Pattern p)}{add_pattern(Pattern p)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+pattern (
+\begin{DoxyParamCaption}
+\item[{{\bf Pattern}}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a8c43ca2b56e307410d8dad56392ce773}{}\label{class_network_model_a8c43ca2b56e307410d8dad56392ce773}
+
+
+add\+\_\+pattern 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!add\+\_\+pattern\+\_\+space@{add\+\_\+pattern\+\_\+space}}
+\index{add\+\_\+pattern\+\_\+space@{add\+\_\+pattern\+\_\+space}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{add\+\_\+pattern\+\_\+space(astl\+::\+D\+F\+A\+\_\+map$<$ Net\+Transition, State\+Data\+\_\+str\+List $>$ $\ast$pts)}{add_pattern_space(astl::DFA_map< NetTransition, StateData_strList > *pts)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::add\+\_\+pattern\+\_\+space (
+\begin{DoxyParamCaption}
+\item[{astl\+::\+D\+F\+A\+\_\+map$<$ {\bf Net\+Transition}, {\bf State\+Data\+\_\+str\+List} $>$ $\ast$}]{pts}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a3eb4abcd7feb1c3679fc774c217e28a8}{}\label{class_network_model_a3eb4abcd7feb1c3679fc774c217e28a8}
+
+
+add\+\_\+pattern\+\_\+space 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pts} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!find\+\_\+component@{find\+\_\+component}}
+\index{find\+\_\+component@{find\+\_\+component}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{find\+\_\+component(std\+::string id)}{find_component(std::string id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Net\+Component} $\ast$ Network\+Model\+::find\+\_\+component (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_ab2edbaffc9e90c754cbb3ac5b515d74f}{}\label{class_network_model_ab2edbaffc9e90c754cbb3ac5b515d74f}
+
+
+find\+\_\+component from id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to \hyperlink{class_net_component}{Net\+Component} 
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+components@{get\+\_\+components}}
+\index{get\+\_\+components@{get\+\_\+components}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+components() const }{get_components() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Net\+Component} $>$ Network\+Model\+::get\+\_\+components (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_abce681ce925e7d379091932650177af3}{}\label{class_network_model_abce681ce925e7d379091932650177af3}
+
+
+get\+\_\+components 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+initials@{get\+\_\+initials}}
+\index{get\+\_\+initials@{get\+\_\+initials}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+initials() const }{get_initials() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$ Network\+Model\+::get\+\_\+initials (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_a6e227573863655c96aa1b6cf7136863a}{}\label{class_network_model_a6e227573863655c96aa1b6cf7136863a}
+
+
+get\+\_\+initials 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+inputs@{get\+\_\+inputs}}
+\index{get\+\_\+inputs@{get\+\_\+inputs}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+inputs() const }{get_inputs() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ std\+::string $>$ Network\+Model\+::get\+\_\+inputs (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_ad0f615741e4cf35edbdd0e1325b261f6}{}\label{class_network_model_ad0f615741e4cf35edbdd0e1325b261f6}
+
+
+get\+\_\+inputs 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+links@{get\+\_\+links}}
+\index{get\+\_\+links@{get\+\_\+links}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+links() const }{get_links() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$ Network\+Model\+::get\+\_\+links (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_a83a9cf2752510f7a8d76cb6f91cf5c6a}{}\label{class_network_model_a83a9cf2752510f7a8d76cb6f91cf5c6a}
+
+
+get\+\_\+links 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+name() const }{get_name() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Network\+Model\+::get\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_ade7b5e15e745b08ae6d5f13e0447ab20}{}\label{class_network_model_ade7b5e15e745b08ae6d5f13e0447ab20}
+
+
+get\+\_\+name 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+outputs@{get\+\_\+outputs}}
+\index{get\+\_\+outputs@{get\+\_\+outputs}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+outputs() const }{get_outputs() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ std\+::string $>$ Network\+Model\+::get\+\_\+outputs (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_aa26c3852306f0861ac86a312a3de0cc7}{}\label{class_network_model_aa26c3852306f0861ac86a312a3de0cc7}
+
+
+get\+\_\+outputs 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+pattern\+\_\+languages@{get\+\_\+pattern\+\_\+languages}}
+\index{get\+\_\+pattern\+\_\+languages@{get\+\_\+pattern\+\_\+languages}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+pattern\+\_\+languages() const }{get_pattern_languages() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ set$<$ string $>$ $>$ Network\+Model\+::get\+\_\+pattern\+\_\+languages (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_aee2158178eb05711c5f438f365bbe959}{}\label{class_network_model_aee2158178eb05711c5f438f365bbe959}
+
+
+get\+\_\+pattern\+\_\+languages 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+pattern\+\_\+space@{get\+\_\+pattern\+\_\+space}}
+\index{get\+\_\+pattern\+\_\+space@{get\+\_\+pattern\+\_\+space}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+pattern\+\_\+space() const }{get_pattern_space() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ astl\+::\+D\+F\+A\+\_\+map$<$ {\bf Net\+Transition}, {\bf State\+Data\+\_\+str\+List} $>$ $\ast$ $>$ Network\+Model\+::get\+\_\+pattern\+\_\+space (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_ae34c23f6543d3cb4a5c1ef5ae18ac1a0}{}\label{class_network_model_ae34c23f6543d3cb4a5c1ef5ae18ac1a0}
+
+
+get\+\_\+pattern\+\_\+space 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+patterns@{get\+\_\+patterns}}
+\index{get\+\_\+patterns@{get\+\_\+patterns}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+patterns() const }{get_patterns() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Pattern} $>$ Network\+Model\+::get\+\_\+patterns (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_af72c9c9d6889647c091786fefdb184a9}{}\label{class_network_model_af72c9c9d6889647c091786fefdb184a9}
+
+
+get\+\_\+patterns 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+ruler@{get\+\_\+ruler}}
+\index{get\+\_\+ruler@{get\+\_\+ruler}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+ruler() const }{get_ruler() const }}]{\setlength{\rightskip}{0pt plus 5cm}map$<$ pair$<$ string, string $>$, string $>$ Network\+Model\+::get\+\_\+ruler (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_a8aebf68fbb04f19840641c4e12540d13}{}\label{class_network_model_a8aebf68fbb04f19840641c4e12540d13}
+
+
+get\+\_\+ruler 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!get\+\_\+viewer@{get\+\_\+viewer}}
+\index{get\+\_\+viewer@{get\+\_\+viewer}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{get\+\_\+viewer() const }{get_viewer() const }}]{\setlength{\rightskip}{0pt plus 5cm}map$<$ pair$<$ string, string $>$, string $>$ Network\+Model\+::get\+\_\+viewer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_network_model_ac1546106a62f35dca850f23a2c137c9b}{}\label{class_network_model_ac1546106a62f35dca850f23a2c137c9b}
+
+
+get\+\_\+viewer 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!not\+\_\+trans@{not\+\_\+trans}}
+\index{not\+\_\+trans@{not\+\_\+trans}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{not\+\_\+trans(std\+::string operand)}{not_trans(std::string operand)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Network\+Model\+::not\+\_\+trans (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{operand}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a0cdc08acf73010472700db9d690eb4d2}{}\label{class_network_model_a0cdc08acf73010472700db9d690eb4d2}
+
+
+not\+\_\+trans computes not operation on regular expressions 
+
+
+\begin{DoxyParams}{Parameters}
+{\em operand} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Network\+Model@{Network\+Model}!set\+\_\+components@{set\+\_\+components}}
+\index{set\+\_\+components@{set\+\_\+components}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+components(vector$<$ Net\+Component $>$ vc)}{set_components(vector< NetComponent > vc)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::set\+\_\+components (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Net\+Component} $>$}]{vc}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a8f6e2ed529313d9e88fe8e2069a748f7}{}\label{class_network_model_a8f6e2ed529313d9e88fe8e2069a748f7}
+
+
+set\+\_\+components 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vc} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!set\+\_\+initials@{set\+\_\+initials}}
+\index{set\+\_\+initials@{set\+\_\+initials}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+initials(vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$ vi)}{set_initials(vector< pair< std::string, std::string > > vi)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::set\+\_\+initials (
+\begin{DoxyParamCaption}
+\item[{vector$<$ pair$<$ std\+::string, std\+::string $>$ $>$}]{vi}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_abd3d5fb2d8fa7f4d7337101d017ad7cc}{}\label{class_network_model_abd3d5fb2d8fa7f4d7337101d017ad7cc}
+
+
+set\+\_\+initials 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vi} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!set\+\_\+inputs@{set\+\_\+inputs}}
+\index{set\+\_\+inputs@{set\+\_\+inputs}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+inputs(vector$<$ std\+::string $>$ vi)}{set_inputs(vector< std::string > vi)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::set\+\_\+inputs (
+\begin{DoxyParamCaption}
+\item[{vector$<$ std\+::string $>$}]{vi}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a971e36a67cebd56453a72692f4be7f6e}{}\label{class_network_model_a971e36a67cebd56453a72692f4be7f6e}
+
+
+set\+\_\+inputs 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vi} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!set\+\_\+links@{set\+\_\+links}}
+\index{set\+\_\+links@{set\+\_\+links}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+links(vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$ vl)}{set_links(vector< pair< pair< std::string, std::string >, pair< std::string, std::string > > > vl)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::set\+\_\+links (
+\begin{DoxyParamCaption}
+\item[{vector$<$ pair$<$ pair$<$ std\+::string, std\+::string $>$, pair$<$ std\+::string, std\+::string $>$ $>$ $>$}]{vl}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a0669f9fc1a612585a6e1977666928557}{}\label{class_network_model_a0669f9fc1a612585a6e1977666928557}
+
+
+set\+\_\+links 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vl} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!set\+\_\+outputs@{set\+\_\+outputs}}
+\index{set\+\_\+outputs@{set\+\_\+outputs}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+outputs(vector$<$ std\+::string $>$ vo)}{set_outputs(vector< std::string > vo)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::set\+\_\+outputs (
+\begin{DoxyParamCaption}
+\item[{vector$<$ std\+::string $>$}]{vo}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a91d15b0367a25661db90c51adaec4302}{}\label{class_network_model_a91d15b0367a25661db90c51adaec4302}
+
+
+set\+\_\+outputs 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vo} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!set\+\_\+patterns@{set\+\_\+patterns}}
+\index{set\+\_\+patterns@{set\+\_\+patterns}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+patterns(vector$<$ Pattern $>$ vp)}{set_patterns(vector< Pattern > vp)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::set\+\_\+patterns (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Pattern} $>$}]{vp}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a8efd039e281fc53492661b3f595c2c8c}{}\label{class_network_model_a8efd039e281fc53492661b3f595c2c8c}
+
+
+set\+\_\+patterns 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vp} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!set\+\_\+ruler@{set\+\_\+ruler}}
+\index{set\+\_\+ruler@{set\+\_\+ruler}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+ruler(map$<$ pair$<$ string, string $>$, string $>$ rlr)}{set_ruler(map< pair< string, string >, string > rlr)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::set\+\_\+ruler (
+\begin{DoxyParamCaption}
+\item[{map$<$ pair$<$ string, string $>$, string $>$}]{rlr}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a22f2b04c55a7e8ea7d48bc392c7874b3}{}\label{class_network_model_a22f2b04c55a7e8ea7d48bc392c7874b3}
+
+
+set\+\_\+ruler 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rlr} & \\
+\hline
+\end{DoxyParams}
+\index{Network\+Model@{Network\+Model}!set\+\_\+viewer@{set\+\_\+viewer}}
+\index{set\+\_\+viewer@{set\+\_\+viewer}!Network\+Model@{Network\+Model}}
+\subsubsection[{\texorpdfstring{set\+\_\+viewer(map$<$ pair$<$ string, string $>$, string $>$ vwr)}{set_viewer(map< pair< string, string >, string > vwr)}}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Model\+::set\+\_\+viewer (
+\begin{DoxyParamCaption}
+\item[{map$<$ pair$<$ string, string $>$, string $>$}]{vwr}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_model_a0ab949112040285f3dccbef024562c88}{}\label{class_network_model_a0ab949112040285f3dccbef024562c88}
+
+
+set\+\_\+viewer 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vwr} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+networkmodel.\+h\item 
+networkmodel.\+cpp\end{DoxyCompactItemize}

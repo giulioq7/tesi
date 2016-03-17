@@ -11,21 +11,97 @@
 
 using namespace std;
 
+/**
+ * @brief The Utils class contains utility methods for generic tasks
+ * @date Febbraio 2016
+ * @author Giulio Quarenghi
+ */
 class Utils
 {
 public:
-    template <typename T> static std::vector<T> merge(std::vector<T> &v1, std::vector<T> &v2);
-    template <typename T> static bool contain(vector<T> &v, T &elem);
-    template <typename T> static bool contain(set<T> &v, T &elem);
-    template <typename T> static bool duplicate_content(vector<T> &v);
-    template <typename T> static T* find_from_id(vector<T> &v,std::string id);
-    template <typename T> static T findptr_from_id(vector<T> &v,std::string id);
-    template <typename SIGMA, typename TAG> static bool cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
-    template <typename SIGMA, typename TAG> static std::vector<unsigned int> topological_sort(astl::DFA_map<SIGMA,TAG> &dfa);
-    template <typename SIGMA, typename TAG> static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa, set<unsigned int> &radixes);
-    template <typename SIGMA, typename TAG> static void minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa);
+    template <typename T>
+    /**
+     * @brief merge
+     * @param v1
+     * @param v2
+     * @return merged vector
+     */
+    static std::vector<T> merge(std::vector<T> &v1, std::vector<T> &v2);
 
-    template <typename SIGMA, typename TAG> static void my_dot(ostream &ostr, astl::DFA_map<SIGMA,TAG> &dfa);
+    template <typename T>
+    /**
+    /** * @brief contain membership operator
+    /** * @param v
+    /** * @param elem
+    /** * @return true if elem belongs to v, false otherwise
+    /** */
+    static bool contain(vector<T> &v, T &elem);
+    template <typename T>
+    /**
+    /** * @brief contain membership operator for set containers
+    /** * @param v
+    /** * @param elem
+    /** * @return
+    /** */
+    static bool contain(set<T> &v, T &elem);
+    template <typename T>
+    /**
+    /** * @brief duplicate_content checks if a vector contains two equal elements
+    /** * @param v
+    /** * @return
+    /** */
+    static bool duplicate_content(vector<T> &v);
+    template <typename T>
+    /**
+    /** * @brief find_from_id
+    /** * @param v
+    /** * @param id
+    /** * @return
+    /** */static T* find_from_id(vector<T> &v,std::string id);
+    template <typename T>
+    /**
+    /** * @brief findptr_from_id
+    /** * @param v
+    /** * @param id
+    /** * @return
+    /** */
+    static T findptr_from_id(vector<T> &v,std::string id);
+    template <typename SIGMA, typename TAG>
+    /**
+    /** * @brief cyclic_graph
+    /** * @param dfa
+    /** * @return true if graph is cyclic, false otherwise
+    /** */
+    static bool cyclic_graph(astl::DFA_map<SIGMA,TAG> &dfa);
+    template <typename SIGMA, typename TAG>
+    /**
+    /** * @brief topological_sort
+    /** * @param dfa
+    /** * @return return a total topological sort of a graph (automaton)
+    /** */
+    static std::vector<unsigned int> topological_sort(astl::DFA_map<SIGMA,TAG> &dfa);
+    template <typename SIGMA, typename TAG>
+    /**
+    /** * @brief disconnected_graph checks if graph is disconnected
+    /** * @param dfa
+    /** * @param radixes
+    /** * @return
+    /** */
+    static bool disconnected_graph(astl::DFA_map<SIGMA,TAG> &dfa, set<unsigned int> &radixes);
+    template <typename SIGMA, typename TAG>
+    /**
+    /** * @brief minimize_by_partition Hopcroft's Algorithm
+    /** * @param dfa
+    /** */
+    static void minimize_by_partition(astl::DFA_map<SIGMA,TAG> &dfa);
+
+    template <typename SIGMA, typename TAG>
+    /**
+    /** * @brief my_dot generates dot file from automaton
+    /** * @param ostr
+    /** * @param dfa
+    /** */
+    static void my_dot(ostream &ostr, astl::DFA_map<SIGMA,TAG> &dfa);
 };
 
 template <typename T>

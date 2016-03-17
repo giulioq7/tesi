@@ -1,0 +1,246 @@
+\hypertarget{classyy_1_1spec__parser}{}\section{yy\+:\+:spec\+\_\+parser Class Reference}
+\label{classyy_1_1spec__parser}\index{yy\+::spec\+\_\+parser@{yy\+::spec\+\_\+parser}}
+
+
+A Bison parser.  
+
+
+
+
+{\ttfamily \#include $<$specparser.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structyy_1_1spec__parser_1_1basic__symbol}{basic\+\_\+symbol}
+\item 
+struct \hyperlink{structyy_1_1spec__parser_1_1by__type}{by\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Type access provider for token (enum) based symbols. \end{DoxyCompactList}\item 
+struct \hyperlink{structyy_1_1spec__parser_1_1syntax__error}{syntax\+\_\+error}
+\begin{DoxyCompactList}\small\item\em Syntax errors thrown from user actions. \end{DoxyCompactList}\item 
+struct \hyperlink{structyy_1_1spec__parser_1_1token}{token}
+\begin{DoxyCompactList}\small\item\em Tokens. \end{DoxyCompactList}\item 
+union \hyperlink{unionyy_1_1spec__parser_1_1union__type}{union\+\_\+type}
+\begin{DoxyCompactList}\small\item\em An auxiliary type to compute the largest semantic type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ {\bfseries empty\+\_\+symbol} = -\/2
+ \}\hypertarget{classyy_1_1spec__parser_af5abe28455bdc6daf7f56d14d9429bda}{}\label{classyy_1_1spec__parser_af5abe28455bdc6daf7f56d14d9429bda}
+\begin{DoxyCompactList}\small\item\em The symbol type number to denote an empty symbol. \end{DoxyCompactList}
+\item 
+typedef \hyperlink{structyy_1_1variant}{variant}$<$ sizeof(\hyperlink{unionyy_1_1spec__parser_1_1union__type}{union\+\_\+type})$>$ \hyperlink{classyy_1_1spec__parser_a92c353b780abe51b48e92c71f7e4e9c8}{semantic\+\_\+type}\hypertarget{classyy_1_1spec__parser_a92c353b780abe51b48e92c71f7e4e9c8}{}\label{classyy_1_1spec__parser_a92c353b780abe51b48e92c71f7e4e9c8}
+
+\begin{DoxyCompactList}\small\item\em Symbol semantic values. \end{DoxyCompactList}\item 
+typedef \hyperlink{classyy_1_1location}{location} \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type}\hypertarget{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{}\label{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}
+
+\begin{DoxyCompactList}\small\item\em Symbol locations. \end{DoxyCompactList}\item 
+typedef token\+::yytokentype \hyperlink{classyy_1_1spec__parser_aa2d8316e069c6922b83594046e5bdd46}{token\+\_\+type}\hypertarget{classyy_1_1spec__parser_aa2d8316e069c6922b83594046e5bdd46}{}\label{classyy_1_1spec__parser_aa2d8316e069c6922b83594046e5bdd46}
+
+\begin{DoxyCompactList}\small\item\em (External) token type, as returned by yylex. \end{DoxyCompactList}\item 
+typedef int \hyperlink{classyy_1_1spec__parser_af57584750bfabfb567b9e6204dd87562}{symbol\+\_\+number\+\_\+type}\hypertarget{classyy_1_1spec__parser_af57584750bfabfb567b9e6204dd87562}{}\label{classyy_1_1spec__parser_af57584750bfabfb567b9e6204dd87562}
+
+\begin{DoxyCompactList}\small\item\em Symbol type\+: an internal symbol number. \end{DoxyCompactList}\item 
+typedef unsigned char \hyperlink{classyy_1_1spec__parser_abfe175e1933477a61a2f6054998f0bdd}{token\+\_\+number\+\_\+type}\hypertarget{classyy_1_1spec__parser_abfe175e1933477a61a2f6054998f0bdd}{}\label{classyy_1_1spec__parser_abfe175e1933477a61a2f6054998f0bdd}
+
+\begin{DoxyCompactList}\small\item\em Internal symbol number for tokens (subsumed by symbol\+\_\+number\+\_\+type). \end{DoxyCompactList}\item 
+typedef \hyperlink{structyy_1_1spec__parser_1_1basic__symbol}{basic\+\_\+symbol}$<$ \hyperlink{structyy_1_1spec__parser_1_1by__type}{by\+\_\+type} $>$ \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type}\hypertarget{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{}\label{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}
+
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+External\char`\"{} symbols\+: returned by the scanner. \end{DoxyCompactList}\item 
+typedef int \hyperlink{classyy_1_1spec__parser_a72ba7ab2d17656353c1bf34e56d6f418}{debug\+\_\+level\+\_\+type}\hypertarget{classyy_1_1spec__parser_a72ba7ab2d17656353c1bf34e56d6f418}{}\label{classyy_1_1spec__parser_a72ba7ab2d17656353c1bf34e56d6f418}
+
+\begin{DoxyCompactList}\small\item\em Type for debugging levels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classyy_1_1spec__parser_a61524c00b363113cfabcfe57ec3c9f4b}{spec\+\_\+parser} (\hyperlink{classspec__driver}{spec\+\_\+driver} \&driver\+\_\+yyarg)\hypertarget{classyy_1_1spec__parser_a61524c00b363113cfabcfe57ec3c9f4b}{}\label{classyy_1_1spec__parser_a61524c00b363113cfabcfe57ec3c9f4b}
+
+\begin{DoxyCompactList}\small\item\em Build a parser object. \end{DoxyCompactList}\item 
+virtual int \hyperlink{classyy_1_1spec__parser_afc65ed84818228c2d3e0988d48f00fa7}{parse} ()
+\item 
+std\+::ostream \& \hyperlink{classyy_1_1spec__parser_a2dff93d2a24ecdb6e81e8416fd364b04}{debug\+\_\+stream} () const Y\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+\_\+\+P\+U\+RE\hypertarget{classyy_1_1spec__parser_a2dff93d2a24ecdb6e81e8416fd364b04}{}\label{classyy_1_1spec__parser_a2dff93d2a24ecdb6e81e8416fd364b04}
+
+\begin{DoxyCompactList}\small\item\em The current debugging stream. \end{DoxyCompactList}\item 
+void \hyperlink{classyy_1_1spec__parser_a2309416ea3d3218f4c217f3e3fbf13df}{set\+\_\+debug\+\_\+stream} (std\+::ostream \&)\hypertarget{classyy_1_1spec__parser_a2309416ea3d3218f4c217f3e3fbf13df}{}\label{classyy_1_1spec__parser_a2309416ea3d3218f4c217f3e3fbf13df}
+
+\begin{DoxyCompactList}\small\item\em Set the current debugging stream. \end{DoxyCompactList}\item 
+\hyperlink{classyy_1_1spec__parser_a72ba7ab2d17656353c1bf34e56d6f418}{debug\+\_\+level\+\_\+type} \hyperlink{classyy_1_1spec__parser_ad90833ef063d95b5fccdd12017f5b9f6}{debug\+\_\+level} () const Y\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+\_\+\+P\+U\+RE\hypertarget{classyy_1_1spec__parser_ad90833ef063d95b5fccdd12017f5b9f6}{}\label{classyy_1_1spec__parser_ad90833ef063d95b5fccdd12017f5b9f6}
+
+\begin{DoxyCompactList}\small\item\em The current debugging level. \end{DoxyCompactList}\item 
+void \hyperlink{classyy_1_1spec__parser_a80e4994d235c0571c907af1e4620d08d}{set\+\_\+debug\+\_\+level} (\hyperlink{classyy_1_1spec__parser_a72ba7ab2d17656353c1bf34e56d6f418}{debug\+\_\+level\+\_\+type} l)\hypertarget{classyy_1_1spec__parser_a80e4994d235c0571c907af1e4620d08d}{}\label{classyy_1_1spec__parser_a80e4994d235c0571c907af1e4620d08d}
+
+\begin{DoxyCompactList}\small\item\em Set the current debugging level. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classyy_1_1spec__parser_a159c7b9607acef3b7a353db4ae064d26}{error} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&loc, const std\+::string \&msg)
+\item 
+void \hyperlink{classyy_1_1spec__parser_ad9bbc3b7f77e784c625b403a16bace57}{error} (const \hyperlink{structyy_1_1spec__parser_1_1syntax__error}{syntax\+\_\+error} \&err)\hypertarget{classyy_1_1spec__parser_ad9bbc3b7f77e784c625b403a16bace57}{}\label{classyy_1_1spec__parser_ad9bbc3b7f77e784c625b403a16bace57}
+
+\begin{DoxyCompactList}\small\item\em Report a syntax error. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+E\+N\+D\+\_\+\+O\+F\+\_\+\+F\+I\+LE} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_abf92f1c506fedd2a58329559343cf024}{}\label{classyy_1_1spec__parser_abf92f1c506fedd2a58329559343cf024}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a570f2d34abe013883d52c92f388c7c96}{}\label{classyy_1_1spec__parser_a570f2d34abe013883d52c92f388c7c96}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+M\+O\+D\+EL} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_aaeecaad15938e55fc54fb861505920d4}{}\label{classyy_1_1spec__parser_aaeecaad15938e55fc54fb861505920d4}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+IS} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a2f7201b1306505786e9e07bd32178614}{}\label{classyy_1_1spec__parser_a2f7201b1306505786e9e07bd32178614}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+E\+ND} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a8bb60f0acf6bc5e8c380783e104beb57}{}\label{classyy_1_1spec__parser_a8bb60f0acf6bc5e8c380783e104beb57}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+E\+V\+E\+NT} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_ad4f53813128dbe284d772afde719b097}{}\label{classyy_1_1spec__parser_ad4f53813128dbe284d772afde719b097}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+I\+N\+P\+UT} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a63fd128759af1bb1a98a3b1dadd635ab}{}\label{classyy_1_1spec__parser_a63fd128759af1bb1a98a3b1dadd635ab}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+O\+U\+T\+P\+UT} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a4e6ec8a39c24988c3c7a8df7bf03be51}{}\label{classyy_1_1spec__parser_a4e6ec8a39c24988c3c7a8df7bf03be51}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+S\+T\+A\+TE} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a58b3c21c7ca17962f825274d87aac8e7}{}\label{classyy_1_1spec__parser_a58b3c21c7ca17962f825274d87aac8e7}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+T\+R\+A\+N\+S\+I\+T\+I\+ON} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a1ca8cad52104c1699d9c1f66bb77eb40}{}\label{classyy_1_1spec__parser_a1ca8cad52104c1699d9c1f66bb77eb40}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+N\+E\+T\+W\+O\+RK} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a4747066f047b95750a661b741e6984b0}{}\label{classyy_1_1spec__parser_a4747066f047b95750a661b741e6984b0}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+L\+I\+NK} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a631f259201b1d3910fbbd1eaa8a3896e}{}\label{classyy_1_1spec__parser_a631f259201b1d3910fbbd1eaa8a3896e}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+P\+A\+T\+T\+E\+RN} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a00da22b1a478308fa139fc7745a23620}{}\label{classyy_1_1spec__parser_a00da22b1a478308fa139fc7745a23620}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+I\+N\+I\+T\+I\+AL} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a1be39eba164f8eb965b05ab444953a3c}{}\label{classyy_1_1spec__parser_a1be39eba164f8eb965b05ab444953a3c}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+V\+I\+E\+W\+ER} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a1e3db5856a05ab175cc23af00d3815ce}{}\label{classyy_1_1spec__parser_a1e3db5856a05ab175cc23af00d3815ce}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+R\+U\+L\+ER} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_ab2ac2960ff2b2a35616078cdf888fe04}{}\label{classyy_1_1spec__parser_ab2ac2960ff2b2a35616078cdf888fe04}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+S\+Y\+S\+T\+EM} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a1f11af2275c81c77d09d459e99e44515}{}\label{classyy_1_1spec__parser_a1f11af2275c81c77d09d459e99e44515}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+N\+O\+DE} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a64866453b965af767b9d615c7ca78b80}{}\label{classyy_1_1spec__parser_a64866453b965af767b9d615c7ca78b80}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+E\+M\+E\+R\+G\+E\+N\+CE} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a0a706b6e46cf2af7fa9c9a1f630e9127}{}\label{classyy_1_1spec__parser_a0a706b6e46cf2af7fa9c9a1f630e9127}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+P\+R\+O\+B\+L\+EM} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a0cdf12e931e6642f08eebf195f54d0d4}{}\label{classyy_1_1spec__parser_a0cdf12e931e6642f08eebf195f54d0d4}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+O\+BS} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_ad15230b1dfe4139b2326eaf212d18558}{}\label{classyy_1_1spec__parser_ad15230b1dfe4139b2326eaf212d18558}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+C\+O\+M\+MA} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_ae66480ff8c711f4921fd9955168160a6}{}\label{classyy_1_1spec__parser_ae66480ff8c711f4921fd9955168160a6}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+C\+O\+L\+ON} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a9802a6c10940f52796d12c48fed0ac4f}{}\label{classyy_1_1spec__parser_a9802a6c10940f52796d12c48fed0ac4f}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+S\+E\+M\+I\+\_\+\+C\+O\+L\+ON} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a43b2c25d1cec8db0801ff8510a624092}{}\label{classyy_1_1spec__parser_a43b2c25d1cec8db0801ff8510a624092}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+D\+OT} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_aa706298571130e3f76c406dc28c5897e}{}\label{classyy_1_1spec__parser_aa706298571130e3f76c406dc28c5897e}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+E\+Q\+U\+A\+LS} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a1fd8bdceef608168649df6a0051148de}{}\label{classyy_1_1spec__parser_a1fd8bdceef608168649df6a0051148de}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+E\+Q\+U\+A\+LS} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_ae2aa36e4281f7c2c429edb328da52d8e}{}\label{classyy_1_1spec__parser_ae2aa36e4281f7c2c429edb328da52d8e}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+A\+R\+R\+OW} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_aab04b94394df44e4e8a16aa56533008c}{}\label{classyy_1_1spec__parser_aab04b94394df44e4e8a16aa56533008c}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+L\+\_\+\+B\+R\+A\+C\+K\+ET} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a89f13760d7b2f6e6be7c2971c801d2c2}{}\label{classyy_1_1spec__parser_a89f13760d7b2f6e6be7c2971c801d2c2}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+R\+\_\+\+B\+R\+A\+C\+K\+ET} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_abb9862d421d6beed4a3f12ac07fd6b81}{}\label{classyy_1_1spec__parser_abb9862d421d6beed4a3f12ac07fd6b81}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+L\+\_\+\+S\+Q\+U\+A\+R\+E\+\_\+\+B\+R\+A\+C\+K\+ET} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a5f71e7b44ec9cd19467c727d764f8df6}{}\label{classyy_1_1spec__parser_a5f71e7b44ec9cd19467c727d764f8df6}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+R\+\_\+\+S\+Q\+U\+A\+R\+E\+\_\+\+B\+R\+A\+C\+K\+ET} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a74b760b048122aa1469512b418ea21a0}{}\label{classyy_1_1spec__parser_a74b760b048122aa1469512b418ea21a0}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+L\+\_\+\+C\+U\+R\+L\+Y\+\_\+\+B\+R\+A\+C\+K\+ET} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a28ee335c1efeb09eff134275556376c6}{}\label{classyy_1_1spec__parser_a28ee335c1efeb09eff134275556376c6}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+R\+\_\+\+C\+U\+R\+L\+Y\+\_\+\+B\+R\+A\+C\+K\+ET} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a38898d72d0b041629afa4c9fc3f3a95a}{}\label{classyy_1_1spec__parser_a38898d72d0b041629afa4c9fc3f3a95a}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+A\+ND} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_ad2f491f3bbacddbd9d3fa8f415c59cd4}{}\label{classyy_1_1spec__parser_ad2f491f3bbacddbd9d3fa8f415c59cd4}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+P\+I\+PE} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a9074f79541658c28ce44b96e4ea18e0c}{}\label{classyy_1_1spec__parser_a9074f79541658c28ce44b96e4ea18e0c}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+S\+T\+AR} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a18fe7e4752e24eaf7860209e9048167d}{}\label{classyy_1_1spec__parser_a18fe7e4752e24eaf7860209e9048167d}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+P\+L\+US} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_ac0447fbe839c2291951026f214b4e124}{}\label{classyy_1_1spec__parser_ac0447fbe839c2291951026f214b4e124}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+O\+PT} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_ade851d4049c7028b4e3f3d56027d84f4}{}\label{classyy_1_1spec__parser_ade851d4049c7028b4e3f3d56027d84f4}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+T\+I\+L\+DE} (const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_adc41647da9da889f9e0168f5146fc688}{}\label{classyy_1_1spec__parser_adc41647da9da889f9e0168f5146fc688}
+
+\item 
+static \hyperlink{classyy_1_1spec__parser_ab8cb3674e6a9b60026cbd40466ea149b}{symbol\+\_\+type} {\bfseries make\+\_\+\+ID} (const string \&v, const \hyperlink{classyy_1_1spec__parser_aeb5b1e66f65306eca737db5dfa61590d}{location\+\_\+type} \&l)\hypertarget{classyy_1_1spec__parser_a7f31699c8b4b33e975b0cffd0ee16237}{}\label{classyy_1_1spec__parser_a7f31699c8b4b33e975b0cffd0ee16237}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A Bison parser. 
+
+\subsection{Member Function Documentation}
+\index{yy\+::spec\+\_\+parser@{yy\+::spec\+\_\+parser}!error@{error}}
+\index{error@{error}!yy\+::spec\+\_\+parser@{yy\+::spec\+\_\+parser}}
+\subsubsection[{\texorpdfstring{error(const location\+\_\+type \&loc, const std\+::string \&msg)}{error(const location_type &loc, const std::string &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void yy\+::spec\+\_\+parser\+::error (
+\begin{DoxyParamCaption}
+\item[{const {\bf location\+\_\+type} \&}]{loc, }
+\item[{const std\+::string \&}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classyy_1_1spec__parser_a159c7b9607acef3b7a353db4ae064d26}{}\label{classyy_1_1spec__parser_a159c7b9607acef3b7a353db4ae064d26}
+Report a syntax error. 
+\begin{DoxyParams}{Parameters}
+{\em loc} & where the syntax error is found. \\
+\hline
+{\em msg} & a description of the syntax error. \\
+\hline
+\end{DoxyParams}
+\index{yy\+::spec\+\_\+parser@{yy\+::spec\+\_\+parser}!parse@{parse}}
+\index{parse@{parse}!yy\+::spec\+\_\+parser@{yy\+::spec\+\_\+parser}}
+\subsubsection[{\texorpdfstring{parse()}{parse()}}]{\setlength{\rightskip}{0pt plus 5cm}int yy\+::spec\+\_\+parser\+::parse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{classyy_1_1spec__parser_afc65ed84818228c2d3e0988d48f00fa7}{}\label{classyy_1_1spec__parser_afc65ed84818228c2d3e0988d48f00fa7}
+Parse. \begin{DoxyReturn}{Returns}
+0 iff parsing succeeded. 
+\end{DoxyReturn}
+Length of the R\+HS of the rule being reduced.
+
+The lookahead symbol.
+
+The locations where the error started and ended.
+
+The return value of parse (). 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{specparser_8hpp}{specparser.\+hpp}\item 
+specparser.\+cpp\end{DoxyCompactItemize}
